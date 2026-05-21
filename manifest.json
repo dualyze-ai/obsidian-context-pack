@@ -1,0 +1,10 @@
+{
+  "id": "context-pack-for-notebooklm",
+  "name": "Context Pack for NotebookLM",
+  "version": "0.1.0",
+  "minAppVersion": "0.15.0",
+  "description": "Build clean Context Packs from your Obsidian vault for NotebookLM.",
+  "author": "dualyzeAI",
+  "authorUrl": "https://dualyzeai.com",
+  "isDesktopOnly": false
+}

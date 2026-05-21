@@ -1,0 +1,20 @@
+{
+  "name": "obsidian-context-pack",
+  "version": "0.1.0",
+  "description": "Build clean Context Packs from your Obsidian vault for NotebookLM.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "obsidian": "latest",
+    "typescript": "^5.0.0",
+    "esbuild": "^0.20.0",
+    "builtin-modules": "^3.3.0"
+  }
+}
