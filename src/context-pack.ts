@@ -5,7 +5,8 @@ export async function buildContextPack(
   files: TFile[],
   app: App,
   options: FormatOptions,
-  meta: { title: string; source: string }
+  meta: { title: string; source: string },
+  onProgress?: (current: number, total: number) => void
 ): Promise<string> {
   const today = window.moment().format('YYYY-MM-DD');
   const sections: string[] = [
@@ -15,11 +16,20 @@ export async function buildContextPack(
     `Notes: ${files.length}`,
   ];
 
-  for (const file of files) {
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (i % 10 === 0) {
+      onProgress?.(i + 1, files.length);
+      await new Promise(resolve => setTimeout(resolve, 0));
+    }
     const raw = await app.vault.read(file);
     const body = formatForNotebookLM(raw, options);
     if (!body.trim()) continue;
-    sections.push('---', `<!-- source: ${file.path} -->`, `## ${file.basename}`, body);
+    const dir = file.parent?.path;
+    const heading = (dir && dir !== '/')
+      ? `## ${file.basename}\n📁 ${dir}`
+      : `## ${file.basename}`;
+    sections.push('---', heading, body);
   }
 
   sections.push('---');

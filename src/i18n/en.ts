@@ -5,6 +5,11 @@ export default {
   cmd_pack_tag:       'Create Context Pack from tag',
   cmd_pack_moc:       'Create Context Pack from MOC',
 
+  ribbon_tooltip:    'Create Context Pack',
+  menu_pack_folder:  'Pack this folder as Context Pack',
+  menu_export_note:  'Export this note (NotebookLM)',
+  menu_pack_moc:     'Create Context Pack from this MOC',
+
   prompt_tag_name:    'Enter tag name (without #)',
   prompt_file_name:   'Name your Context Pack file',
 

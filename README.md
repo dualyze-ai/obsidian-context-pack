@@ -14,9 +14,55 @@ When you paste raw Obsidian notes into NotebookLM, the results are noisy. Broken
 
 **Export** cleans up your notes and packages them into a ZIP file ready for NotebookLM upload.
 
-**Context Pack** bundles related notes into a single formatted `.md` file, organized by folder, tag, or MOC. NotebookLM takes one source at a time, so bundling related notes significantly improves answer quality.
+**Context Pack** bundles related notes into a single formatted `.md` file, organized by folder, tag, or MOC. Each note section includes its vault folder path (📁) so NotebookLM understands the hierarchy of your knowledge.
 
 Both features run the same formatter: frontmatter is removed, wikilinks are resolved, embeds and comments are stripped, and blank lines are collapsed.
+
+---
+
+## Try it with sample data
+
+Three pre-built Context Packs are included so you can test NotebookLM import immediately — no vault setup required.
+
+| Pack | Notes | Download |
+|---|---|---|
+| 🍳 Japanese recipes | 20 notes | [pack-recipes.md](samples/output/pack-recipes.md) |
+| ✈️ Travel notes | 20 notes | [pack-travel.md](samples/output/pack-travel.md) |
+| 📚 Book summaries | 20 notes | [pack-books.md](samples/output/pack-books.md) |
+
+**How to use:**
+1. Download a `.md` file from the links above
+2. Open [NotebookLM](https://notebooklm.google.com) → New notebook
+3. Click **Add source** → **Upload file** → select the `.md` file
+4. Ask anything — for example:
+   - *"What recipes can I make in under 30 minutes?"* (recipes)
+   - *"Recommend highlights for a trip to Europe"* (travel)
+   - *"Summarize the best books for startups"* (books)
+
+The sample vault source files are in [`samples/vault/`](samples/vault/).
+
+---
+
+## サンプルデータで試す
+
+すぐにNotebookLMへのインポートを試せるContext Packを3つ用意しています。
+
+| パック | ノート数 | ダウンロード |
+|---|---|---|
+| 🍳 料理レシピ | 20件 | [pack-recipes.md](samples/output/pack-recipes.md) |
+| ✈️ 旅行記録 | 20件 | [pack-travel.md](samples/output/pack-travel.md) |
+| 📚 読書メモ | 20件 | [pack-books.md](samples/output/pack-books.md) |
+
+**使い方：**
+1. 上記リンクから `.md` ファイルをダウンロード
+2. [NotebookLM](https://notebooklm.google.com) を開いてノートブックを新規作成
+3. **ソースを追加** → **ファイルをアップロード** → ダウンロードした `.md` を選択
+4. 質問してみましょう。例：
+   - *「30分以内で作れる料理を教えて」*（レシピ）
+   - *「ヨーロッパ旅行のおすすめスポットは？」*（旅行）
+   - *「スタートアップに役立つ本をまとめて」*（読書）
+
+サンプルVaultのソースファイルは [`samples/vault/`](samples/vault/) にあります。
 
 ---
 
@@ -36,15 +82,19 @@ Coming soon.
 
 ## Usage
 
-All commands are available via the Command Palette (`Cmd/Ctrl + P`).
+Commands are available via the **Command Palette** (`Cmd/Ctrl + P`) and the **ribbon icon** (📦) in the left sidebar.
 
-| Command | Description |
-|---|---|
-| Export vault for NotebookLM | Exports the target folder (or full vault) as a ZIP |
-| Export current note for NotebookLM | Exports only the open note |
-| Create Context Pack from folder | Bundles all notes in a folder into one `.md` file |
-| Create Context Pack from tag | Bundles notes matching a tag |
-| Create Context Pack from MOC | Follows `[[links]]` in the current note (1 level deep) |
+| Command | How to trigger | Description |
+|---|---|---|
+| Create Context Pack from folder | Ribbon icon / right-click folder | Bundles all notes in a folder into one `.md` |
+| Create Context Pack from tag | Command palette | Bundles notes matching a tag |
+| Create Context Pack from MOC | Right-click file | Follows `[[links]]` in the current note |
+| Export vault for NotebookLM | Command palette | Exports as a ZIP of individual files |
+| Export current note | Right-click file | Exports only the open note |
+
+**Right-click menus** are available in the file explorer:
+- Right-click a **folder** → *Pack this folder as Context Pack*
+- Right-click a **file** → *Export this note* / *Create Context Pack from this MOC*
 
 ---
 
@@ -57,7 +107,6 @@ All commands are available via the Command Palette (`Cmd/Ctrl + P`).
 | Flatten folder structure | Merge all notes into one folder in the ZIP | Off |
 | Include frontmatter title | Convert `title` and `tags` to plain text at top of note | On |
 | Open folder after export | Open output folder when done (desktop only) | Off |
-| Context Pack output folder | Where to save Context Pack files | Same as output folder |
 | Custom replacement rules | User-defined find/replace rules (plain text or regex) | — |
 
 ---
