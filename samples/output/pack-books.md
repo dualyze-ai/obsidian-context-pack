@@ -1,4 +1,4 @@
-# Context Pack: 読書メモ
+# Context Pack: Book Summaries
 
 Generated: 2026-05-21
 
@@ -8,578 +8,578 @@ Notes: 20
 
 ---
 
-## 7つの習慣
-📁 books/ビジネス
+## Blue Ocean Strategy
+📁 books/Business
 
-# 7つの習慣
+# Blue Ocean Strategy
 
-**著者：** スティーブン・R・コヴィー
+**Author:** W. Chan Kim & Renée Mauborgne
 
-## 概要
+## Overview
 
-「インサイド・アウト」のアプローチを基に、真の成功と幸福を手に入れるための7つの習慣を体系的に解説した自己啓発の名著。私的成功から公的成功、そして継続的成長へと発展する構造が特徴。
+A framework for creating uncontested market space — "Blue Oceans" — rather than competing in the bloody "Red Ocean" of existing markets. The ERRC grid and value innovation are the core tools.
 
-## 重要なポイント
+## Key Takeaways
 
-- インサイド・アウト：自分の内面から変革を起こすことが真の変化につながる
-- 主体性を持つ：環境や他者に反応するのでなく、自ら選択する
-- 終わりを思い描くことから始める：人生のミッションステートメントを持つ
-- 第2領域（重要だが緊急でない）に時間を投資する
-- Win-Winを考える：競争でなく協力で全体のパイを大きくする
-- 理解してから理解される：まず相手の立場で聴く
+- Make the competition irrelevant by creating a new market space, not by beating competitors
+- Use the ERRC grid (Eliminate, Reduce, Raise, Create) to redesign your value proposition
+- Converting non-customers into customers expands the total market
+- Value innovation breaks the trade-off between differentiation and low cost
+- Cirque du Soleil made the traditional circus irrelevant by combining it with theater
 
-## 印象的な言葉
+## Memorable Quote
 
-> 反応を選択する自由こそ、人間に与えられた最大の力である。
+> Stop trying to beat the competition. Focus on making the competition irrelevant.
 
-## 学び・活かし方
+## How I Apply It
 
-刺激と反応の間に「選択の余地」があるという考え方が根本的な気づきだった。日々の反応的な行動を振り返り、意識的な選択をする練習を続けている。
-
----
-
-## FACTFULNESS
-📁 books/ビジネス
-
-# FACTFULNESS
-
-**著者：** ハンス・ロスリング
-
-## 概要
-
-世界の真の姿を正確に把握するための10の本能（ドラマチックすぎる思考）を解説。データと事実に基づいて世界を見ることの重要性を、豊富な統計データと共に説く。
-
-## 重要なポイント
-
-- 世界は私たちが思うより「良くなっている」という事実
-- 10の本能（分断・ネガティブ・直線・恐怖・過大視・パターン化・宿命・単純化・犯人捜し・焦り）を意識する
-- データを見るときは「比率」と「文脈」を必ず確認する
-- 感情的な報道に惑わされず、統計を自分で確認する習慣を持つ
-
-## 印象的な言葉
-
-> ドラマチックな世界観を手放すことは、世界への希望を失うことではない。むしろ現実を正確に見ることで、より効果的に行動できるようになる。
-
-## 学び・活かし方
-
-ニュースや情報を受け取るとき「これは統計的にどうなのか」と立ち止まるようになった。意思決定の質が上がったと感じる。
+Designing my freelance services, I now start from "what problem does nobody else solve?" rather than "how do I beat the competition?" The shift changes everything.
 
 ---
 
-## HARD THINGS
-📁 books/ビジネス
+## Factfulness
+📁 books/Business
 
-# HARD THINGS
+# Factfulness
 
-**著者：** ベン・ホロウィッツ
+**Author:** Hans Rosling
 
-## 概要
+## Overview
 
-Opswareを創業・売却し、現在はa16z（アンドリーセン・ホロウィッツ）を率いるベン・ホロウィッツが、経営者としての過酷な経験と意思決定を赤裸々に語った一冊。
+Hans Rosling shows how the world is systematically better than we think, and explains the ten instincts that distort our perception. A compelling case for data-driven thinking.
 
-## 重要なポイント
+## Key Takeaways
 
-- ピーチタイムCEOとウォータイムCEO：状況によってリーダーシップスタイルを変える必要がある
-- 「良いこと」だけを報告する文化は組織を滅ぼす
-- できることとできないことを正直に伝えることがチームの信頼を生む
-- 解雇は必ず直接伝える。間接的な解雇は相手の尊厳を傷つける
-- スケールするルールを作れ：口頭の文化は会社が大きくなると機能しない
+- The world is improving on almost every measure — but our intuitions don't reflect that
+- Ten instincts to watch for: Gap, Negativity, Straight Line, Fear, Size, Generalization, Destiny, Single Perspective, Blame, Urgency
+- Always check the denominator when looking at numbers — ratios reveal what absolutes hide
+- Develop a habit of verifying statistics yourself before accepting dramatic claims
 
-## 印象的な言葉
+## Memorable Quote
 
-> 正しいことをするのが難しいのではない。何が正しいのかを知ることが難しいのだ。
+> Letting go of a dramatic worldview does not mean giving up hope. It means replacing a false picture with a more accurate one.
 
-## 学び・活かし方
+## How I Apply It
 
-スタートアップや小さな組織を運営する上での「泥臭い現実」が率直に書かれており、マネジメントの本質を学べた。
-
----
-
-## ZERO to ONE
-📁 books/ビジネス
-
-# ZERO to ONE
-
-**著者：** ピーター・ティール
-
-## 概要
-
-PayPal創業者・Palantir創業者のピーター・ティールが、スタンフォード大学での講義をまとめたスタートアップ論。競争を避けてモノポリー（独占）を目指すという逆説的な主張が核心。
-
-## 重要なポイント
-
-- 1から10ではなく0から1へ：既存市場の改善より新市場の創造を目指す
-- 競争は敗者のロジック：独占企業だけが長期的な利益を生み出せる
-- 優れた技術は競合より10倍優れていなければならない
-- 最初は小さなマーケットを完全に独占してから拡大する
-- べき乗の法則：少数の投資が圧倒的リターンをもたらす（VCの法則）
-- 秘密を探せ：まだ誰も気づいていない真実に事業機会がある
-
-## 印象的な言葉
-
-> 競争は敗者のためにある。
-
-## 学び・活かし方
-
-「今あるものを改善するのか、まったく新しいものを作るのか」という問いが常に頭に残る。副業のプロダクト開発でも0→1の視点を持つことが重要だと感じた。
+I now ask "what does the data actually say?" before forming an opinion. My decision-making quality has improved noticeably as a result.
 
 ---
 
-## ハイアウトプット・マネジメント
-📁 books/ビジネス
+## High Output Management
+📁 books/Business
 
-# ハイアウトプット・マネジメント
+# High Output Management
 
-**著者：** アンドリュー・グローブ
+**Author:** Andrew S. Grove
 
-## 概要
+## Overview
 
-インテルの元CEOが書いたマネジメントの教科書。OKR（目標と主要な成果）の原型を提唱し、マネージャーの生産性を最大化するための実践的な方法を解説する。
+The Intel CEO's definitive guide to managerial leverage — the origin of OKRs, and a masterclass in how to maximize team output through smart prioritization and 1-on-1s.
 
-## 重要なポイント
+## Key Takeaways
 
-- マネージャーのアウトプット＝自分のアウトプット＋チームのアウトプット
-- 1on1ミーティングはメンバーのためのもの。マネージャーが聴く場
-- レバレッジの高い活動（少ない時間で多くの成果）に集中する
-- 意思決定は「情報の流れ」を理解しているレベルで行うべき
-- ミーティングは「情報を共有するため」ではなく「意思決定するため」に使う
+- Manager output = your own output + the output of your team
+- 1-on-1s exist for the employee's benefit — managers should mostly listen
+- Focus on high-leverage activities: those that produce the most output per unit of time
+- Decisions should be made by the person closest to the information
+- Meetings are for decision-making, not for sharing information that could be an email
 
-## 印象的な言葉
+## Memorable Quote
 
-> マネージャーのアウトプットは、彼が直接管理する組織と、彼が影響を与える隣接する組織のアウトプットの合計である。
+> The output of a manager is the output of the organizational units under their supervision or influence.
 
-## 学び・活かし方
+## How I Apply It
 
-1on1を「報告の場」から「メンバーの成長支援の場」に変えた。チームへの働きかけが自分の最大のレバレッジだという認識が変わった。
-
----
-
-## ブルー・オーシャン戦略
-📁 books/ビジネス
-
-# ブルー・オーシャン戦略
-
-**著者：** W・チャン・キム、レネ・モボルニュ
-
-## 概要
-
-競争の激しい「レッド・オーシャン」から抜け出し、競合のいない「ブルー・オーシャン」を創造する戦略論。価値革新・ERRC グリッド・バリュープロポジションを中心概念とする。
-
-## 重要なポイント
-
-- 競合と戦うのではなく、競合を無意味にする市場を創造する
-- ERRC（排除・削減・増加・付加）グリッドで差別化ポイントを整理する
-- 非顧客を顧客にすることで市場を拡大できる
-- 価値とコストのトレードオフを打破する「価値革新」
-- シルク・ドゥ・ソレイユはサーカスとエンターテインメントの境界を消した
-
-## 印象的な言葉
-
-> 競争相手に打ち勝とうとすることをやめ、買い手と自社の両方にとって価値の飛躍的増大をもたらすことに集中せよ。
-
-## 学び・活かし方
-
-副業のサービス設計で「誰と戦うのか」より「誰のどんな問題を解くのか」を考えるようになった。差別化のフレームワークとして今も活用している。
+I transformed my 1-on-1s from status updates into development conversations. My leverage as a team member comes from influencing others, not just my own output.
 
 ---
 
-## リーン・スタートアップ
-📁 books/ビジネス
+## Influence: The Psychology of Persuasion
+📁 books/Business
 
-# リーン・スタートアップ
+# Influence: The Psychology of Persuasion
 
-**著者：** エリック・リース
+**Author:** Robert B. Cialdini
 
-## 概要
+## Overview
 
-「構築→計測→学習」のフィードバックループを高速で回すことで、無駄を排除しながら新事業を成功に導く方法論。MVP（最小限の製品）で素早く仮説を検証することを提唱。
+The definitive text on the six principles of influence (Reciprocity, Commitment, Social Proof, Liking, Authority, Scarcity) — why people say yes, and how these triggers are used by marketers and negotiators.
 
-## 重要なポイント
+## Key Takeaways
 
-- MVP（Minimum Viable Product）で最速で仮説検証する
-- 「構築→計測→学習」のサイクルを最短で回す
-- 革新会計：ベニティメトリクスでなくアクショナブルなメトリクスで測る
-- ピボットの判断：方向転換か忍耐かをデータで判断する
-- 顧客インタビューで思い込みを壊す「顧客開発」の重要性
+- Reciprocity: we feel compelled to return favors — free gifts create powerful obligations
+- Social proof: we look to what others do when uncertain about what to do ourselves
+- Authority: credentials and titles bypass critical thinking in most people
+- Scarcity: we want what is rare or becoming unavailable
+- Commitment & consistency: once we commit, we align behavior to match our stated position
+- Liking: we are far more easily persuaded by people we like
 
-## 印象的な言葉
+## Memorable Quote
 
-> 成功したスタートアップとは、ただ生き残っただけでなく、顧客の本当の問題を解決することを学び続けた組織だ。
+> Automatic response patterns are triggered by specific features of the world — and these triggers are being exploited.
 
-## 学び・活かし方
+## How I Apply It
 
-ポートフォリオ制作においても「作る前に検証する」姿勢を取り入れた。小さなプロトタイプで顧客の反応を確認してから本開発に入るようにした。
-
----
-
-## 影響力の武器
-📁 books/ビジネス
-
-# 影響力の武器
-
-**著者：** ロバート・チャルディーニ
-
-## 概要
-
-人間の意思決定に影響を与える6つの原理（返報性・コミットメントと一貫性・社会的証明・好意・権威・希少性）を心理学の観点から解説。マーケティング・セールスに必読の一冊。
-
-## 重要なポイント
-
-- 返報性：もらったら返したいという人間の本能を利用している
-- 社会的証明：他の人がやっているから正しいと判断する
-- 権威：専門家や肩書に無意識に従ってしまう
-- 希少性：手に入りにくいものほど価値があると感じる
-- コミットメントと一貫性：一度決めたことを変えたくない心理
-- 好意：好きな人の言うことは聞いてしまう
-
-## 印象的な言葉
-
-> 自動的な反応を引き出す引き金が、社会の中に巧妙に仕掛けられている。
-
-## 学び・活かし方
-
-日常のマーケティング施策を見るとき「どの原理を使っているか」を分析するようになった。自分のサービス設計にも応用できる。
+I now analyze every marketing message I encounter for which principle it's using. Knowing the mechanisms makes you both more persuasive and more resistant.
 
 ---
 
-## かがみの孤城
-📁 books/小説
+## The 7 Habits of Highly Effective People
+📁 books/Business
 
-# かがみの孤城
+# The 7 Habits of Highly Effective People
 
-**著者：** 辻村深月
+**Author:** Stephen R. Covey
 
-## 概要
+## Overview
 
-学校に居場所をなくした7人の中学生が、鏡の中の城に集まる不思議なファンタジー。「生きづらさ」を抱えた子どもたちへの優しいエール。本屋大賞受賞作。
+A timeless framework for personal and professional effectiveness built on seven habits — moving from dependence to independence to interdependence. The "inside-out" philosophy makes it a genuine classic.
 
-## 重要なポイント
+## Key Takeaways
 
-- 「居場所がない」という普遍的な痛みを丁寧に描く
-- 伏線の回収が巧みで、ラストで全てがつながる構造の美しさ
-- フィクションの力で「あなただけではない」と伝える作品
-- いじめ・不登校・家族問題など現代の課題を真摯に扱う
+- Inside-out: real change starts with internal transformation, not external circumstances
+- Be proactive: choose your response between stimulus and reaction
+- Begin with the end in mind: write your personal mission statement
+- Invest in Quadrant 2 (important but not urgent) — it's the only sustainable way to work
+- Think Win-Win: collaboration expands the total pie rather than fighting over slices
+- Seek first to understand, then to be understood
 
-## 印象的な言葉
+## Memorable Quote
 
-> ここは、あなたたちのための場所だ。どんな理由があっても、ここにいていい。
+> The ability to choose your response is the greatest freedom given to human beings.
 
-## 学び・活かし方
+## How I Apply It
 
-「居場所」は自分で探していいし、どこかに必ずある。大人にも刺さる作品。子どもたちに読んでほしい一冊。
-
----
-
-## コンビニ人間
-📁 books/小説
-
-# コンビニ人間
-
-**著者：** 村田沙耶香
-
-## 概要
-
-36歳・未婚・彼氏なし。18年間コンビニでアルバイトを続ける恵子の視点から、「普通」とは何かを問い直す芥川賞受賞作。社会の同調圧力への鋭い批判が込められている。
-
-## 重要なポイント
-
-- 「普通」という概念が社会的構築物であることを気づかせてくれる
-- 主人公の論理的・合理的な思考が、読者の「常識」を相対化する
-- 日本社会の同調圧力と「正常」の定義を問う
-- 短編ながら世界観が完全に構築されており、没入感が高い
-
-## 印象的な言葉
-
-> 私はコンビニの声を聴いている。コンビニの音、コンビニの空気、コンビニの時間。それが私の世界だ。
-
-## 学び・活かし方
-
-自分が無意識に「普通」を強要していないか、逆に強要されていないかを考えさせられた。社会規範を問い直すきっかけになった一冊。
+The concept of a gap between stimulus and response was transformative. I now consciously practice pausing before reacting — and it has changed how I handle conflict.
 
 ---
 
-## 三体
-📁 books/小説
+## The Hard Thing About Hard Things
+📁 books/Business
 
-# 三体
+# The Hard Thing About Hard Things
 
-**著者：** 劉慈欣（著）・大森望ほか（訳）
+**Author:** Ben Horowitz
 
-## 概要
+## Overview
 
-中国SF界の金字塔。文化大革命期の中国を舞台に始まり、人類と異星文明の接触・対立を描く壮大な宇宙SF三部作の第一作。ヒューゴー賞受賞。Netflixでもドラマ化。
+A raw, honest account of the brutal realities of building and running a startup, by the co-founder of Andreessen Horowitz. No platitudes — just war stories and hard-won lessons.
 
-## 重要なポイント
+## Key Takeaways
 
-- 「暗黒森林理論」：宇宙において文明は互いを滅ぼし合う宿命にあるという冷酷な論理
-- 中国近現代史（文化大革命）と宇宙SFを融合させた独自性
-- 科学的知識が豊富で、読み応えのある宇宙論・物理学の描写
-- 人類の選択の是非を問う壮大なテーマ
+- Peacetime CEO vs. Wartime CEO: leadership style must match the situation
+- A culture that only hears good news will slowly destroy itself
+- Transparency about hard truths builds more team trust than false reassurance
+- Lay-offs must always be delivered directly by a manager — never by proxy
+- Build scalable rules: verbal culture breaks down as companies grow
 
-## 印象的な言葉
+## Memorable Quote
 
-> 弱小文明は宇宙でその存在を知らせてはならない。それは死の宣告に等しい。
+> The hard thing isn't dreaming big. The hard thing is waking up in the middle of the night in a cold sweat.
 
-## 学び・活かし方
+## How I Apply It
 
-読書で初めて「スケールが大きすぎて怖い」という感覚を味わった。第二部・三部も読了予定。中国SFの可能性に驚かされた。
-
----
-
-## 君の膵臓をたべたい
-📁 books/小説
-
-# 君の膵臓をたべたい
-
-**著者：** 住野よる
-
-## 概要
-
-余命宣告を受けた少女・山内桜良と、クラスで影の薄い「僕」の交流を描いた青春小説。タイトルの衝撃と物語の温かさのギャップが読者の心をつかむデビュー作。
-
-## 重要なポイント
-
-- 「生きる」ことの意味を、死と向き合う少女の視点から描く
-- 人と人が「関わり合う」ことの価値を問い直す
-- 予期せぬラストが、テーマをより深く響かせる構造
-- 軽快な文体ながら、読後の余韻が長く続く
-
-## 印象的な言葉
-
-> 私は今、自分が死ぬのを待っているんじゃない。精いっぱい生きているんだ。
-
-## 学び・活かし方
-
-日常を当たり前と思わず、「今日」に意味を見出す大切さを改めて感じた。タイトルで敬遠していたが、読んでよかった一冊。
+This is the most honest book I've read about the messy reality of leadership. Managing a small company or freelance practice, it's the gritty lessons that matter.
 
 ---
 
-## 容疑者Xの献身
-📁 books/小説
+## The Lean Startup
+📁 books/Business
 
-# 容疑者Xの献身
+# The Lean Startup
 
-**著者：** 東野圭吾
+**Author:** Eric Ries
 
-## 概要
+## Overview
 
-数学の天才・石神が隣人の靖子とその娘を守るために完全犯罪を企てる。ガリレオシリーズの傑作。「犯人はわかっている、謎は別のところにある」という逆転の構造が秀逸。
+A methodology for building new businesses through rapid experimentation, validated learning, and the Build-Measure-Learn feedback loop. The concept of the MVP (Minimum Viable Product) is central.
 
-## 重要なポイント
+## Key Takeaways
 
-- 「完全犯罪」と「究極の愛」が交差する構造の巧みさ
-- 数学的思考と論理の美しさを人間ドラマで表現
-- 明かされる「真実」が読者の感情を根底から覆す
-- 「犯罪」と「献身」の境界はどこにあるか、読後に問い続ける
+- Build an MVP to test your hypothesis as fast as possible
+- The Build-Measure-Learn cycle should be completed as fast as you can
+- Innovation accounting: track actionable metrics, not vanity metrics
+- Pivot vs. persevere: use data to make the decision, not intuition alone
+- Customer development interviews break you out of your assumptions
 
-## 印象的な言葉
+## Memorable Quote
 
-> 彼女を守るためなら、どんなことでもする。それが俺の、唯一の生きる意味だ。
+> A successful startup is one that has not merely survived, but learned — over and over — what customers actually need.
 
-## 学び・活かし方
+## How I Apply It
 
-論理とは何か、愛情とは何かを問い直させる作品。ミステリとして読み始め、気づけば純文学を読んだ感覚になった傑作。
-
----
-
-## 蜜蜂と遠雷
-📁 books/小説
-
-# 蜜蜂と遠雷
-
-**著者：** 恩田陸
-
-## 概要
-
-国際ピアノコンクールを舞台に、個性豊かな4人の若きピアニストたちの競演を描く。音楽の描写が圧倒的に美しく、読んでいるだけで音楽が聴こえてくるような臨場感がある。直木賞・本屋大賞をダブル受賞。
-
-## 重要なポイント
-
-- 音楽を言語で表現することの可能性を極限まで追求した作品
-- 「天才」と「努力家」「経験者」「遅咲き」それぞれの生き方の描き方が見事
-- コンクールという競争の場が、実は自分との戦いの場であることが伝わる
-- 音楽に限らず「何かに熱中すること」の尊さを思い出させてくれる
-
-## 印象的な言葉
-
-> 音楽は、空気の振動だ。だがその振動は、時に人の魂を揺さぶり、世界を変える力を持っている。
-
-## 学び・活かし方
-
-久しぶりにクラシック音楽を聴きたくなった。何かに没頭している人の「内側」をこれほど丁寧に描いた小説に初めて出会った気がする。
+I now apply "validate before you build" to every new portfolio project. A quick prototype test saves weeks of wasted effort.
 
 ---
 
-## Kubernetes完全ガイド
-📁 books/技術書
+## Zero to One
+📁 books/Business
 
-# Kubernetes完全ガイド
+# Zero to One
 
-**著者：** 青山真也
+**Author:** Peter Thiel
 
-## 概要
+## Overview
 
-Kubernetes の基礎から実践まで日本語で体系的に解説した決定版。Pod・Service・Deployment・Ingress など主要なリソースの仕組みと使い方を豊富な例を交えて説明する。
+PayPal and Palantir co-founder Peter Thiel's contrarian startup philosophy, distilled from his Stanford lectures. The central argument: monopoly, not competition, is the goal.
 
-## 重要なポイント
+## Key Takeaways
 
-- Podが最小デプロイ単位であり、1つ以上のコンテナを含む
-- DeploymentでPodのレプリカ数・ローリングアップデートを管理
-- ServiceでPodへの安定したエンドポイントを提供する
-- ConfigMap・SecretでアプリケーションとConfigを分離する
-- リソースリクエストとリミットを必ず設定してノードを保護する
+- Going from 0 to 1 (creating something new) beats 1 to n (copying what already exists)
+- Competition is for losers — monopolies generate all the long-term profits
+- A truly great technology must be 10x better than the next best alternative
+- Start by dominating a small niche, then expand outward
+- Power law: a handful of investments generate all meaningful returns
+- Seek secrets — opportunities in truths that others haven't yet recognized
 
-## 印象的な言葉
+## Memorable Quote
 
-> Kubernetesは複雑だが、その複雑さはインフラの本質的な複雑さを隠蔽しているのではなく、制御可能な形で表現しているのだ。
+> Competition is for losers.
 
-## 学び・活かし方
+## How I Apply It
 
-EKS を使う機会があり、本書のおかげで概念が整理できた。本番運用では特にリソース設定と Liveness/Readiness Probe の設定が重要だと実感。
-
----
-
-## SQLアンチパターン
-📁 books/技術書
-
-# SQLアンチパターン
-
-**著者：** Bill Karwin（著）・和田卓人（監訳）
-
-## 概要
-
-データベース設計・SQLの24のアンチパターンとその解決策を解説。「なぜそれが悪いのか」「どうすれば良いのか」を具体的に示す。開発者・DBA両方に役立つ実践書。
-
-## 重要なポイント
-
-- ナイーブツリー：隣接リストモデルでなく閉包テーブルで木構造を管理する
-- マルチカラムアトリビュート：1つのカラムに複数の値を詰め込まない
-- インデックスショットガン：むやみにインデックスを増やさず効果を測定する
-- SQLインジェクション：プレースホルダーを必ず使用する
-- EAVパターン：柔軟性のために正規化を崩すと保守が地獄になる
-
-## 印象的な言葉
-
-> すべてのアンチパターンは、もともとは問題を解決しようとした誰かの「良かれ」という判断から生まれている。
-
-## 学び・活かし方
-
-過去に自分が書いたコードでいくつかのアンチパターンを発見し、リファクタリングした。設計レビューのチェックリストとして使っている。
+The question "Am I improving what exists, or creating something new?" now guides how I evaluate product ideas. Zero-to-one thinking applies to freelance work too — find the gap nobody is filling.
 
 ---
 
-## ゼロから作るDeep Learning
-📁 books/技術書
+## Convenience Store Woman
+📁 books/Fiction
 
-# ゼロから作るDeep Learning
+# Convenience Store Woman
 
-**著者：** 斎藤康毅
+**Author:** Sayaka Murata
 
-## 概要
+## Overview
 
-ディープラーニングをライブラリに頼らずPythonとNumPyだけでゼロから実装することで、理論と実装を同時に学ぶ名著。ニューラルネットワークの本質的な仕組みが理解できる。
+Keiko is 36, single, and has worked the same convenience store shift for 18 years. The Akutagawa Prize-winning novel uses her flat, logical perspective to expose the coercive conformity of Japanese society.
 
-## 重要なポイント
+## Key Takeaways
 
-- バックプロパゲーションの計算グラフによる直感的な理解
-- 勾配降下法：損失関数の最小化を数値微分から解析的微分へ
-- ミニバッチ学習でメモリ効率よく学習する
-- Batch Normalizationと Dropout の効果と実装
-- 畳み込みニューラルネットワーク（CNN）の仕組みを実装して理解
+- "Normal" is a social construct — this novel makes that viscerally visible
+- The protagonist's alien-like rationality holds up a mirror to the absurdity of social pressure
+- A sharp critique of how Japan defines — and enforces — acceptable lives
+- Short but constructed with perfect precision — not a wasted word
 
-## 印象的な言葉
+## Memorable Quote
 
-> ブラックボックスとして使うのではなく、自分で作ることで初めて理解できるものがある。
+> I am listening to the convenience store. Its sounds, its air, its time. This is my world.
 
-## 学び・活かし方
+## How I Apply It
 
-Gemini APIを使ったプロダクト開発を行う上で、AIの「なぜ」を理解できた。APIの黒箱を少し透かして見られる感覚がある。
-
----
-
-## データ指向アプリケーションデザイン
-📁 books/技術書
-
-# データ指向アプリケーションデザイン
-
-**著者：** Martin Kleppmann（著）・斉藤太郎（監訳）
-
-## 概要
-
-大規模データシステムの設計原則を体系的に解説した名著。レプリケーション・シャーディング・トランザクション・ストリーム処理など分散システムの核心を、深い洞察で説明する。
-
-## 重要なポイント
-
-- 信頼性・スケーラビリティ・保守性がデータシステムの三大原則
-- 結果整合性とACIDトランザクションの違いと使い分け
-- イベントソーシングとCQRSパターンの価値
-- 分散システムにおける「合意」問題の本質的な難しさ
-- バッチ処理とストリーム処理の統一的な見方
-
-## 印象的な言葉
-
-> データは事実の記録だ。しかしデータシステムはそれをどう見せるかを決める解釈の装置でもある。
-
-## 学び・活かし方
-
-DynamoDBやAurora選定の判断基準が明確になった。「どのデータベースを使うか」より「何を実現したいか」から考えるようになった。
+It made me question whether I unconsciously pressure others to be "normal" — or whether I've been pressured myself. One of the most thought-provoking novels I've read.
 
 ---
 
-## ドメイン駆動設計
-📁 books/技術書
+## I Want to Eat Your Pancreas
+📁 books/Fiction
 
-# ドメイン駆動設計
+# I Want to Eat Your Pancreas
 
-**著者：** Eric Evans（著）・今関剛（監訳）
+**Author:** Yoru Sumino
 
-## 概要
+## Overview
 
-ソフトウェア開発においてビジネスドメインの知識をコードに反映させる「ドメイン駆動設計（DDD）」の原典。ユビキタス言語・境界づけられたコンテキスト・エンティティ・値オブジェクトなどの概念を解説。
+A quiet, withdrawn high school boy discovers his cheerful classmate is secretly terminally ill. Her final months, and their unlikely friendship, form the heart of this beautifully restrained debut novel.
 
-## 重要なポイント
+## Key Takeaways
 
-- ユビキタス言語：開発者とドメインエキスパートが同じ言語で話す
-- 境界づけられたコンテキスト：大きなドメインを分割して管理する
-- エンティティと値オブジェクトの区別：同一性があるかどうか
-- 集約：整合性を保つ境界の単位
-- 腐敗防止層：外部システムの概念をドメインモデルに混入させない
+- Explores "living" versus "waiting to die" through one character's relentless present-tense joy
+- Questions what it means to truly connect with another person
+- The unexpected ending deepens the themes rather than serving as a twist for its own sake
+- Light prose with a long, resonant emotional afterglow
 
-## 印象的な言葉
+## Memorable Quote
 
-> ドメインの複雑さに向き合い、それをモデルとして表現することが、ソフトウェア設計の本質的な課題だ。
+> I'm not waiting to die. I'm living as hard as I can right now.
 
-## 学び・活かし方
+## How I Apply It
 
-AWSを使ったシステム設計で「マイクロサービスの境界」をどこに引くかを考える際に、DDDのコンテキスト境界の概念が非常に役立っている。
+Reminded me to be present in ordinary days. The title keeps people away — don't let it keep you away.
 
 ---
 
-## リーダブルコード
-📁 books/技術書
+## The Devotion of Suspect X
+📁 books/Fiction
 
-# リーダブルコード
+# The Devotion of Suspect X
 
-**著者：** Dustin Boswell、Trevor Foucher（著）・角征典（訳）
+**Author:** Keigo Higashino
 
-## 概要
+## Overview
 
-「コードは他人が読むもの」という前提に立ち、読みやすく保守しやすいコードを書くための具体的な技法を解説。命名・コメント・ロジックの単純化など実践的な内容が満載。
+A math genius sets up an airtight alibi for his neighbor, who has just killed her abusive ex-husband. A Galileo series masterpiece where you know the killer from page one — the mystery lies elsewhere.
 
-## 重要なポイント
+## Key Takeaways
 
-- コードは「動く」ことより「読める」ことが重要
-- 変数・関数名は正確で、曖昧でなく、具体的にする
-- コメントは「何をしているか」でなく「なぜそうしているか」を書く
-- 関数は一つのことだけをする（単一責任原則）
-- 「早期リターン」でネストを浅くする
+- The inverted mystery structure (we know who did it; the puzzle is the crime itself) is brilliantly executed
+- Mathematical precision applied to the geometry of a human alibi
+- The final revelation recontextualizes everything and hits harder because of it
+- What separates crime from devotion? The novel leaves the answer to you.
 
-## 印象的な言葉
+## Memorable Quote
 
-> コードは書かれる時間より読まれる時間の方が圧倒的に長い。読みやすさこそが最重要な特性だ。
+> Everything I do, I do for her. That is the only reason I have to live.
 
-## 学び・活かし方
+## How I Apply It
 
-コードレビューで「これはリーダブルか？」を判断基準にするようになった。変数名に1分かける価値があると実感している。
+I thought I was reading a mystery novel; by the end it felt like literary fiction. The questions it raises about sacrifice and love stayed with me for weeks.
+
+---
+
+## The Honeybee and the Thunder
+📁 books/Fiction
+
+# The Honeybee and the Thunder
+
+**Author:** Riku Onda
+
+## Overview
+
+Four gifted young pianists compete in an international competition. Onda's gift for writing music into language is staggering — you can hear the notes from the page. Winner of both the Naoki Prize and the Book of the Year Award.
+
+## Key Takeaways
+
+- The language used to describe music pushes the boundaries of what prose can do
+- Four contestants, four life philosophies: prodigy, grinder, veteran, late bloomer
+- A competition about self-mastery as much as rivalry
+- Reminds you what it means to be truly absorbed in something
+
+## Memorable Quote
+
+> Music is vibrations in air. Yet those vibrations can shake the human soul and alter the world.
+
+## How I Apply It
+
+I hadn't listened to classical music in years. After reading this, I spent the next month in Beethoven and Chopin. The best fiction makes you feel something beyond the book.
+
+---
+
+## The Mirror's Lonely Castle
+📁 books/Fiction
+
+# The Mirror's Lonely Castle
+
+**Author:** Tsujimura Mizuki
+
+## Overview
+
+Seven middle schoolers who have lost their place in the world are drawn into a magical castle inside a mirror. A warm, layered fantasy that speaks directly to loneliness, school avoidance, and the need to belong.
+
+## Key Takeaways
+
+- Captures the universal pain of not belonging with precise, compassionate observation
+- The plot structure — convergence of seemingly separate threads — is elegantly constructed
+- Uses fantasy to say what realism might not allow: "You are not alone in this"
+- Tackles bullying, school avoidance, and family dysfunction with sensitivity and seriousness
+
+## Memorable Quote
+
+> This place is for you. Whatever the reason, you have every right to be here.
+
+## How I Apply It
+
+A book for middle schoolers that left me, as an adult, feeling seen. The message that "your safe place exists somewhere" is one we all need.
+
+---
+
+## The Three-Body Problem
+📁 books/Fiction
+
+# The Three-Body Problem
+
+**Author:** Liu Cixin (tr. Ken Liu)
+
+## Overview
+
+A landmark of Chinese science fiction. Starting during China's Cultural Revolution, it follows humanity's first contact with an alien civilization across an epic, scientifically rigorous trilogy. Hugo Award winner, now a Netflix series.
+
+## Key Takeaways
+
+- The Dark Forest theory: in a universe of limited resources, intelligent civilizations are compelled to destroy each other — a chilling cosmological argument
+- Fuses the Cultural Revolution's human horror with the vast horror of the cosmos
+- The most hard-science fiction I've read — orbital mechanics, astrophysics, game theory
+- Forces the question: if humanity were to announce itself, should it?
+
+## Memorable Quote
+
+> A civilization that reveals itself to the universe has issued its own death sentence.
+
+## How I Apply It
+
+First time I felt genuinely afraid reading fiction — not from plot tension, but from the implications of the ideas. I went straight into the second and third volumes.
+
+---
+
+## Deep Learning from Scratch
+📁 books/Technical
+
+# Deep Learning from Scratch
+
+**Author:** Koki Saito
+
+## Overview
+
+Build a deep learning library from the ground up using only Python and NumPy. The best way to truly understand neural networks — by implementing backpropagation, CNNs, and optimizers yourself.
+
+## Key Takeaways
+
+- Computational graph visualization makes backpropagation intuitive
+- Gradient descent: from numerical to analytical differentiation
+- Mini-batch training balances memory efficiency and learning speed
+- Batch Normalization and Dropout: what they actually do and why they work
+- Implement a CNN and finally understand what convolution really means
+
+## Memorable Quote
+
+> There are things you can only understand by building them yourself.
+
+## How I Apply It
+
+Using Gemini API in my products, this book gave me a sense of what's actually happening inside. "Demystifying the black box" is the best description of what it does.
+
+---
+
+## Designing Data-Intensive Applications
+📁 books/Technical
+
+# Designing Data-Intensive Applications
+
+**Author:** Martin Kleppmann
+
+## Overview
+
+The definitive guide to building reliable, scalable, and maintainable data systems. Covers replication, sharding, transactions, stream processing, and the deeper truths of distributed computing.
+
+## Key Takeaways
+
+- Reliability, Scalability, and Maintainability are the three pillars of data systems
+- Eventual consistency vs. ACID transactions: know when to use which
+- Event sourcing and CQRS as patterns for building auditable, scalable systems
+- The fundamental difficulty of consensus in distributed systems
+- Batch processing and stream processing are more similar than they appear
+
+## Memorable Quote
+
+> Data is the record of facts. But data systems are the interpretive apparatus that decides what those facts mean.
+
+## How I Apply It
+
+My criteria for choosing between DynamoDB and Aurora became much clearer. I now start from "what do I need to guarantee?" not "what does my team already know?"
+
+---
+
+## Domain-Driven Design
+📁 books/Technical
+
+# Domain-Driven Design
+
+**Author:** Eric Evans
+
+## Overview
+
+The original DDD text — a framework for modeling complex software systems around the business domain. Core concepts: Ubiquitous Language, Bounded Contexts, Entities, Value Objects, and Aggregates.
+
+## Key Takeaways
+
+- Ubiquitous Language: developers and domain experts share a single vocabulary — no translations needed
+- Bounded Contexts: draw explicit boundaries around each domain model to prevent concept bleed
+- Entity vs. Value Object: does this thing have identity across time, or is it defined only by its attributes?
+- Aggregates: the unit of consistency — changes happen within an aggregate, never across boundaries
+- Anti-corruption Layer: prevent external system concepts from polluting your domain model
+
+## Memorable Quote
+
+> The task of confronting the complexity of a domain and expressing that in a model is the central challenge of software design.
+
+## How I Apply It
+
+When designing microservice boundaries in AWS, the Bounded Context concept is invaluable. It gives you a principled answer to "where do I draw the line?"
+
+---
+
+## Kubernetes: Up and Running
+📁 books/Technical
+
+# Kubernetes: Up and Running
+
+**Author:** Brendan Burns, Joe Beda & Kelsey Hightower
+
+## Overview
+
+A comprehensive Japanese-language guide to Kubernetes, covering Pods, Services, Deployments, Ingress, and more. Thorough explanations with practical examples for both beginners and practitioners.
+
+## Key Takeaways
+
+- Pods are the smallest deployable unit — one or more containers sharing a network namespace
+- Deployments manage replica count and rolling updates declaratively
+- Services provide stable endpoints for ephemeral Pods
+- ConfigMaps and Secrets decouple configuration from application code
+- Always set resource requests and limits to protect node stability
+
+## Memorable Quote
+
+> Kubernetes does not hide complexity — it makes the inherent complexity of infrastructure expressible and manageable.
+
+## How I Apply It
+
+This book made EKS comprehensible. In production, I've found that resource settings and Liveness/Readiness Probes are the first things that bite you if done wrong.
+
+---
+
+## SQL Antipatterns
+📁 books/Technical
+
+# SQL Antipatterns
+
+**Author:** Bill Karwin
+
+## Overview
+
+24 common SQL and schema design mistakes — with clear explanations of why they fail and what to do instead. Equally valuable for developers and DBAs.
+
+## Key Takeaways
+
+- Naive Tree: use closure tables instead of adjacency lists for hierarchical data
+- Multi-Column Attributes: never pack multiple values into a single column
+- Index Shotgun: don't add indexes indiscriminately — measure their effect
+- SQL Injection: always use parameterized queries — no exceptions
+- EAV Pattern: ultra-flexible schemas create unmaintainable messes
+
+## Memorable Quote
+
+> Every antipattern was once someone's well-intentioned solution to a real problem.
+
+## How I Apply It
+
+Reviewing my past code, I found several of these patterns in production. I've since used this book as a design review checklist on every new project.
+
+---
+
+## The Art of Readable Code
+📁 books/Technical
+
+# The Art of Readable Code
+
+**Author:** Dustin Boswell & Trevor Foucher
+
+## Overview
+
+A practical, example-driven guide to writing code that other people (and future you) can understand. Covers naming, comments, control flow, and simplifying logic — all with concrete before/after examples.
+
+## Key Takeaways
+
+- Code is read far more often than it is written — readability is the most important quality
+- Names should be precise, unambiguous, and concrete
+- Comments should explain WHY, not WHAT — the code already says what
+- Functions should do exactly one thing (single responsibility)
+- Early returns flatten nesting and clarify intent
+
+## Memorable Quote
+
+> Code should be written to minimize the time it would take for someone else to understand it.
+
+## How I Apply It
+
+"Is this readable?" is now my primary code review question. I regularly spend an extra minute on a variable name — and it's always worth it.
 
 ---

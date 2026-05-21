@@ -1,19 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 
-const BASE = 'samples/vault';
+const BASE = 'samples/vault-jp';
 
 function write(filePath, content) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, content, 'utf-8');
 }
 
-function recipe({ folder, title, tags, desc, ingredients, seasoning, steps, tips, memo }) {
+function recipe({ folder, title, tags, photo, desc, ingredients, seasoning, steps, tips, memo }) {
   const tagStr = tags.map(t => `  - ${t}`).join('\n');
   const ingRows = ingredients.map(([n, a]) => `| ${n} | ${a} |`).join('\n');
   const seaRows = seasoning.map(([n, a]) => `| ${n} | ${a} |`).join('\n');
   const stepStr = steps.map((s, i) => `${i + 1}. ${s}`).join('\n');
   const tipStr = tips.map(t => `- ${t}`).join('\n');
+  const photoLine = photo ? `\n![${title}](${photo})\n` : '';
 
   const content = `---
 tags:
@@ -21,7 +22,7 @@ ${tagStr}
 ---
 
 # ${title}
-
+${photoLine}
 ${desc}
 
 ## 材料（4人分）
@@ -51,10 +52,11 @@ ${memo}
   write(path.join(BASE, 'recipes', folder, `${title}.md`), content);
 }
 
-function travel({ folder, subfolder, title, tags, overview, access, highlights, food, memo }) {
+function travel({ folder, subfolder, title, tags, photo, overview, access, highlights, food, memo }) {
   const tagStr = tags.map(t => `  - ${t}`).join('\n');
   const hlStr = highlights.map(h => `- ${h}`).join('\n');
   const foodStr = food.map(f => `- ${f}`).join('\n');
+  const photoLine = photo ? `\n![${title}](${photo})\n` : '';
 
   const content = `---
 tags:
@@ -62,7 +64,7 @@ ${tagStr}
 ---
 
 # ${title}
-
+${photoLine}
 ## 概要
 
 ${overview}
@@ -127,6 +129,7 @@ ${learning}
 recipe({
   folder: '和食', title: '肉じゃが',
   tags: ['和食', '難易度:普通', '調理時間:30分', 'ジャンル:煮物'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Braised_pork_and_potatoes_%283089327692%29.jpg/960px-Braised_pork_and_potatoes_%283089327692%29.jpg',
   desc: '牛肉とじゃがいもを甘辛く煮た定番の家庭料理。ほっこりとした味わいが特徴。',
   ingredients: [['牛薄切り肉','200g'],['じゃがいも','3個'],['玉ねぎ','1個'],['にんじん','1本'],['しらたき','1袋']],
   seasoning: [['だし','200ml'],['醤油','大さじ3'],['みりん','大さじ3'],['砂糖','大さじ2'],['酒','大さじ2']],
@@ -144,6 +147,7 @@ recipe({
 recipe({
   folder: '和食', title: '親子丼',
   tags: ['和食', '難易度:簡単', '調理時間:20分', 'ジャンル:丼'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Oyakodon_003.jpg/960px-Oyakodon_003.jpg',
   desc: '鶏肉と卵を出汁で煮て、ふんわりと仕上げた定番の丼もの。',
   ingredients: [['鶏もも肉','250g'],['卵','3個'],['玉ねぎ','1/2個'],['三つ葉','適量'],['ご飯','2杯分']],
   seasoning: [['だし','150ml'],['醤油','大さじ2'],['みりん','大さじ2'],['砂糖','小さじ1']],
@@ -161,6 +165,7 @@ recipe({
 recipe({
   folder: '和食', title: '豚の角煮',
   tags: ['和食', '難易度:難しい', '調理時間:120分', 'ジャンル:煮物'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Kakuni_by_Kanko.jpg',
   desc: '豚バラ肉をじっくり煮込んだ、とろとろ食感が自慢の一品。',
   ingredients: [['豚バラ肉（塊）','600g'],['長ねぎ（青い部分）','1本分'],['生姜','2枚'],['ゆで卵','4個']],
   seasoning: [['醤油','大さじ4'],['みりん','大さじ4'],['酒','100ml'],['砂糖','大さじ3'],['水','300ml']],
@@ -178,6 +183,7 @@ recipe({
 recipe({
   folder: '和食', title: '筑前煮',
   tags: ['和食', '難易度:普通', '調理時間:45分', 'ジャンル:煮物', 'ジャンル:おせち'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%E7%AD%91%E5%89%8D%E7%85%AE%E3%81%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%81%8C%E6%B1%9A%E3%82%8C%E3%82%81%E3%81%AA%E3%81%AE%E3%81%A7%E6%9D%93%E5%AD%90%E6%88%BB%E3%81%95%E3%81%9A_%2855071808273%29.jpg/960px-%E7%AD%91%E5%89%8D%E7%85%AE%E3%81%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%81%8C%E6%B1%9A%E3%82%8C%E3%82%81%E3%81%AA%E3%81%AE%E3%81%A7%E6%9D%93%E5%AD%90%E6%88%BB%E3%81%95%E3%81%9A_%2855071808273%29.jpg',
   desc: '鶏肉と根菜類をたっぷり使った、おせちにも欠かせない定番料理。',
   ingredients: [['鶏もも肉','300g'],['ごぼう','1本'],['れんこん','150g'],['にんじん','1本'],['干し椎茸','4枚'],['こんにゃく','1枚'],['絹さや','適量']],
   seasoning: [['だし（椎茸の戻し汁含む）','300ml'],['醤油','大さじ3'],['みりん','大さじ3'],['砂糖','大さじ2'],['酒','大さじ2']],
@@ -195,6 +201,7 @@ recipe({
 recipe({
   folder: '和食', title: 'だし巻き卵',
   tags: ['和食', '難易度:難しい', '調理時間:15分', 'ジャンル:卵料理'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Dashimaki_tamago_and_teapot_by_yajico_in_Ebisu%2C_Tokyo.jpg/960px-Dashimaki_tamago_and_teapot_by_yajico_in_Ebisu%2C_Tokyo.jpg',
   desc: '出汁をたっぷり含ませた、ふわふわとした関西風の卵焼き。',
   ingredients: [['卵','3個'],['だし','60ml'],['サラダ油','適量']],
   seasoning: [['薄口醤油','小さじ1/2'],['みりん','小さじ1'],['塩','少々']],
@@ -212,6 +219,7 @@ recipe({
 recipe({
   folder: '和食', title: '豚汁',
   tags: ['和食', '難易度:簡単', '調理時間:25分', 'ジャンル:汁物'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/3/36/CodazziTonjiru1.jpg',
   desc: '豚肉と根菜たっぷりの具だくさん味噌汁。体が温まる冬の定番。',
   ingredients: [['豚バラ薄切り肉','150g'],['大根','5cm'],['にんじん','1/2本'],['ごぼう','1/2本'],['こんにゃく','1/2枚'],['長ねぎ','1本']],
   seasoning: [['だし','800ml'],['味噌','大さじ3〜4'],['酒','大さじ1'],['ごま油','小さじ1']],
@@ -229,6 +237,7 @@ recipe({
 recipe({
   folder: '和食', title: 'さんまの塩焼き',
   tags: ['和食', '難易度:簡単', '調理時間:20分', 'ジャンル:焼き物', '季節:秋'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Sanma_by_beemartins_in_Matsushima%2C_Miyagi.jpg',
   desc: '秋の味覚の代表格。シンプルな塩焼きで脂の乗った旨みを存分に楽しむ。',
   ingredients: [['さんま','2尾'],['塩','適量'],['大根おろし','適量'],['すだち','1個'],['醤油','少々']],
   seasoning: [['塩','魚の重量の2%']],
@@ -246,6 +255,7 @@ recipe({
 recipe({
   folder: '和食', title: '唐揚げ',
   tags: ['和食', '難易度:普通', '調理時間:30分', 'ジャンル:揚げ物'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Chicken_karaage_003.jpg/960px-Chicken_karaage_003.jpg',
   desc: 'カリッとジューシーな定番の鶏の唐揚げ。下味をしっかりつけるのがポイント。',
   ingredients: [['鶏もも肉','400g'],['片栗粉','大さじ4'],['薄力粉','大さじ2'],['揚げ油','適量'],['レモン','1/4個']],
   seasoning: [['醤油','大さじ2'],['酒','大さじ2'],['みりん','大さじ1'],['生姜（すりおろし）','1かけ'],['にんにく（すりおろし）','1かけ']],
@@ -264,6 +274,7 @@ recipe({
 recipe({
   folder: '洋食', title: 'ハンバーグ',
   tags: ['洋食', '難易度:普通', '調理時間:40分', 'ジャンル:肉料理'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Hamburg-Steak.jpg/960px-Hamburg-Steak.jpg',
   desc: '外はカリッ、中はジューシーな手作りハンバーグ。デミグラスソースで本格的に。',
   ingredients: [['合いびき肉','400g'],['玉ねぎ','1/2個'],['卵','1個'],['パン粉','1/2カップ'],['牛乳','大さじ3'],['塩','小さじ1/2'],['こしょう','少々'],['ナツメグ','少々']],
   seasoning: [['デミグラスソース缶','1缶'],['赤ワイン','100ml'],['バター','10g'],['ウスターソース','大さじ1']],
@@ -281,6 +292,7 @@ recipe({
 recipe({
   folder: '洋食', title: 'カルボナーラ',
   tags: ['洋食', '難易度:普通', '調理時間:20分', 'ジャンル:パスタ'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Espaguetis_carbonara.jpg/960px-Espaguetis_carbonara.jpg',
   desc: '生クリームを使わない本格ローマ風カルボナーラ。濃厚なチーズの風味が特徴。',
   ingredients: [['スパゲッティ','200g'],['パンチェッタ（またはベーコン）','100g'],['卵','2個'],['卵黄','2個'],['ペコリーノロマーノ（またはパルミジャーノ）','60g'],['黒こしょう','たっぷり']],
   seasoning: [['塩（茹で湯用）','湯量の1%'],['オリーブオイル','大さじ1']],
@@ -298,6 +310,7 @@ recipe({
 recipe({
   folder: '洋食', title: 'ビーフシチュー',
   tags: ['洋食', '難易度:難しい', '調理時間:120分', 'ジャンル:煮込み'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Boeuf_Bourguignon_Paris_Beaubourg.jpg/960px-Boeuf_Bourguignon_Paris_Beaubourg.jpg',
   desc: '赤ワインでじっくり煮込んだ本格的なビーフシチュー。冬の特別な一皿。',
   ingredients: [['牛すね肉（または牛肩ロース）','500g'],['玉ねぎ','2個'],['にんじん','2本'],['マッシュルーム','100g'],['じゃがいも','2個'],['にんにく','2かけ'],['トマトペースト','大さじ2']],
   seasoning: [['赤ワイン','300ml'],['ビーフブロス','400ml'],['デミグラスソース缶','1/2缶'],['塩こしょう','適量'],['ローリエ','2枚'],['タイム','少々']],
@@ -315,6 +328,7 @@ recipe({
 recipe({
   folder: '洋食', title: 'オムライス',
   tags: ['洋食', '難易度:普通', '調理時間:30分', 'ジャンル:ご飯もの'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Omurice_by_Taimeiken.jpg/960px-Omurice_by_Taimeiken.jpg',
   desc: '薄焼き卵で包んだケチャップライスの定番洋食。家庭料理の王道。',
   ingredients: [['ご飯','茶碗2杯分'],['卵','3個'],['鶏もも肉','100g'],['玉ねぎ','1/4個'],['マッシュルーム','4個'],['バター','20g']],
   seasoning: [['ケチャップ','大さじ4'],['塩こしょう','適量'],['牛乳','大さじ1（卵用）']],
@@ -332,6 +346,7 @@ recipe({
 recipe({
   folder: '洋食', title: 'ミネストローネ',
   tags: ['洋食', '難易度:簡単', '調理時間:40分', 'ジャンル:スープ'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Minestrone_soup_%285%29.jpg/960px-Minestrone_soup_%285%29.jpg',
   desc: 'トマトベースの野菜たっぷりイタリアンスープ。体にやさしい一品。',
   ingredients: [['玉ねぎ','1個'],['にんじん','1本'],['セロリ','1本'],['ズッキーニ','1本'],['じゃがいも','1個'],['ベーコン','50g'],['トマト缶','1缶'],['白いんげん豆（缶）','1缶'],['ショートパスタ','50g']],
   seasoning: [['野菜ブロス','600ml'],['オリーブオイル','大さじ2'],['にんにく','1かけ'],['塩こしょう','適量'],['パルミジャーノ','適量']],
@@ -349,6 +364,7 @@ recipe({
 recipe({
   folder: '洋食', title: 'グラタン',
   tags: ['洋食', '難易度:普通', '調理時間:50分', 'ジャンル:オーブン料理'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Gratin-Dauphinois.jpg',
   desc: 'とろとろのベシャメルソースとチーズが絡む、冬に食べたいグラタン。',
   ingredients: [['鶏もも肉','200g'],['マカロニ','100g'],['玉ねぎ','1/2個'],['マッシュルーム','6個'],['ピザ用チーズ','80g'],['バター','30g'],['薄力粉','30g'],['牛乳','400ml']],
   seasoning: [['塩こしょう','適量'],['ナツメグ','少々'],['コンソメ','1個']],
@@ -366,6 +382,7 @@ recipe({
 recipe({
   folder: '洋食', title: 'コロッケ',
   tags: ['洋食', '難易度:普通', '調理時間:60分', 'ジャンル:揚げ物'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Croquetas_Caseras_%287068664101%29.jpg/960px-Croquetas_Caseras_%287068664101%29.jpg',
   desc: 'サクサクの衣とほくほくのじゃがいもが絶妙。ソースをかけて召し上がれ。',
   ingredients: [['じゃがいも','4個（600g）'],['合いびき肉','150g'],['玉ねぎ','1/2個'],['卵','1個'],['パン粉','適量'],['薄力粉','適量'],['揚げ油','適量']],
   seasoning: [['塩こしょう','適量'],['バター','10g']],
@@ -384,6 +401,7 @@ recipe({
 recipe({
   folder: '中華', title: '麻婆豆腐',
   tags: ['中華', '難易度:普通', '調理時間:20分', 'ジャンル:豆腐料理', '辛さ:中辛'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Chen_Mapo_Tofu.jpg/960px-Chen_Mapo_Tofu.jpg',
   desc: '四川式のしびれる辛さが特徴の麻婆豆腐。花椒の香りがポイント。',
   ingredients: [['絹豆腐','1丁（400g）'],['豚ひき肉','150g'],['長ねぎ','1/2本'],['生姜','1かけ'],['にんにく','2かけ']],
   seasoning: [['豆板醤','大さじ1'],['甜麺醤','大さじ1'],['醤油','大さじ1'],['鶏ガラスープ','200ml'],['片栗粉','大さじ1'],['花椒（ホアジャオ）','小さじ1'],['ごま油','小さじ1']],
@@ -401,6 +419,7 @@ recipe({
 recipe({
   folder: '中華', title: 'チャーハン',
   tags: ['中華', '難易度:普通', '調理時間:15分', 'ジャンル:ご飯もの'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Koh_Mak%2C_Thailand%2C_Fried_rice_with_seafood%2C_Thai_fried_rice.jpg/960px-Koh_Mak%2C_Thailand%2C_Fried_rice_with_seafood%2C_Thai_fried_rice.jpg',
   desc: 'パラパラに仕上がった本格チャーハン。強火と手早い作業がコツ。',
   ingredients: [['ご飯（冷やご飯）','茶碗2杯分'],['卵','2個'],['長ねぎ','1/3本'],['チャーシューまたはベーコン','50g'],['サラダ油','大さじ2']],
   seasoning: [['醤油','大さじ1'],['鶏ガラスープの素','小さじ1'],['塩こしょう','適量'],['ごま油','小さじ1']],
@@ -418,6 +437,7 @@ recipe({
 recipe({
   folder: '中華', title: 'エビチリ',
   tags: ['中華', '難易度:普通', '調理時間:25分', 'ジャンル:海鮮料理'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ebi_Chili_Mayo_%283469826035%29.jpg/960px-Ebi_Chili_Mayo_%283469826035%29.jpg',
   desc: '甘辛のチリソースと大きなエビが主役の人気中華料理。',
   ingredients: [['有頭エビ（またはブラックタイガー）','300g'],['長ねぎ','1/2本'],['生姜','1かけ'],['にんにく','1かけ']],
   seasoning: [['豆板醤','小さじ2'],['ケチャップ','大さじ3'],['砂糖','大さじ1'],['酒','大さじ1'],['鶏ガラスープ','100ml'],['片栗粉','小さじ1'],['ごま油','少々']],
@@ -435,6 +455,7 @@ recipe({
 recipe({
   folder: '中華', title: '酢豚',
   tags: ['中華', '難易度:普通', '調理時間:35分', 'ジャンル:肉料理'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Sweet_and_sour_pork.jpg/960px-Sweet_and_sour_pork.jpg',
   desc: '揚げた豚肉と野菜に甘酢あんをからめた、子どもから大人まで人気の中華料理。',
   ingredients: [['豚バラ肉（または肩ロース）','300g'],['ピーマン','2個'],['にんじん','1/2本'],['玉ねぎ','1/2個'],['パイナップル（缶）','4切れ'],['片栗粉','適量']],
   seasoning: [['酢','大さじ3'],['砂糖','大さじ3'],['ケチャップ','大さじ2'],['醤油','大さじ1'],['鶏ガラスープ','100ml'],['片栗粉（あん用）','大さじ1']],
@@ -452,6 +473,7 @@ recipe({
 recipe({
   folder: '中華', title: '担々麺',
   tags: ['中華', '難易度:難しい', '調理時間:40分', 'ジャンル:麺料理', '辛さ:中辛'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Soupless_dandan_noodles_%28mild%29_of_175do_DENO_Tantanmen.jpg/960px-Soupless_dandan_noodles_%28mild%29_of_175do_DENO_Tantanmen.jpg',
   desc: 'ゴマの濃厚なスープと辛みが絡む本格担々麺。しびれる辛さがクセになる。',
   ingredients: [['中華麺','2玉'],['豚ひき肉','150g'],['チンゲン菜','2株'],['長ねぎ','1/2本']],
   seasoning: [['練りごま','大さじ4'],['豆板醤','大さじ1'],['醤油','大さじ2'],['酢','大さじ1'],['砂糖','小さじ1'],['鶏ガラスープ','400ml'],['ラー油','適量'],['花椒','適量'],['すりごま','大さじ2']],
@@ -472,6 +494,7 @@ recipe({
 travel({
   folder: '国内', subfolder: '関東', title: '鎌倉',
   tags: ['国内', '関東', '神奈川', '歴史・文化', '日帰り可', '季節:春・秋'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/TsurugaokaHachiman-M8867.jpg/960px-TsurugaokaHachiman-M8867.jpg',
   overview: '鎌倉は神奈川県南部に位置する歴史的な都市。鎌倉幕府が置かれた地として知られ、多くの寺院・神社が点在する。海と山に囲まれた豊かな自然の中で、歴史と観光を楽しめる人気スポット。',
   access: '東京駅からJR横須賀線で約1時間。湘南新宿ラインも利用可。鎌倉駅が主要なアクセス拠点。',
   highlights: ['高徳院の鎌倉大仏（国宝）', '鶴岡八幡宮', '北鎌倉エリアの円覚寺・建長寺', '長谷寺のアジサイ（6月）', '鎌倉アルプスハイキングコース', '由比ガ浜・材木座海岸'],
@@ -482,6 +505,7 @@ travel({
 travel({
   folder: '国内', subfolder: '関東', title: '日光',
   tags: ['国内', '関東', '栃木', '世界遺産', '歴史・文化', '自然'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg/960px-200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg',
   overview: '栃木県北部に位置する日光は、徳川家康を祀る日光東照宮を中心とした世界遺産の地。豊かな自然の中に荘厳な建造物が点在し、四季折々の美しい景観を楽しめる。',
   access: '東武日光線「特急スペーシア」で浅草から約2時間。JR日光線では宇都宮から約45分。東武日光駅・JR日光駅が拠点。',
   highlights: ['日光東照宮（世界遺産）', '陽明門（日本一豪華とも言われる彫刻）', '華厳の滝（日本三名瀑）', '中禅寺湖', '戦場ヶ原（ハイキング）', '竜頭の滝'],
@@ -492,6 +516,7 @@ travel({
 travel({
   folder: '国内', subfolder: '関東', title: '箱根',
   tags: ['国内', '関東', '神奈川', '温泉', '自然', 'リゾート'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/260505_Moto-Hakone_Hakone_Japan01s3.jpg/960px-260505_Moto-Hakone_Hakone_Japan01s3.jpg',
   overview: '神奈川県西部に位置する温泉リゾート地。富士山の眺望と豊かな自然、多彩な温泉施設が自慢。日帰りから宿泊まで様々なスタイルで楽しめる。',
   access: '新宿から小田急ロマンスカーで約85分（箱根湯本まで）。東京から東海道新幹線で小田原まで約35分、小田急に乗り換え。',
   highlights: ['芦ノ湖と富士山の眺望', '箱根ロープウェイ（大涌谷）', '彫刻の森美術館', '箱根神社', '箱根湯本温泉街', '仙石原のすすき草原（秋）'],
@@ -503,6 +528,7 @@ travel({
 travel({
   folder: '国内', subfolder: '関西', title: '京都',
   tags: ['国内', '関西', '京都', '世界遺産', '歴史・文化', '寺社仏閣'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/960px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg',
   overview: '日本を代表する古都。794年に平安京として開かれて以来、千年以上にわたって都として栄えた。17件のユネスコ世界文化遺産を有し、日本の伝統文化が色濃く残る。',
   access: '東京から新幹線（のぞみ）で約2時間15分。大阪からはJR・阪急・近鉄で30〜45分。京都駅が主要拠点。',
   highlights: ['金閣寺（鹿苑寺）', '嵐山・竹林の道', '伏見稲荷大社（千本鳥居）', '清水寺', '祇園・花見小路', '哲学の道（桜・紅葉）', '二条城'],
@@ -513,6 +539,7 @@ travel({
 travel({
   folder: '国内', subfolder: '関西', title: '大阪',
   tags: ['国内', '関西', '大阪', 'グルメ', 'エンターテインメント'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Osaka_Castle_03bs3200.jpg/960px-Osaka_Castle_03bs3200.jpg',
   overview: '「食い倒れの街」として知られる関西の中心都市。庶民的なグルメ文化と活気あふれる街並みが特徴。ユニバーサル・スタジオ・ジャパンや道頓堀など見どころ多数。',
   access: '東京から新幹線（のぞみ）で約2時間30分。新大阪駅が新幹線の拠点。梅田・難波が主要エリア。',
   highlights: ['道頓堀（グリコサイン・戎橋）', '大阪城', 'ユニバーサル・スタジオ・ジャパン', '黒門市場', '新世界・通天閣', '心斎橋・アメリカ村'],
@@ -523,6 +550,7 @@ travel({
 travel({
   folder: '国内', subfolder: '関西', title: '奈良',
   tags: ['国内', '関西', '奈良', '世界遺産', '歴史・文化', '自然'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nara_Park_-_panoramio_%282%29.jpg/960px-Nara_Park_-_panoramio_%282%29.jpg',
   overview: '710年〜784年に奈良時代の都として栄えた古都。東大寺・春日大社など世界遺産の寺社が集まり、奈良公園では野生の鹿が闊歩する独特の景観で知られる。',
   access: '京都から近鉄・JRで約35〜45分。大阪からは近鉄で約35分。奈良駅・近鉄奈良駅が拠点。',
   highlights: ['東大寺大仏殿（国宝・世界遺産）', '奈良公園の鹿', '春日大社（世界遺産）', '興福寺・五重塔', '元興寺', 'ならまち（古い街並み）'],
@@ -534,6 +562,7 @@ travel({
 travel({
   folder: '国内', subfolder: '北海道', title: '函館',
   tags: ['国内', '北海道', 'グルメ', '夜景', '歴史・文化'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hakodate-panorama.jpg/960px-Hakodate-panorama.jpg',
   overview: '北海道南端に位置する港町。世界三大夜景のひとつに数えられる函館山からの夜景と、新鮮な海産物が有名。幕末・明治期の洋風建築が残る異国情緒あふれる街。',
   access: '東京から新幹線（北海道新幹線）で約4時間。飛行機では約1時間20分。函館空港からは市内まで約20分。',
   highlights: ['函館山の夜景（日暮れ後が絶景）', '元町エリアの洋風建築群', '五稜郭と五稜郭タワー', '朝市（海鮮丼・いか刺し）', 'トラピスチヌ修道院'],
@@ -544,6 +573,7 @@ travel({
 travel({
   folder: '国内', subfolder: '北海道', title: '富良野',
   tags: ['国内', '北海道', '自然', '花畑', '季節:夏'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg/960px-%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg',
   overview: '北海道のほぼ中央に位置する農業地帯。夏には一面のラベンダー畑が広がり、丘陵地帯の美しい景観が国内外から観光客を集める。冬はスキーリゾートとしても有名。',
   access: '札幌から特急フラノラベンダーエクスプレス（夏季限定）で約2時間。旭川からは車で約1時間。レンタカーが便利。',
   highlights: ['ファーム富田のラベンダー畑（7月が見頃）', '彩の畑（カラフルな花畑）', '十勝岳連峰の眺望', '白金青い池（美瑛）', 'ドラマ「北の国から」ロケ地'],
@@ -555,6 +585,7 @@ travel({
 travel({
   folder: '国内', subfolder: '九州', title: '長崎',
   tags: ['国内', '九州', '長崎', '歴史・文化', '夜景', '異国情緒'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg/960px-Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg',
   overview: '江戸時代に唯一外国との交易が許された港町。中国・オランダ・ポルトガルの文化が混じり合う独特の歴史と文化を持つ。世界遺産の軍艦島や平和公園も有名。',
   access: '東京から飛行機で約1時間50分。博多から特急かもめで約2時間（西九州新幹線開通後は短縮）。',
   highlights: ['グラバー園（世界文化遺産）', '軍艦島（端島）ツアー', '平和公園・原爆資料館', '稲佐山の夜景', '出島', 'ランタンフェスティバル（2月）'],
@@ -565,6 +596,7 @@ travel({
 travel({
   folder: '国内', subfolder: '九州', title: '別府',
   tags: ['国内', '九州', '大分', '温泉', '自然'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Beppu_Montage_2.jpg/960px-Beppu_Montage_2.jpg',
   overview: '日本一の源泉数と湧出量を誇る温泉都市。「地獄めぐり」として知られる個性豊かな温泉群が観光名所。市内のいたるところで湯けむりが上がる光景は別府ならでは。',
   access: '大分空港からバスで約60分。博多から特急ソニックで約2時間。別府駅が拠点。',
   highlights: ['別府地獄めぐり（血の池地獄・海地獄など7か所）', '別府温泉・鉄輪温泉の共同浴場', '竹瓦温泉（大正ロマン）', '高崎山自然動物園', '由布院（車で約30分）'],
@@ -576,6 +608,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'ヨーロッパ', title: 'パリ',
   tags: ['海外', 'ヨーロッパ', 'フランス', '芸術・文化', 'グルメ', '歴史'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/960px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg',
   overview: 'フランスの首都。「光の都」とも呼ばれ、世界屈指の芸術・ファッション・グルメの中心地。エッフェル塔やルーブル美術館など世界的に有名な観光スポットが集中する。',
   access: '東京から直行便で約14時間。シャルル・ド・ゴール空港からパリ中心部へはRERで約35分。',
   highlights: ['エッフェル塔（夜のライトアップが美しい）', 'ルーブル美術館（モナリザ・ミロのヴィーナス）', 'シャンゼリゼ通り', 'オルセー美術館（印象派コレクション）', 'モンマルトル・サクレクール寺院', 'ヴェルサイユ宮殿（近郊）'],
@@ -586,6 +619,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'ヨーロッパ', title: 'ローマ',
   tags: ['海外', 'ヨーロッパ', 'イタリア', '世界遺産', '歴史', '芸術・文化'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg/960px-Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg',
   overview: '「永遠の都」と呼ばれるイタリアの首都。2000年以上の歴史を持つ都市であり、コロッセオや Vatican などの世界遺産が街中に点在する野外博物館のような都市。',
   access: '東京から直行便で約13時間。フィウミチーノ空港から市内へはレオナルド・エクスプレスで約30分。',
   highlights: ['コロッセオ（古代ローマの円形闘技場）', 'バチカン市国（サン・ピエトロ大聖堂・システィーナ礼拝堂）', 'トレビの泉（コインを投げる）', 'スペイン広場', 'パンテオン', 'フォロ・ロマーノ'],
@@ -596,6 +630,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'ヨーロッパ', title: 'バルセロナ',
   tags: ['海外', 'ヨーロッパ', 'スペイン', '建築', 'グルメ', '海辺'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Aerial_view_of_Barcelona%2C_Spain_%2851227309370%29_edited.jpg/960px-Aerial_view_of_Barcelona%2C_Spain_%2851227309370%29_edited.jpg',
   overview: 'スペイン・カタルーニャ州の州都。ガウディ建築で世界的に有名で、地中海に面したビーチと美食文化を持つ活気ある都市。フラメンコよりサルサが盛んなバルセロナ独自の文化がある。',
   access: '東京からマドリードか直行便で約13〜14時間。バルセロナ・エル・プラット空港から市内へは約30分。',
   highlights: ['サグラダ・ファミリア（ガウディ設計・2026年完成予定）', 'グエル公園', 'カサ・バトリョ', 'ランブラス通り', 'バルセロネータビーチ', 'カタルーニャ音楽堂'],
@@ -606,6 +641,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'アジア', title: 'バンコク',
   tags: ['海外', 'アジア', 'タイ', 'グルメ', '寺院', 'ショッピング'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/01-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%A1%E0%B8%9A%E0%B8%9E%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%B8%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%A7%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%AB%E0%B8%B2%E0%B8%A3.jpg/960px-01-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%A1%E0%B8%9A%E0%B8%9E%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%B8%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%A7%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%AB%E0%B8%B2%E0%B8%A3.jpg',
   overview: 'タイの首都。「微笑みの国」タイの中心都市で、王宮・寺院などの伝統文化と近代的なショッピングモールが共存する。屋台グルメが充実し、物価も安く旅行者に人気。',
   access: '東京から直行便で約7時間。スワンナプーム国際空港から市内へはエアポートリンクで約30分。',
   highlights: ['王宮・エメラルド寺院（ワット・プラケオ）', 'ワット・ポー（巨大寝釈迦仏）', 'ワット・アルン（暁の寺）', 'カオサン通り', 'チャトゥチャック週末市場', 'チャオプラヤー川のクルーズ'],
@@ -616,6 +652,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'アジア', title: '台北',
   tags: ['海外', 'アジア', '台湾', 'グルメ', 'ショッピング', '夜市'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Taipei_Skyline_2022.06.29.jpg/960px-Taipei_Skyline_2022.06.29.jpg',
   overview: '台湾の首都。日本と文化的に近く、親日的な国民性で旅行しやすい。夜市文化・台湾料理・温泉と多彩な楽しみ方ができ、日本からのアクセスも良好。',
   access: '東京から直行便で約3時間30分。桃園国際空港から市内へはMRTで約35分。',
   highlights: ['台北101（展望台）', '故宮博物院（中国4000年の至宝）', '九份（ノスタルジックな山の街）', '士林夜市・寧夏夜市', '龍山寺', '猫空のロープウェイ'],
@@ -626,6 +663,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'アジア', title: 'バリ島',
   tags: ['海外', 'アジア', 'インドネシア', 'リゾート', '自然', '文化'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Tanah_Lot%2C_Bali%2C_Indonesia%2C_20220827_0957_1103.jpg/960px-Tanah_Lot%2C_Bali%2C_Indonesia%2C_20220827_0957_1103.jpg',
   overview: 'インドネシアの観光島。ヒンドゥー文化が根付いた「神々の島」として知られ、美しいビーチ・棚田の絶景・芸術文化が楽しめる世界的なリゾート地。',
   access: '東京から直行便で約7時間。ングラ・ライ国際空港から主要エリアへはタクシーで20〜60分（渋滞あり）。',
   highlights: ['ウブドの棚田（テガラランなど）', 'タナロット寺院（海上の寺院・夕暮れが絶景）', 'クタビーチ・スミニャックビーチ', 'バリヒンドゥーの儀式・オゴオゴ（3月）', 'ウブドの芸術村', 'コーヒー農園（ルアクコーヒー体験）'],
@@ -636,6 +674,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'アジア', title: 'ソウル',
   tags: ['海外', 'アジア', '韓国', 'グルメ', 'ショッピング', 'K-POP'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg',
   overview: '韓国の首都。K-POPや韓国ドラマブームで日本からの観光客に人気。歴史ある宮殿・伝統市場から最新トレンドの街まで多彩な顔を持つ都市。',
   access: '東京から直行便で約2時間30分。仁川国際空港から市内へはARRPで約45分。',
   highlights: ['景福宮（朝鮮王朝の王宮）', '明洞（ショッピング・グルメ）', '弘大（ホンデ・若者の街）', '北村韓屋村（伝統家屋の街並み）', '南山タワー（ソウルタワー）', '東大門デザインプラザ（DDP）'],
@@ -646,6 +685,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'その他', title: 'ニューヨーク',
   tags: ['海外', 'アメリカ', 'エンターテインメント', '芸術・文化', 'グルメ'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg/960px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg',
   overview: 'アメリカ最大の都市であり、世界の文化・経済・芸術の中心地のひとつ。ブロードウェイミュージカル・世界的美術館・多様な食文化と、24時間眠らない街のエネルギーが魅力。',
   access: '東京から直行便で約13時間。JFKまたはニューアーク空港から市内へはAirTrain+地下鉄で約1時間。',
   highlights: ['自由の女神（フェリーで渡島）', 'セントラルパーク', 'メトロポリタン美術館（MET）', 'ブロードウェイミュージカル', 'タイムズスクエア', 'ブルックリン橋', 'マンハッタンの夜景'],
@@ -656,6 +696,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'その他', title: 'ハワイ（ホノルル）',
   tags: ['海外', 'アメリカ', 'リゾート', '自然', 'グルメ', 'ショッピング'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/2022_Views_from_Diamond_Head_02.jpg/960px-2022_Views_from_Diamond_Head_02.jpg',
   overview: '太平洋に浮かぶ楽園。温暖な気候・美しいビーチ・独自のハワイアン文化が世界中の旅行者を魅了する。日本から最も人気の海外リゾート地のひとつ。',
   access: '東京から直行便で約7〜8時間。ダニエル・K・イノウエ国際空港からワイキキへはバスまたはタクシーで約20〜30分。',
   highlights: ['ワイキキビーチ（サーフィン・水遊び）', 'ダイヤモンドヘッドトレイル（早朝ハイキング）', 'パールハーバー記念館', 'ポリネシア文化センター', 'ノースショアの波（冬季）', 'マウイ島（ハレアカラ山）'],
@@ -666,6 +707,7 @@ travel({
 travel({
   folder: '海外', subfolder: 'その他', title: 'シドニー',
   tags: ['海外', 'オーストラリア', '自然', '都市', 'リゾート'],
+  photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg',
   overview: 'オーストラリア最大の都市。オペラハウスやハーバーブリッジを中心とした美しい港湾都市で、多文化社会とアウトドアライフスタイルが融合する。',
   access: '東京から直行便で約9〜10時間。シドニー国際空港から市内へはトレインで約15分。',
   highlights: ['シドニー・オペラハウス（世界遺産）', 'ハーバーブリッジクライム（有料体験）', 'ボンダイビーチ（サーファーの聖地）', 'タロンガ動物園（コアラ・カンガルー）', 'ブルーマウンテンズ国立公園（日帰り）', 'ダーリングハーバー'],

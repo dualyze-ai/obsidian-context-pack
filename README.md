@@ -22,13 +22,23 @@ Both features run the same formatter: frontmatter is removed, wikilinks are reso
 
 ## Try it with sample data
 
-Three pre-built Context Packs are included so you can test NotebookLM import immediately — no vault setup required.
+Six pre-built Context Packs are included so you can test NotebookLM import immediately — no vault setup required.
+
+**English**
 
 | Pack | Notes | Download |
 |---|---|---|
-| 🍳 Japanese recipes | 20 notes | [pack-recipes.md](samples/output/pack-recipes.md) |
+| 🍳 Recipes | 20 notes | [pack-recipes.md](samples/output/pack-recipes.md) |
 | ✈️ Travel notes | 20 notes | [pack-travel.md](samples/output/pack-travel.md) |
 | 📚 Book summaries | 20 notes | [pack-books.md](samples/output/pack-books.md) |
+
+**日本語**
+
+| パック | ノート数 | ダウンロード |
+|---|---|---|
+| 🍳 レシピ集 | 20件 | [pack-recipes-jp.md](samples/output/pack-recipes-jp.md) |
+| ✈️ 旅行記録 | 20件 | [pack-travel-jp.md](samples/output/pack-travel-jp.md) |
+| 📚 読書メモ | 20件 | [pack-books-jp.md](samples/output/pack-books-jp.md) |
 
 **How to use:**
 1. Download a `.md` file from the links above
@@ -39,19 +49,29 @@ Three pre-built Context Packs are included so you can test NotebookLM import imm
    - *"Recommend highlights for a trip to Europe"* (travel)
    - *"Summarize the best books for startups"* (books)
 
-The sample vault source files are in [`samples/vault/`](samples/vault/).
+The sample vault source files are in [`samples/vault/`](samples/vault/) (English) and [`samples/vault-jp/`](samples/vault-jp/) (Japanese).
 
 ---
 
 ## サンプルデータで試す
 
-すぐにNotebookLMへのインポートを試せるContext Packを3つ用意しています。
+すぐにNotebookLMへのインポートを試せるContext Packを用意しています。
+
+**日本語**
 
 | パック | ノート数 | ダウンロード |
 |---|---|---|
-| 🍳 料理レシピ | 20件 | [pack-recipes.md](samples/output/pack-recipes.md) |
-| ✈️ 旅行記録 | 20件 | [pack-travel.md](samples/output/pack-travel.md) |
-| 📚 読書メモ | 20件 | [pack-books.md](samples/output/pack-books.md) |
+| 🍳 料理レシピ | 20件 | [pack-recipes-jp.md](samples/output/pack-recipes-jp.md) |
+| ✈️ 旅行記録 | 20件 | [pack-travel-jp.md](samples/output/pack-travel-jp.md) |
+| 📚 読書メモ | 20件 | [pack-books-jp.md](samples/output/pack-books-jp.md) |
+
+**English**
+
+| Pack | Notes | Download |
+|---|---|---|
+| 🍳 Recipes | 20 notes | [pack-recipes.md](samples/output/pack-recipes.md) |
+| ✈️ Travel notes | 20 notes | [pack-travel.md](samples/output/pack-travel.md) |
+| 📚 Book summaries | 20 notes | [pack-books.md](samples/output/pack-books.md) |
 
 **使い方：**
 1. 上記リンクから `.md` ファイルをダウンロード
@@ -62,7 +82,7 @@ The sample vault source files are in [`samples/vault/`](samples/vault/).
    - *「ヨーロッパ旅行のおすすめスポットは？」*（旅行）
    - *「スタートアップに役立つ本をまとめて」*（読書）
 
-サンプルVaultのソースファイルは [`samples/vault/`](samples/vault/) にあります。
+サンプルVaultのソースファイルは [`samples/vault/`](samples/vault/)（英語）・[`samples/vault-jp/`](samples/vault-jp/)（日本語）にあります。
 
 ---
 
