@@ -69,7 +69,10 @@ function normalizeTags(raw: unknown): string[] {
 }
 
 function stripEmbeds(text: string): string {
-  return text.replace(/!\[\[.*?\]\]/g, '');
+  // Strip Obsidian embeds ![[...]] and external markdown images ![alt](url)
+  return text
+    .replace(/!\[\[.*?\]\]/g, '')
+    .replace(/!\[.*?\]\(https?:\/\/[^)]+\)/g, '');
 }
 
 function resolveWikiLinks(text: string): string {

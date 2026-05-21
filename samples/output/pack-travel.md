@@ -1,4 +1,4 @@
-# Context Pack: 旅行記録
+# Context Pack: Travel Notes
 
 Generated: 2026-05-21
 
@@ -8,730 +8,770 @@ Notes: 20
 
 ---
 
-## 別府
-📁 travel/国内/九州
+## Furano
+📁 travel/Domestic/Hokkaido
 
-# 別府
+# Furano
 
-## 概要
+![Furano](https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg/960px-%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg)
 
-日本一の源泉数と湧出量を誇る温泉都市。「地獄めぐり」として知られる個性豊かな温泉群が観光名所。市内のいたるところで湯けむりが上がる光景は別府ならでは。
+## Overview
 
-## アクセス
+Located in central Hokkaido, Furano's rolling hills burst into vivid purple lavender fields each July, drawing visitors from around the world. In winter, it's one of Japan's premier ski resorts.
 
-大分空港からバスで約60分。博多から特急ソニックで約2時間。別府駅が拠点。
+## Access
 
-## 見どころ
+About 2 hours from Sapporo on the seasonal Furano Lavender Express (summer only). About 1 hour by car from Asahikawa. Rental car is the most convenient.
 
-- 別府地獄めぐり（血の池地獄・海地獄など7か所）
-- 別府温泉・鉄輪温泉の共同浴場
-- 竹瓦温泉（大正ロマン）
-- 高崎山自然動物園
-- 由布院（車で約30分）
+## Highlights
 
-## グルメ・食事
+- Farm Tomita lavender fields (peak in July)
+- Rainbow fields of seasonal flowers
+- Views of the Tokachidake mountain range
+- Shirogane Blue Pond (Biei)
+- Filming locations from drama "Kita no Kuni Kara"
 
-- 地獄蒸し料理（温泉の蒸気で調理）
-- とり天（大分名物）
-- だんご汁
-- 関サバ・関アジ
-- 別府冷麺
+## Food & Dining
 
-## メモ・アドバイス
+- Furano melon
+- Lavender soft-serve ice cream
+- Furano Burger
+- Local vegetable buffet
+- Furano wine
 
-地獄めぐりは共通観覧券（2,200円）がお得。別府八湯温泉道で88か所の温泉を制覇するのが地元の楽しみ方。
+## Tips & Advice
 
----
-
-## 長崎
-📁 travel/国内/九州
-
-# 長崎
-
-## 概要
-
-江戸時代に唯一外国との交易が許された港町。中国・オランダ・ポルトガルの文化が混じり合う独特の歴史と文化を持つ。世界遺産の軍艦島や平和公園も有名。
-
-## アクセス
-
-東京から飛行機で約1時間50分。博多から特急かもめで約2時間（西九州新幹線開通後は短縮）。
-
-## 見どころ
-
-- グラバー園（世界文化遺産）
-- 軍艦島（端島）ツアー
-- 平和公園・原爆資料館
-- 稲佐山の夜景
-- 出島
-- ランタンフェスティバル（2月）
-
-## グルメ・食事
-
-- ちゃんぽん
-- 皿うどん
-- トルコライス
-- カステラ（福砂屋・文明堂）
-- 角煮まん（岩崎本舗）
-
-## メモ・アドバイス
-
-軍艦島ツアーは天候により上陸不可の場合あり、事前予約必須。路面電車（1乗車140円）が便利。
+Lavender peaks mid-July. Cycling is possible but distances are significant — a rental car is most efficient.
 
 ---
 
-## 函館
-📁 travel/国内/北海道
+## Hakodate
+📁 travel/Domestic/Hokkaido
 
-# 函館
+# Hakodate
 
-## 概要
+![Hakodate](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hakodate-panorama.jpg/960px-Hakodate-panorama.jpg)
 
-北海道南端に位置する港町。世界三大夜景のひとつに数えられる函館山からの夜景と、新鮮な海産物が有名。幕末・明治期の洋風建築が残る異国情緒あふれる街。
+## Overview
 
-## アクセス
+A port city at the southern tip of Hokkaido, famous for one of the world's top three night views from Mt. Hakodate and an abundance of fresh seafood. Colonial-era Western architecture gives it a unique charm.
 
-東京から新幹線（北海道新幹線）で約4時間。飛行機では約1時間20分。函館空港からは市内まで約20分。
+## Access
 
-## 見どころ
+About 4 hours from Tokyo by Shinkansen (Hokkaido Shinkansen). About 1h 20min by plane. About 20 min from Hakodate Airport to the city center.
 
-- 函館山の夜景（日暮れ後が絶景）
-- 元町エリアの洋風建築群
-- 五稜郭と五稜郭タワー
-- 朝市（海鮮丼・いか刺し）
-- トラピスチヌ修道院
+## Highlights
 
-## グルメ・食事
+- Night view from Mt. Hakodate (go at dusk)
+- Motomachi Western-style architecture district
+- Goryokaku fortress and tower
+- Morning Market (seafood donburi and squid sashimi)
+- Trappistine Convent
 
-- 函館朝市の海鮮丼
-- いかめし
-- 塩ラーメン（あっさり系）
-- ラッキーピエロのチャイニーズチキンバーガー
-- ハセガワストアの焼き鳥弁当
+## Food & Dining
 
-## メモ・アドバイス
+- Seafood donburi at the morning market
+- Squid dishes (ikameshi)
+- Shio ramen (light salt broth)
+- Lucky Pierrot's Chinese Chicken Burger
+- Hasegawa Store's grilled chicken bento
 
-ロープウェイは混雑するため早めの整理券取得を。夜景は天気の良い日に。JRパス北海道利用でお得に移動できる。
+## Tips & Advice
 
----
-
-## 富良野
-📁 travel/国内/北海道
-
-# 富良野
-
-## 概要
-
-北海道のほぼ中央に位置する農業地帯。夏には一面のラベンダー畑が広がり、丘陵地帯の美しい景観が国内外から観光客を集める。冬はスキーリゾートとしても有名。
-
-## アクセス
-
-札幌から特急フラノラベンダーエクスプレス（夏季限定）で約2時間。旭川からは車で約1時間。レンタカーが便利。
-
-## 見どころ
-
-- ファーム富田のラベンダー畑（7月が見頃）
-- 彩の畑（カラフルな花畑）
-- 十勝岳連峰の眺望
-- 白金青い池（美瑛）
-- ドラマ「北の国から」ロケ地
-
-## グルメ・食事
-
-- 富良野メロン
-- ラベンダーソフトクリーム
-- フラノバーガー
-- 地元野菜のビュッフェ
-- 富良野ワイン
-
-## メモ・アドバイス
-
-ラベンダーの見頃は7月中旬。レンタサイクルでも回れるが距離があるためレンタカーが効率的。
+The ropeway gets very busy — grab a timed ticket early. Night views are best on clear days. The JR Hokkaido Pass is good value for getting around.
 
 ---
 
-## 日光
-📁 travel/国内/関東
+## Kyoto
+📁 travel/Domestic/Kansai
 
-# 日光
+# Kyoto
 
-## 概要
+![Kyoto](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/960px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg)
 
-栃木県北部に位置する日光は、徳川家康を祀る日光東照宮を中心とした世界遺産の地。豊かな自然の中に荘厳な建造物が点在し、四季折々の美しい景観を楽しめる。
+## Overview
 
-## アクセス
+Japan's ancient imperial capital for over a millennium. Seventeen UNESCO World Heritage Sites, traditional geisha culture, and some of Japan's finest cuisine make it unmissable.
 
-東武日光線「特急スペーシア」で浅草から約2時間。JR日光線では宇都宮から約45分。東武日光駅・JR日光駅が拠点。
+## Access
 
-## 見どころ
+About 2h 15min from Tokyo by Shinkansen (Nozomi). 30–45 min from Osaka by JR, Hankyu, or Kintetsu. Kyoto Station is the main hub.
 
-- 日光東照宮（世界遺産）
-- 陽明門（日本一豪華とも言われる彫刻）
-- 華厳の滝（日本三名瀑）
-- 中禅寺湖
-- 戦場ヶ原（ハイキング）
-- 竜頭の滝
+## Highlights
 
-## グルメ・食事
+- Kinkaku-ji (Golden Pavilion)
+- Arashiyama bamboo grove
+- Fushimi Inari Taisha (thousands of torii gates)
+- Kiyomizu-dera
+- Gion & Hanamikoji (geisha district)
+- Philosopher's Path (cherry blossoms & autumn leaves)
+- Nijo Castle
 
-- 湯葉料理（日光の名物）
-- 日光揚げゆば
-- ゆばとそばのセット
-- 日光甚五郎煎餅
-- 日光牛乳
+## Food & Dining
 
-## メモ・アドバイス
+- Yudofu (hot tofu, near Nanzenji)
+- Kaiseki multi-course cuisine
+- Nishiki Market street food
+- Matcha sweets
+- Obanzai (Kyoto home-style cuisine)
 
-紅葉シーズン（10月中旬〜11月初旬）は非常に混雑。世界遺産エリアは歩いて回れるが、中禅寺湖方面はバス利用が必要。
+## Tips & Advice
 
----
-
-## 箱根
-📁 travel/国内/関東
-
-# 箱根
-
-## 概要
-
-神奈川県西部に位置する温泉リゾート地。富士山の眺望と豊かな自然、多彩な温泉施設が自慢。日帰りから宿泊まで様々なスタイルで楽しめる。
-
-## アクセス
-
-新宿から小田急ロマンスカーで約85分（箱根湯本まで）。東京から東海道新幹線で小田原まで約35分、小田急に乗り換え。
-
-## 見どころ
-
-- 芦ノ湖と富士山の眺望
-- 箱根ロープウェイ（大涌谷）
-- 彫刻の森美術館
-- 箱根神社
-- 箱根湯本温泉街
-- 仙石原のすすき草原（秋）
-
-## グルメ・食事
-
-- 黒たまご（大涌谷名物）
-- 箱根湯本温泉街の和菓子
-- 山のホテルのアフタヌーンティー
-- 地元野菜を使った山里料理
-
-## メモ・アドバイス
-
-フリーパス（箱根周遊パス）がエリア内の乗り物に乗り放題でお得。週末は渋滞するため電車利用がベター。
+Spring (cherry blossoms, March–April) and autumn (foliage, November) bring crowds and high hotel prices. A bus/subway day pass is convenient. Don't miss Gion Matsuri in July.
 
 ---
 
-## 鎌倉
-📁 travel/国内/関東
+## Nara
+📁 travel/Domestic/Kansai
 
-# 鎌倉
+# Nara
 
-## 概要
+![Nara](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nara_Park_-_panoramio_%282%29.jpg/960px-Nara_Park_-_panoramio_%282%29.jpg)
 
-鎌倉は神奈川県南部に位置する歴史的な都市。鎌倉幕府が置かれた地として知られ、多くの寺院・神社が点在する。海と山に囲まれた豊かな自然の中で、歴史と観光を楽しめる人気スポット。
+## Overview
 
-## アクセス
+Japan's ancient capital from 710–784 AD. Nara Park's freely roaming deer share the grounds with some of Japan's oldest and most magnificent temples.
 
-東京駅からJR横須賀線で約1時間。湘南新宿ラインも利用可。鎌倉駅が主要なアクセス拠点。
+## Access
 
-## 見どころ
+About 35–45 min from Kyoto by Kintetsu or JR. About 35 min from Osaka by Kintetsu. Nara and Kintetsu-Nara Stations are the main entry points.
 
-- 高徳院の鎌倉大仏（国宝）
-- 鶴岡八幡宮
-- 北鎌倉エリアの円覚寺・建長寺
-- 長谷寺のアジサイ（6月）
-- 鎌倉アルプスハイキングコース
-- 由比ガ浜・材木座海岸
+## Highlights
 
-## グルメ・食事
+- Todai-ji Great Buddha Hall (National Treasure & UNESCO)
+- Deer in Nara Park
+- Kasuga Grand Shrine (UNESCO)
+- Kofuku-ji Five-Story Pagoda
+- Gango-ji Temple
+- Naramachi historic district
 
-- しらす丼（江ノ島・鎌倉の名物）
-- 鳩サブレー（豊島屋）
-- 和スイーツ・抹茶スイーツが豊富
-- 小町通りのグルメ食べ歩き
+## Food & Dining
 
-## メモ・アドバイス
+- Kakinoha-zushi (mackerel sushi wrapped in persimmon leaf)
+- Miwa somen noodles
+- Nara-zuke pickles
+- Mitarashi dango (near Nara Park)
+- Daibutsu Pudding
 
-週末は非常に混雑するため、平日訪問がおすすめ。紫陽花シーズン（6月）と紅葉シーズン（11〜12月）は特に人気。江ノ電パスがお得。
+## Tips & Advice
 
----
-
-## 京都
-📁 travel/国内/関西
-
-# 京都
-
-## 概要
-
-日本を代表する古都。794年に平安京として開かれて以来、千年以上にわたって都として栄えた。17件のユネスコ世界文化遺産を有し、日本の伝統文化が色濃く残る。
-
-## アクセス
-
-東京から新幹線（のぞみ）で約2時間15分。大阪からはJR・阪急・近鉄で30〜45分。京都駅が主要拠点。
-
-## 見どころ
-
-- 金閣寺（鹿苑寺）
-- 嵐山・竹林の道
-- 伏見稲荷大社（千本鳥居）
-- 清水寺
-- 祇園・花見小路
-- 哲学の道（桜・紅葉）
-- 二条城
-
-## グルメ・食事
-
-- 湯豆腐（南禅寺周辺）
-- 京懐石料理
-- 錦市場の食べ歩き
-- 抹茶スイーツ
-- おばんざい定食
-
-## メモ・アドバイス
-
-春（3〜4月桜）と秋（11月紅葉）は宿泊費が高騰・混雑。バス・地下鉄1日乗車券が便利。祇園祭（7月）は必見。
+The main sights are walkable. Deer crackers (¥150) are irresistible to the deer. Early morning at Todai-ji is quiet and magical.
 
 ---
 
-## 大阪
-📁 travel/国内/関西
+## Osaka
+📁 travel/Domestic/Kansai
 
-# 大阪
+# Osaka
 
-## 概要
+![Osaka](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Osaka_Castle_03bs3200.jpg/960px-Osaka_Castle_03bs3200.jpg)
 
-「食い倒れの街」として知られる関西の中心都市。庶民的なグルメ文化と活気あふれる街並みが特徴。ユニバーサル・スタジオ・ジャパンや道頓堀など見どころ多数。
+## Overview
 
-## アクセス
+Japan's kitchen — a lively metropolis known for its street food culture, down-to-earth locals, and non-stop entertainment. Also home to Universal Studios Japan.
 
-東京から新幹線（のぞみ）で約2時間30分。新大阪駅が新幹線の拠点。梅田・難波が主要エリア。
+## Access
 
-## 見どころ
+About 2h 30min from Tokyo by Shinkansen (Nozomi). Shin-Osaka Station is the Shinkansen hub. Umeda and Namba are the main entertainment districts.
 
-- 道頓堀（グリコサイン・戎橋）
-- 大阪城
-- ユニバーサル・スタジオ・ジャパン
-- 黒門市場
-- 新世界・通天閣
-- 心斎橋・アメリカ村
+## Highlights
 
-## グルメ・食事
+- Dotonbori (Glico sign, Ebisu Bridge)
+- Osaka Castle
+- Universal Studios Japan
+- Kuromon Market (Osaka's Kitchen)
+- Shinsekai & Tsutenkaku Tower
+- Shinsaibashi & Amerika-mura
 
-- たこ焼き
-- 串カツ（新世界）
-- お好み焼き
-- かに道楽
-- 551蓬莱の豚まん
-- ラーメン（金龍ラーメンほか）
+## Food & Dining
 
-## メモ・アドバイス
+- Takoyaki (octopus balls)
+- Kushikatsu (Shinsekai-style skewers)
+- Okonomiyaki (savory pancakes)
+- Kani Doraku crab cuisine
+- 551 Horai pork buns
+- Kinryu Ramen
 
-ICOCAが関西の交通系ICカードとして便利。大阪周遊パスもお得。食べ歩きは道頓堀・黒門市場がおすすめ。
+## Tips & Advice
 
----
-
-## 奈良
-📁 travel/国内/関西
-
-# 奈良
-
-## 概要
-
-710年〜784年に奈良時代の都として栄えた古都。東大寺・春日大社など世界遺産の寺社が集まり、奈良公園では野生の鹿が闊歩する独特の景観で知られる。
-
-## アクセス
-
-京都から近鉄・JRで約35〜45分。大阪からは近鉄で約35分。奈良駅・近鉄奈良駅が拠点。
-
-## 見どころ
-
-- 東大寺大仏殿（国宝・世界遺産）
-- 奈良公園の鹿
-- 春日大社（世界遺産）
-- 興福寺・五重塔
-- 元興寺
-- ならまち（古い街並み）
-
-## グルメ・食事
-
-- 柿の葉寿司
-- 三輪そうめん
-- 奈良漬け
-- みたらし団子（奈良公園周辺）
-- 大仏プリン
-
-## メモ・アドバイス
-
-奈良公園は歩いて主要スポットを回れる。鹿せんべい（150円）は鹿に大人気。早朝の東大寺周辺は静かで幻想的。
+ICOCA is the handy IC transit card for the Kansai region. The Osaka Amazing Pass offers great value. Dotonbori and Kuromon Market are the best street food zones.
 
 ---
 
-## シドニー
-📁 travel/海外/その他
+## Hakone
+📁 travel/Domestic/Kanto
 
-# シドニー
+# Hakone
 
-## 概要
+![Hakone](https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/260505_Moto-Hakone_Hakone_Japan01s3.jpg/960px-260505_Moto-Hakone_Hakone_Japan01s3.jpg)
 
-オーストラリア最大の都市。オペラハウスやハーバーブリッジを中心とした美しい港湾都市で、多文化社会とアウトドアライフスタイルが融合する。
+## Overview
 
-## アクセス
+A popular hot spring resort west of Tokyo with sweeping views of Mt. Fuji over Lake Ashi. Easily accessible from Tokyo, it offers everything from art museums to cable cars.
 
-東京から直行便で約9〜10時間。シドニー国際空港から市内へはトレインで約15分。
+## Access
 
-## 見どころ
+About 85 min from Shinjuku on the Odakyu Romance Car to Hakone-Yumoto. About 35 min from Tokyo to Odawara by Shinkansen, then transfer to Odakyu.
 
-- シドニー・オペラハウス（世界遺産）
-- ハーバーブリッジクライム（有料体験）
-- ボンダイビーチ（サーファーの聖地）
-- タロンガ動物園（コアラ・カンガルー）
-- ブルーマウンテンズ国立公園（日帰り）
-- ダーリングハーバー
+## Highlights
 
-## グルメ・食事
+- Lake Ashi with Mt. Fuji view
+- Hakone Ropeway (Owakudani volcanic valley)
+- Hakone Open-Air Museum
+- Hakone Shrine
+- Hakone-Yumoto hot spring area
+- Sengokuhara pampas grass fields (autumn)
 
-- バラマンディ（オーストラリア産高級魚）
-- フィッシュ＆チップス
-- ブランチ文化（アボカドトースト・スムージーボウル）
-- ティムタム（チョコビスケット）
-- ラム肉料理
+## Food & Dining
 
-## メモ・アドバイス
+- Black eggs (Owakudani specialty)
+- Wagashi sweets in Hakone-Yumoto
+- Mountain Hotel afternoon tea
+- Farm-to-table mountain cuisine
 
-南半球のため季節が逆（12〜2月が夏）。オパールカード（交通系ICカード）がバス・フェリー・電車で使える。ビザ（ETA）の事前申請が必要。
+## Tips & Advice
 
----
-
-## ニューヨーク
-📁 travel/海外/その他
-
-# ニューヨーク
-
-## 概要
-
-アメリカ最大の都市であり、世界の文化・経済・芸術の中心地のひとつ。ブロードウェイミュージカル・世界的美術館・多様な食文化と、24時間眠らない街のエネルギーが魅力。
-
-## アクセス
-
-東京から直行便で約13時間。JFKまたはニューアーク空港から市内へはAirTrain+地下鉄で約1時間。
-
-## 見どころ
-
-- 自由の女神（フェリーで渡島）
-- セントラルパーク
-- メトロポリタン美術館（MET）
-- ブロードウェイミュージカル
-- タイムズスクエア
-- ブルックリン橋
-- マンハッタンの夜景
-
-## グルメ・食事
-
-- ニューヨークスタイルのピザ（1スライスで手軽に）
-- ベーグル（H&H Bagels）
-- クラムチャウダー
-- チーズバーガー（Shake Shack）
-- エッグベネディクト
-- ドーナツ（Doughnut Plant）
-
-## メモ・アドバイス
-
-チップ文化（レストランは15〜20%）に慣れること。地下鉄は24時間運行。ESTA申請を事前に忘れずに（約21ドル）。
+The Hakone Free Pass covers unlimited travel on all area transport — great value. Weekend road traffic is heavy; train travel is recommended.
 
 ---
 
-## ハワイ（ホノルル）
-📁 travel/海外/その他
+## Kamakura
+📁 travel/Domestic/Kanto
 
-# ハワイ（ホノルル）
+# Kamakura
 
-## 概要
+![Kamakura](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/TsurugaokaHachiman-M8867.jpg/960px-TsurugaokaHachiman-M8867.jpg)
 
-太平洋に浮かぶ楽園。温暖な気候・美しいビーチ・独自のハワイアン文化が世界中の旅行者を魅了する。日本から最も人気の海外リゾート地のひとつ。
+## Overview
 
-## アクセス
+A coastal historic city south of Tokyo, once the seat of Japan's first shogunate government. Temples, shrines, and hiking trails are set against a backdrop of sea and mountains.
 
-東京から直行便で約7〜8時間。ダニエル・K・イノウエ国際空港からワイキキへはバスまたはタクシーで約20〜30分。
+## Access
 
-## 見どころ
+About 1 hour from Tokyo Station via JR Yokosuka Line. Also accessible via Shonan-Shinjuku Line. Kamakura Station is the main hub.
 
-- ワイキキビーチ（サーフィン・水遊び）
-- ダイヤモンドヘッドトレイル（早朝ハイキング）
-- パールハーバー記念館
-- ポリネシア文化センター
-- ノースショアの波（冬季）
-- マウイ島（ハレアカラ山）
+## Highlights
 
-## グルメ・食事
+- Kotoku-in Great Buddha (National Treasure)
+- Tsurugaoka Hachimangu Shrine
+- Kita-Kamakura temples: Engaku-ji & Kencho-ji
+- Hase-dera in hydrangea season (June)
+- Kamakura Alps hiking trails
+- Yuigahama & Zaimokuza beaches
 
-- ロコモコ
-- ポキ丼
-- マラサダ（Leonard's Bakery）
-- ガーリックシュリンプ（ノースショア）
-- ハワイアンピザ
-- コナコーヒー
+## Food & Dining
 
-## メモ・アドバイス
+- Shirasu-don (whitebait rice bowl)
+- Hato Sable cookies (Toyoshimaya)
+- Matcha and wagashi sweets
+- Street food along Komachi-dori
 
-ESTA申請（21ドル）が必要。日焼け止めはオアフ州のサンゴ礁保護のため「リーフセーフ」対応品を。ABCストアが24時間便利。
+## Tips & Advice
 
----
-
-## ソウル
-📁 travel/海外/アジア
-
-# ソウル
-
-## 概要
-
-韓国の首都。K-POPや韓国ドラマブームで日本からの観光客に人気。歴史ある宮殿・伝統市場から最新トレンドの街まで多彩な顔を持つ都市。
-
-## アクセス
-
-東京から直行便で約2時間30分。仁川国際空港から市内へはARRPで約45分。
-
-## 見どころ
-
-- 景福宮（朝鮮王朝の王宮）
-- 明洞（ショッピング・グルメ）
-- 弘大（ホンデ・若者の街）
-- 北村韓屋村（伝統家屋の街並み）
-- 南山タワー（ソウルタワー）
-- 東大門デザインプラザ（DDP）
-
-## グルメ・食事
-
-- サムギョプサル（豚バラ焼き）
-- ビビンバ
-- テッカルビ
-- 韓国チキン＆ビール（チメク）
-- トッポッキ
-- 冷麺
-- チーズハットグ
-
-## メモ・アドバイス
-
-T-money（交通系ICカード）が地下鉄・バスで使えて便利。ビザなしで90日まで滞在可。両替は市内の換金所がレートが良い。
+Weekdays are far less crowded. Hydrangea season (June) and autumn foliage (Nov–Dec) are peak. The Enoden day pass is great value.
 
 ---
 
-## バリ島
-📁 travel/海外/アジア
+## Nikko
+📁 travel/Domestic/Kanto
 
-# バリ島
+# Nikko
 
-## 概要
+![Nikko](https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg/960px-200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg)
 
-インドネシアの観光島。ヒンドゥー文化が根付いた「神々の島」として知られ、美しいビーチ・棚田の絶景・芸術文化が楽しめる世界的なリゾート地。
+## Overview
 
-## アクセス
+A UNESCO World Heritage Site in northern Tochigi, centered on Nikko Tosho-gu, the ornate mausoleum of Tokugawa Ieyasu. Stunning nature surrounds the elaborate Edo-period architecture.
 
-東京から直行便で約7時間。ングラ・ライ国際空港から主要エリアへはタクシーで20〜60分（渋滞あり）。
+## Access
 
-## 見どころ
+About 2 hours from Asakusa on the Tobu Nikko Limited Express Spacia. About 45 min from Utsunomiya on the JR Nikko Line.
 
-- ウブドの棚田（テガラランなど）
-- タナロット寺院（海上の寺院・夕暮れが絶景）
-- クタビーチ・スミニャックビーチ
-- バリヒンドゥーの儀式・オゴオゴ（3月）
-- ウブドの芸術村
-- コーヒー農園（ルアクコーヒー体験）
+## Highlights
 
-## グルメ・食事
+- Nikko Tosho-gu (UNESCO)
+- Yomeimon Gate (spectacularly ornate carvings)
+- Kegon Falls (one of Japan's Top 3 waterfalls)
+- Lake Chuzenji
+- Senjogahara marshland (hiking)
+- Ryuzu Falls
 
-- ナシゴレン（炒飯）
-- ミーゴレン（焼きそば）
-- バビグリン（豚の丸焼き）
-- サテ（串焼き）
-- スモークダック
-- フレッシュフルーツジュース
+## Food & Dining
 
-## メモ・アドバイス
+- Yuba (tofu skin) cuisine — a Nikko specialty
+- Nikko-age yuba
+- Yuba and soba set meals
+- Nikko Jingorō senbei crackers
+- Nikko milk
 
-エリアによって雰囲気が異なる（ウブド＝文化・芸術、クタ＝賑やか、スミニャック＝おしゃれ）。レンタバイクは交通事故に注意。
+## Tips & Advice
 
----
-
-## バンコク
-📁 travel/海外/アジア
-
-# バンコク
-
-## 概要
-
-タイの首都。「微笑みの国」タイの中心都市で、王宮・寺院などの伝統文化と近代的なショッピングモールが共存する。屋台グルメが充実し、物価も安く旅行者に人気。
-
-## アクセス
-
-東京から直行便で約7時間。スワンナプーム国際空港から市内へはエアポートリンクで約30分。
-
-## 見どころ
-
-- 王宮・エメラルド寺院（ワット・プラケオ）
-- ワット・ポー（巨大寝釈迦仏）
-- ワット・アルン（暁の寺）
-- カオサン通り
-- チャトゥチャック週末市場
-- チャオプラヤー川のクルーズ
-
-## グルメ・食事
-
-- パッタイ（タイ風焼きそば）
-- トムヤムクン
-- グリーンカレー
-- カオマンガイ
-- マンゴースティッキーライス
-- 屋台のシーフード
-
-## メモ・アドバイス
-
-雨季（5〜10月）は突然のスコールあり。寺院訪問時は肌を覆う服装必須。タクシーはメーター使用を確認。
+Autumn foliage (mid-Oct to early Nov) is spectacular but extremely crowded. A bus is needed for the Chuzenji Lake area.
 
 ---
 
-## 台北
-📁 travel/海外/アジア
+## Beppu
+📁 travel/Domestic/Kyushu
 
-# 台北
+# Beppu
 
-## 概要
+![Beppu](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Beppu_Montage_2.jpg/960px-Beppu_Montage_2.jpg)
 
-台湾の首都。日本と文化的に近く、親日的な国民性で旅行しやすい。夜市文化・台湾料理・温泉と多彩な楽しみ方ができ、日本からのアクセスも良好。
+## Overview
 
-## アクセス
+Japan's undisputed hot spring capital — more sources and greater output than anywhere else in the country. Steam rises from streets and alleyways throughout this unique city.
 
-東京から直行便で約3時間30分。桃園国際空港から市内へはMRTで約35分。
+## Access
 
-## 見どころ
+About 60 min by bus from Oita Airport. About 2 hours from Hakata by the limited express Sonic. Beppu Station is the main hub.
 
-- 台北101（展望台）
-- 故宮博物院（中国4000年の至宝）
-- 九份（ノスタルジックな山の街）
-- 士林夜市・寧夏夜市
-- 龍山寺
-- 猫空のロープウェイ
+## Highlights
 
-## グルメ・食事
+- Beppu Hell Tour (Umi Jigoku, Chi-no-Ike Jigoku, and 5 more)
+- Communal baths in Beppu and Kannawa onsen areas
+- Takegawara Onsen (Meiji-era bathhouse)
+- Takasakiyama Natural Animal Park (wild monkeys)
+- Yufuin (30 min by car)
 
-- 小籠包（鼎泰豊など）
-- 牛肉麺
-- 珍珠奶茶（タピオカミルクティー）
-- ルーロー飯
-- 胡椒餅
-- 臭豆腐（挑戦してみよう）
+## Food & Dining
 
-## メモ・アドバイス
+- Jigoku Mushi (food steamed in natural hot spring vapor)
+- Tori-ten (deep-fried chicken)
+- Dango-jiru (miso soup with flat dumplings)
+- Seki-saba & Seki-aji (premium mackerel and horse mackerel)
+- Beppu cold noodles (reimen)
 
-MRT（地下鉄）が便利で安全。悠遊カードがICカードとして交通・コンビニで使える。日本語が通じることも多い。
+## Tips & Advice
 
----
-
-## バルセロナ
-📁 travel/海外/ヨーロッパ
-
-# バルセロナ
-
-## 概要
-
-スペイン・カタルーニャ州の州都。ガウディ建築で世界的に有名で、地中海に面したビーチと美食文化を持つ活気ある都市。フラメンコよりサルサが盛んなバルセロナ独自の文化がある。
-
-## アクセス
-
-東京からマドリードか直行便で約13〜14時間。バルセロナ・エル・プラット空港から市内へは約30分。
-
-## 見どころ
-
-- サグラダ・ファミリア（ガウディ設計・2026年完成予定）
-- グエル公園
-- カサ・バトリョ
-- ランブラス通り
-- バルセロネータビーチ
-- カタルーニャ音楽堂
-
-## グルメ・食事
-
-- タパス（小皿料理）のはしご
-- パエリア（シーフード）
-- ピンチョス
-- カタルーニャ料理（エスカリバーダ）
-- サングリア
-- クレマ・カタラナ
-
-## メモ・アドバイス
-
-サグラダ・ファミリアは事前オンライン予約が必須。スリが多いため要注意。夜遅くまで賑わうバル文化を楽しんで。
+The Hell Tour combined ticket (¥2,200) is great value. The "Beppu Hatto Onsen-do" challenge — visiting 88 different baths — is how locals enjoy the city.
 
 ---
 
-## パリ
-📁 travel/海外/ヨーロッパ
+## Nagasaki
+📁 travel/Domestic/Kyushu
 
-# パリ
+# Nagasaki
 
-## 概要
+![Nagasaki](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg/960px-Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg)
 
-フランスの首都。「光の都」とも呼ばれ、世界屈指の芸術・ファッション・グルメの中心地。エッフェル塔やルーブル美術館など世界的に有名な観光スポットが集中する。
+## Overview
 
-## アクセス
+Japan's only open trading port during the Edo period, Nagasaki has a uniquely multicultural heritage shaped by Chinese, Dutch, and Portuguese influences. Home to Glover Garden and the moving Peace Memorial.
 
-東京から直行便で約14時間。シャルル・ド・ゴール空港からパリ中心部へはRERで約35分。
+## Access
 
-## 見どころ
+About 1h 50min by plane from Tokyo. About 2 hours from Hakata by limited express (reduced after the Nishi-Kyushu Shinkansen opened).
 
-- エッフェル塔（夜のライトアップが美しい）
-- ルーブル美術館（モナリザ・ミロのヴィーナス）
-- シャンゼリゼ通り
-- オルセー美術館（印象派コレクション）
-- モンマルトル・サクレクール寺院
-- ヴェルサイユ宮殿（近郊）
+## Highlights
 
-## グルメ・食事
+- Glover Garden (World Cultural Heritage)
+- Gunkanjima (Battleship Island) boat tour
+- Peace Park and Atomic Bomb Museum
+- Night view from Mt. Inasa
+- Dejima (Dutch Trading Post)
+- Lantern Festival (February)
 
-- クロワッサン・バゲット（近所のブランジェリーで）
-- エスカルゴ・フォアグラ
-- ステーキフリット
-- マカロン（ラデュレ）
-- クレープ（屋台）
-- ワインとチーズ
+## Food & Dining
 
-## メモ・アドバイス
+- Champon noodles
+- Sara udon (crispy noodles with toppings)
+- Toruko rice (a Nagasaki fusion dish)
+- Castella sponge cake (Fukusaya, Bunmeido)
+- Kakuni-man (braised pork bun)
 
-美術館はオンライン事前予約が必須。スリが多いため荷物管理に注意。メトロの1日パス・週間パスが移動に便利。
+## Tips & Advice
+
+Gunkanjima landings depend on weather and require advance booking. Streetcars (¥140 per ride) are the easiest way to get around.
 
 ---
 
-## ローマ
-📁 travel/海外/ヨーロッパ
+## Bali
+📁 travel/International/Asia
 
-# ローマ
+# Bali
 
-## 概要
+![Bali](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Tanah_Lot%2C_Bali%2C_Indonesia%2C_20220827_0957_1103.jpg/960px-Tanah_Lot%2C_Bali%2C_Indonesia%2C_20220827_0957_1103.jpg)
 
-「永遠の都」と呼ばれるイタリアの首都。2000年以上の歴史を持つ都市であり、コロッセオや Vatican などの世界遺産が街中に点在する野外博物館のような都市。
+## Overview
 
-## アクセス
+The Island of the Gods — Bali's Hindu culture, lush rice terraces, and world-class surf beaches make it one of the world's most beloved resort destinations.
 
-東京から直行便で約13時間。フィウミチーノ空港から市内へはレオナルド・エクスプレスで約30分。
+## Access
 
-## 見どころ
+About 7 hours direct from Tokyo. Taxi from Ngurah Rai International Airport to major areas takes 20–60 minutes depending on traffic.
 
-- コロッセオ（古代ローマの円形闘技場）
-- バチカン市国（サン・ピエトロ大聖堂・システィーナ礼拝堂）
-- トレビの泉（コインを投げる）
-- スペイン広場
-- パンテオン
-- フォロ・ロマーノ
+## Highlights
 
-## グルメ・食事
+- Tegallalang Rice Terraces (Ubud)
+- Tanah Lot Temple (sea temple at sunset)
+- Kuta & Seminyak beaches
+- Balinese Hindu ceremonies and Ogoh-ogoh (March)
+- Ubud artist villages
+- Kopi Luwak coffee plantation tours
 
-- ローマ風カルボナーラ（生クリームなし）
-- カチョエペペ
-- ピッツァ・マルゲリータ
-- ジェラート
-- スプリッツ（アペリティーボ）
-- ティラミス
+## Food & Dining
 
-## メモ・アドバイス
+- Nasi goreng (fried rice)
+- Mie goreng (fried noodles)
+- Babi guling (spit-roast suckling pig)
+- Satay skewers
+- Smoked duck (bebek betutu)
+- Fresh tropical fruit juices
 
-バチカン美術館・コロッセオは事前予約必須（現地は長蛇の列）。夏は暑いため午前中の観光がベター。
+## Tips & Advice
+
+Each area has a distinct vibe: Ubud = culture & wellness; Kuta = lively & surfy; Seminyak = stylish & upscale. Take care on rental scooters — traffic can be unpredictable.
+
+---
+
+## Bangkok
+📁 travel/International/Asia
+
+# Bangkok
+
+![Bangkok](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/01-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%A1%E0%B8%9A%E0%B8%9E%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%B8%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%A7%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%AB%E0%B8%B2%E0%B8%A3.jpg/960px-01-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%A1%E0%B8%9A%E0%B8%9E%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%B8%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%A7%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%AB%E0%B8%B2%E0%B8%A3.jpg)
+
+## Overview
+
+Thailand's electrifying capital — a city of ornate temples, chaotic markets, and some of the world's best street food. Affordable, accessible, and endlessly stimulating.
+
+## Access
+
+About 7 hours direct from Tokyo. Airport Rail Link from Suvarnabhumi Airport reaches central Bangkok in about 30 minutes.
+
+## Highlights
+
+- Grand Palace and Wat Phra Kaew (Temple of the Emerald Buddha)
+- Wat Pho (Giant Reclining Buddha)
+- Wat Arun (Temple of Dawn)
+- Khaosan Road (backpacker hub)
+- Chatuchak Weekend Market
+- Chao Phraya River cruise
+
+## Food & Dining
+
+- Pad Thai
+- Tom Yum Goong
+- Green curry
+- Khao Man Gai (chicken rice)
+- Mango sticky rice
+- Seafood at street stalls
+
+## Tips & Advice
+
+Rainy season (May–Oct) brings sudden downpours. Modest clothing required at temples. Always confirm the taxi meter is running.
+
+---
+
+## Seoul
+📁 travel/International/Asia
+
+# Seoul
+
+![Seoul](https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg)
+
+## Overview
+
+South Korea's dynamic capital blends Joseon-dynasty palaces with cutting-edge K-pop culture, street food lanes, and 24-hour nightlife. One of the closest foreign destinations from Japan.
+
+## Access
+
+About 2h 30min direct from Tokyo. AREX express train from Incheon Airport reaches Seoul Station in about 45 minutes.
+
+## Highlights
+
+- Gyeongbokgung Palace (Joseon era)
+- Myeongdong (shopping & street food)
+- Hongdae (student art & music scene)
+- Bukchon Hanok Village (traditional houses)
+- N Seoul Tower (Namsan)
+- Dongdaemun Design Plaza (DDP)
+
+## Food & Dining
+
+- Samgyeopsal (grilled pork belly)
+- Bibimbap
+- Tteok-galbi (short rib patties)
+- Korean fried chicken & beer (chimaek)
+- Tteokbokki (spicy rice cakes)
+- Naengmyeon (cold buckwheat noodles)
+- Cheese hot dog
+
+## Tips & Advice
+
+T-money card works on all subway and buses. No visa needed for stays up to 90 days. Money exchange in the city offers better rates than the airport.
+
+---
+
+## Taipei
+📁 travel/International/Asia
+
+# Taipei
+
+![Taipei](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Taipei_Skyline_2022.06.29.jpg/960px-Taipei_Skyline_2022.06.29.jpg)
+
+## Overview
+
+Taiwan's vibrant capital — Japan-friendly, affordable, and full of culinary surprises. Night markets, the National Palace Museum, and the mountain town of Jiufen make it a perfect short trip.
+
+## Access
+
+About 3h 30min direct from Tokyo. MRT from Taoyuan International Airport reaches central Taipei in about 35 minutes.
+
+## Highlights
+
+- Taipei 101 (observation deck)
+- National Palace Museum (4,000 years of Chinese treasures)
+- Jiufen (nostalgia-drenched hilltop town)
+- Shilin & Ningxia Night Markets
+- Longshan Temple
+- Maokong Gondola
+
+## Food & Dining
+
+- Xiaolongbao soup dumplings (Din Tai Fung)
+- Beef noodle soup
+- Bubble tea (boba)
+- Lu rou fan (braised pork rice)
+- Pepper buns
+- Stinky tofu (worth trying!)
+
+## Tips & Advice
+
+The MRT is safe, cheap, and efficient. The EasyCard works on all transit and at convenience stores. Japanese is often understood — locals are famously friendly.
+
+---
+
+## Barcelona
+📁 travel/International/Europe
+
+# Barcelona
+
+![Barcelona](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Aerial_view_of_Barcelona%2C_Spain_%2851227309370%29_edited.jpg/960px-Aerial_view_of_Barcelona%2C_Spain_%2851227309370%29_edited.jpg)
+
+## Overview
+
+Capital of Catalonia and home to Gaudí's extraordinary architecture. A vibrant Mediterranean city blending world-famous modernist buildings with a relaxed beach lifestyle and outstanding food.
+
+## Access
+
+About 13–14 hours from Tokyo via Madrid or direct. About 30 minutes from El Prat Airport to the city center.
+
+## Highlights
+
+- Sagrada Família (Gaudí's masterpiece — completion expected 2026)
+- Park Güell
+- Casa Batlló
+- Las Ramblas
+- Barceloneta Beach
+- Palau de la Música Catalana
+
+## Food & Dining
+
+- Tapas bar-hopping
+- Seafood paella
+- Pintxos (Basque-style bites)
+- Catalan cuisine (escalivada)
+- Sangria
+- Crema catalana
+
+## Tips & Advice
+
+Sagrada Família requires advance online booking — do this before your trip. Pickpockets are common on Las Ramblas. Embrace the late-night bar culture.
+
+---
+
+## Paris
+📁 travel/International/Europe
+
+# Paris
+
+![Paris](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/960px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg)
+
+## Overview
+
+The City of Light — one of the world's greatest capitals for art, fashion, and gastronomy. Iconic landmarks and world-class museums are concentrated in a walkable, beautiful city.
+
+## Access
+
+About 14 hours direct from Tokyo. RER B from Charles de Gaulle Airport reaches central Paris in about 35 minutes.
+
+## Highlights
+
+- Eiffel Tower (spectacular lit up at night)
+- Louvre Museum (Mona Lisa, Venus de Milo)
+- Champs-Élysées
+- Musée d'Orsay (Impressionist collection)
+- Montmartre & Sacré-Cœur
+- Versailles Palace (day trip)
+
+## Food & Dining
+
+- Croissant & baguette from a local boulangerie
+- Escargot and foie gras
+- Steak frites
+- Macarons (Ladurée)
+- Crêpes (street stalls)
+- Wine and cheese
+
+## Tips & Advice
+
+Museums require online advance booking. Watch out for pickpockets. A weekly metro pass is the most economical way to get around.
+
+---
+
+## Rome
+📁 travel/International/Europe
+
+# Rome
+
+![Rome](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg/960px-Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg)
+
+## Overview
+
+The Eternal City — an open-air museum with over 2,000 years of continuous history. Ancient ruins stand beside Baroque fountains and Renaissance basilicas in every neighborhood.
+
+## Access
+
+About 13 hours direct from Tokyo. The Leonardo Express train from Fiumicino Airport reaches Roma Termini in about 30 minutes.
+
+## Highlights
+
+- Colosseum (ancient Roman amphitheater)
+- Vatican City (St. Peter's Basilica & Sistine Chapel)
+- Trevi Fountain (toss a coin!)
+- Spanish Steps
+- Pantheon
+- Roman Forum
+
+## Food & Dining
+
+- Roman-style carbonara (no cream!)
+- Cacio e pepe
+- Pizza Margherita
+- Gelato
+- Spritz (aperitivo hour)
+- Tiramisù
+
+## Tips & Advice
+
+Vatican Museums and the Colosseum both require advance reservations (expect long queues otherwise). Summer is intense — plan major sites for the morning.
+
+---
+
+## Honolulu (Hawaii)
+📁 travel/International/Others
+
+# Honolulu (Hawaii)
+
+![Honolulu (Hawaii)](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/2022_Views_from_Diamond_Head_02.jpg/960px-2022_Views_from_Diamond_Head_02.jpg)
+
+## Overview
+
+A Pacific paradise beloved by Japanese travelers. Waikiki's golden beach, Diamond Head hikes, Hawaiian culture, and year-round sunshine make it one of the world's ultimate resort destinations.
+
+## Access
+
+About 7–8 hours direct from Tokyo. Daniel K. Inouye International Airport is about 20–30 min from Waikiki by bus or taxi.
+
+## Highlights
+
+- Waikiki Beach (surfing, swimming)
+- Diamond Head Trail (early morning hike for sunrise)
+- Pearl Harbor National Memorial
+- Polynesian Cultural Center
+- North Shore waves in winter
+- Maui (Haleakalā crater)
+
+## Food & Dining
+
+- Loco moco
+- Poke bowl
+- Malasadas (Leonard's Bakery)
+- Garlic shrimp (North Shore)
+- Hawaiian plate lunch
+- Kona coffee
+
+## Tips & Advice
+
+ESTA required ($21). Use "reef-safe" sunscreen — Oahu has banned coral-damaging chemicals. ABC Stores are convenient 24-hour shops throughout Waikiki.
+
+---
+
+## New York City
+📁 travel/International/Others
+
+# New York City
+
+![New York City](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg/960px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg)
+
+## Overview
+
+America's greatest city — a 24-hour metropolis of world-class museums, Broadway theater, and an endlessly diverse food scene. Everything feels bigger and more alive here.
+
+## Access
+
+About 13 hours direct from Tokyo. JFK or Newark airport to Manhattan takes about 1 hour by AirTrain + subway.
+
+## Highlights
+
+- Statue of Liberty (ferry trip)
+- Central Park
+- Metropolitan Museum of Art (The Met)
+- Broadway musicals
+- Times Square
+- Brooklyn Bridge
+- Manhattan skyline at night
+
+## Food & Dining
+
+- New York-style pizza (one slice, folded)
+- Bagels (H&H Bagels)
+- Clam chowder
+- Cheeseburger (Shake Shack)
+- Eggs Benedict (weekend brunch)
+- Doughnuts (Doughnut Plant)
+
+## Tips & Advice
+
+Tipping culture: 15–20% at restaurants. The subway runs 24 hours. Apply for ESTA well in advance (~$21).
+
+---
+
+## Sydney
+📁 travel/International/Others
+
+# Sydney
+
+![Sydney](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg)
+
+## Overview
+
+Australia's largest city, a stunning harbour metropolis of iconic architecture, world-class beaches, and a laid-back outdoor lifestyle. The Opera House and Harbour Bridge are global icons.
+
+## Access
+
+About 9–10 hours direct from Tokyo. Train from Sydney Airport reaches Central Station in about 15 minutes.
+
+## Highlights
+
+- Sydney Opera House (UNESCO)
+- BridgeClimb Harbour Bridge (ticketed experience)
+- Bondi Beach (surfing mecca)
+- Taronga Zoo (koalas & kangaroos)
+- Blue Mountains National Park (day trip)
+- Darling Harbour
+
+## Food & Dining
+
+- Barramundi (premium Australian fish)
+- Fish & chips
+- Brunch culture (avocado toast, smoothie bowls)
+- Tim Tams (chocolate biscuits)
+- Lamb dishes
+
+## Tips & Advice
+
+Southern hemisphere = opposite seasons (Dec–Feb is summer). The Opal Card covers buses, ferries, and trains. An ETA visa is required — apply in advance.
 
 ---

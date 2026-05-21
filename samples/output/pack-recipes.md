@@ -1,4 +1,4 @@
-# Context Pack: レシピ集
+# Context Pack: Recipe Collection
 
 Generated: 2026-05-21
 
@@ -8,929 +8,968 @@ Notes: 20
 
 ---
 
-## エビチリ
-📁 recipes/中華
+## Chahan (Chinese Fried Rice)
+📁 recipes/Chinese
 
-# エビチリ
+# Chahan (Chinese Fried Rice)
 
-甘辛のチリソースと大きなエビが主役の人気中華料理。
+![Chahan (Chinese Fried Rice)](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Koh_Mak%2C_Thailand%2C_Fried_rice_with_seafood%2C_Thai_fried_rice.jpg/960px-Koh_Mak%2C_Thailand%2C_Fried_rice_with_seafood%2C_Thai_fried_rice.jpg)
 
-## 材料（4人分）
+Wok-fried rice that's light, fragrant, and perfectly separated. High heat and quick hands are the secret.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 有頭エビ（またはブラックタイガー） | 300g |
-| 長ねぎ | 1/2本 |
-| 生姜 | 1かけ |
-| にんにく | 1かけ |
+| Cold cooked rice | 2 bowls |
+| Eggs | 2 |
+| Green onion | 1/3 |
+| Char siu (or bacon) | 50g |
+| Vegetable oil | 2 tbsp |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 豆板醤 | 小さじ2 |
-| ケチャップ | 大さじ3 |
-| 砂糖 | 大さじ1 |
-| 酒 | 大さじ1 |
-| 鶏ガラスープ | 100ml |
-| 片栗粉 | 小さじ1 |
-| ごま油 | 少々 |
+| Soy sauce | 1 tbsp |
+| Chicken stock granules | 1 tsp |
+| Salt and pepper | to taste |
+| Sesame oil | 1 tsp |
 
-## 手順
+## Instructions
 
-1. エビは背ワタを取り、片栗粉と塩で揉んで洗い流す。
-2. 長ねぎ・生姜・にんにくはみじん切りにする。
-3. 油を熱してエビを炒め、色が変わったら取り出す。
-4. 同じフライパンで香味野菜を炒め、豆板醤を加えて香りを出す。
-5. ケチャップ・スープ・砂糖を加えて煮立て、エビを戻し入れてとろみをつける。
+1. Beat eggs, mince green onion, and dice char siu.
+2. Heat wok or pan over maximum heat and add oil.
+3. Pour in eggs and stir briskly; before fully set, add cold rice.
+4. Break apart rice while stir-frying vigorously. Add char siu and green onion.
+5. Add soy sauce along the edges of the wok; season with stock granules, salt, pepper, and sesame oil.
 
-## コツ・ポイント
+## Tips
 
-- エビはあらかじめ片栗粉で揉み洗いするとプリプリになる。
-- 豆板醤は炒めて辛みを引き出す。
+- Wok must be screaming hot before you start.
+- Cold rice means individual grains, not clumps.
 
-## メモ
+## Notes
 
-マヨネーズを加えるとマイルドな「エビマヨ」風味になる。
+The "egg-coated rice" method (mix egg into rice first, then fry) also produces fluffy, separated grains.
 
 ---
 
-## チャーハン
-📁 recipes/中華
+## Dan Dan Noodles (Tantanmen)
+📁 recipes/Chinese
 
-# チャーハン
+# Dan Dan Noodles (Tantanmen)
 
-パラパラに仕上がった本格チャーハン。強火と手早い作業がコツ。
+![Dan Dan Noodles (Tantanmen)](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Soupless_dandan_noodles_%28mild%29_of_175do_DENO_Tantanmen.jpg/960px-Soupless_dandan_noodles_%28mild%29_of_175do_DENO_Tantanmen.jpg)
 
-## 材料（4人分）
+Noodles in a rich, sesame-forward broth with spiced ground pork and the addictive tingle of Sichuan peppercorns.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| ご飯（冷やご飯） | 茶碗2杯分 |
-| 卵 | 2個 |
-| 長ねぎ | 1/3本 |
-| チャーシューまたはベーコン | 50g |
-| サラダ油 | 大さじ2 |
+| Chinese noodles (fresh) | 2 portions |
+| Ground pork | 150g |
+| Bok choy | 2 heads |
+| Green onion | 1/2 |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 醤油 | 大さじ1 |
-| 鶏ガラスープの素 | 小さじ1 |
-| 塩こしょう | 適量 |
-| ごま油 | 小さじ1 |
+| Sesame paste (tahini or neri goma) | 4 tbsp |
+| Doubanjiang | 1 tbsp |
+| Soy sauce | 2 tbsp |
+| Rice vinegar | 1 tbsp |
+| Sugar | 1 tsp |
+| Chicken stock | 400ml |
+| Chili oil | to taste |
+| Sichuan pepper | to taste |
+| Ground sesame | 2 tbsp |
 
-## 手順
+## Instructions
 
-1. 卵を溶きほぐす。長ねぎはみじん切り。チャーシューは小さく切る。
-2. フライパン（または中華鍋）を強火で熱し、油を入れる。
-3. 溶き卵を入れて素早く混ぜ、半熟のうちにご飯を加える。
-4. 全体をほぐしながら強火で炒める。チャーシューと長ねぎを加える。
-5. 醤油を鍋肌から入れ、鶏ガラスープの素・塩こしょうで味を整え、ごま油を回す。
+1. Cook ground pork with tianmianjiang and soy sauce to make spiced meat topping.
+2. Whisk sesame paste, soy sauce, vinegar, sugar, and doubanjiang into a tare sauce.
+3. Heat stock and stir in tare.
+4. Cook noodles, pour broth over, top with spiced pork, bok choy, and green onion.
+5. Finish with chili oil and Sichuan peppercorns.
 
-## コツ・ポイント
+## Tips
 
-- フライパンは煙が出るくらい熱してから使う。
-- ご飯は冷やご飯を使うとパラパラになる。
+- Thin the sesame paste with a little water before mixing for easier incorporation.
+- Do not boil the broth after adding the sesame — heat gently.
 
-## メモ
+## Notes
 
-卵をご飯に混ぜてから炒める「卵かけご飯炒め」方式でもパラパラになる。
+Try a dry version (soup-free) for an even more concentrated, intense flavor.
 
 ---
 
-## 担々麺
-📁 recipes/中華
+## Ebi Chili (Shrimp in Chili Sauce)
+📁 recipes/Chinese
 
-# 担々麺
+# Ebi Chili (Shrimp in Chili Sauce)
 
-ゴマの濃厚なスープと辛みが絡む本格担々麺。しびれる辛さがクセになる。
+![Ebi Chili (Shrimp in Chili Sauce)](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ebi_Chili_Mayo_%283469826035%29.jpg/960px-Ebi_Chili_Mayo_%283469826035%29.jpg)
 
-## 材料（4人分）
+Plump shrimp tossed in a sweet and spicy chili sauce. A crowd-pleasing Chinese-Japanese fusion classic.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 中華麺 | 2玉 |
-| 豚ひき肉 | 150g |
-| チンゲン菜 | 2株 |
-| 長ねぎ | 1/2本 |
+| Tiger shrimp (or black tiger) | 300g |
+| Green onion | 1/2 |
+| Ginger | 1 knob |
+| Garlic | 1 clove |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 練りごま | 大さじ4 |
-| 豆板醤 | 大さじ1 |
-| 醤油 | 大さじ2 |
-| 酢 | 大さじ1 |
-| 砂糖 | 小さじ1 |
-| 鶏ガラスープ | 400ml |
-| ラー油 | 適量 |
-| 花椒 | 適量 |
-| すりごま | 大さじ2 |
+| Doubanjiang | 2 tsp |
+| Ketchup | 3 tbsp |
+| Sugar | 1 tbsp |
+| Sake | 1 tbsp |
+| Chicken stock | 100ml |
+| Potato starch | 1 tsp |
+| Sesame oil | a dash |
 
-## 手順
+## Instructions
 
-1. ひき肉を炒めて甜麺醤・醤油で味付けし、肉みそを作る。
-2. 練りごま・醤油・酢・砂糖・豆板醤をよく混ぜてタレを作る。
-3. スープを温め、タレを加えてよく混ぜる。
-4. 麺を茹で、スープを注ぎ、肉みそ・チンゲン菜・長ねぎをのせる。
-5. ラー油と花椒を仕上げにかける。
+1. Remove veins from shrimp, massage with starch and salt, then rinse clean.
+2. Mince green onion, ginger, and garlic.
+3. Stir-fry shrimp in oil until pink; remove.
+4. Sauté aromatics in the same pan, add doubanjiang and cook until fragrant.
+5. Add ketchup, stock, and sugar; return shrimp and thicken with starch slurry.
 
-## コツ・ポイント
+## Tips
 
-- 練りごまは水で少し伸ばしておくと混ざりやすい。
-- スープは沸騰させずに温める。
+- Massaging shrimp with starch gives a plump, bouncy texture.
+- Cook doubanjiang until the oil turns red for full flavor.
 
-## メモ
+## Notes
 
-辛さは豆板醤とラー油で調整。汁なし担々麺にするとより濃厚な味わいになる。
+A spoonful of mayonnaise makes it milder and creamy — an "Ebi Mayo" variation.
 
 ---
 
-## 酢豚
-📁 recipes/中華
+## Mapo Tofu
+📁 recipes/Chinese
 
-# 酢豚
+# Mapo Tofu
 
-揚げた豚肉と野菜に甘酢あんをからめた、子どもから大人まで人気の中華料理。
+![Mapo Tofu](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Chen_Mapo_Tofu.jpg/960px-Chen_Mapo_Tofu.jpg)
 
-## 材料（4人分）
+The iconic Sichuan dish — silken tofu in a fiery, numbing sauce of doubanjiang and Sichuan peppercorns.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 豚バラ肉（または肩ロース） | 300g |
-| ピーマン | 2個 |
-| にんじん | 1/2本 |
-| 玉ねぎ | 1/2個 |
-| パイナップル（缶） | 4切れ |
-| 片栗粉 | 適量 |
+| Silken tofu | 1 block (400g) |
+| Ground pork | 150g |
+| Green onion | 1/2 |
+| Ginger | 1 knob |
+| Garlic | 2 cloves |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 酢 | 大さじ3 |
-| 砂糖 | 大さじ3 |
-| ケチャップ | 大さじ2 |
-| 醤油 | 大さじ1 |
-| 鶏ガラスープ | 100ml |
-| 片栗粉（あん用） | 大さじ1 |
+| Doubanjiang (chili bean paste) | 1 tbsp |
+| Tianmianjiang (sweet bean paste) | 1 tbsp |
+| Soy sauce | 1 tbsp |
+| Chicken stock | 200ml |
+| Potato starch | 1 tbsp |
+| Sichuan peppercorns | 1 tsp |
+| Sesame oil | 1 tsp |
 
-## 手順
+## Instructions
 
-1. 豚肉は一口大に切り、醤油・酒・生姜で下味をつけて片栗粉をまぶす。
-2. 170℃の油で揚げ、一度取り出してから180℃で二度揚げする。
-3. 野菜は乱切りにして素揚げする。
-4. 酢・砂糖・ケチャップ・醤油・スープを合わせてあんを作る。
-5. 揚げた豚肉・野菜・パイナップルにあんをからめる。
+1. Cut tofu into 2cm cubes and simmer briefly in salted water; drain. Mince green onion, ginger, and garlic.
+2. Heat oil, fry ginger and garlic until fragrant. Add doubanjiang and tianmianjiang; cook until oil turns red.
+3. Add pork and cook through. Pour in stock and bring to a boil.
+4. Add tofu and simmer gently for 5 minutes. Thicken with starch slurry.
+5. Add green onion, drizzle sesame oil, and finish with ground Sichuan peppercorns.
 
-## コツ・ポイント
+## Tips
 
-- 豚肉は二度揚げでカリッと仕上げる。
-- あんは全体にからめる直前に作る。
+- Pre-cooking tofu in salted water keeps it firm.
+- Adding Sichuan peppercorns at the very end maximizes the numbing aroma.
 
-## メモ
+## Notes
 
-パイナップルを入れると酸味と甘さが増す。苦手な場合は省いてもよい。
+Adjust heat level with doubanjiang quantity. Extra chili oil adds more fire.
 
 ---
 
-## 麻婆豆腐
-📁 recipes/中華
+## Sweet and Sour Pork (Subuta)
+📁 recipes/Chinese
 
-# 麻婆豆腐
+# Sweet and Sour Pork (Subuta)
 
-四川式のしびれる辛さが特徴の麻婆豆腐。花椒の香りがポイント。
+![Sweet and Sour Pork (Subuta)](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Sweet_and_sour_pork.jpg/960px-Sweet_and_sour_pork.jpg)
 
-## 材料（4人分）
+Crispy fried pork and colorful vegetables coated in a tangy sweet-and-sour sauce. A perennial family favorite.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 絹豆腐 | 1丁（400g） |
-| 豚ひき肉 | 150g |
-| 長ねぎ | 1/2本 |
-| 生姜 | 1かけ |
-| にんにく | 2かけ |
+| Pork belly or shoulder | 300g |
+| Bell peppers | 2 |
+| Carrot | 1/2 |
+| Onion | 1/2 |
+| Canned pineapple | 4 rings |
+| Potato starch | as needed |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 豆板醤 | 大さじ1 |
-| 甜麺醤 | 大さじ1 |
-| 醤油 | 大さじ1 |
-| 鶏ガラスープ | 200ml |
-| 片栗粉 | 大さじ1 |
-| 花椒（ホアジャオ） | 小さじ1 |
-| ごま油 | 小さじ1 |
+| Vinegar | 3 tbsp |
+| Sugar | 3 tbsp |
+| Ketchup | 2 tbsp |
+| Soy sauce | 1 tbsp |
+| Chicken stock | 100ml |
+| Potato starch (for sauce) | 1 tbsp |
 
-## 手順
+## Instructions
 
-1. 豆腐は2cm角に切り、塩ゆでして水切りする。長ねぎ・生姜・にんにくはみじん切り。
-2. 油を熱し、生姜・にんにくを炒めて香りを出す。豆板醤・甜麺醤を加えて炒める。
-3. ひき肉を加えてしっかり炒め、スープを加えて煮立てる。
-4. 豆腐を加えて弱火で5分煮る。水溶き片栗粉でとろみをつける。
-5. 長ねぎを加え、ごま油を回しかけ、花椒を振る。
+1. Marinate pork in soy sauce, sake, and ginger; coat with starch.
+2. Deep-fry at 170°C; rest 1 minute, then fry again at 180°C for crunch.
+3. Lightly fry vegetables in the same oil.
+4. Combine vinegar, sugar, ketchup, soy sauce, and stock into a sauce and bring to a boil.
+5. Toss pork, vegetables, and pineapple in the sauce.
 
-## コツ・ポイント
+## Tips
 
-- 豆腐はあらかじめ塩ゆでしておくと崩れにくい。
-- 花椒は最後に加えると香りが立つ。
+- Double-frying keeps pork crispy even after saucing.
+- Make the sauce at the last moment for the freshest flavor.
 
-## メモ
+## Notes
 
-辛さは豆板醤の量で調整。ラー油を加えるとさらに辛くなる。
+Pineapple adds natural sweetness and acid. Feel free to omit if you prefer.
 
 ---
 
-## さんまの塩焼き
-📁 recipes/和食
+## Chikuzen-ni
+📁 recipes/Japanese
 
-# さんまの塩焼き
+# Chikuzen-ni
 
-秋の味覚の代表格。シンプルな塩焼きで脂の乗った旨みを存分に楽しむ。
+![Chikuzen-ni](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/%E7%AD%91%E5%89%8D%E7%85%AE%E3%81%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%81%8C%E6%B1%9A%E3%82%8C%E3%82%81%E3%81%AA%E3%81%AE%E3%81%A7%E6%9D%93%E5%AD%90%E6%88%BB%E3%81%95%E3%81%9A_%2855071808273%29.jpg/960px-%E7%AD%91%E5%89%8D%E7%85%AE%E3%81%AF%E3%83%88%E3%83%AC%E3%83%BC%E3%81%8C%E6%B1%9A%E3%82%8C%E3%82%81%E3%81%AA%E3%81%AE%E3%81%A7%E6%9D%93%E5%AD%90%E6%88%BB%E3%81%95%E3%81%9A_%2855071808273%29.jpg)
 
-## 材料（4人分）
+A hearty simmered dish of chicken and root vegetables, essential for New Year's osechi. Rich, earthy flavors in every bite.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| さんま | 2尾 |
-| 塩 | 適量 |
-| 大根おろし | 適量 |
-| すだち | 1個 |
-| 醤油 | 少々 |
+| Chicken thigh | 300g |
+| Burdock root (gobo) | 1 |
+| Lotus root (renkon) | 150g |
+| Carrot | 1 |
+| Dried shiitake | 4 |
+| Konjac (konnyaku) | 1 block |
+| Snow peas | to taste |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 塩 | 魚の重量の2% |
+| Dashi (incl. shiitake soaking water) | 300ml |
+| Soy sauce | 3 tbsp |
+| Mirin | 3 tbsp |
+| Sugar | 2 tbsp |
+| Sake | 2 tbsp |
 
-## 手順
+## Instructions
 
-1. さんまは内臓を取り除き（取らない場合はそのままでもよい）、表面に斜めに切り込みを入れる。
-2. 塩を全体にまぶし、10分置いて余分な水分をキッチンペーパーで拭き取る。
-3. グリルを予熱し、強火で表面4〜5分、裏面3〜4分焼く。
-4. 皮がパリッとしたら完成。
-5. 大根おろしとすだちを添えて提供する。
+1. Rehydrate shiitake and cut in half. Slice gobo diagonally, cut renkon into chunks, and soak both in water. Tear konnyaku by hand and blanch.
+2. Pan-fry chicken until lightly browned; remove.
+3. Stir-fry vegetables in the same pan, return chicken, add dashi and seasonings.
+4. Cover with a drop lid and simmer over medium heat for 20 minutes. Add snow peas at the end.
 
-## コツ・ポイント
+## Tips
 
-- 切り込みを入れると均一に火が通る。
-- 最初から強火で皮をパリッと仕上げる。
+- Soak gobo and renkon to remove bitterness.
+- Tearing konnyaku by hand increases surface area for better flavor absorption.
 
-## メモ
+## Notes
 
-内臓はほろ苦くて美味しいので、食べられる方はそのまま焼くのがおすすめ。
+Great for meal prep — keeps in the fridge for 3–4 days.
 
 ---
 
-## だし巻き卵
-📁 recipes/和食
+## Dashimaki Tamago
+📁 recipes/Japanese
 
-# だし巻き卵
+# Dashimaki Tamago
 
-出汁をたっぷり含ませた、ふわふわとした関西風の卵焼き。
+![Dashimaki Tamago](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Dashimaki_tamago_and_teapot_by_yajico_in_Ebisu%2C_Tokyo.jpg/960px-Dashimaki_tamago_and_teapot_by_yajico_in_Ebisu%2C_Tokyo.jpg)
 
-## 材料（4人分）
+A fluffy, dashi-infused rolled omelette in the Kansai style. Deceptively simple, endlessly refined.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 卵 | 3個 |
-| だし | 60ml |
-| サラダ油 | 適量 |
+| Eggs | 3 |
+| Dashi stock | 60ml |
+| Vegetable oil | as needed |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 薄口醤油 | 小さじ1/2 |
-| みりん | 小さじ1 |
-| 塩 | 少々 |
+| Light soy sauce (usukuchi) | 1/2 tsp |
+| Mirin | 1 tsp |
+| Salt | a pinch |
 
-## 手順
+## Instructions
 
-1. 卵を溶きほぐし、だしと調味料をよく混ぜ合わせる。
-2. 卵焼き器を熱して油をひき、卵液の1/3を流し入れる。
-3. 半熟になったら奥から手前に巻く。
-4. 残りの卵液を2回に分けて同様に巻き重ねる。
-5. 巻きすで形を整え、粗熱が取れたら切り分ける。
+1. Beat eggs and whisk together with dashi and seasonings.
+2. Heat a rectangular tamagoyaki pan, oil lightly, pour in 1/3 of the egg mixture.
+3. When semi-set, roll from far end toward you.
+4. Push roll back, oil pan again, add another 1/3 of the mixture, and roll again.
+5. Repeat with remaining egg. Shape with a bamboo mat while warm, then slice.
 
-## コツ・ポイント
+## Tips
 
-- 卵液はよく混ぜておく。
-- 火加減は中火〜弱火。焦がさないように注意。
-- 巻きすで成形すると綺麗な形になる。
+- Keep heat at medium-low to avoid burning.
+- A bamboo mat gives a professional shape.
+- Make sure egg mix is well combined before cooking.
 
-## メモ
+## Notes
 
-甘めが好みなら砂糖を大さじ1追加。大根おろしを添えると定食屋の味に。
+Add 1 tbsp sugar for a sweeter version. Serve with grated daikon for a classic diner touch.
 
 ---
 
-## 唐揚げ
-📁 recipes/和食
+## Grilled Saury (Sanma Shioyaki)
+📁 recipes/Japanese
 
-# 唐揚げ
+# Grilled Saury (Sanma Shioyaki)
 
-カリッとジューシーな定番の鶏の唐揚げ。下味をしっかりつけるのがポイント。
+![Grilled Saury (Sanma Shioyaki)](https://upload.wikimedia.org/wikipedia/commons/8/81/Sanma_by_beemartins_in_Matsushima%2C_Miyagi.jpg)
 
-## 材料（4人分）
+The taste of autumn in Japan. Simply salted and grilled pacific saury, enjoyed with grated daikon and sudachi citrus.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 鶏もも肉 | 400g |
-| 片栗粉 | 大さじ4 |
-| 薄力粉 | 大さじ2 |
-| 揚げ油 | 適量 |
-| レモン | 1/4個 |
+| Pacific saury (sanma) | 2 fish |
+| Salt | to taste |
+| Grated daikon | to taste |
+| Sudachi (or lime) | 1 |
+| Soy sauce | a splash |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 醤油 | 大さじ2 |
-| 酒 | 大さじ2 |
-| みりん | 大さじ1 |
-| 生姜（すりおろし） | 1かけ |
-| にんにく（すりおろし） | 1かけ |
+| Salt | about 2% of fish weight |
 
-## 手順
+## Instructions
 
-1. 鶏肉は一口大に切り、調味料に30分以上漬け込む。
-2. 片栗粉と薄力粉を混ぜ合わせ、水気を切った鶏肉にまぶす。
-3. 170℃の油で3〜4分、取り出して1分休ませる。
-4. 180℃に上げた油で再び1〜2分揚げてカリッと仕上げる。
-5. 油を切り、レモンを添えて提供する。
+1. Remove entrails if preferred (keeping them adds a pleasant bitterness). Score the skin diagonally.
+2. Season generously with salt and rest 10 minutes, then pat dry.
+3. Preheat grill to high. Cook 4–5 minutes per side until skin is crisp.
+4. Serve immediately.
+5. Accompany with grated daikon and sudachi.
 
-## コツ・ポイント
+## Tips
 
-- 二度揚げがカリッと仕上げるコツ。
-- 下味は最低30分、できれば一晩漬けると美味しい。
+- Scoring ensures even cooking.
+- High heat from the start makes the skin crispy.
 
-## メモ
+## Notes
 
-片栗粉のみで揚げるとよりカリカリに。薄力粉を混ぜるとサクサク食感になる。
+True connoisseurs enjoy the bitter liver — try it whole! Peak season is September–October.
 
 ---
 
-## 筑前煮
-📁 recipes/和食
+## Kakuni (Braised Pork Belly)
+📁 recipes/Japanese
 
-# 筑前煮
+# Kakuni (Braised Pork Belly)
 
-鶏肉と根菜類をたっぷり使った、おせちにも欠かせない定番料理。
+![Kakuni (Braised Pork Belly)](https://upload.wikimedia.org/wikipedia/commons/5/5d/Kakuni_by_Kanko.jpg)
 
-## 材料（4人分）
+Melt-in-your-mouth braised pork belly, simmered low and slow in soy, mirin, and sake. A showstopper dish for special occasions.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 鶏もも肉 | 300g |
-| ごぼう | 1本 |
-| れんこん | 150g |
-| にんじん | 1本 |
-| 干し椎茸 | 4枚 |
-| こんにゃく | 1枚 |
-| 絹さや | 適量 |
+| Pork belly (block) | 600g |
+| Green part of leek | 1 stalk |
+| Ginger | 2 slices |
+| Soft-boiled eggs | 4 |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| だし（椎茸の戻し汁含む） | 300ml |
-| 醤油 | 大さじ3 |
-| みりん | 大さじ3 |
-| 砂糖 | 大さじ2 |
-| 酒 | 大さじ2 |
+| Soy sauce | 4 tbsp |
+| Mirin | 4 tbsp |
+| Sake | 100ml |
+| Sugar | 3 tbsp |
+| Water | 300ml |
 
-## 手順
+## Instructions
 
-1. 干し椎茸は水で戻し、石づきを取って半分に切る。
-2. ごぼうはささがき、れんこんは乱切りにして水にさらす。こんにゃくは手でちぎってアク抜きする。
-3. 鶏肉は一口大に切り、油で炒めて取り出す。
-4. 同じ鍋で野菜類を炒め、鶏肉を戻し入れてだしと調味料を加える。
-5. 落し蓋をして中火で20分煮て、最後に絹さやを加えてさっと煮る。
+1. Sear pork belly on all sides in a frying pan to lock in juices.
+2. Place pork, leek, ginger, and water in a pressure cooker. Pressure cook for 30 minutes.
+3. Remove pork and cut into serving pieces.
+4. Transfer to a pot with seasonings and simmer over medium heat for 20 minutes.
+5. Add soft-boiled eggs and cook a further 10 minutes.
 
-## コツ・ポイント
+## Tips
 
-- ごぼうとれんこんは水にさらしてアクを抜く。
-- こんにゃくは手でちぎると味がしみやすい。
+- Initial searing locks in umami.
+- Refrigerate overnight and skim the solidified fat for a cleaner dish.
 
-## メモ
+## Notes
 
-作り置きにも最適。冷蔵で3〜4日保存可能。
+Without a pressure cooker, simmer on low heat for at least 2 hours. Even better made a day ahead.
 
 ---
 
-## 肉じゃが
-📁 recipes/和食
+## Karaage (Japanese Fried Chicken)
+📁 recipes/Japanese
 
-# 肉じゃが
+# Karaage (Japanese Fried Chicken)
 
-牛肉とじゃがいもを甘辛く煮た定番の家庭料理。ほっこりとした味わいが特徴。
+![Karaage (Japanese Fried Chicken)](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Chicken_karaage_003.jpg/960px-Chicken_karaage_003.jpg)
 
-## 材料（4人分）
+Crispy outside, juicy inside — Japan's definitive fried chicken. Marinated in ginger, garlic, and soy for maximum flavor.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 牛薄切り肉 | 200g |
-| じゃがいも | 3個 |
-| 玉ねぎ | 1個 |
-| にんじん | 1本 |
-| しらたき | 1袋 |
+| Chicken thigh | 400g |
+| Potato starch (katakuriko) | 4 tbsp |
+| All-purpose flour | 2 tbsp |
+| Frying oil | as needed |
+| Lemon | 1/4 |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| だし | 200ml |
-| 醤油 | 大さじ3 |
-| みりん | 大さじ3 |
-| 砂糖 | 大さじ2 |
-| 酒 | 大さじ2 |
+| Soy sauce | 2 tbsp |
+| Sake | 2 tbsp |
+| Mirin | 1 tbsp |
+| Ginger (grated) | 1 knob |
+| Garlic (grated) | 1 clove |
 
-## 手順
+## Instructions
 
-1. じゃがいもは一口大に切り水にさらす。にんじんは乱切り、玉ねぎはくし切り。
-2. しらたきは食べやすい長さに切り、熱湯でさっと茹でてアクを取る。
-3. 鍋に油を熱し牛肉を炒め、色が変わったら野菜を加えて全体に油が回るまで炒める。
-4. だしを加え煮立ったらアクを取り、調味料を加えて落し蓋をして中火で15分煮る。
-5. しらたきを加えさらに5分煮て味をなじませる。
+1. Cut chicken into bite-size pieces and marinate in seasonings for at least 30 minutes.
+2. Mix potato starch and flour; coat chicken pieces, shaking off excess.
+3. Fry at 170°C for 3–4 minutes. Remove and rest for 1 minute.
+4. Increase oil to 180°C and fry again for 1–2 minutes for extra crunch.
+5. Drain and serve with lemon.
 
-## コツ・ポイント
+## Tips
 
-- じゃがいもは煮崩れしやすいので煮すぎに注意。
-- 落し蓋で味が均一にしみ込む。
-- 翌日は味がなじんでさらに美味しい。
+- Double-frying is the secret to crunch that lasts.
+- Overnight marinating deepens flavor significantly.
 
-## メモ
+## Notes
 
-関西では牛肉、関東では豚肉が一般的。砂糖を増やすと甘め仕上げになる。
+All potato starch = crunchier. Mixing in flour = lighter crispiness. Both are delicious.
 
 ---
 
-## 親子丼
-📁 recipes/和食
+## Nikujaga
+📁 recipes/Japanese
 
-# 親子丼
+# Nikujaga
 
-鶏肉と卵を出汁で煮て、ふんわりと仕上げた定番の丼もの。
+![Nikujaga](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Braised_pork_and_potatoes_%283089327692%29.jpg/960px-Braised_pork_and_potatoes_%283089327692%29.jpg)
 
-## 材料（4人分）
+A beloved Japanese home-cooked dish of beef and potatoes simmered in a sweet-savory sauce. Comfort food at its finest.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 鶏もも肉 | 250g |
-| 卵 | 3個 |
-| 玉ねぎ | 1/2個 |
-| 三つ葉 | 適量 |
-| ご飯 | 2杯分 |
+| Thinly sliced beef | 200g |
+| Potatoes | 3 medium |
+| Onion | 1 large |
+| Carrot | 1 medium |
+| Shirataki noodles | 1 pack |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| だし | 150ml |
-| 醤油 | 大さじ2 |
-| みりん | 大さじ2 |
-| 砂糖 | 小さじ1 |
+| Dashi stock | 200ml |
+| Soy sauce | 3 tbsp |
+| Mirin | 3 tbsp |
+| Sugar | 2 tbsp |
+| Sake | 2 tbsp |
 
-## 手順
+## Instructions
 
-1. 鶏肉は一口大に切る。玉ねぎは薄切り。卵は溶いておく。
-2. 親子丼用の小鍋に調味料と玉ねぎを入れ、中火で2〜3分煮る。
-3. 鶏肉を加え、火が通るまで4〜5分煮る。
-4. 溶き卵を回し入れ、蓋をして半熟になったら火を止める。
-5. ご飯の上に盛り付け、三つ葉を飾る。
+1. Cut potatoes into bite-size pieces and soak in water. Cut carrot into irregular chunks, onion into wedges.
+2. Cut shirataki into manageable lengths and blanch briefly to remove odor.
+3. Heat oil in a pot and cook beef until browned. Add vegetables and stir until coated with oil.
+4. Add dashi. Once boiling, skim foam, add seasonings, cover with a drop lid, and simmer over medium heat for 15 minutes.
+5. Add shirataki noodles and cook another 5 minutes to absorb flavors.
 
-## コツ・ポイント
+## Tips
 
-- 卵は2回に分けて入れると均一に仕上がる。
-- 半熟がポイント。火を止める直前に入れた卵の余熱で仕上げる。
+- Do not overcook potatoes — they break apart easily.
+- A drop lid (otoshibuta) ensures even flavor absorption.
+- Tastes even better the next day.
 
-## メモ
+## Notes
 
-鶏肉をつけ込み醤油で下味をつけると、より風味が増す。
+Beef is traditional in Kansai, pork in Kanto. Add more sugar for a sweeter finish.
 
 ---
 
-## 豚の角煮
-📁 recipes/和食
+## Oyakodon
+📁 recipes/Japanese
 
-# 豚の角煮
+# Oyakodon
 
-豚バラ肉をじっくり煮込んだ、とろとろ食感が自慢の一品。
+![Oyakodon](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Oyakodon_003.jpg/960px-Oyakodon_003.jpg)
 
-## 材料（4人分）
+Chicken and egg gently simmered in dashi and served over rice. One of Japan's most iconic donburi dishes.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 豚バラ肉（塊） | 600g |
-| 長ねぎ（青い部分） | 1本分 |
-| 生姜 | 2枚 |
-| ゆで卵 | 4個 |
+| Chicken thigh | 250g |
+| Eggs | 3 |
+| Onion | 1/2 |
+| Mitsuba (or parsley) | to taste |
+| Cooked rice | 2 servings |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 醤油 | 大さじ4 |
-| みりん | 大さじ4 |
-| 酒 | 100ml |
-| 砂糖 | 大さじ3 |
-| 水 | 300ml |
+| Dashi stock | 150ml |
+| Soy sauce | 2 tbsp |
+| Mirin | 2 tbsp |
+| Sugar | 1 tsp |
 
-## 手順
+## Instructions
 
-1. 豚バラ肉はフライパンで表面を焼き固める。
-2. 圧力鍋に肉・長ねぎ・生姜・水を入れ、加圧30分。
-3. 肉を取り出し、食べやすい大きさに切る。
-4. 別鍋に調味料と肉を入れ、中火で20分煮詰める。
-5. ゆで卵を加えてさらに10分煮て完成。
+1. Cut chicken into bite-size pieces, slice onion thinly, and beat eggs.
+2. In a small donburi pan, combine seasonings and onion and simmer over medium heat for 2–3 minutes.
+3. Add chicken and cook 4–5 minutes until done.
+4. Pour in beaten egg in a circular motion, cover, and remove from heat when egg is still slightly runny.
+5. Slide over rice and garnish with mitsuba.
 
-## コツ・ポイント
+## Tips
 
-- 最初の焼き固めで旨みが閉じ込まる。
-- 冷蔵庫で一晩置くと脂が固まり取り除きやすい。
+- Add egg in two stages for a more even set.
+- The key is a silky, half-cooked egg — use residual heat to finish.
 
-## メモ
+## Notes
 
-圧力鍋がない場合は弱火で2時間以上煮込む。前日に作ると味がなじんで美味しい。
+Marinating chicken in soy sauce beforehand adds extra depth.
 
 ---
 
-## 豚汁
-📁 recipes/和食
+## Tonjiru (Pork Miso Soup)
+📁 recipes/Japanese
 
-# 豚汁
+# Tonjiru (Pork Miso Soup)
 
-豚肉と根菜たっぷりの具だくさん味噌汁。体が温まる冬の定番。
+![Tonjiru (Pork Miso Soup)](https://upload.wikimedia.org/wikipedia/commons/3/36/CodazziTonjiru1.jpg)
 
-## 材料（4人分）
+A thick, hearty miso soup loaded with pork and root vegetables. The ultimate warming bowl for cold days.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 豚バラ薄切り肉 | 150g |
-| 大根 | 5cm |
-| にんじん | 1/2本 |
-| ごぼう | 1/2本 |
-| こんにゃく | 1/2枚 |
-| 長ねぎ | 1本 |
+| Pork belly (sliced) | 150g |
+| Daikon | 5cm |
+| Carrot | 1/2 |
+| Burdock root | 1/2 |
+| Konjac | 1/2 block |
+| Leek | 1 |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| だし | 800ml |
-| 味噌 | 大さじ3〜4 |
-| 酒 | 大さじ1 |
-| ごま油 | 小さじ1 |
+| Dashi stock | 800ml |
+| Miso | 3–4 tbsp |
+| Sake | 1 tbsp |
+| Sesame oil | 1 tsp |
 
-## 手順
+## Instructions
 
-1. 野菜はすべて食べやすい大きさに切る。ごぼうは水にさらす。
-2. 鍋でごま油を熱し、豚肉を炒める。
-3. 野菜を加えて炒め、全体に油が回ったらだしを加える。
-4. アクを取りながら野菜が柔らかくなるまで15分煮る。
-5. 火を弱めて味噌を溶き入れ、長ねぎを加えてひと煮立ちさせる。
+1. Cut all vegetables into bite-size pieces. Soak gobo in water.
+2. Heat sesame oil in a pot and cook pork.
+3. Add vegetables and stir until coated. Pour in dashi.
+4. Simmer about 15 minutes, skimming foam, until vegetables are tender.
+5. Lower heat, dissolve miso into soup, add leek, and bring just to a simmer.
 
-## コツ・ポイント
+## Tips
 
-- 味噌は沸騰させると香りが飛ぶので注意。
-- ごぼうはしっかりアクを抜く。
+- Never boil after adding miso — it kills the aroma.
+- Soak gobo thoroughly to remove astringency.
 
-## メモ
+## Notes
 
-七味唐辛子を振るとアクセントになる。翌日も美味しい。
+A pinch of shichimi chili flakes adds a nice kick. Just as good reheated the next day.
 
 ---
 
-## オムライス
-📁 recipes/洋食
+## Beef Stew
+📁 recipes/Western
 
-# オムライス
+# Beef Stew
 
-薄焼き卵で包んだケチャップライスの定番洋食。家庭料理の王道。
+![Beef Stew](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Boeuf_Bourguignon_Paris_Beaubourg.jpg/960px-Boeuf_Bourguignon_Paris_Beaubourg.jpg)
 
-## 材料（4人分）
+A classic slow-braised beef stew with red wine, root vegetables, and demi-glace. Perfect for cold winter evenings.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| ご飯 | 茶碗2杯分 |
-| 卵 | 3個 |
-| 鶏もも肉 | 100g |
-| 玉ねぎ | 1/4個 |
-| マッシュルーム | 4個 |
-| バター | 20g |
+| Beef shin (or shoulder) | 500g |
+| Onions | 2 |
+| Carrots | 2 |
+| Mushrooms | 100g |
+| Potatoes | 2 |
+| Garlic | 2 cloves |
+| Tomato paste | 2 tbsp |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| ケチャップ | 大さじ4 |
-| 塩こしょう | 適量 |
-| 牛乳 | 大さじ1（卵用） |
+| Red wine | 300ml |
+| Beef broth | 400ml |
+| Demi-glace (canned) | 1/2 can |
+| Salt and pepper | to taste |
+| Bay leaves | 2 |
+| Thyme | a pinch |
 
-## 手順
+## Instructions
 
-1. 鶏肉・玉ねぎ・マッシュルームをバターで炒め、ご飯を加えてケチャップで炒め合わせる。
-2. 卵は溶いて牛乳・塩を混ぜる。
-3. バターを熱したフライパンで卵を流し入れ、半熟状に広げる。
-4. 中央にチキンライスを置き、両端の卵を折りたたむ。
-5. 皿に返してケチャップを飾る。
+1. Cut beef into large chunks, season with salt and pepper, and dust with flour.
+2. Brown beef on all sides in butter; remove and set aside.
+3. Sauté onion and garlic in the same pot; add red wine and cook off the alcohol.
+4. Return beef, add remaining ingredients, and simmer on low for 90 minutes.
+5. Adjust seasoning with salt when vegetables are tender.
 
-## コツ・ポイント
+## Tips
 
-- 卵は半熟を維持するのがポイント。手早く作業する。
-- チキンライスはしっかり炒めて水分を飛ばす。
+- A thorough initial sear is essential for rich flavor.
+- Low and slow is the key to fork-tender meat.
 
-## メモ
+## Notes
 
-上からとろとろ卵をかけるふわとろスタイルも人気。お好みでデミグラスソースをかけても。
+Even better reheated the next day. Serve with mashed potatoes for a classic presentation.
 
 ---
 
-## カルボナーラ
-📁 recipes/洋食
+## Japanese Hamburg Steak
+📁 recipes/Western
 
-# カルボナーラ
+# Japanese Hamburg Steak
 
-生クリームを使わない本格ローマ風カルボナーラ。濃厚なチーズの風味が特徴。
+![Japanese Hamburg Steak](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Hamburg-Steak.jpg/960px-Hamburg-Steak.jpg)
 
-## 材料（4人分）
+The beloved Japanese-style hamburger steak with a crispy crust and juicy center, finished with a rich demi-glace sauce.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| スパゲッティ | 200g |
-| パンチェッタ（またはベーコン） | 100g |
-| 卵 | 2個 |
-| 卵黄 | 2個 |
-| ペコリーノロマーノ（またはパルミジャーノ） | 60g |
-| 黒こしょう | たっぷり |
+| Ground beef and pork mix | 400g |
+| Onion | 1/2 |
+| Egg | 1 |
+| Breadcrumbs | 1/2 cup |
+| Milk | 3 tbsp |
+| Salt | 1/2 tsp |
+| Pepper | a pinch |
+| Nutmeg | a pinch |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 塩（茹で湯用） | 湯量の1% |
-| オリーブオイル | 大さじ1 |
+| Demi-glace sauce (canned) | 1 can |
+| Red wine | 100ml |
+| Butter | 10g |
+| Worcestershire sauce | 1 tbsp |
 
-## 手順
+## Instructions
 
-1. 卵・卵黄・チーズ・黒こしょうをよく混ぜ合わせておく。
-2. パンチェッタを細切りにし、オリーブオイルで脂が出るまで炒める。
-3. たっぷりの塩湯でパスタを茹でる。茹で汁を取り置く。
-4. フライパンの火を止め、茹で上がったパスタを入れてパンチェッタと和える。
-5. 卵液を加え、茹で汁で濃度を調整しながら素早く混ぜる。
+1. Caramelize minced onion in butter until golden; cool completely.
+2. Mix ground meat, breadcrumbs soaked in milk, egg, onion, salt, pepper, and nutmeg until sticky.
+3. Shape into 4 oval patties with a dimple in the center.
+4. Sear over high heat, then reduce heat, cover, and cook 8 minutes.
+5. Combine sauce ingredients and simmer to reduce; pour over patties.
 
-## コツ・ポイント
+## Tips
 
-- 卵液は火を止めてから混ぜるのが鉄則。スクランブル状になると失敗。
-- チーズは必ず細かく削る。
+- Knead well to eliminate air pockets that cause cracking.
+- A hot sear first, then steam-cook on low for the perfect interior.
 
-## メモ
+## Notes
 
-茹で汁のでんぷんが乳化を助ける。茹で汁は多めに取っておくこと。
+Substitute tofu for a lighter version. A Japanese-style sauce with grated daikon is equally delicious.
 
 ---
 
-## グラタン
-📁 recipes/洋食
+## Korokke (Japanese Croquettes)
+📁 recipes/Western
 
-# グラタン
+# Korokke (Japanese Croquettes)
 
-とろとろのベシャメルソースとチーズが絡む、冬に食べたいグラタン。
+![Korokke (Japanese Croquettes)](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Croquetas_Caseras_%287068664101%29.jpg/960px-Croquetas_Caseras_%287068664101%29.jpg)
 
-## 材料（4人分）
+Japan's answer to croquettes — crispy breaded potato-and-meat patties best eaten hot with tonkatsu sauce.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 鶏もも肉 | 200g |
-| マカロニ | 100g |
-| 玉ねぎ | 1/2個 |
-| マッシュルーム | 6個 |
-| ピザ用チーズ | 80g |
-| バター | 30g |
-| 薄力粉 | 30g |
-| 牛乳 | 400ml |
+| Potatoes | 4 (600g) |
+| Ground beef and pork mix | 150g |
+| Onion | 1/2 |
+| Egg | 1 |
+| Breadcrumbs | as needed |
+| All-purpose flour | as needed |
+| Frying oil | as needed |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 塩こしょう | 適量 |
-| ナツメグ | 少々 |
-| コンソメ | 1個 |
+| Salt and pepper | to taste |
+| Butter | 10g |
 
-## 手順
+## Instructions
 
-1. マカロニを茹でておく。鶏肉と野菜を炒める。
-2. バターで薄力粉を炒め、牛乳を少しずつ加えてなめらかなベシャメルソースを作る。
-3. コンソメ・ナツメグ・塩こしょうで味を整える。
-4. 鶏肉・野菜・マカロニをソースに混ぜ、グラタン皿に入れる。
-5. チーズをかけて200℃のオーブンで20分焼く。
+1. Boil and mash potatoes; season with salt, pepper, and butter.
+2. Cook onion and ground meat; season and cool completely.
+3. Mix mashed potato and meat filling; shape into oval patties.
+4. Coat in flour → beaten egg → breadcrumbs.
+5. Deep-fry at 170°C until golden brown.
 
-## コツ・ポイント
+## Tips
 
-- ベシャメルは牛乳を少しずつ加えながら混ぜるとダマにならない。
-- 表面がこんがりするまでしっかり焼く。
+- Remove moisture from mashed potato to prevent them from bursting.
+- Coat thoroughly for a crust that holds.
 
-## メモ
+## Notes
 
-海老やほうれん草を加えると豪華版に。
+Add curry powder for a curry korokke twist. Makes great freeze-ahead meals.
 
 ---
 
-## コロッケ
-📁 recipes/洋食
+## Macaroni Gratin
+📁 recipes/Western
 
-# コロッケ
+# Macaroni Gratin
 
-サクサクの衣とほくほくのじゃがいもが絶妙。ソースをかけて召し上がれ。
+![Macaroni Gratin](https://upload.wikimedia.org/wikipedia/commons/0/0b/Gratin-Dauphinois.jpg)
 
-## 材料（4人分）
+A bubbling, golden gratin of chicken, mushrooms, and macaroni in creamy béchamel. The ultimate winter comfort dish.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| じゃがいも | 4個（600g） |
-| 合いびき肉 | 150g |
-| 玉ねぎ | 1/2個 |
-| 卵 | 1個 |
-| パン粉 | 適量 |
-| 薄力粉 | 適量 |
-| 揚げ油 | 適量 |
+| Chicken thigh | 200g |
+| Macaroni | 100g |
+| Onion | 1/2 |
+| Mushrooms | 6 |
+| Shredded cheese | 80g |
+| Butter | 30g |
+| All-purpose flour | 30g |
+| Milk | 400ml |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 塩こしょう | 適量 |
-| バター | 10g |
+| Salt and pepper | to taste |
+| Nutmeg | a pinch |
+| Bouillon cube | 1 |
 
-## 手順
+## Instructions
 
-1. じゃがいもを茹でてつぶし、塩こしょうとバターで味付けする。
-2. 玉ねぎとひき肉を炒め、塩こしょうで味付けして冷ます。
-3. じゃがいもと炒め肉を混ぜ、楕円形に成形する。
-4. 薄力粉→卵→パン粉の順に衣をつける。
-5. 170℃の油できつね色になるまで揚げる。
+1. Cook macaroni; sauté chicken and vegetables.
+2. Melt butter, stir in flour, and gradually whisk in milk to make a smooth béchamel.
+3. Season with bouillon, nutmeg, salt and pepper.
+4. Fold in chicken, vegetables, and macaroni; transfer to gratin dish.
+5. Top with cheese and bake at 200°C for 20 minutes until golden.
 
-## コツ・ポイント
+## Tips
 
-- じゃがいもの水分をしっかり飛ばすと崩れにくい。
-- 衣はしっかりとつけること。
+- Add milk gradually while whisking to prevent lumps.
+- Bake until deeply golden and bubbling.
 
-## メモ
+## Notes
 
-カレー味にするとカレーコロッケに。大量に作って冷凍しておくと便利。
+Add shrimp or spinach for a more luxurious version.
 
 ---
 
-## ハンバーグ
-📁 recipes/洋食
+## Minestrone
+📁 recipes/Western
 
-# ハンバーグ
+# Minestrone
 
-外はカリッ、中はジューシーな手作りハンバーグ。デミグラスソースで本格的に。
+![Minestrone](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Minestrone_soup_%285%29.jpg/960px-Minestrone_soup_%285%29.jpg)
 
-## 材料（4人分）
+A hearty Italian vegetable soup with tomatoes and white beans. Nutritious, warming, and infinitely customizable.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 合いびき肉 | 400g |
-| 玉ねぎ | 1/2個 |
-| 卵 | 1個 |
-| パン粉 | 1/2カップ |
-| 牛乳 | 大さじ3 |
-| 塩 | 小さじ1/2 |
-| こしょう | 少々 |
-| ナツメグ | 少々 |
+| Onion | 1 |
+| Carrot | 1 |
+| Celery | 1 stalk |
+| Zucchini | 1 |
+| Potato | 1 |
+| Bacon | 50g |
+| Canned tomatoes | 1 can |
+| White beans (canned) | 1 can |
+| Small pasta | 50g |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| デミグラスソース缶 | 1缶 |
-| 赤ワイン | 100ml |
-| バター | 10g |
-| ウスターソース | 大さじ1 |
+| Vegetable broth | 600ml |
+| Olive oil | 2 tbsp |
+| Garlic | 1 clove |
+| Salt and pepper | to taste |
+| Parmigiano | to finish |
 
-## 手順
+## Instructions
 
-1. 玉ねぎをみじん切りにし、バターで飴色になるまで炒め、冷ます。
-2. パン粉を牛乳に浸し、ひき肉・卵・炒め玉ねぎ・塩こしょう・ナツメグと混ぜ、粘りが出るまでこねる。
-3. 4等分にして楕円形に成形し、中央をくぼませる。
-4. フライパンで強火で両面を焼き固め、弱火にして蓋をして8分蒸し焼き。
-5. ソースの材料を合わせて煮詰め、ハンバーグにかける。
+1. Dice all vegetables into 1cm cubes.
+2. Heat olive oil in a pot and sauté garlic and bacon.
+3. Add onion, carrot, and celery; cook 5 minutes. Add remaining vegetables.
+4. Pour in tomatoes, broth, and beans. Simmer 20 minutes.
+5. Add pasta and cook per package instructions; season with salt.
 
-## コツ・ポイント
+## Tips
 
-- 肉だねはよく捏ねると空気が入らず割れにくい。
-- 最初の強火で焼き目をつけてから蒸し焼きにする。
+- Uniform dice ensures even cooking.
+- Beans add protein and satisfying bulk.
 
-## メモ
+## Notes
 
-つなぎのパン粉を豆腐に変えるとヘルシーに。和風大根おろしソースもおすすめ。
+Finish with freshly grated Parmigiano. Even better the next day once flavors have melded.
 
 ---
 
-## ビーフシチュー
-📁 recipes/洋食
+## Omurice
+📁 recipes/Western
 
-# ビーフシチュー
+# Omurice
 
-赤ワインでじっくり煮込んだ本格的なビーフシチュー。冬の特別な一皿。
+![Omurice](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Omurice_by_Taimeiken.jpg/960px-Omurice_by_Taimeiken.jpg)
 
-## 材料（4人分）
+Japan's beloved ketchup-fried rice wrapped in a thin egg omelette. A retro classic beloved by children and adults alike.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 牛すね肉（または牛肩ロース） | 500g |
-| 玉ねぎ | 2個 |
-| にんじん | 2本 |
-| マッシュルーム | 100g |
-| じゃがいも | 2個 |
-| にんにく | 2かけ |
-| トマトペースト | 大さじ2 |
+| Cooked rice | 2 bowls |
+| Eggs | 3 |
+| Chicken thigh | 100g |
+| Onion | 1/4 |
+| Mushrooms | 4 |
+| Butter | 20g |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 赤ワイン | 300ml |
-| ビーフブロス | 400ml |
-| デミグラスソース缶 | 1/2缶 |
-| 塩こしょう | 適量 |
-| ローリエ | 2枚 |
-| タイム | 少々 |
+| Ketchup | 4 tbsp |
+| Salt and pepper | to taste |
+| Milk | 1 tbsp (for eggs) |
 
-## 手順
+## Instructions
 
-1. 牛肉は大きめに切り、塩こしょうをして小麦粉をまぶす。
-2. 厚手の鍋でバターを熱し、牛肉の表面を全体的に焼き固める。取り出す。
-3. 同じ鍋で玉ねぎ・にんにくを炒め、赤ワインを加えてアルコールを飛ばす。
-4. 牛肉を戻し入れ、残りの材料を加えて弱火で90分煮込む。
-5. 野菜が柔らかくなったら塩で味を整える。
+1. Stir-fry chicken, onion, and mushrooms in butter; add rice and toss with ketchup until combined.
+2. Whisk eggs with milk and a pinch of salt.
+3. In a buttered pan, pour egg mixture and spread into a thin layer until just set.
+4. Place fried rice on one side and fold egg over to wrap.
+5. Flip onto plate and decorate with ketchup.
 
-## コツ・ポイント
+## Tips
 
-- 牛肉は最初にしっかり焼き固めること。
-- 弱火でじっくり煮るのが柔らかくするコツ。
+- Move quickly — egg should remain soft and silky.
+- Dry the fried rice well to prevent sogginess.
 
-## メモ
+## Notes
 
-翌日は味がなじんでさらに美味。マッシュポテトを添えると本格的。
+A "fluffy" style where a loose, creamy omelette is draped over the rice is equally popular. Demi-glace sauce works great too.
 
 ---
 
-## ミネストローネ
-📁 recipes/洋食
+## Spaghetti Carbonara
+📁 recipes/Western
 
-# ミネストローネ
+# Spaghetti Carbonara
 
-トマトベースの野菜たっぷりイタリアンスープ。体にやさしい一品。
+![Spaghetti Carbonara](https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Espaguetis_carbonara.jpg/960px-Espaguetis_carbonara.jpg)
 
-## 材料（4人分）
+Authentic Roman-style carbonara with no cream — just eggs, aged cheese, and guanciale. Rich, silky, and perfectly savory.
 
-| 材料 | 分量 |
+## Ingredients (serves 4)
+
+| Ingredient | Amount |
 |---|---|
-| 玉ねぎ | 1個 |
-| にんじん | 1本 |
-| セロリ | 1本 |
-| ズッキーニ | 1本 |
-| じゃがいも | 1個 |
-| ベーコン | 50g |
-| トマト缶 | 1缶 |
-| 白いんげん豆（缶） | 1缶 |
-| ショートパスタ | 50g |
+| Spaghetti | 200g |
+| Pancetta (or guanciale) | 100g |
+| Eggs | 2 |
+| Egg yolks | 2 |
+| Pecorino Romano (or Parmigiano) | 60g |
+| Black pepper | generously |
 
-### 調味料
+### Seasonings
 
-| 調味料 | 分量 |
+| Seasoning | Amount |
 |---|---|
-| 野菜ブロス | 600ml |
-| オリーブオイル | 大さじ2 |
-| にんにく | 1かけ |
-| 塩こしょう | 適量 |
-| パルミジャーノ | 適量 |
+| Salt (for pasta water) | 1% of water volume |
+| Olive oil | 1 tbsp |
 
-## 手順
+## Instructions
 
-1. 野菜はすべて1cm角に切る。
-2. 鍋でオリーブオイルを熱し、にんにく・ベーコンを炒める。
-3. 玉ねぎ・にんじん・セロリを加えて5分炒め、残りの野菜も加える。
-4. トマト缶・ブロス・豆を加えて20分煮込む。
-5. パスタを加えて袋の表示時間通り煮て、塩で味を整える。
+1. Whisk together eggs, yolks, cheese, and plenty of black pepper.
+2. Cut pancetta into strips and render in olive oil until crisp.
+3. Cook pasta in well-salted water; reserve a cup of pasta water.
+4. Remove pan from heat, add drained pasta and toss with pancetta.
+5. Pour over egg mixture and stir quickly, loosening with pasta water to reach a creamy consistency.
 
-## コツ・ポイント
+## Tips
 
-- 野菜は同じ大きさに切ると均一に火が通る。
-- 豆を入れると食べ応えと栄養価が増す。
+- Always add egg off the heat — scrambled carbonara is a disaster.
+- Finely grated cheese melts more smoothly.
 
-## メモ
+## Notes
 
-パルミジャーノを削って仕上げに。翌日は味がなじんでさらに美味しい。
+The starch in pasta water is the key emulsifier. Reserve more than you think you need.
 
 ---
