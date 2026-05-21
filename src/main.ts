@@ -1,6 +1,6 @@
-import { App, Plugin, TFile, SuggestModal, Notice } from 'obsidian';
+import { App, Plugin, TFile, TFolder, SuggestModal, Notice } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
-import { exportVault } from './exporter';
+import { exportVault, downloadBlob } from './exporter';
 import { buildContextPack } from './context-pack';
 import { t } from './i18n';
 
@@ -10,6 +10,8 @@ export default class ContextPackPlugin extends Plugin {
   async onload() {
     await this.loadSettings();
     this.addSettingTab(new SettingsTab(this.app, this));
+
+    this.addRibbonIcon('package', t('ribbon_tooltip'), () => this.packFromFolder());
 
     this.addCommand({
       id: 'export-vault',
@@ -50,6 +52,27 @@ export default class ContextPackPlugin extends Plugin {
         return true;
       },
     });
+
+    this.registerEvent(
+      this.app.workspace.on('file-menu', (menu, file) => {
+        if (file instanceof TFolder) {
+          menu.addItem(item => item
+            .setTitle(t('menu_pack_folder'))
+            .setIcon('package')
+            .onClick(() => this.packFromFolderPath(file.path)));
+        }
+        if (file instanceof TFile && file.extension === 'md') {
+          menu.addItem(item => item
+            .setTitle(t('menu_export_note'))
+            .setIcon('download')
+            .onClick(() => this.runExport(file)));
+          menu.addItem(item => item
+            .setTitle(t('menu_pack_moc'))
+            .setIcon('list')
+            .onClick(() => this.packFromMoc(file)));
+        }
+      })
+    );
   }
 
   async loadSettings() {
@@ -77,25 +100,30 @@ export default class ContextPackPlugin extends Plugin {
     }, singleFile);
   }
 
-  private async packFromFolder() {
+  private packFromFolder() {
     const folders = this.getFolders();
-    new FolderSuggest(this.app, folders, async (folder) => {
-      const files = this.app.vault.getMarkdownFiles()
-        .filter(f => f.path.startsWith(folder + '/'));
+    new FolderSuggest(this.app, folders, (folder) => this.packFromFolderPath(folder)).open();
+  }
 
-      if (files.length === 0) {
-        new Notice(t('notice_no_files'));
-        return;
-      }
+  private async packFromFolderPath(folderPath: string) {
+    const files = this.app.vault.getMarkdownFiles()
+      .filter(f => f.path.startsWith(folderPath + '/'));
 
-      const title = folder.split('/').pop() ?? folder;
-      const content = await buildContextPack(files, this.app, this.formatOptions(), {
-        title,
-        source: `folder:${folder}`,
-      });
+    if (files.length === 0) {
+      new Notice(t('notice_no_files'));
+      return;
+    }
 
-      await this.saveContextPack(content, `folder-${title}`);
-    }).open();
+    const title = folderPath.split('/').pop() ?? folderPath;
+    const notice = new Notice(t('notice_exporting'), 0);
+    notice.noticeEl.addClass('cp-progress');
+    const content = await buildContextPack(files, this.app, this.formatOptions(), {
+      title,
+      source: `folder:${folderPath}`,
+    }, (cur, total) => notice.setMessage(`⏳ Context Pack を作成中 ${cur} / ${total}`));
+    notice.hide();
+
+    await this.saveContextPack(content, `folder-${title}`, files.length);
   }
 
   private async packFromTag() {
@@ -115,12 +143,15 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
+    const notice = new Notice(t('notice_exporting'), 0);
+    notice.noticeEl.addClass('cp-progress');
     const content = await buildContextPack(files, this.app, this.formatOptions(), {
       title: tag,
       source: `tag:${tag}`,
-    });
+    }, (cur, total) => notice.setMessage(`⏳ Context Pack を作成中 ${cur} / ${total}`));
+    notice.hide();
 
-    await this.saveContextPack(content, `tag-${tag}`);
+    await this.saveContextPack(content, `tag-${tag}`, files.length);
   }
 
   private async packFromMoc(moc: TFile) {
@@ -140,28 +171,25 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
+    const notice = new Notice(t('notice_exporting'), 0);
+    notice.noticeEl.addClass('cp-progress');
     const content = await buildContextPack(files, this.app, this.formatOptions(), {
       title: moc.basename,
       source: `moc:${moc.basename}`,
-    });
+    }, (cur, total) => notice.setMessage(`⏳ Context Pack を作成中 ${cur} / ${total}`));
+    notice.hide();
 
-    await this.saveContextPack(content, `moc-${moc.basename}`);
+    await this.saveContextPack(content, `moc-${moc.basename}`, files.length);
   }
 
-  private async saveContextPack(content: string, slug: string): Promise<void> {
+  private async saveContextPack(content: string, slug: string, noteCount: number): Promise<void> {
     const date = window.moment().format('YYYYMMDD');
     const filename = `pack-${slug}-${date}.md`;
-    const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder;
-    const path = folder ? `${folder}/${filename}` : filename;
 
     try {
-      const existing = this.app.vault.getAbstractFileByPath(path);
-      if (existing instanceof TFile) {
-        await this.app.vault.modify(existing, content);
-      } else {
-        await this.app.vault.create(path, content);
-      }
-      new Notice(t('notice_pack_done', content.split('\n## ').length - 1));
+      const blob = new Blob([content], { type: 'text/markdown' });
+      downloadBlob(blob, filename);
+      new Notice(t('notice_pack_done', noteCount), 5000);
     } catch (err) {
       console.error('[Context Pack] Failed to save pack:', err);
       new Notice(t('notice_error'));

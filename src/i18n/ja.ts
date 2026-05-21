@@ -5,6 +5,11 @@ export default {
   cmd_pack_tag:       'タグからContext Packを作成',
   cmd_pack_moc:       'MOCからContext Packを作成',
 
+  ribbon_tooltip:    'Context Pack を作成',
+  menu_pack_folder:  'このフォルダをContext Packにする',
+  menu_export_note:  'このノートをエクスポート（NotebookLM）',
+  menu_pack_moc:     'このMOCからContext Packを作成',
+
   prompt_tag_name:    'タグ名を入力してください（# 不要）',
   prompt_file_name:   'Context Packのファイル名を入力してください',
 

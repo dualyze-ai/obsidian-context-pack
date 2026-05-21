@@ -1,0 +1,8 @@
+.cp-progress {
+  font-size: 1.1em;
+  font-weight: 600;
+  min-width: 200px;
+  padding: 14px 20px;
+  background-color: var(--color-accent);
+  color: var(--text-on-accent);
+}
