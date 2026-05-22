@@ -489,10 +489,10 @@ recipe({
 
 // ===== TRAVEL NOTES (20 notes) =====
 
-// Domestic — Kanto (3 notes)
+// Japan — Kanto (3 notes)
 travel({
-  folder: 'Domestic', subfolder: 'Kanto', title: 'Kamakura',
-  tags: ['Domestic', 'Kanto', 'Kanagawa', 'History', 'Day Trip', 'season:Spring-Autumn'],
+  folder: 'Japan', subfolder: 'Kanto', title: 'Kamakura',
+  tags: ['Japan', 'Kanto', 'Kanagawa', 'History', 'Day Trip', 'season:Spring-Autumn'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/TsurugaokaHachiman-M8867.jpg/960px-TsurugaokaHachiman-M8867.jpg',
   overview: 'A coastal historic city south of Tokyo, once the seat of Japan\'s first shogunate government. Temples, shrines, and hiking trails are set against a backdrop of sea and mountains.',
   access: 'About 1 hour from Tokyo Station via JR Yokosuka Line. Also accessible via Shonan-Shinjuku Line. Kamakura Station is the main hub.',
@@ -502,8 +502,8 @@ travel({
 });
 
 travel({
-  folder: 'Domestic', subfolder: 'Kanto', title: 'Nikko',
-  tags: ['Domestic', 'Kanto', 'Tochigi', 'UNESCO', 'History', 'Nature'],
+  folder: 'Japan', subfolder: 'Kanto', title: 'Nikko',
+  tags: ['Japan', 'Kanto', 'Tochigi', 'UNESCO', 'History', 'Nature'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg/960px-200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg',
   overview: 'A UNESCO World Heritage Site in northern Tochigi, centered on Nikko Tosho-gu, the ornate mausoleum of Tokugawa Ieyasu. Stunning nature surrounds the elaborate Edo-period architecture.',
   access: 'About 2 hours from Asakusa on the Tobu Nikko Limited Express Spacia. About 45 min from Utsunomiya on the JR Nikko Line.',
@@ -513,8 +513,8 @@ travel({
 });
 
 travel({
-  folder: 'Domestic', subfolder: 'Kanto', title: 'Hakone',
-  tags: ['Domestic', 'Kanto', 'Kanagawa', 'Onsen', 'Nature', 'Resort'],
+  folder: 'Japan', subfolder: 'Kanto', title: 'Hakone',
+  tags: ['Japan', 'Kanto', 'Kanagawa', 'Onsen', 'Nature', 'Resort'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/260505_Moto-Hakone_Hakone_Japan01s3.jpg/960px-260505_Moto-Hakone_Hakone_Japan01s3.jpg',
   overview: 'A popular hot spring resort west of Tokyo with sweeping views of Mt. Fuji over Lake Ashi. Easily accessible from Tokyo, it offers everything from art museums to cable cars.',
   access: 'About 85 min from Shinjuku on the Odakyu Romance Car to Hakone-Yumoto. About 35 min from Tokyo to Odawara by Shinkansen, then transfer to Odakyu.',
@@ -523,10 +523,10 @@ travel({
   memo: 'The Hakone Free Pass covers unlimited travel on all area transport — great value. Weekend road traffic is heavy; train travel is recommended.',
 });
 
-// Domestic — Kansai (3 notes)
+// Japan — Kansai (3 notes)
 travel({
-  folder: 'Domestic', subfolder: 'Kansai', title: 'Kyoto',
-  tags: ['Domestic', 'Kansai', 'Kyoto', 'UNESCO', 'History', 'Temples-Shrines'],
+  folder: 'Japan', subfolder: 'Kansai', title: 'Kyoto',
+  tags: ['Japan', 'Kansai', 'Kyoto', 'UNESCO', 'History', 'Temples-Shrines'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/960px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg',
   overview: 'Japan\'s ancient imperial capital for over a millennium. Seventeen UNESCO World Heritage Sites, traditional geisha culture, and some of Japan\'s finest cuisine make it unmissable.',
   access: 'About 2h 15min from Tokyo by Shinkansen (Nozomi). 30–45 min from Osaka by JR, Hankyu, or Kintetsu. Kyoto Station is the main hub.',
@@ -536,8 +536,8 @@ travel({
 });
 
 travel({
-  folder: 'Domestic', subfolder: 'Kansai', title: 'Osaka',
-  tags: ['Domestic', 'Kansai', 'Osaka', 'Food', 'Entertainment'],
+  folder: 'Japan', subfolder: 'Kansai', title: 'Osaka',
+  tags: ['Japan', 'Kansai', 'Osaka', 'Food', 'Entertainment'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Osaka_Castle_03bs3200.jpg/960px-Osaka_Castle_03bs3200.jpg',
   overview: 'Japan\'s kitchen — a lively metropolis known for its street food culture, down-to-earth locals, and non-stop entertainment. Also home to Universal Studios Japan.',
   access: 'About 2h 30min from Tokyo by Shinkansen (Nozomi). Shin-Osaka Station is the Shinkansen hub. Umeda and Namba are the main entertainment districts.',
@@ -547,8 +547,8 @@ travel({
 });
 
 travel({
-  folder: 'Domestic', subfolder: 'Kansai', title: 'Nara',
-  tags: ['Domestic', 'Kansai', 'Nara', 'UNESCO', 'History', 'Nature'],
+  folder: 'Japan', subfolder: 'Kansai', title: 'Nara',
+  tags: ['Japan', 'Kansai', 'Nara', 'UNESCO', 'History', 'Nature'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nara_Park_-_panoramio_%282%29.jpg/960px-Nara_Park_-_panoramio_%282%29.jpg',
   overview: 'Japan\'s ancient capital from 710–784 AD. Nara Park\'s freely roaming deer share the grounds with some of Japan\'s oldest and most magnificent temples.',
   access: 'About 35–45 min from Kyoto by Kintetsu or JR. About 35 min from Osaka by Kintetsu. Nara and Kintetsu-Nara Stations are the main entry points.',
@@ -557,10 +557,10 @@ travel({
   memo: 'The main sights are walkable. Deer crackers (¥150) are irresistible to the deer. Early morning at Todai-ji is quiet and magical.',
 });
 
-// Domestic — Hokkaido (2 notes)
+// Japan — Hokkaido (2 notes)
 travel({
-  folder: 'Domestic', subfolder: 'Hokkaido', title: 'Hakodate',
-  tags: ['Domestic', 'Hokkaido', 'Food', 'Night View', 'History'],
+  folder: 'Japan', subfolder: 'Hokkaido', title: 'Hakodate',
+  tags: ['Japan', 'Hokkaido', 'Food', 'Night View', 'History'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hakodate-panorama.jpg/960px-Hakodate-panorama.jpg',
   overview: 'A port city at the southern tip of Hokkaido, famous for one of the world\'s top three night views from Mt. Hakodate and an abundance of fresh seafood. Colonial-era Western architecture gives it a unique charm.',
   access: 'About 4 hours from Tokyo by Shinkansen (Hokkaido Shinkansen). About 1h 20min by plane. About 20 min from Hakodate Airport to the city center.',
@@ -570,8 +570,8 @@ travel({
 });
 
 travel({
-  folder: 'Domestic', subfolder: 'Hokkaido', title: 'Furano',
-  tags: ['Domestic', 'Hokkaido', 'Nature', 'Flower Fields', 'season:Summer'],
+  folder: 'Japan', subfolder: 'Hokkaido', title: 'Furano',
+  tags: ['Japan', 'Hokkaido', 'Nature', 'Flower Fields', 'season:Summer'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg/960px-%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg',
   overview: 'Located in central Hokkaido, Furano\'s rolling hills burst into vivid purple lavender fields each July, drawing visitors from around the world. In winter, it\'s one of Japan\'s premier ski resorts.',
   access: 'About 2 hours from Sapporo on the seasonal Furano Lavender Express (summer only). About 1 hour by car from Asahikawa. Rental car is the most convenient.',
@@ -580,10 +580,10 @@ travel({
   memo: 'Lavender peaks mid-July. Cycling is possible but distances are significant — a rental car is most efficient.',
 });
 
-// Domestic — Kyushu (2 notes)
+// Japan — Kyushu (2 notes)
 travel({
-  folder: 'Domestic', subfolder: 'Kyushu', title: 'Nagasaki',
-  tags: ['Domestic', 'Kyushu', 'Nagasaki', 'History', 'Night View', 'Exotic'],
+  folder: 'Japan', subfolder: 'Kyushu', title: 'Nagasaki',
+  tags: ['Japan', 'Kyushu', 'Nagasaki', 'History', 'Night View', 'Exotic'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg/960px-Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg',
   overview: 'Japan\'s only open trading port during the Edo period, Nagasaki has a uniquely multicultural heritage shaped by Chinese, Dutch, and Portuguese influences. Home to Glover Garden and the moving Peace Memorial.',
   access: 'About 1h 50min by plane from Tokyo. About 2 hours from Hakata by limited express (reduced after the Nishi-Kyushu Shinkansen opened).',
@@ -593,8 +593,8 @@ travel({
 });
 
 travel({
-  folder: 'Domestic', subfolder: 'Kyushu', title: 'Beppu',
-  tags: ['Domestic', 'Kyushu', 'Oita', 'Onsen', 'Nature'],
+  folder: 'Japan', subfolder: 'Kyushu', title: 'Beppu',
+  tags: ['Japan', 'Kyushu', 'Oita', 'Onsen', 'Nature'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Beppu_Montage_2.jpg/960px-Beppu_Montage_2.jpg',
   overview: 'Japan\'s undisputed hot spring capital — more sources and greater output than anywhere else in the country. Steam rises from streets and alleyways throughout this unique city.',
   access: 'About 60 min by bus from Oita Airport. About 2 hours from Hakata by the limited express Sonic. Beppu Station is the main hub.',

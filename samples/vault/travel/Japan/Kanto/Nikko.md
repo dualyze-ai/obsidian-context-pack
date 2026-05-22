@@ -1,6 +1,6 @@
 ---
 tags:
-  - Domestic
+  - Japan
   - Kanto
   - Tochigi
   - UNESCO

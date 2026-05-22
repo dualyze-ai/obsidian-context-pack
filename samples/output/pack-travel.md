@@ -1,387 +1,10 @@
 # Context Pack: Travel Notes
 
-Generated: 2026-05-21
+Generated: 2026-05-22
 
 Source: folder:travel
 
 Notes: 20
-
----
-
-## Furano
-📁 travel/Domestic/Hokkaido
-
-# Furano
-
-![Furano](https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg/960px-%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg)
-
-## Overview
-
-Located in central Hokkaido, Furano's rolling hills burst into vivid purple lavender fields each July, drawing visitors from around the world. In winter, it's one of Japan's premier ski resorts.
-
-## Access
-
-About 2 hours from Sapporo on the seasonal Furano Lavender Express (summer only). About 1 hour by car from Asahikawa. Rental car is the most convenient.
-
-## Highlights
-
-- Farm Tomita lavender fields (peak in July)
-- Rainbow fields of seasonal flowers
-- Views of the Tokachidake mountain range
-- Shirogane Blue Pond (Biei)
-- Filming locations from drama "Kita no Kuni Kara"
-
-## Food & Dining
-
-- Furano melon
-- Lavender soft-serve ice cream
-- Furano Burger
-- Local vegetable buffet
-- Furano wine
-
-## Tips & Advice
-
-Lavender peaks mid-July. Cycling is possible but distances are significant — a rental car is most efficient.
-
----
-
-## Hakodate
-📁 travel/Domestic/Hokkaido
-
-# Hakodate
-
-![Hakodate](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hakodate-panorama.jpg/960px-Hakodate-panorama.jpg)
-
-## Overview
-
-A port city at the southern tip of Hokkaido, famous for one of the world's top three night views from Mt. Hakodate and an abundance of fresh seafood. Colonial-era Western architecture gives it a unique charm.
-
-## Access
-
-About 4 hours from Tokyo by Shinkansen (Hokkaido Shinkansen). About 1h 20min by plane. About 20 min from Hakodate Airport to the city center.
-
-## Highlights
-
-- Night view from Mt. Hakodate (go at dusk)
-- Motomachi Western-style architecture district
-- Goryokaku fortress and tower
-- Morning Market (seafood donburi and squid sashimi)
-- Trappistine Convent
-
-## Food & Dining
-
-- Seafood donburi at the morning market
-- Squid dishes (ikameshi)
-- Shio ramen (light salt broth)
-- Lucky Pierrot's Chinese Chicken Burger
-- Hasegawa Store's grilled chicken bento
-
-## Tips & Advice
-
-The ropeway gets very busy — grab a timed ticket early. Night views are best on clear days. The JR Hokkaido Pass is good value for getting around.
-
----
-
-## Kyoto
-📁 travel/Domestic/Kansai
-
-# Kyoto
-
-![Kyoto](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/960px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg)
-
-## Overview
-
-Japan's ancient imperial capital for over a millennium. Seventeen UNESCO World Heritage Sites, traditional geisha culture, and some of Japan's finest cuisine make it unmissable.
-
-## Access
-
-About 2h 15min from Tokyo by Shinkansen (Nozomi). 30–45 min from Osaka by JR, Hankyu, or Kintetsu. Kyoto Station is the main hub.
-
-## Highlights
-
-- Kinkaku-ji (Golden Pavilion)
-- Arashiyama bamboo grove
-- Fushimi Inari Taisha (thousands of torii gates)
-- Kiyomizu-dera
-- Gion & Hanamikoji (geisha district)
-- Philosopher's Path (cherry blossoms & autumn leaves)
-- Nijo Castle
-
-## Food & Dining
-
-- Yudofu (hot tofu, near Nanzenji)
-- Kaiseki multi-course cuisine
-- Nishiki Market street food
-- Matcha sweets
-- Obanzai (Kyoto home-style cuisine)
-
-## Tips & Advice
-
-Spring (cherry blossoms, March–April) and autumn (foliage, November) bring crowds and high hotel prices. A bus/subway day pass is convenient. Don't miss Gion Matsuri in July.
-
----
-
-## Nara
-📁 travel/Domestic/Kansai
-
-# Nara
-
-![Nara](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nara_Park_-_panoramio_%282%29.jpg/960px-Nara_Park_-_panoramio_%282%29.jpg)
-
-## Overview
-
-Japan's ancient capital from 710–784 AD. Nara Park's freely roaming deer share the grounds with some of Japan's oldest and most magnificent temples.
-
-## Access
-
-About 35–45 min from Kyoto by Kintetsu or JR. About 35 min from Osaka by Kintetsu. Nara and Kintetsu-Nara Stations are the main entry points.
-
-## Highlights
-
-- Todai-ji Great Buddha Hall (National Treasure & UNESCO)
-- Deer in Nara Park
-- Kasuga Grand Shrine (UNESCO)
-- Kofuku-ji Five-Story Pagoda
-- Gango-ji Temple
-- Naramachi historic district
-
-## Food & Dining
-
-- Kakinoha-zushi (mackerel sushi wrapped in persimmon leaf)
-- Miwa somen noodles
-- Nara-zuke pickles
-- Mitarashi dango (near Nara Park)
-- Daibutsu Pudding
-
-## Tips & Advice
-
-The main sights are walkable. Deer crackers (¥150) are irresistible to the deer. Early morning at Todai-ji is quiet and magical.
-
----
-
-## Osaka
-📁 travel/Domestic/Kansai
-
-# Osaka
-
-![Osaka](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Osaka_Castle_03bs3200.jpg/960px-Osaka_Castle_03bs3200.jpg)
-
-## Overview
-
-Japan's kitchen — a lively metropolis known for its street food culture, down-to-earth locals, and non-stop entertainment. Also home to Universal Studios Japan.
-
-## Access
-
-About 2h 30min from Tokyo by Shinkansen (Nozomi). Shin-Osaka Station is the Shinkansen hub. Umeda and Namba are the main entertainment districts.
-
-## Highlights
-
-- Dotonbori (Glico sign, Ebisu Bridge)
-- Osaka Castle
-- Universal Studios Japan
-- Kuromon Market (Osaka's Kitchen)
-- Shinsekai & Tsutenkaku Tower
-- Shinsaibashi & Amerika-mura
-
-## Food & Dining
-
-- Takoyaki (octopus balls)
-- Kushikatsu (Shinsekai-style skewers)
-- Okonomiyaki (savory pancakes)
-- Kani Doraku crab cuisine
-- 551 Horai pork buns
-- Kinryu Ramen
-
-## Tips & Advice
-
-ICOCA is the handy IC transit card for the Kansai region. The Osaka Amazing Pass offers great value. Dotonbori and Kuromon Market are the best street food zones.
-
----
-
-## Hakone
-📁 travel/Domestic/Kanto
-
-# Hakone
-
-![Hakone](https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/260505_Moto-Hakone_Hakone_Japan01s3.jpg/960px-260505_Moto-Hakone_Hakone_Japan01s3.jpg)
-
-## Overview
-
-A popular hot spring resort west of Tokyo with sweeping views of Mt. Fuji over Lake Ashi. Easily accessible from Tokyo, it offers everything from art museums to cable cars.
-
-## Access
-
-About 85 min from Shinjuku on the Odakyu Romance Car to Hakone-Yumoto. About 35 min from Tokyo to Odawara by Shinkansen, then transfer to Odakyu.
-
-## Highlights
-
-- Lake Ashi with Mt. Fuji view
-- Hakone Ropeway (Owakudani volcanic valley)
-- Hakone Open-Air Museum
-- Hakone Shrine
-- Hakone-Yumoto hot spring area
-- Sengokuhara pampas grass fields (autumn)
-
-## Food & Dining
-
-- Black eggs (Owakudani specialty)
-- Wagashi sweets in Hakone-Yumoto
-- Mountain Hotel afternoon tea
-- Farm-to-table mountain cuisine
-
-## Tips & Advice
-
-The Hakone Free Pass covers unlimited travel on all area transport — great value. Weekend road traffic is heavy; train travel is recommended.
-
----
-
-## Kamakura
-📁 travel/Domestic/Kanto
-
-# Kamakura
-
-![Kamakura](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/TsurugaokaHachiman-M8867.jpg/960px-TsurugaokaHachiman-M8867.jpg)
-
-## Overview
-
-A coastal historic city south of Tokyo, once the seat of Japan's first shogunate government. Temples, shrines, and hiking trails are set against a backdrop of sea and mountains.
-
-## Access
-
-About 1 hour from Tokyo Station via JR Yokosuka Line. Also accessible via Shonan-Shinjuku Line. Kamakura Station is the main hub.
-
-## Highlights
-
-- Kotoku-in Great Buddha (National Treasure)
-- Tsurugaoka Hachimangu Shrine
-- Kita-Kamakura temples: Engaku-ji & Kencho-ji
-- Hase-dera in hydrangea season (June)
-- Kamakura Alps hiking trails
-- Yuigahama & Zaimokuza beaches
-
-## Food & Dining
-
-- Shirasu-don (whitebait rice bowl)
-- Hato Sable cookies (Toyoshimaya)
-- Matcha and wagashi sweets
-- Street food along Komachi-dori
-
-## Tips & Advice
-
-Weekdays are far less crowded. Hydrangea season (June) and autumn foliage (Nov–Dec) are peak. The Enoden day pass is great value.
-
----
-
-## Nikko
-📁 travel/Domestic/Kanto
-
-# Nikko
-
-![Nikko](https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg/960px-200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg)
-
-## Overview
-
-A UNESCO World Heritage Site in northern Tochigi, centered on Nikko Tosho-gu, the ornate mausoleum of Tokugawa Ieyasu. Stunning nature surrounds the elaborate Edo-period architecture.
-
-## Access
-
-About 2 hours from Asakusa on the Tobu Nikko Limited Express Spacia. About 45 min from Utsunomiya on the JR Nikko Line.
-
-## Highlights
-
-- Nikko Tosho-gu (UNESCO)
-- Yomeimon Gate (spectacularly ornate carvings)
-- Kegon Falls (one of Japan's Top 3 waterfalls)
-- Lake Chuzenji
-- Senjogahara marshland (hiking)
-- Ryuzu Falls
-
-## Food & Dining
-
-- Yuba (tofu skin) cuisine — a Nikko specialty
-- Nikko-age yuba
-- Yuba and soba set meals
-- Nikko Jingorō senbei crackers
-- Nikko milk
-
-## Tips & Advice
-
-Autumn foliage (mid-Oct to early Nov) is spectacular but extremely crowded. A bus is needed for the Chuzenji Lake area.
-
----
-
-## Beppu
-📁 travel/Domestic/Kyushu
-
-# Beppu
-
-![Beppu](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Beppu_Montage_2.jpg/960px-Beppu_Montage_2.jpg)
-
-## Overview
-
-Japan's undisputed hot spring capital — more sources and greater output than anywhere else in the country. Steam rises from streets and alleyways throughout this unique city.
-
-## Access
-
-About 60 min by bus from Oita Airport. About 2 hours from Hakata by the limited express Sonic. Beppu Station is the main hub.
-
-## Highlights
-
-- Beppu Hell Tour (Umi Jigoku, Chi-no-Ike Jigoku, and 5 more)
-- Communal baths in Beppu and Kannawa onsen areas
-- Takegawara Onsen (Meiji-era bathhouse)
-- Takasakiyama Natural Animal Park (wild monkeys)
-- Yufuin (30 min by car)
-
-## Food & Dining
-
-- Jigoku Mushi (food steamed in natural hot spring vapor)
-- Tori-ten (deep-fried chicken)
-- Dango-jiru (miso soup with flat dumplings)
-- Seki-saba & Seki-aji (premium mackerel and horse mackerel)
-- Beppu cold noodles (reimen)
-
-## Tips & Advice
-
-The Hell Tour combined ticket (¥2,200) is great value. The "Beppu Hatto Onsen-do" challenge — visiting 88 different baths — is how locals enjoy the city.
-
----
-
-## Nagasaki
-📁 travel/Domestic/Kyushu
-
-# Nagasaki
-
-![Nagasaki](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg/960px-Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg)
-
-## Overview
-
-Japan's only open trading port during the Edo period, Nagasaki has a uniquely multicultural heritage shaped by Chinese, Dutch, and Portuguese influences. Home to Glover Garden and the moving Peace Memorial.
-
-## Access
-
-About 1h 50min by plane from Tokyo. About 2 hours from Hakata by limited express (reduced after the Nishi-Kyushu Shinkansen opened).
-
-## Highlights
-
-- Glover Garden (World Cultural Heritage)
-- Gunkanjima (Battleship Island) boat tour
-- Peace Park and Atomic Bomb Museum
-- Night view from Mt. Inasa
-- Dejima (Dutch Trading Post)
-- Lantern Festival (February)
-
-## Food & Dining
-
-- Champon noodles
-- Sara udon (crispy noodles with toppings)
-- Toruko rice (a Nagasaki fusion dish)
-- Castella sponge cake (Fukusaya, Bunmeido)
-- Kakuni-man (braised pork bun)
-
-## Tips & Advice
-
-Gunkanjima landings depend on weather and require advance booking. Streetcars (¥140 per ride) are the easiest way to get around.
 
 ---
 
@@ -773,5 +396,382 @@ About 9–10 hours direct from Tokyo. Train from Sydney Airport reaches Central 
 ## Tips & Advice
 
 Southern hemisphere = opposite seasons (Dec–Feb is summer). The Opal Card covers buses, ferries, and trains. An ETA visa is required — apply in advance.
+
+---
+
+## Furano
+📁 travel/Japan/Hokkaido
+
+# Furano
+
+![Furano](https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg/960px-%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg)
+
+## Overview
+
+Located in central Hokkaido, Furano's rolling hills burst into vivid purple lavender fields each July, drawing visitors from around the world. In winter, it's one of Japan's premier ski resorts.
+
+## Access
+
+About 2 hours from Sapporo on the seasonal Furano Lavender Express (summer only). About 1 hour by car from Asahikawa. Rental car is the most convenient.
+
+## Highlights
+
+- Farm Tomita lavender fields (peak in July)
+- Rainbow fields of seasonal flowers
+- Views of the Tokachidake mountain range
+- Shirogane Blue Pond (Biei)
+- Filming locations from drama "Kita no Kuni Kara"
+
+## Food & Dining
+
+- Furano melon
+- Lavender soft-serve ice cream
+- Furano Burger
+- Local vegetable buffet
+- Furano wine
+
+## Tips & Advice
+
+Lavender peaks mid-July. Cycling is possible but distances are significant — a rental car is most efficient.
+
+---
+
+## Hakodate
+📁 travel/Japan/Hokkaido
+
+# Hakodate
+
+![Hakodate](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hakodate-panorama.jpg/960px-Hakodate-panorama.jpg)
+
+## Overview
+
+A port city at the southern tip of Hokkaido, famous for one of the world's top three night views from Mt. Hakodate and an abundance of fresh seafood. Colonial-era Western architecture gives it a unique charm.
+
+## Access
+
+About 4 hours from Tokyo by Shinkansen (Hokkaido Shinkansen). About 1h 20min by plane. About 20 min from Hakodate Airport to the city center.
+
+## Highlights
+
+- Night view from Mt. Hakodate (go at dusk)
+- Motomachi Western-style architecture district
+- Goryokaku fortress and tower
+- Morning Market (seafood donburi and squid sashimi)
+- Trappistine Convent
+
+## Food & Dining
+
+- Seafood donburi at the morning market
+- Squid dishes (ikameshi)
+- Shio ramen (light salt broth)
+- Lucky Pierrot's Chinese Chicken Burger
+- Hasegawa Store's grilled chicken bento
+
+## Tips & Advice
+
+The ropeway gets very busy — grab a timed ticket early. Night views are best on clear days. The JR Hokkaido Pass is good value for getting around.
+
+---
+
+## Kyoto
+📁 travel/Japan/Kansai
+
+# Kyoto
+
+![Kyoto](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/960px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg)
+
+## Overview
+
+Japan's ancient imperial capital for over a millennium. Seventeen UNESCO World Heritage Sites, traditional geisha culture, and some of Japan's finest cuisine make it unmissable.
+
+## Access
+
+About 2h 15min from Tokyo by Shinkansen (Nozomi). 30–45 min from Osaka by JR, Hankyu, or Kintetsu. Kyoto Station is the main hub.
+
+## Highlights
+
+- Kinkaku-ji (Golden Pavilion)
+- Arashiyama bamboo grove
+- Fushimi Inari Taisha (thousands of torii gates)
+- Kiyomizu-dera
+- Gion & Hanamikoji (geisha district)
+- Philosopher's Path (cherry blossoms & autumn leaves)
+- Nijo Castle
+
+## Food & Dining
+
+- Yudofu (hot tofu, near Nanzenji)
+- Kaiseki multi-course cuisine
+- Nishiki Market street food
+- Matcha sweets
+- Obanzai (Kyoto home-style cuisine)
+
+## Tips & Advice
+
+Spring (cherry blossoms, March–April) and autumn (foliage, November) bring crowds and high hotel prices. A bus/subway day pass is convenient. Don't miss Gion Matsuri in July.
+
+---
+
+## Nara
+📁 travel/Japan/Kansai
+
+# Nara
+
+![Nara](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nara_Park_-_panoramio_%282%29.jpg/960px-Nara_Park_-_panoramio_%282%29.jpg)
+
+## Overview
+
+Japan's ancient capital from 710–784 AD. Nara Park's freely roaming deer share the grounds with some of Japan's oldest and most magnificent temples.
+
+## Access
+
+About 35–45 min from Kyoto by Kintetsu or JR. About 35 min from Osaka by Kintetsu. Nara and Kintetsu-Nara Stations are the main entry points.
+
+## Highlights
+
+- Todai-ji Great Buddha Hall (National Treasure & UNESCO)
+- Deer in Nara Park
+- Kasuga Grand Shrine (UNESCO)
+- Kofuku-ji Five-Story Pagoda
+- Gango-ji Temple
+- Naramachi historic district
+
+## Food & Dining
+
+- Kakinoha-zushi (mackerel sushi wrapped in persimmon leaf)
+- Miwa somen noodles
+- Nara-zuke pickles
+- Mitarashi dango (near Nara Park)
+- Daibutsu Pudding
+
+## Tips & Advice
+
+The main sights are walkable. Deer crackers (¥150) are irresistible to the deer. Early morning at Todai-ji is quiet and magical.
+
+---
+
+## Osaka
+📁 travel/Japan/Kansai
+
+# Osaka
+
+![Osaka](https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Osaka_Castle_03bs3200.jpg/960px-Osaka_Castle_03bs3200.jpg)
+
+## Overview
+
+Japan's kitchen — a lively metropolis known for its street food culture, down-to-earth locals, and non-stop entertainment. Also home to Universal Studios Japan.
+
+## Access
+
+About 2h 30min from Tokyo by Shinkansen (Nozomi). Shin-Osaka Station is the Shinkansen hub. Umeda and Namba are the main entertainment districts.
+
+## Highlights
+
+- Dotonbori (Glico sign, Ebisu Bridge)
+- Osaka Castle
+- Universal Studios Japan
+- Kuromon Market (Osaka's Kitchen)
+- Shinsekai & Tsutenkaku Tower
+- Shinsaibashi & Amerika-mura
+
+## Food & Dining
+
+- Takoyaki (octopus balls)
+- Kushikatsu (Shinsekai-style skewers)
+- Okonomiyaki (savory pancakes)
+- Kani Doraku crab cuisine
+- 551 Horai pork buns
+- Kinryu Ramen
+
+## Tips & Advice
+
+ICOCA is the handy IC transit card for the Kansai region. The Osaka Amazing Pass offers great value. Dotonbori and Kuromon Market are the best street food zones.
+
+---
+
+## Hakone
+📁 travel/Japan/Kanto
+
+# Hakone
+
+![Hakone](https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/260505_Moto-Hakone_Hakone_Japan01s3.jpg/960px-260505_Moto-Hakone_Hakone_Japan01s3.jpg)
+
+## Overview
+
+A popular hot spring resort west of Tokyo with sweeping views of Mt. Fuji over Lake Ashi. Easily accessible from Tokyo, it offers everything from art museums to cable cars.
+
+## Access
+
+About 85 min from Shinjuku on the Odakyu Romance Car to Hakone-Yumoto. About 35 min from Tokyo to Odawara by Shinkansen, then transfer to Odakyu.
+
+## Highlights
+
+- Lake Ashi with Mt. Fuji view
+- Hakone Ropeway (Owakudani volcanic valley)
+- Hakone Open-Air Museum
+- Hakone Shrine
+- Hakone-Yumoto hot spring area
+- Sengokuhara pampas grass fields (autumn)
+
+## Food & Dining
+
+- Black eggs (Owakudani specialty)
+- Wagashi sweets in Hakone-Yumoto
+- Mountain Hotel afternoon tea
+- Farm-to-table mountain cuisine
+
+## Tips & Advice
+
+The Hakone Free Pass covers unlimited travel on all area transport — great value. Weekend road traffic is heavy; train travel is recommended.
+
+---
+
+## Kamakura
+📁 travel/Japan/Kanto
+
+# Kamakura
+
+![Kamakura](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/TsurugaokaHachiman-M8867.jpg/960px-TsurugaokaHachiman-M8867.jpg)
+
+## Overview
+
+A coastal historic city south of Tokyo, once the seat of Japan's first shogunate government. Temples, shrines, and hiking trails are set against a backdrop of sea and mountains.
+
+## Access
+
+About 1 hour from Tokyo Station via JR Yokosuka Line. Also accessible via Shonan-Shinjuku Line. Kamakura Station is the main hub.
+
+## Highlights
+
+- Kotoku-in Great Buddha (National Treasure)
+- Tsurugaoka Hachimangu Shrine
+- Kita-Kamakura temples: Engaku-ji & Kencho-ji
+- Hase-dera in hydrangea season (June)
+- Kamakura Alps hiking trails
+- Yuigahama & Zaimokuza beaches
+
+## Food & Dining
+
+- Shirasu-don (whitebait rice bowl)
+- Hato Sable cookies (Toyoshimaya)
+- Matcha and wagashi sweets
+- Street food along Komachi-dori
+
+## Tips & Advice
+
+Weekdays are far less crowded. Hydrangea season (June) and autumn foliage (Nov–Dec) are peak. The Enoden day pass is great value.
+
+---
+
+## Nikko
+📁 travel/Japan/Kanto
+
+# Nikko
+
+![Nikko](https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg/960px-200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg)
+
+## Overview
+
+A UNESCO World Heritage Site in northern Tochigi, centered on Nikko Tosho-gu, the ornate mausoleum of Tokugawa Ieyasu. Stunning nature surrounds the elaborate Edo-period architecture.
+
+## Access
+
+About 2 hours from Asakusa on the Tobu Nikko Limited Express Spacia. About 45 min from Utsunomiya on the JR Nikko Line.
+
+## Highlights
+
+- Nikko Tosho-gu (UNESCO)
+- Yomeimon Gate (spectacularly ornate carvings)
+- Kegon Falls (one of Japan's Top 3 waterfalls)
+- Lake Chuzenji
+- Senjogahara marshland (hiking)
+- Ryuzu Falls
+
+## Food & Dining
+
+- Yuba (tofu skin) cuisine — a Nikko specialty
+- Nikko-age yuba
+- Yuba and soba set meals
+- Nikko Jingorō senbei crackers
+- Nikko milk
+
+## Tips & Advice
+
+Autumn foliage (mid-Oct to early Nov) is spectacular but extremely crowded. A bus is needed for the Chuzenji Lake area.
+
+---
+
+## Beppu
+📁 travel/Japan/Kyushu
+
+# Beppu
+
+![Beppu](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Beppu_Montage_2.jpg/960px-Beppu_Montage_2.jpg)
+
+## Overview
+
+Japan's undisputed hot spring capital — more sources and greater output than anywhere else in the country. Steam rises from streets and alleyways throughout this unique city.
+
+## Access
+
+About 60 min by bus from Oita Airport. About 2 hours from Hakata by the limited express Sonic. Beppu Station is the main hub.
+
+## Highlights
+
+- Beppu Hell Tour (Umi Jigoku, Chi-no-Ike Jigoku, and 5 more)
+- Communal baths in Beppu and Kannawa onsen areas
+- Takegawara Onsen (Meiji-era bathhouse)
+- Takasakiyama Natural Animal Park (wild monkeys)
+- Yufuin (30 min by car)
+
+## Food & Dining
+
+- Jigoku Mushi (food steamed in natural hot spring vapor)
+- Tori-ten (deep-fried chicken)
+- Dango-jiru (miso soup with flat dumplings)
+- Seki-saba & Seki-aji (premium mackerel and horse mackerel)
+- Beppu cold noodles (reimen)
+
+## Tips & Advice
+
+The Hell Tour combined ticket (¥2,200) is great value. The "Beppu Hatto Onsen-do" challenge — visiting 88 different baths — is how locals enjoy the city.
+
+---
+
+## Nagasaki
+📁 travel/Japan/Kyushu
+
+# Nagasaki
+
+![Nagasaki](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg/960px-Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg)
+
+## Overview
+
+Japan's only open trading port during the Edo period, Nagasaki has a uniquely multicultural heritage shaped by Chinese, Dutch, and Portuguese influences. Home to Glover Garden and the moving Peace Memorial.
+
+## Access
+
+About 1h 50min by plane from Tokyo. About 2 hours from Hakata by limited express (reduced after the Nishi-Kyushu Shinkansen opened).
+
+## Highlights
+
+- Glover Garden (World Cultural Heritage)
+- Gunkanjima (Battleship Island) boat tour
+- Peace Park and Atomic Bomb Museum
+- Night view from Mt. Inasa
+- Dejima (Dutch Trading Post)
+- Lantern Festival (February)
+
+## Food & Dining
+
+- Champon noodles
+- Sara udon (crispy noodles with toppings)
+- Toruko rice (a Nagasaki fusion dish)
+- Castella sponge cake (Fukusaya, Bunmeido)
+- Kakuni-man (braised pork bun)
+
+## Tips & Advice
+
+Gunkanjima landings depend on weather and require advance booking. Streetcars (¥140 per ride) are the easiest way to get around.
 
 ---

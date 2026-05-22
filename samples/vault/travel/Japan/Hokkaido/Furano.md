@@ -1,6 +1,6 @@
 ---
 tags:
-  - Domestic
+  - Japan
   - Hokkaido
   - Nature
   - Flower Fields

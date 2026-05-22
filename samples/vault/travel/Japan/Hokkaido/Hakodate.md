@@ -1,6 +1,6 @@
 ---
 tags:
-  - Domestic
+  - Japan
   - Hokkaido
   - Food
   - Night View
