@@ -132,6 +132,29 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 
 ---
 
+## Using with NotebookLM
+
+1. Run **Context Pack** on a folder or tag → a `pack-xxx.md` file is downloaded
+2. Open [NotebookLM](https://notebooklm.google.com) → **New notebook** → **Add source** → **Upload file** → select the `.md` file
+3. Start asking questions
+
+### Sample queries — Recipes
+
+Once you've packed your recipe notes and uploaded them to NotebookLM, try asking:
+
+| Question | What you get |
+|---|---|
+| *"What can I make for dinner tonight using pork and vegetables?"* | Suggestions filtered from your notes |
+| *"Which recipes take under 30 minutes?"* | Quick-cook recipes from your collection |
+| *"I want something warming for a cold day. Any ideas?"* | Miso soup, stew, hot pot, etc. |
+| *"Compare the ingredients in carbonara and gratin"* | Side-by-side breakdown |
+| *"Give me a shopping list for making nikujaga for 4 people"* | Ingredient list pulled directly from your note |
+| *"What Chinese dishes are in my notes?"* | All Chinese recipes listed |
+
+> **Tip:** The more notes you include in the pack, the richer the answers. Try packing your entire recipe folder at once.
+
+---
+
 ## License
 
 MIT — made by [dualyzeAI](https://dualyzeai.com)
