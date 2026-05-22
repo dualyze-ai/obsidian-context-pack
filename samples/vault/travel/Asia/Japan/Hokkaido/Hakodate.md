@@ -1,5 +1,6 @@
 ---
 tags:
+  - Asia
   - Japan
   - Hokkaido
   - Food

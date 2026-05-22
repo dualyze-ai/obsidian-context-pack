@@ -1,6 +1,5 @@
 ---
 tags:
-  - International
   - USA
   - Resort
   - Nature

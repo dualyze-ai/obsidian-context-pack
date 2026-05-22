@@ -1,6 +1,5 @@
 ---
 tags:
-  - International
   - Europe
   - France
   - Art-Culture
