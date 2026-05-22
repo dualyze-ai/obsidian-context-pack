@@ -36,9 +36,11 @@ jobs:
         with:
           subject-path: styles.css
 
-      - name: Upload release assets
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${GITHUB_REF_NAME}"
-          gh release upload "$TAG" main.js manifest.json styles.css --clobber
+          gh release create "$TAG" main.js manifest.json styles.css \
+            --title "$TAG" \
+            --notes "Release $TAG"
