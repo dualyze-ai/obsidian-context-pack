@@ -44,5 +44,5 @@ export default {
   notice_moc_done:   (n: number) => `MOCを作成しました。${n}件のノートを含んでいます。`,
   notice_cancelled:  'キャンセルしました。',
   notice_error:      'エラーが発生しました。コンソールを確認してください。',
-  btn_cancel:        'キャンセル',
+  btn_cancel:        '中止',
 };
