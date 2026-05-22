@@ -1,5 +1,5 @@
 import { App, TFile, Notice, Platform } from 'obsidian'; // Notice is used by exportSingleNote
-import JSZip from 'jszip';
+import { zip, strToU8 } from 'fflate';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 import { t } from './i18n';
 
@@ -20,7 +20,7 @@ export async function exportVault(
   const targetFiles = files ?? getMarkdownFiles(app, options.targetFolder);
   if (targetFiles.length === 0) return null;
 
-  const zip = new JSZip();
+  const zipEntries: Record<string, Uint8Array> = {};
   let count = 0;
 
   for (let i = 0; i < targetFiles.length; i++) {
@@ -39,13 +39,18 @@ export async function exportVault(
       ? file.path.replace(/\//g, '__')
       : file.path;
 
-    zip.file(zipPath, content);
+    zipEntries[zipPath] = strToU8(content);
     count++;
   }
 
   const date = window.moment().format('YYYYMMDD');
   const filename = `notebooklm-export-${date}.zip`;
-  const blob = await zip.generateAsync({ type: 'blob' });
+  const blob = await new Promise<Blob>((resolve, reject) => {
+    zip(zipEntries, (err, data) => {
+      if (err) reject(err);
+      else resolve(new Blob([data], { type: 'application/zip' }));
+    });
+  });
 
   let savedPath = filename;
   if (Platform.isDesktop && options.outputFolder) {
