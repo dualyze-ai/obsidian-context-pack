@@ -1,6 +1,5 @@
 ---
 tags:
-  - International
   - Australia
   - Nature
   - City

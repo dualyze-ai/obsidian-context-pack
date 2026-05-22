@@ -1,6 +1,5 @@
 ---
 tags:
-  - International
   - Europe
   - Italy
   - UNESCO
