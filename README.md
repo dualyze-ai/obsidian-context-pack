@@ -118,9 +118,17 @@ Automatically generates a MOC note — a list of `[[links]]` to all notes in a f
 
 ## Sample data
 
-Want to try NotebookLM import without setting up your vault first?
+Want to try the plugin without setting up your vault first? Download a ready-made sample vault and open it in Obsidian.
 
-The `samples/vault/` folder in this repo contains 60 English sample notes across three categories. Run `node samples/generate-en.mjs` to regenerate them, then `node samples/build-pack.mjs` to produce ready-to-upload Context Packs.
+| Vault | Notes | Download |
+|---|---|---|
+| 🇺🇸 English (recipes / travel / books) | 60 notes | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
+| 🇯🇵 Japanese（料理 / 旅行 / 読書）| 60件 | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
+
+1. Download and unzip
+2. In Obsidian: **Open another vault → Open folder as vault** → select the unzipped folder
+3. Enable Context Pack for NotebookLM in Community plugins
+4. Try it — pack the `recipes/` folder, explore by tag, or build a MOC
 
 ---
 
