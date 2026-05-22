@@ -1,4 +1,4 @@
-import { App, TFile, Notice, Platform } from 'obsidian';
+import { App, TFile, Notice, Platform } from 'obsidian'; // Notice is used by exportSingleNote
 import JSZip from 'jszip';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 import { t } from './i18n';
@@ -10,66 +10,71 @@ interface ExportOptions extends FormatOptions {
   openAfterExport: boolean;
 }
 
-export async function exportVault(app: App, options: ExportOptions, singleFile?: TFile): Promise<void> {
-  const files = singleFile
-    ? [singleFile]
-    : getMarkdownFiles(app, options.targetFolder);
+export async function exportVault(
+  app: App,
+  options: ExportOptions,
+  onProgress?: (current: number, total: number) => void,
+  signal?: AbortSignal,
+  files?: TFile[]
+): Promise<{ filename: string; count: number } | null> {
+  const targetFiles = files ?? getMarkdownFiles(app, options.targetFolder);
+  if (targetFiles.length === 0) return null;
 
-  if (files.length === 0) {
-    new Notice(t('notice_no_files'));
-    return;
-  }
+  const zip = new JSZip();
+  let count = 0;
 
-  const notice = new Notice(t('notice_exporting'), 0);
-
-  try {
-    const zip = new JSZip();
-    let count = 0;
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (files.length > 1 && i % 10 === 0) {
-        notice.setMessage(`⏳ ${t('notice_exporting')} ${i + 1} / ${files.length}`);
-        await yieldToUI();
-      }
-
-      const raw = await app.vault.read(file);
-      const content = formatForNotebookLM(raw, options);
-      if (!content.trim()) continue;
-
-      const zipPath = options.flattenStructure
-        ? file.path.replace(/\//g, '__')
-        : file.path;
-
-      zip.file(zipPath, content);
-      count++;
+  for (let i = 0; i < targetFiles.length; i++) {
+    if (signal?.aborted) throw new DOMException('Cancelled', 'AbortError');
+    const file = targetFiles[i];
+    if (i % 10 === 0) {
+      onProgress?.(i + 1, targetFiles.length);
+      await yieldToUI();
     }
 
-    const date = window.moment().format('YYYYMMDD');
-    const filename = `notebooklm-export-${date}.zip`;
-    const blob = await zip.generateAsync({ type: 'blob' });
+    const raw = await app.vault.read(file);
+    const content = formatForNotebookLM(raw, options);
+    if (!content.trim()) continue;
 
-    let savedPath = filename;
-    if (Platform.isDesktop && options.outputFolder) {
-      savedPath = `${options.outputFolder}/${filename}`;
-      await saveToVault(app, options.outputFolder, filename, blob);
-    } else {
-      downloadBlob(blob, filename);
-    }
+    const zipPath = options.flattenStructure
+      ? file.path.replace(/\//g, '__')
+      : file.path;
 
-    notice.hide();
-    new Notice(`${t('notice_done', count)}\n📄 ${savedPath}`, 8000);
-  } catch (err) {
-    console.error('[Context Pack] Export failed:', err);
-    notice.hide();
-    new Notice(t('notice_error'));
+    zip.file(zipPath, content);
+    count++;
   }
+
+  const date = window.moment().format('YYYYMMDD');
+  const filename = `notebooklm-export-${date}.zip`;
+  const blob = await zip.generateAsync({ type: 'blob' });
+
+  let savedPath = filename;
+  if (Platform.isDesktop && options.outputFolder) {
+    savedPath = `${options.outputFolder}/${filename}`;
+    await saveToVault(app, options.outputFolder, filename, blob);
+  } else {
+    downloadBlob(blob, filename);
+  }
+
+  return { filename: savedPath, count };
 }
 
 function getMarkdownFiles(app: App, targetFolder: string): TFile[] {
   const all = app.vault.getMarkdownFiles();
   if (!targetFolder) return all;
   return all.filter(f => f.path.startsWith(targetFolder + '/') || f.path === targetFolder);
+}
+
+export async function exportSingleNote(app: App, file: TFile, options: FormatOptions): Promise<void> {
+  const raw = await app.vault.read(file);
+  const content = formatForNotebookLM(raw, options);
+  if (!content.trim()) {
+    new Notice(t('notice_no_files'));
+    return;
+  }
+  const date = window.moment().format('YYYYMMDD');
+  const blob = new Blob([content], { type: 'text/markdown' });
+  downloadBlob(blob, `${file.basename}-${date}.md`);
+  new Notice(t('notice_done', 1), 5000);
 }
 
 export function downloadBlob(blob: Blob, filename: string): void {

@@ -1,6 +1,6 @@
 ---
 tags:
-  - Domestic
+  - Japan
   - Kanto
   - Kanagawa
   - Onsen

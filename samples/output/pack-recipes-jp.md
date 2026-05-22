@@ -1,6 +1,6 @@
 # Context Pack: レシピ集
 
-Generated: 2026-05-21
+Generated: 2026-05-22
 
 Source: folder:recipes
 

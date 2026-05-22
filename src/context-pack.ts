@@ -6,7 +6,8 @@ export async function buildContextPack(
   app: App,
   options: FormatOptions,
   meta: { title: string; source: string },
-  onProgress?: (current: number, total: number) => void
+  onProgress?: (current: number, total: number) => void,
+  signal?: AbortSignal
 ): Promise<string> {
   const today = window.moment().format('YYYY-MM-DD');
   const sections: string[] = [
@@ -17,6 +18,7 @@ export async function buildContextPack(
   ];
 
   for (let i = 0; i < files.length; i++) {
+    if (signal?.aborted) throw new DOMException('Cancelled', 'AbortError');
     const file = files[i];
     if (i % 10 === 0) {
       onProgress?.(i + 1, files.length);
