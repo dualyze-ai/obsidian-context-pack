@@ -491,8 +491,8 @@ recipe({
 
 // Japan — Kanto (3 notes)
 travel({
-  folder: 'Japan', subfolder: 'Kanto', title: 'Kamakura',
-  tags: ['Japan', 'Kanto', 'Kanagawa', 'History', 'Day Trip', 'season:Spring-Autumn'],
+  folder: 'Asia', subfolder: 'Japan/Kanto', title: 'Kamakura',
+  tags: ['Asia', 'Japan', 'Kanto', 'Kanagawa', 'History', 'Day Trip', 'season:Spring-Autumn'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/TsurugaokaHachiman-M8867.jpg/960px-TsurugaokaHachiman-M8867.jpg',
   overview: 'A coastal historic city south of Tokyo, once the seat of Japan\'s first shogunate government. Temples, shrines, and hiking trails are set against a backdrop of sea and mountains.',
   access: 'About 1 hour from Tokyo Station via JR Yokosuka Line. Also accessible via Shonan-Shinjuku Line. Kamakura Station is the main hub.',
@@ -502,8 +502,8 @@ travel({
 });
 
 travel({
-  folder: 'Japan', subfolder: 'Kanto', title: 'Nikko',
-  tags: ['Japan', 'Kanto', 'Tochigi', 'UNESCO', 'History', 'Nature'],
+  folder: 'Asia', subfolder: 'Japan/Kanto', title: 'Nikko',
+  tags: ['Asia', 'Japan', 'Kanto', 'Tochigi', 'UNESCO', 'History', 'Nature'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg/960px-200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg',
   overview: 'A UNESCO World Heritage Site in northern Tochigi, centered on Nikko Tosho-gu, the ornate mausoleum of Tokugawa Ieyasu. Stunning nature surrounds the elaborate Edo-period architecture.',
   access: 'About 2 hours from Asakusa on the Tobu Nikko Limited Express Spacia. About 45 min from Utsunomiya on the JR Nikko Line.',
@@ -513,8 +513,8 @@ travel({
 });
 
 travel({
-  folder: 'Japan', subfolder: 'Kanto', title: 'Hakone',
-  tags: ['Japan', 'Kanto', 'Kanagawa', 'Onsen', 'Nature', 'Resort'],
+  folder: 'Asia', subfolder: 'Japan/Kanto', title: 'Hakone',
+  tags: ['Asia', 'Japan', 'Kanto', 'Kanagawa', 'Onsen', 'Nature', 'Resort'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/260505_Moto-Hakone_Hakone_Japan01s3.jpg/960px-260505_Moto-Hakone_Hakone_Japan01s3.jpg',
   overview: 'A popular hot spring resort west of Tokyo with sweeping views of Mt. Fuji over Lake Ashi. Easily accessible from Tokyo, it offers everything from art museums to cable cars.',
   access: 'About 85 min from Shinjuku on the Odakyu Romance Car to Hakone-Yumoto. About 35 min from Tokyo to Odawara by Shinkansen, then transfer to Odakyu.',
@@ -525,8 +525,8 @@ travel({
 
 // Japan — Kansai (3 notes)
 travel({
-  folder: 'Japan', subfolder: 'Kansai', title: 'Kyoto',
-  tags: ['Japan', 'Kansai', 'Kyoto', 'UNESCO', 'History', 'Temples-Shrines'],
+  folder: 'Asia', subfolder: 'Japan/Kansai', title: 'Kyoto',
+  tags: ['Asia', 'Japan', 'Kansai', 'Kyoto', 'UNESCO', 'History', 'Temples-Shrines'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/960px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg',
   overview: 'Japan\'s ancient imperial capital for over a millennium. Seventeen UNESCO World Heritage Sites, traditional geisha culture, and some of Japan\'s finest cuisine make it unmissable.',
   access: 'About 2h 15min from Tokyo by Shinkansen (Nozomi). 30–45 min from Osaka by JR, Hankyu, or Kintetsu. Kyoto Station is the main hub.',
@@ -536,8 +536,8 @@ travel({
 });
 
 travel({
-  folder: 'Japan', subfolder: 'Kansai', title: 'Osaka',
-  tags: ['Japan', 'Kansai', 'Osaka', 'Food', 'Entertainment'],
+  folder: 'Asia', subfolder: 'Japan/Kansai', title: 'Osaka',
+  tags: ['Asia', 'Japan', 'Kansai', 'Osaka', 'Food', 'Entertainment'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Osaka_Castle_03bs3200.jpg/960px-Osaka_Castle_03bs3200.jpg',
   overview: 'Japan\'s kitchen — a lively metropolis known for its street food culture, down-to-earth locals, and non-stop entertainment. Also home to Universal Studios Japan.',
   access: 'About 2h 30min from Tokyo by Shinkansen (Nozomi). Shin-Osaka Station is the Shinkansen hub. Umeda and Namba are the main entertainment districts.',
@@ -547,8 +547,8 @@ travel({
 });
 
 travel({
-  folder: 'Japan', subfolder: 'Kansai', title: 'Nara',
-  tags: ['Japan', 'Kansai', 'Nara', 'UNESCO', 'History', 'Nature'],
+  folder: 'Asia', subfolder: 'Japan/Kansai', title: 'Nara',
+  tags: ['Asia', 'Japan', 'Kansai', 'Nara', 'UNESCO', 'History', 'Nature'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nara_Park_-_panoramio_%282%29.jpg/960px-Nara_Park_-_panoramio_%282%29.jpg',
   overview: 'Japan\'s ancient capital from 710–784 AD. Nara Park\'s freely roaming deer share the grounds with some of Japan\'s oldest and most magnificent temples.',
   access: 'About 35–45 min from Kyoto by Kintetsu or JR. About 35 min from Osaka by Kintetsu. Nara and Kintetsu-Nara Stations are the main entry points.',
@@ -559,8 +559,8 @@ travel({
 
 // Japan — Hokkaido (2 notes)
 travel({
-  folder: 'Japan', subfolder: 'Hokkaido', title: 'Hakodate',
-  tags: ['Japan', 'Hokkaido', 'Food', 'Night View', 'History'],
+  folder: 'Asia', subfolder: 'Japan/Hokkaido', title: 'Hakodate',
+  tags: ['Asia', 'Japan', 'Hokkaido', 'Food', 'Night View', 'History'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hakodate-panorama.jpg/960px-Hakodate-panorama.jpg',
   overview: 'A port city at the southern tip of Hokkaido, famous for one of the world\'s top three night views from Mt. Hakodate and an abundance of fresh seafood. Colonial-era Western architecture gives it a unique charm.',
   access: 'About 4 hours from Tokyo by Shinkansen (Hokkaido Shinkansen). About 1h 20min by plane. About 20 min from Hakodate Airport to the city center.',
@@ -570,8 +570,8 @@ travel({
 });
 
 travel({
-  folder: 'Japan', subfolder: 'Hokkaido', title: 'Furano',
-  tags: ['Japan', 'Hokkaido', 'Nature', 'Flower Fields', 'season:Summer'],
+  folder: 'Asia', subfolder: 'Japan/Hokkaido', title: 'Furano',
+  tags: ['Asia', 'Japan', 'Hokkaido', 'Nature', 'Flower Fields', 'season:Summer'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg/960px-%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E5%AF%8C%E7%94%B0%EF%BC%88Farm_Tomita%EF%BC%89_-_panoramio_%282%29.jpg',
   overview: 'Located in central Hokkaido, Furano\'s rolling hills burst into vivid purple lavender fields each July, drawing visitors from around the world. In winter, it\'s one of Japan\'s premier ski resorts.',
   access: 'About 2 hours from Sapporo on the seasonal Furano Lavender Express (summer only). About 1 hour by car from Asahikawa. Rental car is the most convenient.',
@@ -582,8 +582,8 @@ travel({
 
 // Japan — Kyushu (2 notes)
 travel({
-  folder: 'Japan', subfolder: 'Kyushu', title: 'Nagasaki',
-  tags: ['Japan', 'Kyushu', 'Nagasaki', 'History', 'Night View', 'Exotic'],
+  folder: 'Asia', subfolder: 'Japan/Kyushu', title: 'Nagasaki',
+  tags: ['Asia', 'Japan', 'Kyushu', 'Nagasaki', 'History', 'Night View', 'Exotic'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg/960px-Nagasaki_City_View_from_Glover_Garden%2C_Nagasaki_2014.jpg',
   overview: 'Japan\'s only open trading port during the Edo period, Nagasaki has a uniquely multicultural heritage shaped by Chinese, Dutch, and Portuguese influences. Home to Glover Garden and the moving Peace Memorial.',
   access: 'About 1h 50min by plane from Tokyo. About 2 hours from Hakata by limited express (reduced after the Nishi-Kyushu Shinkansen opened).',
@@ -593,8 +593,8 @@ travel({
 });
 
 travel({
-  folder: 'Japan', subfolder: 'Kyushu', title: 'Beppu',
-  tags: ['Japan', 'Kyushu', 'Oita', 'Onsen', 'Nature'],
+  folder: 'Asia', subfolder: 'Japan/Kyushu', title: 'Beppu',
+  tags: ['Asia', 'Japan', 'Kyushu', 'Oita', 'Onsen', 'Nature'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Beppu_Montage_2.jpg/960px-Beppu_Montage_2.jpg',
   overview: 'Japan\'s undisputed hot spring capital — more sources and greater output than anywhere else in the country. Steam rises from streets and alleyways throughout this unique city.',
   access: 'About 60 min by bus from Oita Airport. About 2 hours from Hakata by the limited express Sonic. Beppu Station is the main hub.',
@@ -603,10 +603,10 @@ travel({
   memo: 'The Hell Tour combined ticket (¥2,200) is great value. The "Beppu Hatto Onsen-do" challenge — visiting 88 different baths — is how locals enjoy the city.',
 });
 
-// International — Europe (3 notes)
+// Europe (3 notes)
 travel({
-  folder: 'International', subfolder: 'Europe', title: 'Paris',
-  tags: ['International', 'Europe', 'France', 'Art-Culture', 'Food', 'History'],
+  folder: 'Europe', title: 'Paris',
+  tags: ['Europe', 'France', 'Art-Culture', 'Food', 'History'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/960px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg',
   overview: 'The City of Light — one of the world\'s greatest capitals for art, fashion, and gastronomy. Iconic landmarks and world-class museums are concentrated in a walkable, beautiful city.',
   access: 'About 14 hours direct from Tokyo. RER B from Charles de Gaulle Airport reaches central Paris in about 35 minutes.',
@@ -616,8 +616,8 @@ travel({
 });
 
 travel({
-  folder: 'International', subfolder: 'Europe', title: 'Rome',
-  tags: ['International', 'Europe', 'Italy', 'UNESCO', 'History', 'Art-Culture'],
+  folder: 'Europe', title: 'Rome',
+  tags: ['Europe', 'Italy', 'UNESCO', 'History', 'Art-Culture'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg/960px-Trevi_Fountain%2C_Rome%2C_Italy_2_-_May_2007.jpg',
   overview: 'The Eternal City — an open-air museum with over 2,000 years of continuous history. Ancient ruins stand beside Baroque fountains and Renaissance basilicas in every neighborhood.',
   access: 'About 13 hours direct from Tokyo. The Leonardo Express train from Fiumicino Airport reaches Roma Termini in about 30 minutes.',
@@ -627,8 +627,8 @@ travel({
 });
 
 travel({
-  folder: 'International', subfolder: 'Europe', title: 'Barcelona',
-  tags: ['International', 'Europe', 'Spain', 'Architecture', 'Food', 'Beach'],
+  folder: 'Europe', title: 'Barcelona',
+  tags: ['Europe', 'Spain', 'Architecture', 'Food', 'Beach'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Aerial_view_of_Barcelona%2C_Spain_%2851227309370%29_edited.jpg/960px-Aerial_view_of_Barcelona%2C_Spain_%2851227309370%29_edited.jpg',
   overview: 'Capital of Catalonia and home to Gaudí\'s extraordinary architecture. A vibrant Mediterranean city blending world-famous modernist buildings with a relaxed beach lifestyle and outstanding food.',
   access: 'About 13–14 hours from Tokyo via Madrid or direct. About 30 minutes from El Prat Airport to the city center.',
@@ -637,10 +637,10 @@ travel({
   memo: 'Sagrada Família requires advance online booking — do this before your trip. Pickpockets are common on Las Ramblas. Embrace the late-night bar culture.',
 });
 
-// International — Asia (4 notes)
+// Asia — non-Japan (4 notes)
 travel({
-  folder: 'International', subfolder: 'Asia', title: 'Bangkok',
-  tags: ['International', 'Asia', 'Thailand', 'Food', 'Temples', 'Shopping'],
+  folder: 'Asia', title: 'Bangkok',
+  tags: ['Asia', 'Thailand', 'Food', 'Temples', 'Shopping'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/01-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%A1%E0%B8%9A%E0%B8%9E%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%B8%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%A7%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%AB%E0%B8%B2%E0%B8%A3.jpg/960px-01-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%9A%E0%B8%8D%E0%B8%88%E0%B8%A1%E0%B8%9A%E0%B8%9E%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%94%E0%B8%B8%E0%B8%AA%E0%B8%B4%E0%B8%95%E0%B8%A7%E0%B8%99%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%B4%E0%B8%AB%E0%B8%B2%E0%B8%A3.jpg',
   overview: 'Thailand\'s electrifying capital — a city of ornate temples, chaotic markets, and some of the world\'s best street food. Affordable, accessible, and endlessly stimulating.',
   access: 'About 7 hours direct from Tokyo. Airport Rail Link from Suvarnabhumi Airport reaches central Bangkok in about 30 minutes.',
@@ -650,8 +650,8 @@ travel({
 });
 
 travel({
-  folder: 'International', subfolder: 'Asia', title: 'Taipei',
-  tags: ['International', 'Asia', 'Taiwan', 'Food', 'Shopping', 'Night Markets'],
+  folder: 'Asia', title: 'Taipei',
+  tags: ['Asia', 'Taiwan', 'Food', 'Shopping', 'Night Markets'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Taipei_Skyline_2022.06.29.jpg/960px-Taipei_Skyline_2022.06.29.jpg',
   overview: 'Taiwan\'s vibrant capital — Japan-friendly, affordable, and full of culinary surprises. Night markets, the National Palace Museum, and the mountain town of Jiufen make it a perfect short trip.',
   access: 'About 3h 30min direct from Tokyo. MRT from Taoyuan International Airport reaches central Taipei in about 35 minutes.',
@@ -661,8 +661,8 @@ travel({
 });
 
 travel({
-  folder: 'International', subfolder: 'Asia', title: 'Bali',
-  tags: ['International', 'Asia', 'Indonesia', 'Resort', 'Nature', 'Culture'],
+  folder: 'Asia', title: 'Bali',
+  tags: ['Asia', 'Indonesia', 'Resort', 'Nature', 'Culture'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Tanah_Lot%2C_Bali%2C_Indonesia%2C_20220827_0957_1103.jpg/960px-Tanah_Lot%2C_Bali%2C_Indonesia%2C_20220827_0957_1103.jpg',
   overview: 'The Island of the Gods — Bali\'s Hindu culture, lush rice terraces, and world-class surf beaches make it one of the world\'s most beloved resort destinations.',
   access: 'About 7 hours direct from Tokyo. Taxi from Ngurah Rai International Airport to major areas takes 20–60 minutes depending on traffic.',
@@ -672,8 +672,8 @@ travel({
 });
 
 travel({
-  folder: 'International', subfolder: 'Asia', title: 'Seoul',
-  tags: ['International', 'Asia', 'Korea', 'Food', 'Shopping', 'K-POP'],
+  folder: 'Asia', title: 'Seoul',
+  tags: ['Asia', 'Korea', 'Food', 'Shopping', 'K-POP'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/960px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg',
   overview: 'South Korea\'s dynamic capital blends Joseon-dynasty palaces with cutting-edge K-pop culture, street food lanes, and 24-hour nightlife. One of the closest foreign destinations from Japan.',
   access: 'About 2h 30min direct from Tokyo. AREX express train from Incheon Airport reaches Seoul Station in about 45 minutes.',
@@ -682,10 +682,10 @@ travel({
   memo: 'T-money card works on all subway and buses. No visa needed for stays up to 90 days. Money exchange in the city offers better rates than the airport.',
 });
 
-// International — Others (3 notes)
+// Others (3 notes)
 travel({
-  folder: 'International', subfolder: 'Others', title: 'New York City',
-  tags: ['International', 'USA', 'Entertainment', 'Art-Culture', 'Food'],
+  folder: 'Others', title: 'New York City',
+  tags: ['USA', 'Entertainment', 'Art-Culture', 'Food'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg/960px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg',
   overview: 'America\'s greatest city — a 24-hour metropolis of world-class museums, Broadway theater, and an endlessly diverse food scene. Everything feels bigger and more alive here.',
   access: 'About 13 hours direct from Tokyo. JFK or Newark airport to Manhattan takes about 1 hour by AirTrain + subway.',
@@ -695,8 +695,8 @@ travel({
 });
 
 travel({
-  folder: 'International', subfolder: 'Others', title: 'Honolulu (Hawaii)',
-  tags: ['International', 'USA', 'Resort', 'Nature', 'Food', 'Shopping'],
+  folder: 'Others', title: 'Honolulu (Hawaii)',
+  tags: ['USA', 'Resort', 'Nature', 'Food', 'Shopping'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/2022_Views_from_Diamond_Head_02.jpg/960px-2022_Views_from_Diamond_Head_02.jpg',
   overview: 'A Pacific paradise beloved by Japanese travelers. Waikiki\'s golden beach, Diamond Head hikes, Hawaiian culture, and year-round sunshine make it one of the world\'s ultimate resort destinations.',
   access: 'About 7–8 hours direct from Tokyo. Daniel K. Inouye International Airport is about 20–30 min from Waikiki by bus or taxi.',
@@ -706,8 +706,8 @@ travel({
 });
 
 travel({
-  folder: 'International', subfolder: 'Others', title: 'Sydney',
-  tags: ['International', 'Australia', 'Nature', 'City', 'Resort'],
+  folder: 'Others', title: 'Sydney',
+  tags: ['Australia', 'Nature', 'City', 'Resort'],
   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg/960px-Sydney_Opera_House_and_Harbour_Bridge_Dusk_%282%29_2019-06-21.jpg',
   overview: 'Australia\'s largest city, a stunning harbour metropolis of iconic architecture, world-class beaches, and a laid-back outdoor lifestyle. The Opera House and Harbour Bridge are global icons.',
   access: 'About 9–10 hours direct from Tokyo. Train from Sydney Airport reaches Central Station in about 15 minutes.',

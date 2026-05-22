@@ -1,6 +1,5 @@
 ---
 tags:
-  - International
   - Asia
   - Korea
   - Food

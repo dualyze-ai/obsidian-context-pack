@@ -1,6 +1,5 @@
 ---
 tags:
-  - International
   - USA
   - Entertainment
   - Art-Culture

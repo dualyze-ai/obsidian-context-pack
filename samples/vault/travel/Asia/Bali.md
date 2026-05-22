@@ -1,6 +1,5 @@
 ---
 tags:
-  - International
   - Asia
   - Indonesia
   - Resort
