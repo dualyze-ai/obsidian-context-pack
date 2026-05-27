@@ -1,7 +1,7 @@
 {
   "id": "context-pack-for-notebooklm",
   "name": "Context Pack for NotebookLM",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "minAppVersion": "0.15.0",
   "description": "Bundle vault notes into clean, AI-ready files for NotebookLM — organized by folder, tag, or MOC, with wikilinks and frontmatter stripped.",
   "author": "dualyzeAI",
