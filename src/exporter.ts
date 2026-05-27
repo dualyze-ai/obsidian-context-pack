@@ -53,11 +53,12 @@ export async function exportVault(
   });
 
   let savedPath = filename;
-  if (Platform.isDesktop && options.outputFolder) {
-    savedPath = `${options.outputFolder}/${filename}`;
-    await saveToVault(app, options.outputFolder, filename, blob);
-  } else {
+  if (Platform.isDesktop && !options.outputFolder) {
     downloadBlob(blob, filename);
+  } else {
+    const folder = options.outputFolder || '';
+    savedPath = folder ? `${folder}/${filename}` : filename;
+    await saveToVault(app, folder, filename, blob);
   }
 
   return { filename: savedPath, count };
