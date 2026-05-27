@@ -1,4 +1,4 @@
-import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu } from 'obsidian';
+import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu, Platform } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
 import { exportVault, exportSingleNote, downloadBlob } from './exporter';
 import { buildContextPack } from './context-pack';
@@ -383,7 +383,20 @@ export default class ContextPackPlugin extends Plugin {
 
     try {
       const blob = new Blob([content], { type: 'text/markdown' });
-      downloadBlob(blob, filename);
+      if (Platform.isDesktop && !this.settings.outputFolder) {
+        downloadBlob(blob, filename);
+      } else {
+        const folder = this.settings.outputFolder || '';
+        const path = folder ? `${folder}/${filename}` : filename;
+        const existing = this.app.vault.getAbstractFileByPath(path);
+        if (existing instanceof TFile) {
+          await this.app.vault.modify(existing, content);
+        } else {
+          await this.app.vault.create(path, content);
+        }
+        new Notice(`${t('notice_pack_done', noteCount)}\n📄 ${path}`, 8000);
+        return;
+      }
       new Notice(t('notice_pack_done', noteCount), 5000);
     } catch (err) {
       console.error('[Context Pack] Failed to save pack:', err);
