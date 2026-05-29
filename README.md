@@ -155,6 +155,23 @@ Once you've packed your recipe notes and uploaded them to NotebookLM, try asking
 
 ---
 
+## Changelog
+
+### v1.0.2
+- Fix content loss when a note starts with a horizontal rule (`---`)
+- Fix invalid frontmatter causing parse errors on export
+
+### v1.0.1
+- Fix ENOENT error when tag names contain slashes (e.g. `project/work`)
+
+### v1.0.0
+- **Mobile support** — Context Pack and ZIP export now save directly to your Vault on iOS and Android
+
+### v0.1.x
+- Initial releases: folder/tag/MOC-based export, ZIP export, sample vaults, formatter, settings
+
+---
+
 ## License
 
 MIT — made by [dualyzeAI](https://dualyzeai.com)
