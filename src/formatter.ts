@@ -36,11 +36,11 @@ export function formatForNotebookLM(raw: string, options: FormatOptions): string
     }
   }
 
-  return result.trim();
+  return result.trim().replace(/^---+\n+/, '');
 }
 
 function parseFrontmatter(raw: string): { fm: Record<string, unknown>; body: string } {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  const match = raw.match(/^---\r?\n(?!\r?\n)([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
   if (!match) return { fm: {}, body: raw };
 
   const fm: Record<string, unknown> = {};
