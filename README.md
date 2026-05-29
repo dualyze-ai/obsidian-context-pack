@@ -72,8 +72,8 @@ This plugin adds **two ribbon icons** to the left sidebar:
 
 | Icon | Function |
 |------|----------|
-| 📦 | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
-| 📅 | Daily Notes Pack — open the date range picker |
+| 📦 (package) | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
+| 🗓↓ (calendar-arrow-down) | Daily Notes Pack — open the date range picker |
 
 All commands are also available from the **Command Palette** (`Cmd/Ctrl+P`) and **right-click menus** in the file explorer.
 
@@ -115,7 +115,7 @@ Automatically generates a MOC note — a list of `[[links]]` to all notes in a f
 
 ## Daily Notes Pack
 
-Click the 📅 ribbon icon (or use the Command Palette) to open the date range picker.
+Click the **calendar-arrow-down** ribbon icon (or use the Command Palette) to open the date range picker.
 
 **Presets:** This week / Last week / Last 7 days / Last 14 days / Last 30 days / Custom
 
