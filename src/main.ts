@@ -238,7 +238,7 @@ export default class ContextPackPlugin extends Plugin {
         lines.push(`- [[${file.basename}]]`);
       }
       lines.push('');
-      await this.saveMoc(`MOC-tag-${tag}.md`, lines.join('\n'), files.length);
+      await this.saveMoc(`MOC-tag-${tag.replace(/\//g, '-')}.md`, lines.join('\n'), files.length);
     }).open();
   }
 
@@ -335,7 +335,7 @@ export default class ContextPackPlugin extends Plugin {
           title: tag, source: `tag:${tag}`,
         }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
         notice.hide();
-        await this.saveContextPack(content, `tag-${tag}`, files.length);
+        await this.saveContextPack(content, `tag-${tag.replace(/\//g, '-')}`, files.length);
       } catch (err) {
         this.handlePackError(notice, err);
       }
