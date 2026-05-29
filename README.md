@@ -18,7 +18,9 @@ This plugin solves that.
 
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
 
-Both features run the same formatter: frontmatter is removed, wikilinks are resolved, embeds and comments are stripped, and blank lines are collapsed.
+**Daily Notes Pack** *(v1.1.0)* collects your daily notes within a date range and bundles them into a single AI-ready file. Filter by tag, choose a preset period, or set a custom range. Supports weekly summary mode.
+
+Both Context Pack and Export run the same formatter: frontmatter is removed, wikilinks are resolved, embeds and comments are stripped, and blank lines are collapsed.
 
 ---
 
@@ -66,7 +68,14 @@ Download `main.js`, `styles.css`, and `manifest.json` from the [latest release](
 
 ## Usage
 
-All commands are available from the **ribbon icon** (📦) in the left sidebar, the **Command Palette** (`Cmd/Ctrl+P`), and **right-click menus** in the file explorer.
+This plugin adds **two ribbon icons** to the left sidebar:
+
+| Icon | Function |
+|------|----------|
+| 📦 | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
+| 📅 | Daily Notes Pack — open the date range picker |
+
+All commands are also available from the **Command Palette** (`Cmd/Ctrl+P`) and **right-click menus** in the file explorer.
 
 ### Context Pack
 
@@ -104,6 +113,34 @@ Automatically generates a MOC note — a list of `[[links]]` to all notes in a f
 
 ---
 
+## Daily Notes Pack
+
+Click the 📅 ribbon icon (or use the Command Palette) to open the date range picker.
+
+**Presets:** This week / Last week / Last 7 days / Last 14 days / Last 30 days / Custom
+
+**Folder auto-detection** tries the following sources in order:
+1. Obsidian built-in Daily Notes plugin settings
+2. Japanese Calendar plugin settings
+3. Periodic Notes plugin settings
+4. Vault scan — finds the folder containing the most `YYYY-MM-DD.md` files
+
+If auto-detection doesn't find the right folder, click **Change folder** in the modal to pick it manually. The selection is saved for next time.
+
+**Exclude tags** — comma-separated list of tags to exclude (e.g. `#private, #todo`). Notes containing any of these tags are skipped.
+
+**Weekly summary** — adds a summary header (`# Weekly Summary: 2026 Week 22`) before the daily notes content.
+
+### Commands
+
+| Command | Description |
+|---------|-------------|
+| Daily Notes: Create pack (default range) | Uses the default range from settings |
+| Daily Notes: Create pack (choose range) | Opens the date range picker modal |
+| Daily Notes: Create weekly summary pack | Packs this week's notes with a summary header |
+
+---
+
 ## Settings
 
 | Setting | Description | Default |
@@ -113,6 +150,17 @@ Automatically generates a MOC note — a list of `[[links]]` to all notes in a f
 | Include frontmatter title | Convert `title:` and `tags:` to plain text at the top of each note | On |
 | Open folder after export | Auto-open the output folder when done (desktop only) | Off |
 | Custom replacement rules | Find/replace rules applied before export (plain text or regex) | — |
+
+### Daily Notes mode settings
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Auto-detect Daily Notes | Auto-detect folder and format from plugin settings | On |
+| Daily Notes folder | Folder path (manual, when auto-detect is off) | — |
+| Date format | moment.js format | YYYY-MM-DD |
+| Default range | Preset period for quick pack | Last 7 days |
+| Exclude tags | Tags to skip (comma-separated) | — |
+| Sort order | Oldest first / Newest first | Oldest first |
 
 ---
 
@@ -156,6 +204,13 @@ Once you've packed your recipe notes and uploaded them to NotebookLM, try asking
 ---
 
 ## Changelog
+
+### v1.1.0
+- **Daily Notes Pack** — bundle daily notes by date range (presets + custom), with tag exclusion and weekly summary mode
+- Auto-detect Daily Notes folder from Obsidian / Japanese Calendar / Periodic Notes / Vault scan
+- New ribbon icon 📅 (`calendar-arrow-down`) dedicated to Daily Notes
+- Full English/Japanese i18n for all new UI
+- Mobile support for Daily Notes output (saves to Vault)
 
 ### v1.0.2
 - Fix content loss when a note starts with a horizontal rule (`---`)
