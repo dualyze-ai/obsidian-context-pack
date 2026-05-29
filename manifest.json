@@ -1,9 +1,9 @@
 {
   "id": "context-pack-for-notebooklm",
   "name": "Context Pack for NotebookLM",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "minAppVersion": "0.15.0",
-  "description": "Bundle vault notes into clean, AI-ready files for NotebookLM — organized by folder, tag, or MOC, with wikilinks and frontmatter stripped.",
+  "description": "Bundle vault notes into clean, AI-ready files for NotebookLM — by folder, tag, MOC, or Daily Notes date range.",
   "author": "dualyzeAI",
   "authorUrl": "https://dualyzeai.com",
   "isDesktopOnly": false
