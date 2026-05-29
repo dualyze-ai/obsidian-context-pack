@@ -2,6 +2,8 @@ import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu, Platform } fro
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
 import { exportVault, exportSingleNote, downloadBlob } from './exporter';
 import { buildContextPack } from './context-pack';
+import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
+import { DailyNotesModal } from './daily-notes-modal';
 import { t } from './i18n';
 
 export default class ContextPackPlugin extends Plugin {
@@ -42,6 +44,12 @@ export default class ContextPackPlugin extends Plugin {
       menu.showAtMouseEvent(evt);
     });
 
+    this.addRibbonIcon('calendar-arrow-down', t('ribbon_daily'), () => {
+      new DailyNotesModal(this.app, this.settings, async (result) => {
+        await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder as 'asc' | 'desc', false, result.dnConfig);
+      }, async (folder) => { this.settings.dailyNotesFolder = folder; this.settings.dailyNotesAutoDetect = false; await this.saveSettings(); }).open();
+    });
+
     this.addCommand({
       id: 'export-vault',
       name: t('cmd_export'),
@@ -75,6 +83,34 @@ export default class ContextPackPlugin extends Plugin {
       id: 'create-moc-tag',
       name: t('cmd_create_moc_tag'),
       callback: () => this.createMocFromTag(),
+    });
+
+    this.addCommand({
+      id: 'daily-notes-pack-default',
+      name: t('cmd_daily_default'),
+      callback: async () => {
+        const range = getDateRange(this.settings.dailyNotesDefaultRange);
+        await this.runDailyNotesPack(range.start, range.end, this.settings.dailyNotesExcludeTags, this.settings.dailyNotesSortOrder as 'asc' | 'desc');
+      },
+    });
+
+    this.addCommand({
+      id: 'daily-notes-pack-custom',
+      name: t('cmd_daily_custom'),
+      callback: () => {
+        new DailyNotesModal(this.app, this.settings, async (result) => {
+          await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder as 'asc' | 'desc', false, result.dnConfig);
+        }, async (folder) => { this.settings.dailyNotesFolder = folder; this.settings.dailyNotesAutoDetect = false; await this.saveSettings(); }).open();
+      },
+    });
+
+    this.addCommand({
+      id: 'daily-notes-weekly-summary',
+      name: t('cmd_daily_weekly'),
+      callback: async () => {
+        const range = getDateRange('this-week');
+        await this.runDailyNotesPack(range.start, range.end, this.settings.dailyNotesExcludeTags, this.settings.dailyNotesSortOrder as 'asc' | 'desc', true);
+      },
     });
 
     this.addCommand({
@@ -295,6 +331,48 @@ export default class ContextPackPlugin extends Plugin {
     }
     await this.app.workspace.getLeaf().openFile(mocFile);
     new Notice(t('notice_moc_done', noteCount));
+  }
+
+  private async runDailyNotesPack(
+    startDate: Date,
+    endDate: Date,
+    excludeTagsStr: string,
+    sortOrder: 'asc' | 'desc',
+    weeklySummary = false,
+    resolvedConfig?: { folder: string; format: string }
+  ) {
+    const dnConfig = resolvedConfig ?? (
+      this.settings.dailyNotesAutoDetect
+        ? await getDailyNotesSettings(this.app)
+        : { folder: this.settings.dailyNotesFolder, format: this.settings.dailyNotesFormat }
+    );
+
+    const files = getDailyNotes(this.app, dnConfig, startDate, endDate);
+
+    if (files.length === 0) {
+      new Notice(t('daily_notice_none'));
+      return;
+    }
+
+    const excludeTags = excludeTagsStr.split(',').map(t => t.trim()).filter(Boolean);
+    const options = { excludeTags, sortOrder };
+
+    const weeklyHeader = weeklySummary
+      ? buildWeeklyHeader(startDate, endDate, files.length)
+      : undefined;
+
+    const content = await buildDailyPack(
+      this.app, files, dnConfig, options, this.formatOptions(), weeklyHeader
+    );
+
+    if (!content) {
+      new Notice('指定期間内にDaily Notesが見つかりませんでした');
+      return;
+    }
+
+    const dateStr = window.moment().format('YYYYMMDD');
+    const prefix = weeklySummary ? 'weekly' : 'daily';
+    await this.saveContextPack(content, `${prefix}-notes-${dateStr}`, files.length);
   }
 
   private packFromFolder() {

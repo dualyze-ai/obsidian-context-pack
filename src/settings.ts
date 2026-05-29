@@ -1,7 +1,9 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
+import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
+
 
 export interface PluginSettings {
   targetFolder: string;
@@ -11,6 +13,12 @@ export interface PluginSettings {
   openAfterExport: boolean;
   contextPackOutputFolder: string;
   customRules: ReplacementRule[];
+  dailyNotesAutoDetect: boolean;
+  dailyNotesFolder: string;
+  dailyNotesFormat: string;
+  dailyNotesDefaultRange: string;
+  dailyNotesExcludeTags: string;
+  dailyNotesSortOrder: string;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -21,6 +29,12 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   openAfterExport: false,
   contextPackOutputFolder: '',
   customRules: [],
+  dailyNotesAutoDetect: true,
+  dailyNotesFolder: '',
+  dailyNotesFormat: 'YYYY-MM-DD',
+  dailyNotesDefaultRange: 'week',
+  dailyNotesExcludeTags: '',
+  dailyNotesSortOrder: 'asc',
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -95,6 +109,94 @@ export class SettingsTab extends PluginSettingTab {
         .setValue(this.plugin.settings.contextPackOutputFolder)
         .onChange(async value => {
           this.plugin.settings.contextPackOutputFolder = value;
+          await this.plugin.saveSettings();
+        }));
+
+    containerEl.createEl('h3', { text: t('setting_daily_section') });
+
+    let folderSetting: Setting;
+    let formatSetting: Setting;
+
+    new Setting(containerEl)
+      .setName(t('setting_daily_auto'))
+      .setDesc(t('setting_daily_auto_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.dailyNotesAutoDetect)
+        .onChange(async value => {
+          this.plugin.settings.dailyNotesAutoDetect = value;
+          await this.plugin.saveSettings();
+          folderSetting.setDisabled(value);
+          formatSetting.setDisabled(value);
+        }));
+
+    folderSetting = new Setting(containerEl)
+      .setName(t('setting_daily_folder'))
+      .setDisabled(this.plugin.settings.dailyNotesAutoDetect)
+      .addText(text => {
+        text.setPlaceholder('Daily Notes')
+          .setValue(this.plugin.settings.dailyNotesFolder)
+          .onChange(async value => {
+            this.plugin.settings.dailyNotesFolder = value;
+            await this.plugin.saveSettings();
+          });
+      })
+      .addButton(btn => btn
+        .setIcon('folder')
+        .setTooltip(t('daily_folder_label'))
+        .onClick(() => {
+          new FolderPickerModal(this.app, t('daily_folder_picker'), async (folder) => {
+            this.plugin.settings.dailyNotesFolder = folder;
+            this.plugin.settings.dailyNotesAutoDetect = false;
+            await this.plugin.saveSettings();
+            this.display();
+          }).open();
+        }));
+
+    formatSetting = new Setting(containerEl)
+      .setName(t('setting_daily_format'))
+      .setDesc(t('setting_daily_format_desc'))
+      .setDisabled(this.plugin.settings.dailyNotesAutoDetect)
+      .addText(text => text
+        .setPlaceholder('YYYY-MM-DD')
+        .setValue(this.plugin.settings.dailyNotesFormat)
+        .onChange(async value => {
+          this.plugin.settings.dailyNotesFormat = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_daily_range'))
+      .addDropdown(drop => drop
+        .addOption('this-week', t('daily_preset_this_week'))
+        .addOption('last-week', t('daily_preset_last_week'))
+        .addOption('week',      t('daily_preset_7'))
+        .addOption('2weeks',    t('daily_preset_14'))
+        .addOption('month',     t('daily_preset_30'))
+        .setValue(this.plugin.settings.dailyNotesDefaultRange)
+        .onChange(async value => {
+          this.plugin.settings.dailyNotesDefaultRange = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_daily_exclude'))
+      .setDesc(t('setting_daily_exclude_desc'))
+      .addText(text => text
+        .setPlaceholder('#private, #todo')
+        .setValue(this.plugin.settings.dailyNotesExcludeTags)
+        .onChange(async value => {
+          this.plugin.settings.dailyNotesExcludeTags = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_daily_sort'))
+      .addDropdown(drop => drop
+        .addOption('asc',  t('setting_daily_sort_asc'))
+        .addOption('desc', t('setting_daily_sort_desc'))
+        .setValue(this.plugin.settings.dailyNotesSortOrder)
+        .onChange(async value => {
+          this.plugin.settings.dailyNotesSortOrder = value;
           await this.plugin.saveSettings();
         }));
 
