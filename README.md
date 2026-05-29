@@ -72,7 +72,7 @@ This plugin adds **two ribbon icons** to the left sidebar:
 
 | Icon | Function |
 |------|----------|
-| 📦 (package) | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
+| package | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
 | 🗓↓ (calendar-arrow-down) | Daily Notes Pack — open the date range picker |
 
 All commands are also available from the **Command Palette** (`Cmd/Ctrl+P`) and **right-click menus** in the file explorer.
@@ -208,7 +208,7 @@ Once you've packed your recipe notes and uploaded them to NotebookLM, try asking
 ### v1.1.0
 - **Daily Notes Pack** — bundle daily notes by date range (presets + custom), with tag exclusion and weekly summary mode
 - Auto-detect Daily Notes folder from Obsidian / Japanese Calendar / Periodic Notes / Vault scan
-- New ribbon icon 📅 (`calendar-arrow-down`) dedicated to Daily Notes
+- New ribbon icon (`calendar-arrow-down`) dedicated to Daily Notes
 - Full English/Japanese i18n for all new UI
 - Mobile support for Daily Notes output (saves to Vault)
 
