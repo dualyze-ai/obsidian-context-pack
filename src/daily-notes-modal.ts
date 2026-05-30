@@ -39,17 +39,21 @@ export class DailyNotesModal extends Modal {
     this.dnConfig = { folder: settings.dailyNotesFolder, format: settings.dailyNotesFormat };
   }
 
-  async onOpen() {
+  onOpen() {
     this.titleEl.setText(t('daily_modal_title'));
     const { contentEl } = this;
-
-    if (this.settings.dailyNotesAutoDetect) {
-      this.dnConfig = await getDailyNotesSettings(this.app);
-    }
 
     const folderRow = contentEl.createDiv({ cls: 'cp-dn-folder-row' });
     this.folderLabelEl = folderRow.createSpan({ cls: 'cp-dn-folder-label' });
     this.updateFolderLabel();
+
+    if (this.settings.dailyNotesAutoDetect) {
+      getDailyNotesSettings(this.app).then(config => {
+        this.dnConfig = config;
+        this.updateFolderLabel();
+        this.updatePreview();
+      });
+    }
 
     folderRow.createEl('button', { text: t('daily_folder_label'), cls: 'cp-dn-folder-btn' })
       .addEventListener('click', () => {
