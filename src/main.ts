@@ -1,4 +1,4 @@
-import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu, Platform } from 'obsidian';
+import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu, Platform, moment } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
 import { exportVault, exportSingleNote, downloadBlob } from './exporter';
 import { buildContextPack } from './context-pack';
@@ -354,6 +354,8 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
+    const { notice, controller, setProgress } = this.startProgress(t('notice_packing'));
+
     const excludeTags = excludeTagsStr.split(',').map(t => t.trim()).filter(Boolean);
     const options = { excludeTags, sortOrder };
 
@@ -361,18 +363,23 @@ export default class ContextPackPlugin extends Plugin {
       ? buildWeeklyHeader(startDate, endDate, files.length)
       : undefined;
 
-    const content = await buildDailyPack(
-      this.app, files, dnConfig, options, this.formatOptions(), weeklyHeader
-    );
+    try {
+      const content = await buildDailyPack(
+        this.app, files, dnConfig, options, this.formatOptions(), weeklyHeader
+      );
+      notice.hide();
 
-    if (!content) {
-      new Notice('指定期間内にDaily Notesが見つかりませんでした');
-      return;
+      if (!content) {
+        new Notice(t('daily_notice_none'));
+        return;
+      }
+
+      const dateStr = moment().format('YYYYMMDD');
+      const prefix = weeklySummary ? 'weekly' : 'daily';
+      await this.saveContextPack(content, `${prefix}-notes-${dateStr}`, files.length);
+    } catch (err) {
+      this.handlePackError(notice, err);
     }
-
-    const dateStr = window.moment().format('YYYYMMDD');
-    const prefix = weeklySummary ? 'weekly' : 'daily';
-    await this.saveContextPack(content, `${prefix}-notes-${dateStr}`, files.length);
   }
 
   private packFromFolder() {
