@@ -82,4 +82,13 @@ export default {
   setting_daily_sort:          'Sort order',
   setting_daily_sort_asc:      'Oldest first',
   setting_daily_sort_desc:     'Newest first',
+
+  pack_period:        'Period',
+  pack_count:         (n: number) => `${n} note${n === 1 ? '' : 's'}`,
+  pack_generated:     'Generated',
+  pack_no_content:    '(no content)',
+  pack_dow:           (day: number) => ['(Sun)', '(Mon)', '(Tue)', '(Wed)', '(Thu)', '(Fri)', '(Sat)'][day],
+  weekly_title:       (year: number, month: number, week: number) => `Week ${week} of ${year}-${String(month).padStart(2, '0')}`,
+  weekly_header:      'Weekly Summary',
+  weekly_count:       (n: number) => `${n} Daily Note${n === 1 ? '' : 's'}`,
 };

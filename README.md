@@ -205,6 +205,9 @@ Once you've packed your recipe notes and uploaded them to NotebookLM, try asking
 
 ## Changelog
 
+### v1.1.5
+- Fix pack output containing Japanese text when using English locale — all output strings now follow the app language setting
+
 ### v1.1.4
 - Fix Daily Notes modal appearing blank briefly on open
 
