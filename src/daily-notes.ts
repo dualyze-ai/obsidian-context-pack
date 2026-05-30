@@ -1,4 +1,4 @@
-import { App, TFile } from 'obsidian';
+import { App, TFile, moment } from 'obsidian';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 
 export interface DailyNotesConfig {
@@ -54,7 +54,7 @@ function inferDailyNotesFolder(app: App): DailyNotesConfig {
   const folderCount = new Map<string, number>();
 
   for (const file of app.vault.getMarkdownFiles()) {
-    const m = window.moment(file.basename, FORMAT, true);
+    const m = moment(file.basename, FORMAT, true);
     if (!m.isValid()) continue;
     const dir = file.parent?.path ?? '';
     folderCount.set(dir, (folderCount.get(dir) ?? 0) + 1);
@@ -72,7 +72,7 @@ function inferDailyNotesFolder(app: App): DailyNotesConfig {
 }
 
 export function parseDateFromFilename(filename: string, format: string): Date | null {
-  const m = window.moment(filename, format, true);
+  const m = moment(filename, format, true);
   return m.isValid() ? m.toDate() : null;
 }
 
@@ -124,9 +124,9 @@ export async function buildDailyPack(
   if (filtered.length === 0) return '';
 
   const asc = options.sortOrder === 'asc' ? filtered : [...filtered].reverse();
-  const startStr = window.moment(parseDateFromFilename(asc[0].basename, config.format)).format('YYYY-MM-DD');
-  const endStr = window.moment(parseDateFromFilename(asc[asc.length - 1].basename, config.format)).format('YYYY-MM-DD');
-  const now = window.moment().format('YYYY-MM-DD HH:mm');
+  const startStr = moment(parseDateFromFilename(asc[0].basename, config.format)).format('YYYY-MM-DD');
+  const endStr = moment(parseDateFromFilename(asc[asc.length - 1].basename, config.format)).format('YYYY-MM-DD');
+  const now = moment().format('YYYY-MM-DD HH:mm');
 
   const sections: string[] = [];
 
@@ -156,7 +156,7 @@ export async function buildDailyPack(
 }
 
 export function getDateRange(preset: string): { start: Date; end: Date } {
-  const today = window.moment().startOf('day');
+  const today = moment().startOf('day');
   switch (preset) {
     case 'week':
       return { start: today.clone().subtract(6, 'days').toDate(), end: today.toDate() };
@@ -176,12 +176,12 @@ export function getDateRange(preset: string): { start: Date; end: Date } {
 }
 
 export function buildWeeklyHeader(startDate: Date, endDate: Date, count: number): string {
-  const m = window.moment(startDate);
+  const m = moment(startDate);
   const weekNum = Math.ceil(m.date() / 7);
   const title = `${m.year()}年${m.month() + 1}月第${weekNum}週`;
-  const startStr = window.moment(startDate).format('YYYY-MM-DD（ddd）');
-  const endStr = window.moment(endDate).format('YYYY-MM-DD（ddd）');
-  const now = window.moment().format('YYYY-MM-DD HH:mm');
+  const startStr = moment(startDate).format('YYYY-MM-DD（ddd）');
+  const endStr = moment(endDate).format('YYYY-MM-DD（ddd）');
+  const now = moment().format('YYYY-MM-DD HH:mm');
   return [
     `# 週次サマリー：${title}`,
     `期間：${startStr} 〜 ${endStr}`,
