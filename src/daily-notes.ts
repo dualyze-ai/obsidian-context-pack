@@ -1,4 +1,4 @@
-import { App, TFile, moment, Notice } from 'obsidian';
+import { App, TFile, moment } from 'obsidian';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 
 export interface DailyNotesConfig {
@@ -82,22 +82,11 @@ export function getDailyNotes(app: App, config: DailyNotesConfig, startDate: Dat
     const dir = f.parent?.path ?? '';
     return config.folder ? dir === config.folder : dir === '' || dir === '/';
   });
-  const startStr = moment(startDate).format('YYYY-MM-DD');
-  const endStr = moment(endDate).format('YYYY-MM-DD');
-  const debugLines: string[] = [`期間: ${startStr} ～ ${endStr}`, `フォルダ: ${config.folder}`, `フォーマット: ${config.format}`, ``];
-
   const files = inFolderFiles.filter(f => {
     const date = parseDateFromFilename(f.basename, config.format);
-    if (!date) {
-      debugLines.push(`❌ 解析失敗: ${f.basename}`);
-      return false;
-    }
-    const inRange = date >= startDate && date <= endDate;
-    debugLines.push(`${inRange ? '✅' : '⛔'} ${f.basename} → ${moment(date).format('YYYY-MM-DD')}`);
-    return inRange;
+    if (!date) return false;
+    return date >= startDate && date <= endDate;
   });
-
-  app.vault.adapter.write('debug-daily-notes.md', debugLines.join('\n'));
 
   return files.sort((a, b) => {
     const da = parseDateFromFilename(a.basename, config.format)!.getTime();
