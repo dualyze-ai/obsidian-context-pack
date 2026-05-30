@@ -205,6 +205,9 @@ Once you've packed your recipe notes and uploaded them to NotebookLM, try asking
 
 ## Changelog
 
+### v1.1.4
+- Fix Daily Notes modal appearing blank briefly on open
+
 ### v1.1.0
 - **Daily Notes Pack** — bundle daily notes by date range (presets + custom), with tag exclusion and weekly summary mode
 - Auto-detect Daily Notes folder from Obsidian / Japanese Calendar / Periodic Notes / Vault scan
