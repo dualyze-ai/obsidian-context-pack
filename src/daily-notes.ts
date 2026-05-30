@@ -1,5 +1,6 @@
 import { App, TFile, moment } from 'obsidian';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
+import { t } from './i18n';
 
 export interface DailyNotesConfig {
   folder: string;
@@ -137,18 +138,17 @@ export async function buildDailyPack(
 
   sections.push(
     '# Daily Notes Context Pack',
-    `期間：${startStr} 〜 ${endStr}`,
-    `件数：${filtered.length}件`,
-    `生成日時：${now}`
+    `${t('pack_period')}: ${startStr} – ${endStr}`,
+    t('pack_count', filtered.length),
+    `${t('pack_generated')}: ${now}`
   );
 
-  const dow = ['（日）', '（月）', '（火）', '（水）', '（木）', '（金）', '（土）'];
   for (const file of filtered) {
     const raw = await app.vault.read(file);
     const body = formatForNotebookLM(raw, formatOptions);
     const date = parseDateFromFilename(file.basename, config.format);
-    const suffix = date ? dow[date.getDay()] : '';
-    sections.push('---', `# ${file.basename}${suffix}`, body || '（内容なし）');
+    const suffix = date ? t('pack_dow', date.getDay()) : '';
+    sections.push('---', `# ${file.basename}${suffix}`, body || t('pack_no_content'));
   }
 
   sections.push('---');
@@ -178,14 +178,14 @@ export function getDateRange(preset: string): { start: Date; end: Date } {
 export function buildWeeklyHeader(startDate: Date, endDate: Date, count: number): string {
   const m = moment(startDate);
   const weekNum = Math.ceil(m.date() / 7);
-  const title = `${m.year()}年${m.month() + 1}月第${weekNum}週`;
-  const startStr = moment(startDate).format('YYYY-MM-DD（ddd）');
-  const endStr = moment(endDate).format('YYYY-MM-DD（ddd）');
+  const title = t('weekly_title', m.year(), m.month() + 1, weekNum);
+  const startStr = moment(startDate).format('YYYY-MM-DD (ddd)');
+  const endStr = moment(endDate).format('YYYY-MM-DD (ddd)');
   const now = moment().format('YYYY-MM-DD HH:mm');
   return [
-    `# 週次サマリー：${title}`,
-    `期間：${startStr} 〜 ${endStr}`,
-    `Daily Notes数：${count}件`,
-    `生成日時：${now}`,
+    `# ${t('weekly_header')}: ${title}`,
+    `${t('pack_period')}: ${startStr} – ${endStr}`,
+    t('weekly_count', count),
+    `${t('pack_generated')}: ${now}`,
   ].join('\n');
 }

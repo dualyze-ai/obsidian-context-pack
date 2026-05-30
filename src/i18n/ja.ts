@@ -82,4 +82,13 @@ export default {
   setting_daily_sort:          '並び順',
   setting_daily_sort_asc:      '古い順',
   setting_daily_sort_desc:     '新しい順',
+
+  pack_period:        '期間',
+  pack_count:         (n: number) => `${n}件`,
+  pack_generated:     '生成日時',
+  pack_no_content:    '（内容なし）',
+  pack_dow:           (day: number) => ['（日）', '（月）', '（火）', '（水）', '（木）', '（金）', '（土）'][day],
+  weekly_title:       (year: number, month: number, week: number) => `${year}年${month}月第${week}週`,
+  weekly_header:      '週次サマリー',
+  weekly_count:       (n: number) => `Daily Notes数：${n}件`,
 };
