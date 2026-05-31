@@ -18,7 +18,7 @@
 
 ## The problem
 
-When you paste raw Obsidian notes into an AI, the results are noisy. Broken `[[wikilinks]]`, frontmatter YAML, `![[embedded images]]`, `%%comments%%`, and `#inline-tags` all end up in the context — and the AI treats them as meaningful content.
+When you paste raw Obsidian notes into an AI, the results are noisy. Broken wikilinks, frontmatter YAML, embedded images, comments, and inline tags all end up in the context — and the AI treats them as meaningful content.
 
 This plugin solves that.
 
@@ -100,7 +100,7 @@ Bundles multiple notes into one `.md` file for NotebookLM.
 | Right-click file → Create Context Pack from this MOC | Notes linked from the current file |
 | Command: Create Context Pack from MOC | Same as above |
 
-The pack is downloaded as `pack-<source>-<date>.md`.
+The pack is downloaded as `pack-folder-20240101.md` (named by source and date).
 
 ### Export (ZIP)
 
