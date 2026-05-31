@@ -6,7 +6,7 @@ export default {
   cmd_create_moc_tag: 'タグからMOCを作成',
   cmd_pack_moc:       'MOCからContext Packを作成',
 
-  ribbon_tooltip:        'Context Pack / エクスポート',
+  ribbon_tooltip:        'AI Context Pack / エクスポート',
   ribbon_pack_folder:    'Context Pack（フォルダを選択）',
   ribbon_pack_tag:       'Context Pack（タグを選択）',
   ribbon_create_moc_tag: 'MOCを作成（タグから）',
