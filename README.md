@@ -194,7 +194,7 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 
 ## Using with NotebookLM
 
-1. Run **Context Pack** on a folder or tag → a `pack-xxx.md` file is downloaded
+1. Run **Context Pack** on a folder or tag → a `pack-recipes-20240101.md` file is downloaded
 2. Open [NotebookLM](https://notebooklm.google.com) → **New notebook** → **Add source** → **Upload file** → select the `.md` file
 3. Start asking questions
 
