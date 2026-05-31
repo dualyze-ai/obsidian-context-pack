@@ -9,10 +9,10 @@
 | AI | Output | How to Use |
 |---|---|---|
 | NotebookLM | ZIP / Text | Upload as source |
-| ChatGPT | Markdown | Paste into chat |
-| Claude | Markdown | Paste into chat |
-| Gemini | Markdown | Paste into chat |
-| Claude Code | CLAUDE.md | Save to project |
+| ChatGPT | Markdown | Coming soon |
+| Claude | Markdown | Coming soon |
+| Gemini | Markdown | Coming soon |
+| Claude Code | CLAUDE.md | Coming soon |
 
 ---
 
