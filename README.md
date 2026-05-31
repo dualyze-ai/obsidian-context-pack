@@ -1,12 +1,24 @@
-# Context Pack for NotebookLM
+# AI Context Pack
 
-> Bundle your Obsidian notes into clean, AI-ready files for [NotebookLM](https://notebooklm.google.com).
+> Package your Obsidian notes into context packs for any AI — NotebookLM, ChatGPT, Claude, Gemini, and more.
+
+---
+
+## Supported AI Assistants
+
+| AI | Output | How to Use |
+|---|---|---|
+| NotebookLM | ZIP / Text | Upload as source |
+| ChatGPT | Markdown | Paste into chat |
+| Claude | Markdown | Paste into chat |
+| Gemini | Markdown | Paste into chat |
+| Claude Code | CLAUDE.md | Save to project |
 
 ---
 
 ## The problem
 
-When you paste raw Obsidian notes into NotebookLM, the results are noisy. Broken `[[wikilinks]]`, frontmatter YAML, `![[embedded images]]`, `%%comments%%`, and `#inline-tags` all end up in the source — and NotebookLM treats them as meaningful content.
+When you paste raw Obsidian notes into an AI, the results are noisy. Broken `[[wikilinks]]`, frontmatter YAML, `![[embedded images]]`, `%%comments%%`, and `#inline-tags` all end up in the context — and the AI treats them as meaningful content.
 
 This plugin solves that.
 
@@ -14,7 +26,7 @@ This plugin solves that.
 
 ## What it does
 
-**Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so NotebookLM understands your knowledge hierarchy.
+**Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so the AI understands your knowledge hierarchy.
 
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
 
@@ -57,7 +69,7 @@ Both Context Pack and Export run the same formatter: frontmatter is removed, wik
 ### Community plugins (recommended)
 
 1. Open **Settings → Community plugins → Browse**
-2. Search for **Context Pack for NotebookLM**
+2. Search for **AI Context Pack**
 3. Install and enable
 
 ### Manual
@@ -175,7 +187,7 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 
 1. Download and unzip
 2. In Obsidian: **Open another vault → Open folder as vault** → select the unzipped folder
-3. Enable Context Pack for NotebookLM in Community plugins
+3. Enable AI Context Pack in Community plugins
 4. Try it — pack the `recipes/` folder, explore by tag, or build a MOC
 
 ---
@@ -203,7 +215,17 @@ Once you've packed your recipe notes and uploaded them to NotebookLM, try asking
 
 ---
 
+## Migration from Context Pack for NotebookLM
+
+AI Context Pack is the successor to Context Pack for NotebookLM. All existing features work exactly the same. NotebookLM output is fully supported.
+
+---
+
 ## Changelog
+
+### v2.0.0
+- Renamed to **AI Context Pack** — now supports NotebookLM, ChatGPT, Claude, Gemini, and Claude Code
+- Full backward compatibility maintained — all existing features unchanged
 
 ### v1.1.5
 - Fix pack output containing Japanese text when using English locale — all output strings now follow the app language setting

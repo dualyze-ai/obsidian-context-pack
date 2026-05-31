@@ -6,7 +6,7 @@ export default {
   cmd_create_moc_tag: 'Create MOC from tag',
   cmd_pack_moc:       'Create Context Pack from MOC',
 
-  ribbon_tooltip:        'Context Pack / Export',
+  ribbon_tooltip:        'AI Context Pack / Export',
   ribbon_pack_folder:    'Context Pack (choose folder)',
   ribbon_pack_tag:       'Context Pack (choose tag)',
   ribbon_create_moc_tag: 'Create MOC (from tag)',
