@@ -116,7 +116,7 @@ Exports notes as individual cleaned-up `.md` files in a ZIP.
 
 ### MOC (Map of Content)
 
-Automatically generates a MOC note — a list of `[[links]]` to all notes in a folder or tag. Use it as an index, then run **Create Context Pack from this MOC** to pack exactly those notes.
+Automatically generates a MOC note — a list of wikilinks to all notes in a folder or tag. Use it as an index, then run **Create Context Pack from this MOC** to pack exactly those notes.
 
 | Trigger | Source |
 |---|---|
@@ -139,7 +139,7 @@ Click the **calendar-arrow-down** ribbon icon (or use the Command Palette) to op
 
 If auto-detection doesn't find the right folder, click **Change folder** in the modal to pick it manually. The selection is saved for next time.
 
-**Exclude tags** — comma-separated list of tags to exclude (e.g. `#private, #todo`). Notes containing any of these tags are skipped.
+**Exclude tags** — comma-separated list of tags to exclude (e.g. `#private, #draft`). Notes containing any of these tags are skipped.
 
 **Weekly summary** — adds a summary header (`# Weekly Summary: 2026 Week 22`) before the daily notes content.
 
