@@ -195,7 +195,7 @@ export default class ContextPackPlugin extends Plugin {
     if (err instanceof DOMException && err.name === 'AbortError') {
       new Notice(t('notice_cancelled'));
     } else {
-      console.error('[Context Pack]', err);
+      console.error('[AI Context Pack]', err);
       new Notice(t('notice_error'));
     }
   }
@@ -484,7 +484,7 @@ export default class ContextPackPlugin extends Plugin {
       }
       new Notice(t('notice_pack_done', noteCount), 5000);
     } catch (err) {
-      console.error('[Context Pack] Failed to save pack:', err);
+      console.error('[AI Context Pack] Failed to save pack:', err);
       new Notice(t('notice_error'));
     }
   }
