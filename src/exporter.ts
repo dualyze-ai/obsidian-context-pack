@@ -117,14 +117,17 @@ export async function exportAsText(
   app: App,
   content: string,
   filename: string,
-  outputFolder: string
-): Promise<void> {
+  outputFolder: string,
+  forceVault = false
+): Promise<string> {
   const blob = new Blob([content], { type: 'text/markdown' });
-  if (Platform.isDesktop && !outputFolder) {
+  const savedPath = outputFolder ? `${outputFolder}/${filename}` : filename;
+  if (Platform.isDesktop && !outputFolder && !forceVault) {
     downloadBlob(blob, filename);
-  } else {
-    await saveToVault(app, outputFolder, filename, blob);
+    return '';
   }
+  await saveToVault(app, outputFolder, filename, blob);
+  return savedPath;
 }
 
 export interface AiOutputOptions {
@@ -151,10 +154,9 @@ export async function buildAiOutput(
   }
 
   if (options.saveToFile && preset.saveToFile) {
-    await exportAsText(app, content, filename, options.outputFolder);
-    savedPath = options.outputFolder
-      ? `${options.outputFolder}/${filename}`
-      : filename;
+    // When openAiUrl is enabled, force vault save so we can await completion before opening URL
+    const forceVault = !!options.openAiUrl;
+    savedPath = await exportAsText(app, content, filename, options.outputFolder, forceVault);
   }
 
   if (options.copyToClipboard && preset.copyToClipboard && savedPath) {
@@ -166,18 +168,6 @@ export async function buildAiOutput(
   }
 
   if (options.openAiUrl && preset.aiUrl) {
-    const url = preset.aiUrl;
-    setTimeout(() => {
-      if (document.hasFocus()) {
-        // Vault save path: window stayed focused, open directly
-        window.open(url, '_blank');
-      } else {
-        // Download dialog path: wait until the dialog is dismissed and focus returns
-        window.addEventListener('focus', function onFocus() {
-          window.removeEventListener('focus', onFocus);
-          setTimeout(() => window.open(url, '_blank'), 300);
-        });
-      }
-    }, 200);
+    window.open(preset.aiUrl, '_blank');
   }
 }
