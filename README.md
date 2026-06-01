@@ -47,7 +47,7 @@ Obsidian Vault
 
 **Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so the AI understands your knowledge hierarchy.
 
-**Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, or more AIs coming in future releases. For ChatGPT, the pack is copied to your clipboard and optionally saved as a file. A customizable starter prompt is prepended so you can paste straight into any AI chat without writing an intro yourself.
+**Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, Claude, Gemini, or Claude Code. For ChatGPT, Claude, and Gemini, the pack is copied to your clipboard so you can paste it straight into any AI chat. A customizable starter prompt is prepended automatically. For Claude Code, the pack is copied as plain structured reference material with no starter prompt.
 
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
 
@@ -317,7 +317,7 @@ Claude Code handles packs up to ~50K tokens, ideal for project specs, architectu
 
 ## Using with NotebookLM
 
-1. Run **Context Pack** on a folder or tag → a `pack-recipes-20240101.md` file is downloaded
+1. Run **Context Pack** on a folder or tag → a `pack-recipes-notebooklm-20240101.md` file is downloaded
 2. Open [NotebookLM](https://notebooklm.google.com) → **New notebook** → **Add source** → **Upload file** → select the `.md` file
 3. Start asking questions
 
