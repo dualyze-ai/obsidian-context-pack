@@ -196,13 +196,14 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 
 | Vault | Notes | Download |
 |---|---|---|
-| 🇺🇸 English (recipes / travel / books) | 60 notes | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
-| 🇯🇵 Japanese（料理 / 旅行 / 読書）| 60件 | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
+| 🇺🇸 English (recipes / travel / books / linkbox-spec) | 65 notes | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
+| 🇯🇵 Japanese（料理 / 旅行 / 読書 / linkbox-spec）| 65件 | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
 
 1. Download and unzip
 2. In Obsidian: **Open another vault → Open folder as vault** → select the unzipped folder
 3. Enable AI Context Pack in Community plugins
 4. Try it — pack the `recipes/` folder, explore by tag, or build a MOC
+5. To try Claude Code: pack the `linkbox-spec/` folder and choose **Claude Code** as the output target
 
 ---
 

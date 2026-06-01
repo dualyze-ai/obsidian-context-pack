@@ -45,6 +45,9 @@ export default {
   notice_cancelled:  'キャンセルしました。',
   notice_error:      'エラーが発生しました。コンソールを確認してください。',
   btn_cancel:        '中止',
+  folder_search_placeholder: 'フォルダを検索…',
+  folder_picker_title_pack:   'パックするフォルダを選択',
+  folder_picker_title_export: 'エクスポートするフォルダを選択',
 
   cmd_daily_default:   'Daily Notes: デフォルト期間でパックを作成',
   cmd_daily_custom:    'Daily Notes: 期間を選択してパックを作成',
