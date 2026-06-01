@@ -122,7 +122,9 @@ export default {
   setting_starter_prompt_toggle:      'Include starter prompt by default',
   setting_starter_prompt_toggle_desc: 'When on, the starter prompt is added to every pack. You can also toggle it per export in the output selector.',
 
-  modal_include_prompt: 'Include starter prompt',
+  modal_include_prompt:  'Include starter prompt',
+  modal_method_file_vault: 'Save to Vault',
+  modal_open_ai_url:   'Open AI website after export',
 
   default_starter_prompt: 'The following is a collection of {count} Obsidian notes from "{source}". Please read the content and answer my questions based on it.',
 };
