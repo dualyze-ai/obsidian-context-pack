@@ -224,3 +224,19 @@
 .cp-output-submit {
   padding: 6px 14px;
 }
+
+/* Starter prompt textarea in settings */
+.cp-starter-prompt-area {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  line-height: 1.5;
+}

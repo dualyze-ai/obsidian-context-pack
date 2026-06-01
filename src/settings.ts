@@ -286,17 +286,15 @@ export class SettingsTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName(t('setting_starter_prompt'))
-      .setDesc(t('setting_starter_prompt_desc'))
-      .addTextArea(area => {
-        area.setPlaceholder(t('default_starter_prompt'));
-        area.setValue(this.plugin.settings.starterPrompt);
-        area.inputEl.rows = 4;
-        area.inputEl.style.width = '100%';
-        area.onChange(async value => {
-          this.plugin.settings.starterPrompt = value;
-          await this.plugin.saveSettings();
-        });
-      });
+      .setDesc(t('setting_starter_prompt_desc'));
+
+    const promptArea = containerEl.createEl('textarea', { cls: 'cp-starter-prompt-area' });
+    promptArea.value = this.plugin.settings.starterPrompt || t('default_starter_prompt');
+    promptArea.rows = 5;
+    promptArea.addEventListener('change', async () => {
+      this.plugin.settings.starterPrompt = promptArea.value;
+      await this.plugin.saveSettings();
+    });
 
     containerEl.createEl('h3', { text: 'Custom replacement rules' });
 
