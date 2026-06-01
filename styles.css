@@ -148,8 +148,11 @@
 }
 
 .cp-output-preset-btn.cp-output-disabled {
-  opacity: 0.45;
-  cursor: default;
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: var(--background-primary);
+  border-color: var(--background-modifier-border);
 }
 
 .cp-output-preset-label {
@@ -160,6 +163,11 @@
 .cp-output-preset-desc {
   font-size: 12px;
   color: var(--text-muted);
+}
+
+.cp-output-preset-btn.cp-output-disabled .cp-output-preset-desc {
+  font-size: 11px;
+  font-style: italic;
 }
 
 .cp-output-preview {
