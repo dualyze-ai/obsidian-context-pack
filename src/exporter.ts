@@ -166,6 +166,7 @@ export async function buildAiOutput(
   }
 
   if (options.openAiUrl && preset.aiUrl) {
-    window.open(preset.aiUrl, '_blank');
+    const url = preset.aiUrl;
+    setTimeout(() => window.open(url, '_blank'), 800);
   }
 }
