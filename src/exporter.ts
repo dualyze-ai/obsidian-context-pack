@@ -167,6 +167,17 @@ export async function buildAiOutput(
 
   if (options.openAiUrl && preset.aiUrl) {
     const url = preset.aiUrl;
-    setTimeout(() => window.open(url, '_blank'), 800);
+    setTimeout(() => {
+      if (document.hasFocus()) {
+        // Vault save path: window stayed focused, open directly
+        window.open(url, '_blank');
+      } else {
+        // Download dialog path: wait until the dialog is dismissed and focus returns
+        window.addEventListener('focus', function onFocus() {
+          window.removeEventListener('focus', onFocus);
+          setTimeout(() => window.open(url, '_blank'), 300);
+        });
+      }
+    }, 200);
   }
 }
