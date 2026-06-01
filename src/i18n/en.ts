@@ -45,6 +45,9 @@ export default {
   notice_cancelled:  'Cancelled.',
   notice_error:      'Something went wrong. Check the console for details.',
   btn_cancel:        'Cancel',
+  folder_search_placeholder: 'Search folders…',
+  folder_picker_title_pack:   'Choose a folder to pack',
+  folder_picker_title_export: 'Choose a folder to export',
 
   cmd_daily_default:   'Daily Notes: Create pack (default range)',
   cmd_daily_custom:    'Daily Notes: Create pack (choose range)',

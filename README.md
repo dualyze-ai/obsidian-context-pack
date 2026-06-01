@@ -12,7 +12,7 @@
 | ChatGPT | Markdown | Copy to clipboard / Save file |
 | Claude | Markdown | Copy to clipboard / Save file |
 | Gemini | Markdown | Copy to clipboard / Save file |
-| Claude Code | CLAUDE.md | Planned for v2.3 |
+| Claude Code | Markdown | Copy to clipboard / Save file |
 
 ---
 
@@ -196,13 +196,14 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 
 | Vault | Notes | Download |
 |---|---|---|
-| 🇺🇸 English (recipes / travel / books) | 60 notes | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
-| 🇯🇵 Japanese（料理 / 旅行 / 読書）| 60件 | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
+| 🇺🇸 English (recipes / travel / books / linkbox-spec) | 65 notes | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
+| 🇯🇵 Japanese（料理 / 旅行 / 読書 / linkbox-spec）| 65件 | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
 
 1. Download and unzip
 2. In Obsidian: **Open another vault → Open folder as vault** → select the unzipped folder
 3. Enable AI Context Pack in Community plugins
 4. Try it — pack the `recipes/` folder, explore by tag, or build a MOC
+5. To try Claude Code: pack the `linkbox-spec/` folder and choose **Claude Code** as the output target
 
 ---
 
@@ -271,6 +272,30 @@ Gemini supports packs up to ~800K tokens — ideal for large note collections yo
 
 ---
 
+## Using with Claude Code
+
+1. Run **Context Pack** on a folder or tag
+2. In the output selector, choose **Claude Code**
+3. Click **Export** — the pack is copied to your clipboard
+4. Open your project in Claude Code and paste the pack as context
+
+No starter prompt is added — the output is structured reference material, ready to paste directly.
+
+Claude Code handles packs up to ~50K tokens, ideal for project specs, architecture notes, and decision records.
+
+### Sample queries — Project specs
+
+| Question | What you get |
+|---|---|
+| *"Based on these specs, scaffold the initial project structure"* | File and folder layout matching the spec |
+| *"Implement the data model described in the notes"* | TypeScript types and storage logic |
+| *"What open questions need to be resolved before we start building?"* | Summary of unresolved items |
+| *"Generate a task list from these specs"* | Prioritized implementation checklist |
+
+> **Tip:** Pack a single folder (e.g. `linkbox-spec/`) to keep the context focused on one feature area.
+
+---
+
 ## Using with NotebookLM
 
 1. Run **Context Pack** on a folder or tag → a `pack-recipes-20240101.md` file is downloaded
@@ -301,6 +326,12 @@ AI Context Pack is the successor to Context Pack for NotebookLM. All existing fe
 ---
 
 ## Changelog
+
+### v2.3.0
+- **Claude Code support** — copy to clipboard and paste into Claude Code; no starter prompt added
+- **Project spec sample vault** — `linkbox-spec/` folder added to both English and Japanese sample vaults
+- **Folder picker title** — folder selection dialog now shows a title above the search field
+- **Progress dialog** — cleaner appearance with dark background
 
 ### v2.2.0
 - **Claude support** — copy to clipboard and paste directly into Claude.ai

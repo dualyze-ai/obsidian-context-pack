@@ -26,6 +26,7 @@ describe('OUTPUT_PRESETS', () => {
       expect(typeof preset.saveToFile).toBe('boolean');
       expect(typeof preset.maxTokens).toBe('number');
       expect(typeof preset.contextLimit).toBe('number');
+      expect(typeof preset.supportsStarterPrompt).toBe('boolean');
     }
   });
 
@@ -35,38 +36,78 @@ describe('OUTPUT_PRESETS', () => {
     }
   });
 
-  test('chatgpt has both copyToClipboard and saveToFile enabled', () => {
-    expect(OUTPUT_PRESETS['chatgpt'].copyToClipboard).toBe(true);
-    expect(OUTPUT_PRESETS['chatgpt'].saveToFile).toBe(true);
-  });
-
-  test('chatgpt is marked as available', () => {
-    expect(OUTPUT_PRESETS['chatgpt'].available).toBe(true);
-  });
-
-  test('notebooklm-zip does not copy to clipboard', () => {
-    expect(OUTPUT_PRESETS['notebooklm-zip'].copyToClipboard).toBe(false);
-  });
-
-  test('notebooklm-text does not copy to clipboard', () => {
-    expect(OUTPUT_PRESETS['notebooklm-text'].copyToClipboard).toBe(false);
-  });
-
-  test('chatgpt has a valid aiUrl', () => {
-    const url = OUTPUT_PRESETS['chatgpt'].aiUrl;
-    expect(url).toBeDefined();
-    expect(url).toMatch(/^https:\/\//);
-  });
-
-  test('claude and gemini are marked as unavailable in v2.1.0', () => {
-    expect(OUTPUT_PRESETS['claude'].available).toBe(false);
-    expect(OUTPUT_PRESETS['gemini'].available).toBe(false);
-  });
-
   test('token limits are positive numbers', () => {
     for (const preset of Object.values(OUTPUT_PRESETS)) {
       expect(preset.maxTokens).toBeGreaterThan(0);
       expect(preset.contextLimit).toBeGreaterThan(0);
     }
+  });
+
+  // --- available ---
+
+  test('notebooklm, chatgpt, claude, gemini, claude-code are available', () => {
+    expect(OUTPUT_PRESETS['notebooklm-zip'].available).toBe(true);
+    expect(OUTPUT_PRESETS['notebooklm-text'].available).toBe(true);
+    expect(OUTPUT_PRESETS['chatgpt'].available).toBe(true);
+    expect(OUTPUT_PRESETS['claude'].available).toBe(true);
+    expect(OUTPUT_PRESETS['gemini'].available).toBe(true);
+    expect(OUTPUT_PRESETS['claude-code'].available).toBe(true);
+  });
+
+  test('custom is not yet available', () => {
+    expect(OUTPUT_PRESETS['custom'].available).toBe(false);
+  });
+
+  // --- clipboard / file ---
+
+  test('notebooklm presets do not copy to clipboard', () => {
+    expect(OUTPUT_PRESETS['notebooklm-zip'].copyToClipboard).toBe(false);
+    expect(OUTPUT_PRESETS['notebooklm-text'].copyToClipboard).toBe(false);
+  });
+
+  test('chatgpt, claude, gemini, claude-code copy to clipboard', () => {
+    expect(OUTPUT_PRESETS['chatgpt'].copyToClipboard).toBe(true);
+    expect(OUTPUT_PRESETS['claude'].copyToClipboard).toBe(true);
+    expect(OUTPUT_PRESETS['gemini'].copyToClipboard).toBe(true);
+    expect(OUTPUT_PRESETS['claude-code'].copyToClipboard).toBe(true);
+  });
+
+  // --- aiUrl ---
+
+  test('chatgpt, claude, gemini, claude-code have valid aiUrl', () => {
+    for (const target of ['chatgpt', 'claude', 'gemini', 'claude-code'] as OutputTarget[]) {
+      const url = OUTPUT_PRESETS[target].aiUrl;
+      expect(url).toBeDefined();
+      expect(url).toMatch(/^https:\/\//);
+    }
+  });
+
+  test('notebooklm presets have no aiUrl', () => {
+    expect(OUTPUT_PRESETS['notebooklm-zip'].aiUrl).toBeUndefined();
+    expect(OUTPUT_PRESETS['notebooklm-text'].aiUrl).toBeUndefined();
+  });
+
+  // --- supportsStarterPrompt ---
+
+  test('claude-code does not support starter prompt', () => {
+    expect(OUTPUT_PRESETS['claude-code'].supportsStarterPrompt).toBe(false);
+  });
+
+  test('chatgpt, claude, gemini support starter prompt', () => {
+    expect(OUTPUT_PRESETS['chatgpt'].supportsStarterPrompt).toBe(true);
+    expect(OUTPUT_PRESETS['claude'].supportsStarterPrompt).toBe(true);
+    expect(OUTPUT_PRESETS['gemini'].supportsStarterPrompt).toBe(true);
+  });
+
+  test('notebooklm presets support starter prompt', () => {
+    expect(OUTPUT_PRESETS['notebooklm-zip'].supportsStarterPrompt).toBe(true);
+    expect(OUTPUT_PRESETS['notebooklm-text'].supportsStarterPrompt).toBe(true);
+  });
+
+  // --- context limits ---
+
+  test('gemini has the largest context limit', () => {
+    const limits = Object.values(OUTPUT_PRESETS).map(p => p.contextLimit);
+    expect(OUTPUT_PRESETS['gemini'].contextLimit).toBe(Math.max(...limits));
   });
 });
