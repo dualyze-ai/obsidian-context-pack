@@ -47,11 +47,11 @@ Obsidian Vault
 
 **Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so the AI understands your knowledge hierarchy.
 
-**Output target selector** *(v2.1.0)* lets you choose where to send the pack each time — NotebookLM, ChatGPT, or more AIs coming in future releases. For ChatGPT, the pack is copied to your clipboard and optionally saved as a file. A customizable starter prompt is prepended so you can paste straight into any AI chat without writing an intro yourself.
+**Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, or more AIs coming in future releases. For ChatGPT, the pack is copied to your clipboard and optionally saved as a file. A customizable starter prompt is prepended so you can paste straight into any AI chat without writing an intro yourself.
 
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
 
-**Daily Notes Pack** *(v1.1.0)* collects your daily notes within a date range and bundles them into a single AI-ready file. Filter by tag, choose a preset period, or set a custom range. Supports weekly summary mode.
+**Daily Notes Pack** collects your daily notes within a date range and bundles them into a single AI-ready file. Filter by tag, choose a preset period, or set a custom range. Supports weekly summary mode.
 
 Both Context Pack and Export run the same formatter: frontmatter is removed, wikilinks are resolved, embeds and comments are stripped, and blank lines are collapsed.
 
