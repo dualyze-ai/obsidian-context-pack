@@ -213,7 +213,7 @@ export default class ContextPackPlugin extends Plugin {
     const { notice, controller, setProgress } = this.startProgress(t('notice_exporting'));
     try {
       const result = await exportVault(this.app, options,
-        (cur, total) => setProgress(`⏳ ${cur} / ${total}`),
+        (cur, total) => setProgress(`${cur} / ${total}`),
         controller.signal
       );
       notice.hide();
@@ -294,7 +294,7 @@ export default class ContextPackPlugin extends Plugin {
       const { notice, controller, setProgress } = this.startProgress(t('notice_exporting'));
       try {
         const result = await exportVault(this.app, options,
-          (cur, total) => setProgress(`⏳ ${cur} / ${total}`),
+          (cur, total) => setProgress(`${cur} / ${total}`),
           controller.signal, files
         );
         notice.hide();
@@ -404,7 +404,7 @@ export default class ContextPackPlugin extends Plugin {
       const content = await buildContextPack(files, this.app, this.formatOptions(), {
         title,
         source: `folder:${folderPath}`,
-      }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
+      }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
       notice.hide();
       this.handlePackOutput(content, `folder-${title}`, files.length, title);
     } catch (err) {
@@ -420,7 +420,7 @@ export default class ContextPackPlugin extends Plugin {
       try {
         const content = await buildContextPack(files, this.app, this.formatOptions(), {
           title: tag, source: `tag:${tag}`,
-        }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
+        }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
         notice.hide();
         this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length, `#${tag}`);
       } catch (err) {
@@ -456,7 +456,7 @@ export default class ContextPackPlugin extends Plugin {
       const content = await buildContextPack(files, this.app, this.formatOptions(), {
         title: moc.basename,
         source: `moc:${moc.basename}`,
-      }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
+      }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
       notice.hide();
       this.handlePackOutput(content, `moc-${moc.basename}`, files.length, moc.basename);
     } catch (err) {
@@ -574,11 +574,20 @@ class FolderSuggest extends SuggestModal<string> {
     app: App,
     private folders: string[],
     private onChoose: (folder: string) => void,
-    title?: string
+    private title?: string
   ) {
     super(app);
-    if (title) this.setTitle(title);
     this.setPlaceholder(t('folder_search_placeholder'));
+  }
+
+  onOpen(): void {
+    super.onOpen();
+    if (this.title) {
+      const target = this.modalEl.querySelector('.prompt') ?? this.inputEl.parentElement;
+      target?.insertAdjacentElement('beforebegin',
+        createEl('div', { cls: 'cp-folder-picker-title', text: this.title })
+      );
+    }
   }
 
   getSuggestions(query: string): string[] {
