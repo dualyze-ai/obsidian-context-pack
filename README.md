@@ -18,9 +18,28 @@
 
 ## The problem
 
-When you paste raw Obsidian notes into an AI, the results are noisy. Broken wikilinks, frontmatter YAML, embedded images, comments, and inline tags all end up in the context — and the AI treats them as meaningful content.
+Raw Obsidian notes contain noise:
 
-This plugin solves that.
+- Wikilinks
+- Frontmatter
+- Comments
+- Templates
+
+AI models perform better when context is clean and structured. This plugin solves that.
+
+---
+
+## How it works
+
+```
+Obsidian Vault
+      ↓
+ Context Pack
+      ↓
+ AI-ready Context
+      ↓
+ ChatGPT / Claude / Gemini / NotebookLM / Claude Code
+```
 
 ---
 
