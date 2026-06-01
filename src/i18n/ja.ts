@@ -116,4 +116,13 @@ export default {
   setting_warn_tokens_desc:    'パックのトークン数が推奨上限を超えた場合に警告を表示します。',
   setting_open_url:            'エクスポート後にAIサイトを開く',
   setting_open_url_desc:       'クリップボードへのコピー後にAIのWebサイトを開きます。ChatGPT・Claude・Geminiのみ対応。',
+
+  setting_starter_prompt:      'スターターPrompt',
+  setting_starter_prompt_desc: 'Context Packの先頭に付加されます。{source} でフォルダ/タグ名、{count} でノート数を挿入できます。',
+  setting_starter_prompt_toggle:      'デフォルトでスターターPromptを含める',
+  setting_starter_prompt_toggle_desc: 'ONにすると、すべてのパックにスターターPromptが付加されます。出力先選択画面でその都度切り替えることもできます。',
+
+  modal_include_prompt: 'スターターPromptを含める',
+
+  default_starter_prompt: '以下は私の「{source}」のObsidianノート（{count}件）です。内容を把握した上で、私の質問に答えてください。',
 };
