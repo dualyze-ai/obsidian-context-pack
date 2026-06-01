@@ -9,10 +9,10 @@
 | AI | Output | How to Use |
 |---|---|---|
 | NotebookLM | ZIP / Text | Upload as source |
-| ChatGPT | Markdown | Planned for v2.1 |
-| Claude | Markdown | Planned for v2.1 |
-| Gemini | Markdown | Planned for v2.1 |
-| Claude Code | CLAUDE.md | Planned for v2.1 |
+| ChatGPT | Markdown | Copy to clipboard / Save file |
+| Claude | Markdown | Planned for v2.2 |
+| Gemini | Markdown | Planned for v2.2 |
+| Claude Code | CLAUDE.md | Planned for v2.4 |
 
 ---
 
@@ -27,6 +27,8 @@ This plugin solves that.
 ## What it does
 
 **Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so the AI understands your knowledge hierarchy.
+
+**Output target selector** *(v2.1.0)* lets you choose where to send the pack each time — NotebookLM, ChatGPT, or more AIs coming in future releases. For ChatGPT, the pack is copied to your clipboard and optionally saved as a file. A customizable starter prompt is prepended so you can paste straight into any AI chat without writing an intro yourself.
 
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
 
@@ -91,7 +93,7 @@ All commands are also available from the **Command Palette** (`Cmd/Ctrl+P`) and 
 
 ### Context Pack
 
-Bundles multiple notes into one `.md` file for NotebookLM.
+Bundles multiple notes into one `.md` file. After building the pack, the **output target selector** appears — choose NotebookLM, ChatGPT, or another destination.
 
 | Trigger | Source |
 |---|---|
@@ -100,7 +102,7 @@ Bundles multiple notes into one `.md` file for NotebookLM.
 | Right-click file → Create Context Pack from this MOC | Notes linked from the current file |
 | Command: Create Context Pack from MOC | Same as above |
 
-The pack is downloaded as `pack-folder-20240101.md` (named by source and date).
+The pack is saved as `pack-folder-20240101.md` (named by source and date).
 
 ### Export (ZIP)
 
@@ -163,6 +165,18 @@ If auto-detection doesn't find the right folder, click **Change folder** in the 
 | Open folder after export | Auto-open the output folder when done (desktop only) | Off |
 | Custom replacement rules | Find/replace rules applied before export (plain text or regex) | — |
 
+### Output settings
+
+| Setting | Description | Default |
+|---|---|---|
+| Show output selector | Choose the output target each time | On |
+| Default output target | Used when the selector is off | NotebookLM (text) |
+| Show token count | Display estimated token count in the selector | On |
+| Warn when over limit | Warn when the pack exceeds the AI's recommended token limit | On |
+| Open AI website after export | Open the AI site after clipboard copy (ChatGPT, Claude, Gemini) | Off |
+| Include starter prompt by default | Prepend a starter prompt to every pack | On |
+| Starter prompt | Editable template. Use `{source}` for folder/tag name, `{count}` for note count | — |
+
 ### Daily Notes mode settings
 
 | Setting | Description | Default |
@@ -189,6 +203,26 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 2. In Obsidian: **Open another vault → Open folder as vault** → select the unzipped folder
 3. Enable AI Context Pack in Community plugins
 4. Try it — pack the `recipes/` folder, explore by tag, or build a MOC
+
+---
+
+## Using with ChatGPT
+
+1. Run **Context Pack** on a folder or tag
+2. In the output selector, choose **ChatGPT**
+3. Check **Copy to clipboard** (and optionally **Save to Vault**)
+4. Click **Export** — the pack is copied to your clipboard
+5. Open [ChatGPT](https://chat.openai.com/) and paste (`Cmd/Ctrl+V`) — the starter prompt is already included
+
+### Sample queries — Travel notes
+
+| Question | What you get |
+|---|---|
+| *"Which destination is best for a first solo trip on a mid-range budget?"* | Ranked recommendations from your notes |
+| *"Plan a 10-day Europe itinerary covering Paris, Barcelona, and Rome"* | Day-by-day itinerary with travel order |
+| *"Create a packing checklist based on the climates and cultures in these notes"* | Tailored checklist per destination |
+
+> **Tip:** Turn on **Open AI website after export** in settings to open ChatGPT automatically after exporting.
 
 ---
 
@@ -222,6 +256,13 @@ AI Context Pack is the successor to Context Pack for NotebookLM. All existing fe
 ---
 
 ## Changelog
+
+### v2.1.0
+- **Output target selector** — choose NotebookLM or ChatGPT each time you create a pack
+- **ChatGPT support** — copy to clipboard and/or save as file, with estimated token count
+- **Starter prompt** — customizable prompt prepended to every pack (`{source}` and `{count}` placeholders)
+- **Token counter** — estimated token count with per-AI context limit comparison
+- **Open AI website after export** — automatically opens ChatGPT after clipboard copy
 
 ### v2.0.0
 - Renamed to **AI Context Pack** — now supports NotebookLM, ChatGPT, Claude, Gemini, and Claude Code
