@@ -88,6 +88,8 @@ export class OutputTargetModal extends Modal {
       this.selected = preset.target;
       this.doCopy = preset.copyToClipboard;
       this.doFile = preset.saveToFile;
+      const isNotebookLM = preset.target === 'notebooklm-text' || preset.target === 'notebooklm-zip';
+      this.doPrompt = isNotebookLM ? false : this.settings.includeStarterPrompt;
       this.updatePreview();
     });
   }
@@ -120,7 +122,12 @@ export class OutputTargetModal extends Modal {
       }
     }
 
-    this.renderCheckbox(this.methodEl, t('modal_include_prompt'), this.doPrompt, val => { this.doPrompt = val; });
+    const isNotebookLM = this.selected === 'notebooklm-text' || this.selected === 'notebooklm-zip';
+    if (!isNotebookLM) {
+      this.renderCheckbox(this.methodEl, t('modal_include_prompt'), this.doPrompt, val => { this.doPrompt = val; });
+    } else {
+      this.doPrompt = false;
+    }
   }
 
   private renderCheckbox(container: HTMLElement, label: string, checked: boolean, onChange: (val: boolean) => void) {
