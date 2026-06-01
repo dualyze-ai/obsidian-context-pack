@@ -133,9 +133,6 @@
   flex-shrink: 1;
 }
 
-.cp-output-preset-wrap {
-  display: contents;
-}
 
 .cp-output-preset-btn {
   display: flex;
