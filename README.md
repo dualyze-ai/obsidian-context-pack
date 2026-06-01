@@ -10,9 +10,9 @@
 |---|---|---|
 | NotebookLM | ZIP / Text | Upload as source |
 | ChatGPT | Markdown | Copy to clipboard / Save file |
-| Claude | Markdown | Planned for v2.2 |
-| Gemini | Markdown | Planned for v2.2 |
-| Claude Code | CLAUDE.md | Planned for v2.4 |
+| Claude | Markdown | Copy to clipboard / Save file |
+| Gemini | Markdown | Copy to clipboard / Save file |
+| Claude Code | CLAUDE.md | Planned for v2.3 |
 
 ---
 
@@ -102,7 +102,7 @@ Bundles multiple notes into one `.md` file. After building the pack, the **outpu
 | Right-click file → Create Context Pack from this MOC | Notes linked from the current file |
 | Command: Create Context Pack from MOC | Same as above |
 
-The pack is saved as `pack-folder-20240101.md` (named by source and date).
+The pack is saved as `pack-folder-chatgpt-20240101.md` (named by source, AI target, and date).
 
 ### Export (ZIP)
 
@@ -226,6 +226,51 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 
 ---
 
+## Using with Claude
+
+1. Run **Context Pack** on a folder or tag
+2. In the output selector, choose **Claude**
+3. Click **Export** — the pack is copied to your clipboard
+4. Open [Claude](https://claude.ai/) and paste (`Cmd/Ctrl+V`)
+5. When the pack is large, Claude shows it as a **PASTED** block — this is normal. The content is included and Claude will read it in full.
+
+Claude handles packs up to ~180K tokens and excels at analysis, structured reasoning, and detailed comparisons.
+
+### Sample queries — Book notes
+
+| Question | What you get |
+|---|---|
+| *"Which books in my notes would you recommend I read next, and why?"* | Ranked recommendations based on your highlights |
+| *"What themes appear most often across my reading notes?"* | Cross-book pattern analysis |
+| *"Summarize the key arguments from each book in one sentence"* | Concise per-book summaries |
+| *"Which ideas from these books could apply to my work?"* | Practical connections drawn from your notes |
+
+> **Tip:** Turn on **Open AI website after export** in settings to open Claude automatically after exporting.
+
+---
+
+## Using with Gemini
+
+1. Run **Context Pack** on a folder or tag
+2. In the output selector, choose **Gemini**
+3. Click **Export** — the pack is copied to your clipboard
+4. Open [Gemini](https://gemini.google.com/) and paste (`Cmd/Ctrl+V`)
+
+Gemini supports packs up to ~800K tokens — ideal for large note collections you want to query all at once.
+
+### Sample queries — Travel notes
+
+| Question | What you get |
+|---|---|
+| *"Give me an overview of all the destinations in my notes"* | Full summary across all travel notes |
+| *"Which trips had the most budget tips? Summarize them"* | Budget advice extracted from your notes |
+| *"Find any recurring recommendations across multiple destinations"* | Cross-destination patterns |
+| *"What should I know before visiting each place in these notes?"* | Per-destination highlights |
+
+> **Tip:** Turn on **Open AI website after export** in settings to open Gemini automatically after exporting.
+
+---
+
 ## Using with NotebookLM
 
 1. Run **Context Pack** on a folder or tag → a `pack-recipes-20240101.md` file is downloaded
@@ -256,6 +301,11 @@ AI Context Pack is the successor to Context Pack for NotebookLM. All existing fe
 ---
 
 ## Changelog
+
+### v2.2.0
+- **Claude support** — copy to clipboard and paste directly into Claude.ai
+- **Gemini support** — copy to clipboard and paste directly into Gemini
+- **AI target in filename** — output files now include the AI name (e.g. `pack-recipes-gemini-20260601.md`)
 
 ### v2.1.0
 - **Output target selector** — choose NotebookLM or ChatGPT each time you create a pack
