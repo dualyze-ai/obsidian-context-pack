@@ -65,7 +65,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     maxTokens: 180000,
     contextLimit: 200000,
     aiUrl: 'https://claude.ai/',
-    available: false,
+    available: true,
   },
   'gemini': {
     target: 'gemini',
@@ -77,7 +77,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     maxTokens: 800000,
     contextLimit: 1000000,
     aiUrl: 'https://gemini.google.com/',
-    available: false,
+    available: true,
   },
   'claude-code': {
     target: 'claude-code',

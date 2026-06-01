@@ -146,7 +146,8 @@ export async function buildAiOutput(
 ): Promise<void> {
   const tokenCount = estimateTokens(content);
   const date = window.moment().format('YYYYMMDD');
-  const filename = `pack-${slug}-${date}.md`;
+  const aiLabel = preset.target.replace(/-text$/, '').replace(/-zip$/, '');
+  const filename = `pack-${slug}-${aiLabel}-${date}.md`;
   let savedPath = '';
 
   if (options.copyToClipboard && preset.copyToClipboard) {
