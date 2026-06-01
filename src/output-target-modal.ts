@@ -9,6 +9,7 @@ export interface OutputChoice {
   copyToClipboard: boolean;
   saveToFile: boolean;
   includeStarterPrompt: boolean;
+  openAiUrl: boolean;
 }
 
 export class OutputTargetModal extends Modal {
@@ -16,6 +17,7 @@ export class OutputTargetModal extends Modal {
   private doCopy: boolean;
   private doFile: boolean;
   private doPrompt: boolean;
+  private doOpenUrl: boolean;
   private tokenCount: number;
   private previewEl!: HTMLElement;
   private methodEl!: HTMLElement;
@@ -35,6 +37,7 @@ export class OutputTargetModal extends Modal {
     this.doCopy = preset.copyToClipboard;
     this.doFile = preset.saveToFile;
     this.doPrompt = settings.includeStarterPrompt;
+    this.doOpenUrl = settings.openAiUrl && !!preset.aiUrl;
   }
 
   onOpen() {
@@ -65,6 +68,7 @@ export class OutputTargetModal extends Modal {
         copyToClipboard: this.doCopy,
         saveToFile: this.doFile,
         includeStarterPrompt: this.doPrompt,
+        openAiUrl: this.doOpenUrl,
       });
     });
   }
@@ -90,6 +94,7 @@ export class OutputTargetModal extends Modal {
       this.doFile = preset.saveToFile;
       const isNotebookLM = preset.target === 'notebooklm-text' || preset.target === 'notebooklm-zip';
       this.doPrompt = isNotebookLM ? false : this.settings.includeStarterPrompt;
+      this.doOpenUrl = this.settings.openAiUrl && !!preset.aiUrl;
       this.updatePreview();
     });
   }
@@ -111,6 +116,9 @@ export class OutputTargetModal extends Modal {
       }
     }
 
+    const isNotebookLM = this.selected === 'notebooklm-text' || this.selected === 'notebooklm-zip';
+    const hasAiUrl = !!preset.aiUrl;
+
     if (preset.copyToClipboard || preset.saveToFile) {
       this.methodEl.createEl('div', { cls: 'cp-output-method-label', text: t('modal_method_label') });
 
@@ -118,11 +126,21 @@ export class OutputTargetModal extends Modal {
         this.renderCheckbox(this.methodEl, t('modal_method_clipboard'), this.doCopy, val => { this.doCopy = val; });
       }
       if (preset.saveToFile) {
-        this.renderCheckbox(this.methodEl, t('modal_method_file'), this.doFile, val => { this.doFile = val; });
+        // When openAiUrl is ON, file is saved to Vault (no dialog) - show different label
+        const fileLabel = (this.doOpenUrl && hasAiUrl)
+          ? t('modal_method_file_vault')
+          : t('modal_method_file');
+        this.renderCheckbox(this.methodEl, fileLabel, this.doFile, val => { this.doFile = val; });
       }
     }
 
-    const isNotebookLM = this.selected === 'notebooklm-text' || this.selected === 'notebooklm-zip';
+    if (hasAiUrl) {
+      this.renderCheckbox(this.methodEl, t('modal_open_ai_url'), this.doOpenUrl, val => {
+        this.doOpenUrl = val;
+        this.updatePreview();
+      });
+    }
+
     if (!isNotebookLM) {
       this.renderCheckbox(this.methodEl, t('modal_include_prompt'), this.doPrompt, val => { this.doPrompt = val; });
     } else {

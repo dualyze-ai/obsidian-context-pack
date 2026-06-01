@@ -122,7 +122,9 @@ export default {
   setting_starter_prompt_toggle:      'デフォルトでスターターPromptを含める',
   setting_starter_prompt_toggle_desc: 'ONにすると、すべてのパックにスターターPromptが付加されます。出力先選択画面でその都度切り替えることもできます。',
 
-  modal_include_prompt: 'スターターPromptを含める',
+  modal_include_prompt:  'スターターPromptを含める',
+  modal_method_file_vault: 'Vaultに保存',
+  modal_open_ai_url:   'エクスポート後にAIサイトを開く',
 
   default_starter_prompt: '以下は私の「{source}」のObsidianノート（{count}件）です。内容を把握した上で、私の質問に答えてください。',
 };

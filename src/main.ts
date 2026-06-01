@@ -483,7 +483,7 @@ export default class ContextPackPlugin extends Plugin {
             copyToClipboard: choice.copyToClipboard,
             saveToFile: choice.saveToFile,
             outputFolder: this.settings.contextPackOutputFolder || this.settings.outputFolder,
-            openAiUrl: this.settings.openAiUrl,
+            openAiUrl: choice.openAiUrl,
           });
         }
       }).open();
