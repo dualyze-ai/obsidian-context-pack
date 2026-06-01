@@ -70,19 +70,13 @@ export class OutputTargetModal extends Modal {
   }
 
   private renderPresetBtn(container: HTMLElement, preset: OutputPreset) {
-    const wrap = container.createEl('div', { cls: 'cp-output-preset-wrap' });
-    const btn = wrap.createEl('button', {
-      cls: `cp-output-preset-btn${!preset.available ? ' cp-output-disabled' : ''}`,
+    const btn = container.createEl('div', {
+      cls: `cp-output-preset-btn${!preset.available ? ' cp-output-disabled' : ''}${preset.target === this.selected ? ' cp-output-preset-active' : ''}`,
     });
     btn.createEl('span', { cls: 'cp-output-preset-label', text: preset.label });
     btn.createEl('span', { cls: 'cp-output-preset-desc', text: preset.available ? preset.description : t('modal_coming_soon') });
 
-    if (!preset.available) {
-      btn.setAttribute('disabled', 'true');
-      return;
-    }
-
-    if (preset.target === this.selected) btn.addClass('cp-output-preset-active');
+    if (!preset.available) return;
 
     btn.addEventListener('click', () => {
       container.findAll('.cp-output-preset-btn').forEach(b => b.removeClass('cp-output-preset-active'));
