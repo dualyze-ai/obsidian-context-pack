@@ -474,8 +474,8 @@ export default class ContextPackPlugin extends Plugin {
   private handlePackOutput(content: string, slug: string, noteCount: number, source: string): void {
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, async (choice) => {
-        const finalContent = choice.includeStarterPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
         const preset = OUTPUT_PRESETS[choice.target];
+        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt) ? this.applyStarterPrompt(content, source, noteCount) : content;
         if (choice.target === 'notebooklm-text') {
           await this.saveContextPack(finalContent, slug, noteCount);
         } else {
@@ -488,13 +488,13 @@ export default class ContextPackPlugin extends Plugin {
         }
       }).open();
     } else {
-      const doPrompt = this.settings.includeStarterPrompt;
-      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
       const target = this.settings.defaultOutputTarget;
+      const preset = OUTPUT_PRESETS[target];
+      const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
+      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
         this.saveContextPack(finalContent, slug, noteCount);
       } else {
-        const preset = OUTPUT_PRESETS[target];
         buildAiOutput(this.app, finalContent, slug, preset, {
           copyToClipboard: preset.copyToClipboard,
           saveToFile: preset.saveToFile,
