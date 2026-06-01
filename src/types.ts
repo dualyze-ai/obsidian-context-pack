@@ -18,6 +18,7 @@ export interface OutputPreset {
   contextLimit: number;
   aiUrl?: string;
   available: boolean;
+  supportsStarterPrompt: boolean;
 }
 
 export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
@@ -31,6 +32,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     maxTokens: 500000,
     contextLimit: 500000,
     available: true,
+    supportsStarterPrompt: true,
   },
   'notebooklm-text': {
     target: 'notebooklm-text',
@@ -42,6 +44,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     maxTokens: 500000,
     contextLimit: 500000,
     available: true,
+    supportsStarterPrompt: true,
   },
   'chatgpt': {
     target: 'chatgpt',
@@ -54,6 +57,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     contextLimit: 128000,
     aiUrl: 'https://chat.openai.com/',
     available: true,
+    supportsStarterPrompt: true,
   },
   'claude': {
     target: 'claude',
@@ -66,6 +70,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     contextLimit: 200000,
     aiUrl: 'https://claude.ai/',
     available: true,
+    supportsStarterPrompt: true,
   },
   'gemini': {
     target: 'gemini',
@@ -78,17 +83,20 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     contextLimit: 1000000,
     aiUrl: 'https://gemini.google.com/',
     available: true,
+    supportsStarterPrompt: true,
   },
   'claude-code': {
     target: 'claude-code',
-    label: 'Claude Code (CLAUDE.md)',
-    description: 'Save as CLAUDE.md in your project root',
-    format: 'aimd',
-    copyToClipboard: false,
+    label: 'Claude Code',
+    description: 'Copy to clipboard and paste into Claude Code',
+    format: 'text',
+    copyToClipboard: true,
     saveToFile: true,
     maxTokens: 50000,
     contextLimit: 200000,
-    available: false,
+    aiUrl: 'https://claude.ai/code',
+    available: true,
+    supportsStarterPrompt: false,
   },
   'custom': {
     target: 'custom',
@@ -100,5 +108,6 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     maxTokens: 100000,
     contextLimit: 100000,
     available: false,
+    supportsStarterPrompt: true,
   },
 };

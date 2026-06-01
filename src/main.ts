@@ -213,7 +213,7 @@ export default class ContextPackPlugin extends Plugin {
     const { notice, controller, setProgress } = this.startProgress(t('notice_exporting'));
     try {
       const result = await exportVault(this.app, options,
-        (cur, total) => setProgress(`⏳ ${cur} / ${total}`),
+        (cur, total) => setProgress(`${cur} / ${total}`),
         controller.signal
       );
       notice.hide();
@@ -229,7 +229,7 @@ export default class ContextPackPlugin extends Plugin {
 
   private exportFromFolder() {
     const folders = this.getFolders();
-    new FolderSuggest(this.app, folders, (folder) => this.exportFromFolderPath(folder)).open();
+    new FolderSuggest(this.app, folders, (folder) => this.exportFromFolderPath(folder), t('folder_picker_title_export')).open();
   }
 
   private exportFromFolderPath(folderPath: string) {
@@ -294,7 +294,7 @@ export default class ContextPackPlugin extends Plugin {
       const { notice, controller, setProgress } = this.startProgress(t('notice_exporting'));
       try {
         const result = await exportVault(this.app, options,
-          (cur, total) => setProgress(`⏳ ${cur} / ${total}`),
+          (cur, total) => setProgress(`${cur} / ${total}`),
           controller.signal, files
         );
         notice.hide();
@@ -386,7 +386,7 @@ export default class ContextPackPlugin extends Plugin {
 
   private packFromFolder() {
     const folders = this.getFolders();
-    new FolderSuggest(this.app, folders, (folder) => this.packFromFolderPath(folder)).open();
+    new FolderSuggest(this.app, folders, (folder) => this.packFromFolderPath(folder), t('folder_picker_title_pack')).open();
   }
 
   private async packFromFolderPath(folderPath: string) {
@@ -404,7 +404,7 @@ export default class ContextPackPlugin extends Plugin {
       const content = await buildContextPack(files, this.app, this.formatOptions(), {
         title,
         source: `folder:${folderPath}`,
-      }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
+      }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
       notice.hide();
       this.handlePackOutput(content, `folder-${title}`, files.length, title);
     } catch (err) {
@@ -420,7 +420,7 @@ export default class ContextPackPlugin extends Plugin {
       try {
         const content = await buildContextPack(files, this.app, this.formatOptions(), {
           title: tag, source: `tag:${tag}`,
-        }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
+        }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
         notice.hide();
         this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length, `#${tag}`);
       } catch (err) {
@@ -456,7 +456,7 @@ export default class ContextPackPlugin extends Plugin {
       const content = await buildContextPack(files, this.app, this.formatOptions(), {
         title: moc.basename,
         source: `moc:${moc.basename}`,
-      }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
+      }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
       notice.hide();
       this.handlePackOutput(content, `moc-${moc.basename}`, files.length, moc.basename);
     } catch (err) {
@@ -474,8 +474,8 @@ export default class ContextPackPlugin extends Plugin {
   private handlePackOutput(content: string, slug: string, noteCount: number, source: string): void {
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, async (choice) => {
-        const finalContent = choice.includeStarterPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
         const preset = OUTPUT_PRESETS[choice.target];
+        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt) ? this.applyStarterPrompt(content, source, noteCount) : content;
         if (choice.target === 'notebooklm-text') {
           await this.saveContextPack(finalContent, slug, noteCount);
         } else {
@@ -488,13 +488,13 @@ export default class ContextPackPlugin extends Plugin {
         }
       }).open();
     } else {
-      const doPrompt = this.settings.includeStarterPrompt;
-      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
       const target = this.settings.defaultOutputTarget;
+      const preset = OUTPUT_PRESETS[target];
+      const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
+      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
         this.saveContextPack(finalContent, slug, noteCount);
       } else {
-        const preset = OUTPUT_PRESETS[target];
         buildAiOutput(this.app, finalContent, slug, preset, {
           copyToClipboard: preset.copyToClipboard,
           saveToFile: preset.saveToFile,
@@ -573,9 +573,21 @@ class FolderSuggest extends SuggestModal<string> {
   constructor(
     app: App,
     private folders: string[],
-    private onChoose: (folder: string) => void
+    private onChoose: (folder: string) => void,
+    private title?: string
   ) {
     super(app);
+    this.setPlaceholder(t('folder_search_placeholder'));
+  }
+
+  onOpen(): void {
+    super.onOpen();
+    if (this.title) {
+      const target = this.modalEl.querySelector('.prompt') ?? this.inputEl.parentElement;
+      target?.insertAdjacentElement('beforebegin',
+        createEl('div', { cls: 'cp-folder-picker-title', text: this.title })
+      );
+    }
   }
 
   getSuggestions(query: string): string[] {
