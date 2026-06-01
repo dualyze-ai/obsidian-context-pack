@@ -1,9 +1,11 @@
 import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu, Platform, moment } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
-import { exportVault, exportSingleNote, downloadBlob } from './exporter';
+import { exportVault, exportSingleNote, downloadBlob, buildAiOutput } from './exporter';
 import { buildContextPack } from './context-pack';
 import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
 import { DailyNotesModal } from './daily-notes-modal';
+import { OutputTargetModal } from './output-target-modal';
+import { OUTPUT_PRESETS } from './types';
 import { t } from './i18n';
 
 export default class ContextPackPlugin extends Plugin {
@@ -376,7 +378,7 @@ export default class ContextPackPlugin extends Plugin {
 
       const dateStr = moment().format('YYYYMMDD');
       const prefix = weeklySummary ? 'weekly' : 'daily';
-      await this.saveContextPack(content, `${prefix}-notes-${dateStr}`, files.length);
+      this.handlePackOutput(content, `${prefix}-notes-${dateStr}`, files.length);
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -404,7 +406,7 @@ export default class ContextPackPlugin extends Plugin {
         source: `folder:${folderPath}`,
       }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
       notice.hide();
-      await this.saveContextPack(content, `folder-${title}`, files.length);
+      this.handlePackOutput(content, `folder-${title}`, files.length);
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -420,7 +422,7 @@ export default class ContextPackPlugin extends Plugin {
           title: tag, source: `tag:${tag}`,
         }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
         notice.hide();
-        await this.saveContextPack(content, `tag-${tag.replace(/\//g, '-')}`, files.length);
+        this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length);
       } catch (err) {
         this.handlePackError(notice, err);
       }
@@ -456,9 +458,40 @@ export default class ContextPackPlugin extends Plugin {
         source: `moc:${moc.basename}`,
       }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
       notice.hide();
-      await this.saveContextPack(content, `moc-${moc.basename}`, files.length);
+      this.handlePackOutput(content, `moc-${moc.basename}`, files.length);
     } catch (err) {
       this.handlePackError(notice, err);
+    }
+  }
+
+  private handlePackOutput(content: string, slug: string, noteCount: number): void {
+    if (this.settings.showOutputModal) {
+      new OutputTargetModal(this.app, content, this.settings, async (choice) => {
+        const preset = OUTPUT_PRESETS[choice.target];
+        if (choice.target === 'notebooklm-text') {
+          await this.saveContextPack(content, slug, noteCount);
+        } else {
+          await buildAiOutput(this.app, content, slug, preset, {
+            copyToClipboard: choice.copyToClipboard,
+            saveToFile: choice.saveToFile,
+            outputFolder: this.settings.contextPackOutputFolder || this.settings.outputFolder,
+            openAiUrl: this.settings.openAiUrl,
+          });
+        }
+      }).open();
+    } else {
+      const target = this.settings.defaultOutputTarget;
+      if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
+        this.saveContextPack(content, slug, noteCount);
+      } else {
+        const preset = OUTPUT_PRESETS[target];
+        buildAiOutput(this.app, content, slug, preset, {
+          copyToClipboard: preset.copyToClipboard,
+          saveToFile: preset.saveToFile,
+          outputFolder: this.settings.contextPackOutputFolder || this.settings.outputFolder,
+          openAiUrl: this.settings.openAiUrl,
+        });
+      }
     }
   }
 

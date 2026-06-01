@@ -1,6 +1,8 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
+import type { OutputTarget } from './types';
+import { OUTPUT_PRESETS } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
 
@@ -19,6 +21,11 @@ export interface PluginSettings {
   dailyNotesDefaultRange: string;
   dailyNotesExcludeTags: string;
   dailyNotesSortOrder: string;
+  defaultOutputTarget: OutputTarget;
+  showOutputModal: boolean;
+  showTokenCount: boolean;
+  warnOnTokenLimit: boolean;
+  openAiUrl: boolean;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -35,6 +42,11 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   dailyNotesDefaultRange: 'week',
   dailyNotesExcludeTags: '',
   dailyNotesSortOrder: 'asc',
+  defaultOutputTarget: 'notebooklm-text',
+  showOutputModal: true,
+  showTokenCount: true,
+  warnOnTokenLimit: true,
+  openAiUrl: false,
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -197,6 +209,64 @@ export class SettingsTab extends PluginSettingTab {
         .setValue(this.plugin.settings.dailyNotesSortOrder)
         .onChange(async value => {
           this.plugin.settings.dailyNotesSortOrder = value;
+          await this.plugin.saveSettings();
+        }));
+
+    containerEl.createEl('h3', { text: t('setting_output_section') });
+
+    new Setting(containerEl)
+      .setName(t('setting_show_modal'))
+      .setDesc(t('setting_show_modal_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.showOutputModal)
+        .onChange(async value => {
+          this.plugin.settings.showOutputModal = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_default_target'))
+      .setDesc(t('setting_default_target_desc'))
+      .addDropdown(drop => {
+        for (const preset of Object.values(OUTPUT_PRESETS)) {
+          if (preset.target !== 'notebooklm-zip') {
+            drop.addOption(preset.target, preset.label);
+          }
+        }
+        drop.setValue(this.plugin.settings.defaultOutputTarget);
+        drop.onChange(async value => {
+          this.plugin.settings.defaultOutputTarget = value as OutputTarget;
+          await this.plugin.saveSettings();
+        });
+      });
+
+    new Setting(containerEl)
+      .setName(t('setting_show_tokens'))
+      .setDesc(t('setting_show_tokens_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.showTokenCount)
+        .onChange(async value => {
+          this.plugin.settings.showTokenCount = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_warn_tokens'))
+      .setDesc(t('setting_warn_tokens_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.warnOnTokenLimit)
+        .onChange(async value => {
+          this.plugin.settings.warnOnTokenLimit = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_open_url'))
+      .setDesc(t('setting_open_url_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.openAiUrl)
+        .onChange(async value => {
+          this.plugin.settings.openAiUrl = value;
           await this.plugin.saveSettings();
         }));
 

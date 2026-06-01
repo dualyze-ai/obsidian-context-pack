@@ -1,6 +1,8 @@
 import { App, TFile, Notice, Platform } from 'obsidian'; // Notice is used by exportSingleNote
 import { zip, strToU8 } from 'fflate';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
+import { estimateTokens } from './token-counter';
+import type { OutputPreset } from './types';
 import { t } from './i18n';
 
 interface ExportOptions extends FormatOptions {
@@ -105,4 +107,65 @@ async function saveToVault(app: App, folder: string, filename: string, blob: Blo
 
 function yieldToUI(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0));
+}
+
+export async function copyToClipboard(content: string): Promise<void> {
+  await navigator.clipboard.writeText(content);
+}
+
+export async function exportAsText(
+  app: App,
+  content: string,
+  filename: string,
+  outputFolder: string
+): Promise<void> {
+  const blob = new Blob([content], { type: 'text/markdown' });
+  if (Platform.isDesktop && !outputFolder) {
+    downloadBlob(blob, filename);
+  } else {
+    await saveToVault(app, outputFolder, filename, blob);
+  }
+}
+
+export interface AiOutputOptions {
+  copyToClipboard: boolean;
+  saveToFile: boolean;
+  outputFolder: string;
+  openAiUrl: boolean;
+}
+
+export async function buildAiOutput(
+  app: App,
+  content: string,
+  slug: string,
+  preset: OutputPreset,
+  options: AiOutputOptions
+): Promise<void> {
+  const tokenCount = estimateTokens(content);
+  const date = window.moment().format('YYYYMMDD');
+  const filename = `pack-${slug}-${date}.md`;
+  let savedPath = '';
+
+  if (options.copyToClipboard && preset.copyToClipboard) {
+    await copyToClipboard(content);
+  }
+
+  if (options.saveToFile && preset.saveToFile) {
+    await exportAsText(app, content, filename, options.outputFolder);
+    savedPath = options.outputFolder
+      ? `${options.outputFolder}/${filename}`
+      : filename;
+  }
+
+  if (options.copyToClipboard && preset.copyToClipboard && savedPath) {
+    new Notice(t('notice_ai_done', tokenCount), 5000);
+  } else if (options.copyToClipboard && preset.copyToClipboard) {
+    new Notice(t('notice_ai_copied', tokenCount), 5000);
+  } else if (savedPath) {
+    new Notice(t('notice_ai_saved', savedPath, tokenCount), 8000);
+  }
+
+  if (options.openAiUrl && preset.aiUrl) {
+    window.open(preset.aiUrl, '_blank');
+  }
 }
