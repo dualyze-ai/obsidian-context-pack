@@ -229,7 +229,7 @@ export default class ContextPackPlugin extends Plugin {
 
   private exportFromFolder() {
     const folders = this.getFolders();
-    new FolderSuggest(this.app, folders, (folder) => this.exportFromFolderPath(folder)).open();
+    new FolderSuggest(this.app, folders, (folder) => this.exportFromFolderPath(folder), t('folder_picker_title_export')).open();
   }
 
   private exportFromFolderPath(folderPath: string) {
@@ -386,7 +386,7 @@ export default class ContextPackPlugin extends Plugin {
 
   private packFromFolder() {
     const folders = this.getFolders();
-    new FolderSuggest(this.app, folders, (folder) => this.packFromFolderPath(folder)).open();
+    new FolderSuggest(this.app, folders, (folder) => this.packFromFolderPath(folder), t('folder_picker_title_pack')).open();
   }
 
   private async packFromFolderPath(folderPath: string) {
@@ -573,9 +573,12 @@ class FolderSuggest extends SuggestModal<string> {
   constructor(
     app: App,
     private folders: string[],
-    private onChoose: (folder: string) => void
+    private onChoose: (folder: string) => void,
+    title?: string
   ) {
     super(app);
+    if (title) this.setTitle(title);
+    this.setPlaceholder(t('folder_search_placeholder'));
   }
 
   getSuggestions(query: string): string[] {
