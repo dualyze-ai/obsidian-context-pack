@@ -116,4 +116,13 @@ export default {
   setting_warn_tokens_desc:    'Show a warning when the pack exceeds the recommended token limit.',
   setting_open_url:            'Open AI website after export',
   setting_open_url_desc:       'Open the AI website after copying to clipboard. ChatGPT, Claude, and Gemini only.',
+
+  setting_starter_prompt:      'Starter prompt',
+  setting_starter_prompt_desc: 'Prepended to the Context Pack. Use {source} for the folder/tag name and {count} for the note count.',
+  setting_starter_prompt_toggle:      'Include starter prompt by default',
+  setting_starter_prompt_toggle_desc: 'When on, the starter prompt is added to every pack. You can also toggle it per export in the output selector.',
+
+  modal_include_prompt: 'Include starter prompt',
+
+  default_starter_prompt: 'The following is a collection of {count} Obsidian notes from "{source}". Please read the content and answer my questions based on it.',
 };

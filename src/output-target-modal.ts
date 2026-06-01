@@ -8,12 +8,14 @@ export interface OutputChoice {
   target: OutputTarget;
   copyToClipboard: boolean;
   saveToFile: boolean;
+  includeStarterPrompt: boolean;
 }
 
 export class OutputTargetModal extends Modal {
   private selected: OutputTarget;
   private doCopy: boolean;
   private doFile: boolean;
+  private doPrompt: boolean;
   private tokenCount: number;
   private previewEl!: HTMLElement;
   private methodEl!: HTMLElement;
@@ -32,6 +34,7 @@ export class OutputTargetModal extends Modal {
     const preset = OUTPUT_PRESETS[this.selected];
     this.doCopy = preset.copyToClipboard;
     this.doFile = preset.saveToFile;
+    this.doPrompt = settings.includeStarterPrompt;
   }
 
   onOpen() {
@@ -61,6 +64,7 @@ export class OutputTargetModal extends Modal {
         target: this.selected,
         copyToClipboard: this.doCopy,
         saveToFile: this.doFile,
+        includeStarterPrompt: this.doPrompt,
       });
     });
   }
@@ -115,6 +119,8 @@ export class OutputTargetModal extends Modal {
         this.renderCheckbox(this.methodEl, t('modal_method_file'), this.doFile, val => { this.doFile = val; });
       }
     }
+
+    this.renderCheckbox(this.methodEl, t('modal_include_prompt'), this.doPrompt, val => { this.doPrompt = val; });
   }
 
   private renderCheckbox(container: HTMLElement, label: string, checked: boolean, onChange: (val: boolean) => void) {

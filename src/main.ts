@@ -378,7 +378,7 @@ export default class ContextPackPlugin extends Plugin {
 
       const dateStr = moment().format('YYYYMMDD');
       const prefix = weeklySummary ? 'weekly' : 'daily';
-      this.handlePackOutput(content, `${prefix}-notes-${dateStr}`, files.length);
+      this.handlePackOutput(content, `${prefix}-notes-${dateStr}`, files.length, weeklySummary ? 'Weekly Notes' : 'Daily Notes');
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -406,7 +406,7 @@ export default class ContextPackPlugin extends Plugin {
         source: `folder:${folderPath}`,
       }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
       notice.hide();
-      this.handlePackOutput(content, `folder-${title}`, files.length);
+      this.handlePackOutput(content, `folder-${title}`, files.length, title);
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -422,7 +422,7 @@ export default class ContextPackPlugin extends Plugin {
           title: tag, source: `tag:${tag}`,
         }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
         notice.hide();
-        this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length);
+        this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length, `#${tag}`);
       } catch (err) {
         this.handlePackError(notice, err);
       }
@@ -458,20 +458,28 @@ export default class ContextPackPlugin extends Plugin {
         source: `moc:${moc.basename}`,
       }, (cur, total) => setProgress(`⏳ ${cur} / ${total}`), controller.signal);
       notice.hide();
-      this.handlePackOutput(content, `moc-${moc.basename}`, files.length);
+      this.handlePackOutput(content, `moc-${moc.basename}`, files.length, moc.basename);
     } catch (err) {
       this.handlePackError(notice, err);
     }
   }
 
-  private handlePackOutput(content: string, slug: string, noteCount: number): void {
+  private applyStarterPrompt(content: string, source: string, noteCount: number): string {
+    const prompt = (this.settings.starterPrompt.trim() || t('default_starter_prompt'))
+      .replace('{source}', source)
+      .replace('{count}', String(noteCount));
+    return `${prompt}\n\n---\n\n${content}`;
+  }
+
+  private handlePackOutput(content: string, slug: string, noteCount: number, source: string): void {
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, async (choice) => {
+        const finalContent = choice.includeStarterPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
         const preset = OUTPUT_PRESETS[choice.target];
         if (choice.target === 'notebooklm-text') {
-          await this.saveContextPack(content, slug, noteCount);
+          await this.saveContextPack(finalContent, slug, noteCount);
         } else {
-          await buildAiOutput(this.app, content, slug, preset, {
+          await buildAiOutput(this.app, finalContent, slug, preset, {
             copyToClipboard: choice.copyToClipboard,
             saveToFile: choice.saveToFile,
             outputFolder: this.settings.contextPackOutputFolder || this.settings.outputFolder,
@@ -480,12 +488,14 @@ export default class ContextPackPlugin extends Plugin {
         }
       }).open();
     } else {
+      const doPrompt = this.settings.includeStarterPrompt;
+      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
       const target = this.settings.defaultOutputTarget;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
-        this.saveContextPack(content, slug, noteCount);
+        this.saveContextPack(finalContent, slug, noteCount);
       } else {
         const preset = OUTPUT_PRESETS[target];
-        buildAiOutput(this.app, content, slug, preset, {
+        buildAiOutput(this.app, finalContent, slug, preset, {
           copyToClipboard: preset.copyToClipboard,
           saveToFile: preset.saveToFile,
           outputFolder: this.settings.contextPackOutputFolder || this.settings.outputFolder,

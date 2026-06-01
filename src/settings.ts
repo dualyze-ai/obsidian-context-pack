@@ -26,6 +26,8 @@ export interface PluginSettings {
   showTokenCount: boolean;
   warnOnTokenLimit: boolean;
   openAiUrl: boolean;
+  includeStarterPrompt: boolean;
+  starterPrompt: string;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -47,6 +49,8 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   showTokenCount: true,
   warnOnTokenLimit: true,
   openAiUrl: false,
+  includeStarterPrompt: true,
+  starterPrompt: '',
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -269,6 +273,30 @@ export class SettingsTab extends PluginSettingTab {
           this.plugin.settings.openAiUrl = value;
           await this.plugin.saveSettings();
         }));
+
+    new Setting(containerEl)
+      .setName(t('setting_starter_prompt_toggle'))
+      .setDesc(t('setting_starter_prompt_toggle_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.includeStarterPrompt)
+        .onChange(async value => {
+          this.plugin.settings.includeStarterPrompt = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_starter_prompt'))
+      .setDesc(t('setting_starter_prompt_desc'))
+      .addTextArea(area => {
+        area.setPlaceholder(t('default_starter_prompt'));
+        area.setValue(this.plugin.settings.starterPrompt);
+        area.inputEl.rows = 4;
+        area.inputEl.style.width = '100%';
+        area.onChange(async value => {
+          this.plugin.settings.starterPrompt = value;
+          await this.plugin.saveSettings();
+        });
+      });
 
     containerEl.createEl('h3', { text: 'Custom replacement rules' });
 
