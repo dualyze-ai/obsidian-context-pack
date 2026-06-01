@@ -105,7 +105,7 @@ This plugin adds **two ribbon icons** to the left sidebar:
 
 | Icon | Function |
 |------|----------|
-| package | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
+| 📦 (package) | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
 | 🗓↓ (calendar-arrow-down) | Daily Notes Pack — open the date range picker |
 
 All commands are also available from the **Command Palette** (`Cmd/Ctrl+P`) and **right-click menus** in the file explorer.
