@@ -41,6 +41,7 @@ export class OutputTargetModal extends Modal {
   }
 
   onOpen() {
+    this.modalEl.addClass('cp-output-modal');
     const { contentEl } = this;
     contentEl.empty();
     this.setTitle(t('modal_select_target'));

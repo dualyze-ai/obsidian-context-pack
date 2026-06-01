@@ -111,6 +111,15 @@
 }
 
 /* Output target modal */
+.cp-output-modal {
+  min-width: 520px;
+  width: 540px;
+}
+
+.cp-output-modal .modal-content {
+  min-height: 580px;
+}
+
 .cp-output-presets {
   display: flex;
   flex-direction: column;
