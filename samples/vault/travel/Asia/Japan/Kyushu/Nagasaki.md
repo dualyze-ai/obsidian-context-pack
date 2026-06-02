@@ -41,3 +41,7 @@ About 1h 50min by plane from Tokyo. About 2 hours from Hakata by limited express
 ## Tips & Advice
 
 Gunkanjima landings depend on weather and require advance booking. Streetcars (¥140 per ride) are the easiest way to get around.
+
+## Nearby Destinations
+
+- [[Beppu]]（Japan's premier hot spring town）

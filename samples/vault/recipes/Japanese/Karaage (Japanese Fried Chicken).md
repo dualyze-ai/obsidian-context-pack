@@ -48,3 +48,8 @@ Crispy outside, juicy inside — Japan's definitive fried chicken. Marinated in 
 ## Notes
 
 All potato starch = crunchier. Mixing in flour = lighter crispiness. Both are delicious.
+
+## Related Recipes
+
+- [[Oyakodon]]（chicken-based Japanese dish）
+- [[Grilled Saury (Sanma Shioyaki)]]（another classic main dish）

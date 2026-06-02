@@ -39,3 +39,7 @@ About 2 hours from Sapporo on the seasonal Furano Lavender Express (summer only)
 ## Tips & Advice
 
 Lavender peaks mid-July. Cycling is possible but distances are significant — a rental car is most efficient.
+
+## Nearby Destinations
+
+- [[Hakodate]]（night view and seafood）

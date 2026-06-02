@@ -52,3 +52,8 @@ A hearty Italian vegetable soup with tomatoes and white beans. Nutritious, warmi
 ## Notes
 
 Finish with freshly grated Parmigiano. Even better the next day once flavors have melded.
+
+## Related Recipes
+
+- [[Beef Stew]]（Western-style stew）
+- [[Spaghetti Carbonara]]（Italian cuisine）

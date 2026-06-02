@@ -40,3 +40,8 @@ About 14 hours direct from Tokyo. RER B from Charles de Gaulle Airport reaches c
 ## Tips & Advice
 
 Museums require online advance booking. Watch out for pickpockets. A weekly metro pass is the most economical way to get around.
+
+## Nearby Destinations
+
+- [[Barcelona]]（Gaudí architecture · Mediterranean cuisine）
+- [[Rome]]（ancient ruins · Vatican）

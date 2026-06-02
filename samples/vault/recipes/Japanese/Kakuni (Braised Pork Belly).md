@@ -47,3 +47,8 @@ Melt-in-your-mouth braised pork belly, simmered low and slow in soy, mirin, and 
 ## Notes
 
 Without a pressure cooker, simmer on low heat for at least 2 hours. Even better made a day ahead.
+
+## Related Recipes
+
+- [[Nikujaga]]（meat simmered in sweet-savory sauce）
+- [[Tonjiru (Pork Miso Soup)]]（pork-based Japanese cooking）

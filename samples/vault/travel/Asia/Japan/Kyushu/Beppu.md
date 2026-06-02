@@ -39,3 +39,7 @@ About 60 min by bus from Oita Airport. About 2 hours from Hakata by the limited 
 ## Tips & Advice
 
 The Hell Tour combined ticket (¥2,200) is great value. The "Beppu Hatto Onsen-do" challenge — visiting 88 different baths — is how locals enjoy the city.
+
+## Nearby Destinations
+
+- [[Nagasaki]]（history and international culture）

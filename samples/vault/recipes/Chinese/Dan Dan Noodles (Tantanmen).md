@@ -52,3 +52,8 @@ Noodles in a rich, sesame-forward broth with spiced ground pork and the addictiv
 ## Notes
 
 Try a dry version (soup-free) for an even more concentrated, intense flavor.
+
+## Related Recipes
+
+- [[Mapo Tofu]]（Sichuan cuisine）
+- [[Chahan (Chinese Fried Rice)]]（noodles and rice pairing）

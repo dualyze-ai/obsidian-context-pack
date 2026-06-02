@@ -40,3 +40,8 @@ About 13 hours direct from Tokyo. The Leonardo Express train from Fiumicino Airp
 ## Tips & Advice
 
 Vatican Museums and the Colosseum both require advance reservations (expect long queues otherwise). Summer is intense — plan major sites for the morning.
+
+## Nearby Destinations
+
+- [[Paris]]（European travel pairing）
+- [[Barcelona]]（Mediterranean city）

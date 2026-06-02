@@ -4,12 +4,14 @@ export default {
   cmd_pack_folder:    'Create Context Pack from folder',
   cmd_pack_tag:       'Create Context Pack from tag',
   cmd_create_moc_tag: 'Create MOC from tag',
+  cmd_create_ai_moc:  'Create AI MOC from note',
   cmd_pack_moc:       'Create Context Pack from MOC',
 
   ribbon_tooltip:        'AI Context Pack / Export',
   ribbon_pack_folder:    'Context Pack (choose folder)',
   ribbon_pack_tag:       'Context Pack (choose tag)',
-  ribbon_create_moc_tag: 'Create MOC (from tag)',
+  ribbon_create_moc_tag:  'Create MOC (from tag)',
+  ribbon_create_moc_note: 'Create MOC (from note)',
   ribbon_export_tag:     'Export by tag (ZIP)',
   ribbon_export_vault:   'Export entire vault (ZIP)',
   ribbon_export_folder:  'Export folder (ZIP)',
@@ -18,6 +20,7 @@ export default {
   menu_export_folder:    'Export this folder (ZIP)',
   menu_export_note:      'Export this note (.md)',
   menu_pack_moc:         'Create Context Pack from this MOC',
+  menu_create_ai_moc:    'Create AI MOC from this note',
 
   prompt_tag_name:    'Enter tag name (without #)',
   prompt_file_name:   'Name your Context Pack file',
@@ -136,11 +139,30 @@ export default {
 
 Please treat this Context Pack as the primary knowledge source for this conversation.
 If the Context Pack and general knowledge conflict, prioritize the Context Pack and note the contradiction.
-If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.`,
+If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
+Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do not offer suggestions for improving this document.`,
 
   ai_addition_chatgpt:    'Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.',
   ai_addition_claude:     'Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.',
   ai_addition_gemini:     'Please integrate information from multiple notes and organize your response by common points, differences, chronology, and related topics.',
+  ai_moc_modal_title:        'Create AI MOC',
+  ai_moc_note_placeholder:   'Select a note…',
+  ai_moc_scope_direct:       'Direct Links',
+  ai_moc_scope_related:      'Related Notes',
+  ai_moc_backlinks_moc:      'Include in MOC',
+  ai_moc_backlinks_pack:     'Include in Context Pack',
+  ai_moc_backlinks_note:     'Backlinks can add noise',
+  ai_moc_generate_pack:      'Also generate a Context Pack',
+  ai_moc_btn_select:         'Select',
+  ai_moc_btn_cancel:         'Cancel',
+  ai_moc_btn_create:         'Create',
+  ai_moc_notice_select:      'Please select a note.',
+  ai_moc_notice_creating:    'Creating AI MOC…',
+  ai_moc_notice_moc_done:    (name: string) => `${name} MOC.md created.`,
+  ai_moc_overwrite_message:  (name: string) => `${name} MOC.md already exists. Overwrite?`,
+  ai_moc_overwrite_cancel:   'Cancel',
+  ai_moc_overwrite_confirm:  'Overwrite',
+
   ai_addition_claude_code: `This Context Pack is project knowledge. When implementing:
 - Treat the Context Pack as fact
 - Follow coding conventions and architecture guidelines
