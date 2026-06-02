@@ -139,7 +139,8 @@ export default {
 
 Please treat this Context Pack as the primary knowledge source for this conversation.
 If the Context Pack and general knowledge conflict, prioritize the Context Pack and note the contradiction.
-If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.`,
+If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
+Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do not offer suggestions for improving this document.`,
 
   ai_addition_chatgpt:    'Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.',
   ai_addition_claude:     'Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.',
