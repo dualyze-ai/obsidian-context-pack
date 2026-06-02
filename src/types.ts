@@ -7,6 +7,8 @@ export type OutputTarget =
   | 'claude-code'
   | 'custom';
 
+export type OutputKind = 'chat' | 'agent';
+
 export interface OutputPreset {
   target: OutputTarget;
   label: string;
@@ -19,6 +21,25 @@ export interface OutputPreset {
   aiUrl?: string;
   available: boolean;
   supportsStarterPrompt: boolean;
+  outputKind: OutputKind;
+}
+
+export interface PromptProfile {
+  id: string;
+  ai: OutputTarget;
+  mode?: string;
+  prompt: string;
+}
+
+export interface ModeDefinition {
+  id: string;
+  nameKey: string;
+  descriptionKey: string;
+  promptKey: string;
+}
+
+export function buildProfileMap(profiles: PromptProfile[]): Record<string, PromptProfile> {
+  return Object.fromEntries(profiles.map(p => [p.id, p]));
 }
 
 export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
@@ -33,6 +54,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     contextLimit: 500000,
     available: true,
     supportsStarterPrompt: true,
+    outputKind: 'chat',
   },
   'notebooklm-text': {
     target: 'notebooklm-text',
@@ -45,6 +67,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     contextLimit: 500000,
     available: true,
     supportsStarterPrompt: true,
+    outputKind: 'chat',
   },
   'chatgpt': {
     target: 'chatgpt',
@@ -58,6 +81,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     aiUrl: 'https://chat.openai.com/',
     available: true,
     supportsStarterPrompt: true,
+    outputKind: 'chat',
   },
   'claude': {
     target: 'claude',
@@ -71,6 +95,7 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     aiUrl: 'https://claude.ai/',
     available: true,
     supportsStarterPrompt: true,
+    outputKind: 'chat',
   },
   'gemini': {
     target: 'gemini',
@@ -84,10 +109,11 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     aiUrl: 'https://gemini.google.com/',
     available: true,
     supportsStarterPrompt: true,
+    outputKind: 'chat',
   },
   'claude-code': {
     target: 'claude-code',
-    label: 'Claude Code',
+    label: 'Claude Code (Agent Context)',
     description: 'Copy to clipboard and paste into Claude Code',
     format: 'text',
     copyToClipboard: true,
@@ -96,7 +122,8 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     contextLimit: 200000,
     aiUrl: 'https://claude.ai/code',
     available: true,
-    supportsStarterPrompt: false,
+    supportsStarterPrompt: true,
+    outputKind: 'agent',
   },
   'custom': {
     target: 'custom',
@@ -109,5 +136,6 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     contextLimit: 100000,
     available: false,
     supportsStarterPrompt: true,
+    outputKind: 'chat',
   },
 };

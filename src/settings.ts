@@ -1,7 +1,7 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
-import type { OutputTarget } from './types';
+import type { OutputTarget, PromptProfile } from './types';
 import { OUTPUT_PRESETS } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
@@ -28,6 +28,7 @@ export interface PluginSettings {
   openAiUrl: boolean;
   includeStarterPrompt: boolean;
   starterPrompt: string;
+  promptProfiles: PromptProfile[];
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -51,6 +52,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   openAiUrl: false,
   includeStarterPrompt: true,
   starterPrompt: '',
+  promptProfiles: [],
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -275,8 +277,8 @@ export class SettingsTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName(t('setting_starter_prompt_toggle'))
-      .setDesc(t('setting_starter_prompt_toggle_desc'))
+      .setName(t('setting_common_instructions_toggle'))
+      .setDesc(t('setting_common_instructions_toggle_desc'))
       .addToggle(toggle => toggle
         .setValue(this.plugin.settings.includeStarterPrompt)
         .onChange(async value => {
@@ -285,11 +287,18 @@ export class SettingsTab extends PluginSettingTab {
         }));
 
     new Setting(containerEl)
-      .setName(t('setting_starter_prompt'))
-      .setDesc(t('setting_starter_prompt_desc'));
+      .setName(t('setting_common_instructions'))
+      .setDesc(t('setting_common_instructions_desc'))
+      .addButton(btn => btn
+        .setButtonText(t('setting_common_instructions_reset'))
+        .onClick(async () => {
+          this.plugin.settings.starterPrompt = '';
+          await this.plugin.saveSettings();
+          promptArea.value = t('default_common_instructions');
+        }));
 
     const promptArea = containerEl.createEl('textarea', { cls: 'cp-starter-prompt-area' });
-    promptArea.value = this.plugin.settings.starterPrompt || t('default_starter_prompt');
+    promptArea.value = this.plugin.settings.starterPrompt || t('default_common_instructions');
     promptArea.rows = 5;
     promptArea.addEventListener('change', async () => {
       this.plugin.settings.starterPrompt = promptArea.value;
