@@ -89,19 +89,30 @@ describe('OUTPUT_PRESETS', () => {
 
   // --- supportsStarterPrompt ---
 
-  test('claude-code does not support starter prompt', () => {
-    expect(OUTPUT_PRESETS['claude-code'].supportsStarterPrompt).toBe(false);
-  });
-
-  test('chatgpt, claude, gemini support starter prompt', () => {
+  test('all chat and agent targets support starter prompt', () => {
     expect(OUTPUT_PRESETS['chatgpt'].supportsStarterPrompt).toBe(true);
     expect(OUTPUT_PRESETS['claude'].supportsStarterPrompt).toBe(true);
     expect(OUTPUT_PRESETS['gemini'].supportsStarterPrompt).toBe(true);
+    expect(OUTPUT_PRESETS['claude-code'].supportsStarterPrompt).toBe(true);
   });
 
   test('notebooklm presets support starter prompt', () => {
     expect(OUTPUT_PRESETS['notebooklm-zip'].supportsStarterPrompt).toBe(true);
     expect(OUTPUT_PRESETS['notebooklm-text'].supportsStarterPrompt).toBe(true);
+  });
+
+  // --- outputKind ---
+
+  test('claude-code has outputKind agent', () => {
+    expect(OUTPUT_PRESETS['claude-code'].outputKind).toBe('agent');
+  });
+
+  test('chat targets have outputKind chat', () => {
+    expect(OUTPUT_PRESETS['chatgpt'].outputKind).toBe('chat');
+    expect(OUTPUT_PRESETS['claude'].outputKind).toBe('chat');
+    expect(OUTPUT_PRESETS['gemini'].outputKind).toBe('chat');
+    expect(OUTPUT_PRESETS['notebooklm-text'].outputKind).toBe('chat');
+    expect(OUTPUT_PRESETS['notebooklm-zip'].outputKind).toBe('chat');
   });
 
   // --- context limits ---

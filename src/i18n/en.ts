@@ -130,4 +130,37 @@ export default {
   modal_open_ai_url:   'Open AI website after export',
 
   default_starter_prompt: 'The following is a collection of {count} Obsidian notes from "{source}". Please read the content and answer my questions based on it.',
+
+  starter_prompt_chatgpt: `The following is a Context Pack generated from {count} Obsidian notes in "{source}".
+
+Please treat this Context Pack as the primary knowledge source for this conversation.
+If the Context Pack and general knowledge conflict, prioritize the Context Pack and note the contradiction.
+If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
+
+Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.`,
+
+  starter_prompt_claude: `The following is a Context Pack generated from {count} Obsidian notes in "{source}".
+
+Please treat this Context Pack as the primary knowledge source for this conversation.
+If the Context Pack and general knowledge conflict, prioritize the Context Pack and note the contradiction.
+If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
+
+Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.`,
+
+  starter_prompt_gemini: `The following is a Context Pack generated from {count} Obsidian notes in "{source}".
+
+Please treat this Context Pack as the primary knowledge source for this conversation.
+If the Context Pack and general knowledge conflict, prioritize the Context Pack and note the contradiction.
+If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
+
+Please integrate information from multiple notes and organize your response by common points, differences, chronology, and related topics.`,
+
+  starter_prompt_claude_code: `The following is a Context Pack generated from {count} Obsidian notes in "{source}".
+
+This Context Pack is project knowledge. When implementing:
+- Treat the Context Pack as fact
+- Follow coding conventions and architecture guidelines
+- Do not make new designs based on inference
+- Respect consistency with existing implementations
+- Ask when requirements are unclear`,
 };

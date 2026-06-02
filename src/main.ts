@@ -5,7 +5,7 @@ import { buildContextPack } from './context-pack';
 import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
 import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
-import { OUTPUT_PRESETS } from './types';
+import { OUTPUT_PRESETS, buildProfileMap, type OutputTarget } from './types';
 import { t } from './i18n';
 
 export default class ContextPackPlugin extends Plugin {
@@ -464,18 +464,32 @@ export default class ContextPackPlugin extends Plugin {
     }
   }
 
-  private applyStarterPrompt(content: string, source: string, noteCount: number): string {
-    const prompt = (this.settings.starterPrompt.trim() || t('default_starter_prompt'))
+  private applyStarterPrompt(content: string, source: string, noteCount: number, target: OutputTarget): string {
+    const profileMap = buildProfileMap(this.settings.promptProfiles);
+    const customProfile = profileMap[`${target}-default`];
+    const promptText = customProfile?.prompt
+      ?? (this.settings.starterPrompt.trim() || this.getDefaultPromptForTarget(target));
+    const prompt = promptText
       .replace('{source}', source)
       .replace('{count}', String(noteCount));
     return `${prompt}\n\n---\n\n${content}`;
+  }
+
+  private getDefaultPromptForTarget(target: OutputTarget): string {
+    const keyMap: Partial<Record<OutputTarget, string>> = {
+      chatgpt: 'starter_prompt_chatgpt',
+      claude: 'starter_prompt_claude',
+      gemini: 'starter_prompt_gemini',
+      'claude-code': 'starter_prompt_claude_code',
+    };
+    return t(keyMap[target] ?? 'default_starter_prompt');
   }
 
   private handlePackOutput(content: string, slug: string, noteCount: number, source: string): void {
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, async (choice) => {
         const preset = OUTPUT_PRESETS[choice.target];
-        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt) ? this.applyStarterPrompt(content, source, noteCount) : content;
+        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt) ? this.applyStarterPrompt(content, source, noteCount, choice.target) : content;
         if (choice.target === 'notebooklm-text') {
           await this.saveContextPack(finalContent, slug, noteCount);
         } else {
@@ -491,7 +505,7 @@ export default class ContextPackPlugin extends Plugin {
       const target = this.settings.defaultOutputTarget;
       const preset = OUTPUT_PRESETS[target];
       const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
-      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount) : content;
+      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount, target) : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
         this.saveContextPack(finalContent, slug, noteCount);
       } else {
