@@ -40,3 +40,8 @@ About 3h 30min direct from Tokyo. MRT from Taoyuan International Airport reaches
 ## Tips & Advice
 
 The MRT is safe, cheap, and efficient. The EasyCard works on all transit and at convenience stores. Japanese is often understood — locals are famously friendly.
+
+## Nearby Destinations
+
+- [[Seoul]]（popular Asian city）
+- [[Bangkok]]（Southeast Asian travel）

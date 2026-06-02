@@ -50,3 +50,8 @@ Crispy fried pork and colorful vegetables coated in a tangy sweet-and-sour sauce
 ## Notes
 
 Pineapple adds natural sweetness and acid. Feel free to omit if you prefer.
+
+## Related Recipes
+
+- [[Ebi Chili (Shrimp in Chili Sauce)]]（Chinese restaurant staple）
+- [[Chahan (Chinese Fried Rice)]]（classic pairing）

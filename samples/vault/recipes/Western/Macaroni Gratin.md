@@ -49,3 +49,8 @@ A bubbling, golden gratin of chicken, mushrooms, and macaroni in creamy béchame
 ## Notes
 
 Add shrimp or spinach for a more luxurious version.
+
+## Related Recipes
+
+- [[Spaghetti Carbonara]]（creamy Western-style dish）
+- [[Minestrone]]

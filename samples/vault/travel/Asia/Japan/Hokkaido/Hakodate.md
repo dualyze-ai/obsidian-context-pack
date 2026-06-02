@@ -39,3 +39,7 @@ About 4 hours from Tokyo by Shinkansen (Hokkaido Shinkansen). About 1h 20min by 
 ## Tips & Advice
 
 The ropeway gets very busy — grab a timed ticket early. Night views are best on clear days. The JR Hokkaido Pass is good value for getting around.
+
+## Nearby Destinations
+
+- [[Furano]]（lavender fields and nature）

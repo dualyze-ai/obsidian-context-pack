@@ -41,3 +41,8 @@ About 35–45 min from Kyoto by Kintetsu or JR. About 35 min from Osaka by Kinte
 ## Tips & Advice
 
 The main sights are walkable. Deer crackers (¥150) are irresistible to the deer. Early morning at Todai-ji is quiet and magical.
+
+## Nearby Destinations
+
+- [[Kyoto]]（~45 min by train · ancient capital）
+- [[Osaka]]（~1 hour by train · foodie paradise）

@@ -40,3 +40,8 @@ About 13 hours direct from Tokyo. JFK or Newark airport to Manhattan takes about
 ## Tips & Advice
 
 Tipping culture: 15–20% at restaurants. The subway runs 24 hours. Apply for ESTA well in advance (~$21).
+
+## Nearby Destinations
+
+- [[Honolulu (Hawaii)]]（American resort）
+- [[Sydney]]（English-speaking travel）

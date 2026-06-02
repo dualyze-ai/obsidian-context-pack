@@ -40,3 +40,9 @@ About 7 hours direct from Tokyo. Airport Rail Link from Suvarnabhumi Airport rea
 ## Tips & Advice
 
 Rainy season (May–Oct) brings sudden downpours. Modest clothing required at temples. Always confirm the taxi meter is running.
+
+## Nearby Destinations
+
+- [[Bali]]（Asian resort destination）
+- [[Taipei]]（street food and night markets）
+- [[Seoul]]（K-pop and food culture）

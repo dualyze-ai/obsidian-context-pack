@@ -4,12 +4,14 @@ export default {
   cmd_pack_folder:    'フォルダからContext Packを作成',
   cmd_pack_tag:       'タグからContext Packを作成',
   cmd_create_moc_tag: 'タグからMOCを作成',
+  cmd_create_ai_moc:  'AI MOCを作成: ノートから',
   cmd_pack_moc:       'MOCからContext Packを作成',
 
   ribbon_tooltip:        'AI Context Pack / エクスポート',
   ribbon_pack_folder:    'Context Pack（フォルダを選択）',
   ribbon_pack_tag:       'Context Pack（タグを選択）',
-  ribbon_create_moc_tag: 'MOCを作成（タグから）',
+  ribbon_create_moc_tag:  'MOCを作成（タグから）',
+  ribbon_create_moc_note: 'MOCを作成（ノートから）',
   ribbon_export_tag:     'タグをエクスポート（ZIP）',
   ribbon_export_vault:   'Vault全体をエクスポート（ZIP）',
   ribbon_export_folder:  'フォルダをエクスポート（ZIP）',
@@ -18,6 +20,7 @@ export default {
   menu_export_folder:    'このフォルダをエクスポート（ZIP）',
   menu_export_note:      'このノートをエクスポート（.md）',
   menu_pack_moc:         'このMOCからContext Packを作成',
+  menu_create_ai_moc:    'このノートからAI MOCを作成',
 
   prompt_tag_name:    'タグ名を入力してください（# 不要）',
   prompt_file_name:   'Context Packのファイル名を入力してください',
@@ -136,11 +139,30 @@ export default {
 
 このContext Packを本対話における主要な知識源として扱ってください。
 Context Packの内容と一般知識が矛盾する場合はContext Packを優先し、矛盾を明示してください。
-根拠がない場合は、推測・一般知識・外部知識のいずれかを明示してください。`,
+根拠がない場合は、推測・一般知識・外部知識のいずれかを明示してください。
+Obsidian・Context Pack・NotebookLMなどのシステムへの言及やドキュメントの改善提案は不要です。`,
 
   ai_addition_chatgpt:     '回答は見出しによる構造化・箇条書き・結論先出しを優先してください。',
   ai_addition_claude:      '情報同士の関連性・矛盾・抜け漏れ・前提条件・暗黙知を重視してください。',
   ai_addition_gemini:      '複数ノートの情報を統合し、共通点・相違点・時系列・関連トピックを整理して回答してください。',
+  ai_moc_modal_title:        'AI MOCを作成',
+  ai_moc_note_placeholder:   'ノートを選択...',
+  ai_moc_scope_direct:       'Direct Links',
+  ai_moc_scope_related:      'Related Notes',
+  ai_moc_backlinks_moc:      'MOCに含める',
+  ai_moc_backlinks_pack:     'Context Packに含める',
+  ai_moc_backlinks_note:     'Backlinksはノイズになる場合があります',
+  ai_moc_generate_pack:      'Context Packも同時に生成',
+  ai_moc_btn_select:         '選択...',
+  ai_moc_btn_cancel:         'キャンセル',
+  ai_moc_btn_create:         '作成',
+  ai_moc_notice_select:      'ノートを選択してください',
+  ai_moc_notice_creating:    'AI MOCを作成中...',
+  ai_moc_notice_moc_done:    (name: string) => `${name} MOC.md を作成しました`,
+  ai_moc_overwrite_message:  (name: string) => `${name} MOC.md は既に存在します。上書きしますか？`,
+  ai_moc_overwrite_cancel:   'キャンセル',
+  ai_moc_overwrite_confirm:  '上書きする',
+
   ai_addition_claude_code: `このContext Packはプロジェクト知識です。実装時は：
 - Context Packを事実として扱う
 - コーディング規約を優先する

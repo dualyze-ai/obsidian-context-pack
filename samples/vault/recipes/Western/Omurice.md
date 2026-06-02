@@ -47,3 +47,8 @@ Japan's beloved ketchup-fried rice wrapped in a thin egg omelette. A retro class
 ## Notes
 
 A "fluffy" style where a loose, creamy omelette is draped over the rice is equally popular. Demi-glace sauce works great too.
+
+## Related Recipes
+
+- [[Japanese Hamburg Steak]]（classic Western-style set）
+- [[Korokke (Japanese Croquettes)]]

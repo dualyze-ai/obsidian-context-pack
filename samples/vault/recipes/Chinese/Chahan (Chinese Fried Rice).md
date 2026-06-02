@@ -47,3 +47,9 @@ Wok-fried rice that's light, fragrant, and perfectly separated. High heat and qu
 ## Notes
 
 The "egg-coated rice" method (mix egg into rice first, then fry) also produces fluffy, separated grains.
+
+## Related Recipes
+
+- [[Mapo Tofu]]（classic combination）
+- [[Dan Dan Noodles (Tantanmen)]]
+- [[Ebi Chili (Shrimp in Chili Sauce)]]

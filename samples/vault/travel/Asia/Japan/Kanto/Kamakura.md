@@ -40,3 +40,8 @@ About 1 hour from Tokyo Station via JR Yokosuka Line. Also accessible via Shonan
 ## Tips & Advice
 
 Weekdays are far less crowded. Hydrangea season (June) and autumn foliage (Nov–Dec) are peak. The Enoden day pass is great value.
+
+## Nearby Destinations
+
+- [[Hakone]]（hot springs and Mt Fuji views）
+- [[Nikko]]（UNESCO shrines and waterfalls）
