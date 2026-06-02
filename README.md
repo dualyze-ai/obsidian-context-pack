@@ -61,7 +61,7 @@ Both Context Pack and Export run the same formatter: frontmatter is removed, wik
 
 ## Screenshots
 
-<video src="docs/demo.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/demo.mp4" autoplay loop muted playsinline width="100%"></video>
 
 <table>
 <tr>
