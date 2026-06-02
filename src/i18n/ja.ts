@@ -130,4 +130,38 @@ export default {
   modal_open_ai_url:   'エクスポート後にAIサイトを開く',
 
   default_starter_prompt: '以下は私の「{source}」のObsidianノート（{count}件）です。内容を把握した上で、私の質問に答えてください。',
+
+  starter_prompt_chatgpt: `以下は「{source}」のObsidianノート（{count}件）から生成したContext Packです。
+
+このContext Packを本対話における主要な知識源として扱ってください。
+Context Packの内容と一般知識が矛盾する場合はContext Packを優先し、矛盾を明示してください。
+根拠がない場合は、推測・一般知識・外部知識のいずれかを明示してください。
+
+回答は見出しによる構造化・箇条書き・結論先出しを優先してください。`,
+
+  starter_prompt_claude: `以下は「{source}」のObsidianノート（{count}件）から生成したContext Packです。
+
+このContext Packを本対話における主要な知識源として扱ってください。
+Context Packの内容と一般知識が矛盾する場合はContext Packを優先し、矛盾を明示してください。
+根拠がない場合は、推測・一般知識・外部知識のいずれかを明示してください。
+
+情報同士の関連性・矛盾・抜け漏れ・前提条件・暗黙知を重視してください。`,
+
+  starter_prompt_gemini: `以下は「{source}」のObsidianノート（{count}件）から生成したContext Packです。
+
+このContext Packを本対話における主要な知識源として扱ってください。
+Context Packの内容と一般知識が矛盾する場合はContext Packを優先し、矛盾を明示してください。
+根拠がない場合は、推測・一般知識・外部知識のいずれかを明示してください。
+
+複数ノートの情報を統合し、共通点・相違点・時系列・関連トピックを整理して回答してください。`,
+
+  starter_prompt_claude_code: `以下は「{source}」のObsidianノート（{count}件）から生成したContext Packです。
+
+このContext Packはプロジェクト知識です。実装時は：
+- Context Packを事実として扱う
+- コーディング規約を優先する
+- アーキテクチャ方針を優先する
+- 推測で新規設計を行わない
+- 既存実装との整合性を重視する
+- 不明な要件は実装前に確認する`,
 };

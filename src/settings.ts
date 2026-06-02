@@ -1,7 +1,7 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
-import type { OutputTarget } from './types';
+import type { OutputTarget, PromptProfile } from './types';
 import { OUTPUT_PRESETS } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
@@ -28,6 +28,7 @@ export interface PluginSettings {
   openAiUrl: boolean;
   includeStarterPrompt: boolean;
   starterPrompt: string;
+  promptProfiles: PromptProfile[];
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -51,6 +52,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   openAiUrl: false,
   includeStarterPrompt: true,
   starterPrompt: '',
+  promptProfiles: [],
 };
 
 export class SettingsTab extends PluginSettingTab {
