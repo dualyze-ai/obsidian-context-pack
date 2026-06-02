@@ -467,22 +467,34 @@ export default class ContextPackPlugin extends Plugin {
   private applyStarterPrompt(content: string, source: string, noteCount: number, target: OutputTarget): string {
     const profileMap = buildProfileMap(this.settings.promptProfiles);
     const customProfile = profileMap[`${target}-default`];
-    const promptText = customProfile?.prompt
-      ?? (this.settings.starterPrompt.trim() || this.getDefaultPromptForTarget(target));
+
+    let promptText: string;
+    if (customProfile) {
+      promptText = customProfile.prompt;
+    } else {
+      const base = (this.settings.starterPrompt.trim() || t('default_common_instructions'))
+        .replace('{source}', source)
+        .replace('{count}', String(noteCount));
+      const addition = this.getAiAdditionForTarget(target);
+      promptText = addition ? `${base}\n\n${addition}` : base;
+      return `${promptText}\n\n---\n\n${content}`;
+    }
+
     const prompt = promptText
       .replace('{source}', source)
       .replace('{count}', String(noteCount));
     return `${prompt}\n\n---\n\n${content}`;
   }
 
-  private getDefaultPromptForTarget(target: OutputTarget): string {
+  private getAiAdditionForTarget(target: OutputTarget): string {
     const keyMap: Partial<Record<OutputTarget, string>> = {
-      chatgpt: 'starter_prompt_chatgpt',
-      claude: 'starter_prompt_claude',
-      gemini: 'starter_prompt_gemini',
-      'claude-code': 'starter_prompt_claude_code',
+      chatgpt: 'ai_addition_chatgpt',
+      claude: 'ai_addition_claude',
+      gemini: 'ai_addition_gemini',
+      'claude-code': 'ai_addition_claude_code',
     };
-    return t(keyMap[target] ?? 'default_starter_prompt');
+    const key = keyMap[target];
+    return key ? t(key) : '';
   }
 
   private handlePackOutput(content: string, slug: string, noteCount: number, source: string): void {
