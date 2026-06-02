@@ -47,7 +47,7 @@ Obsidian Vault
 
 **Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so the AI understands your knowledge hierarchy.
 
-**Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, Claude, Gemini, or Claude Code. For ChatGPT, Claude, and Gemini, the pack is copied to your clipboard so you can paste it straight into any AI chat. A customizable starter prompt is prepended automatically. For Claude Code, the pack is copied as plain structured reference material with no starter prompt.
+**Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, Claude, Gemini, or Claude Code. For ChatGPT, Claude, Gemini, and Claude Code, the pack is copied to your clipboard. **Common Instructions** are prepended automatically — a shared base you can customize, with AI-specific instructions added after it for each target.
 
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
 
@@ -193,8 +193,8 @@ If auto-detection doesn't find the right folder, click **Change folder** in the 
 | Show token count | Display estimated token count in the selector | On |
 | Warn when over limit | Warn when the pack exceeds the AI's recommended token limit | On |
 | Open AI website after export | Open the AI site after clipboard copy (ChatGPT, Claude, Gemini) | Off |
-| Include starter prompt by default | Prepend a starter prompt to every pack | On |
-| Starter prompt | Editable template. Use `{source}` for folder/tag name, `{count}` for note count | — |
+| Include Common Instructions by default | Prepend Common Instructions to every pack | On |
+| Common Instructions | Editable base instructions prepended to every pack. AI-specific instructions are added automatically after this. Use `{source}` for folder/tag name, `{count}` for note count | — |
 
 ### Daily Notes mode settings
 
@@ -232,7 +232,7 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 2. In the output selector, choose **ChatGPT**
 3. Check **Copy to clipboard** (and optionally **Save to Vault**)
 4. Click **Export** — the pack is copied to your clipboard
-5. Open [ChatGPT](https://chat.openai.com/) and paste (`Cmd/Ctrl+V`) — the starter prompt is already included
+5. Open [ChatGPT](https://chat.openai.com/) and paste (`Cmd/Ctrl+V`) — Common Instructions with ChatGPT-specific additions are already included
 
 ### Sample queries — Travel notes
 
@@ -298,7 +298,7 @@ Gemini supports packs up to ~800K tokens — ideal for large note collections yo
 3. Click **Export** — the pack is copied to your clipboard
 4. Open your project in Claude Code and paste the pack as context
 
-No starter prompt is added — the output is structured reference material, ready to paste directly.
+Common Instructions with Claude Code-specific additions are prepended automatically — treating the pack as project knowledge, following coding conventions, and asking before making assumptions.
 
 Claude Code handles packs up to ~50K tokens, ideal for project specs, architecture notes, and decision records.
 
@@ -345,6 +345,13 @@ AI Context Pack is the successor to Context Pack for NotebookLM. All existing fe
 ---
 
 ## Changelog
+
+### v2.4.0
+- **AI-specific starter prompts** — each AI target (ChatGPT, Claude, Gemini, Claude Code) now receives optimized instructions tailored to its strengths
+- **Common Instructions** — the base prompt is now a shared, editable foundation; AI-specific instructions are appended automatically on export
+- **Reset to default** button added to the Common Instructions setting
+- **Claude Code** — now includes AI-specific instructions (project knowledge, coding conventions, no guessing)
+- **Agent context** — `outputKind` field added to presets to distinguish chat AI from agent-based tools (future extensibility)
 
 ### v2.3.0
 - **Claude Code support** — copy to clipboard and paste into Claude Code; no starter prompt added
