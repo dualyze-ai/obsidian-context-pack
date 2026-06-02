@@ -6,6 +6,7 @@ import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, bui
 import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
 import { OUTPUT_PRESETS, buildProfileMap, type OutputTarget } from './types';
+import { AiMocModal } from './ai-moc-modal';
 import { t } from './i18n';
 
 export default class ContextPackPlugin extends Plugin {
@@ -30,6 +31,10 @@ export default class ContextPackPlugin extends Plugin {
         .setTitle(t('ribbon_create_moc_tag'))
         .setIcon('map')
         .onClick(() => this.createMocFromTag()));
+      menu.addItem(item => item
+        .setTitle(t('ribbon_create_moc_note'))
+        .setIcon('file-plus')
+        .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source)).open()));
       menu.addSeparator();
       menu.addItem(item => item
         .setTitle(t('ribbon_export_vault'))
@@ -85,6 +90,12 @@ export default class ContextPackPlugin extends Plugin {
       id: 'create-moc-tag',
       name: t('cmd_create_moc_tag'),
       callback: () => this.createMocFromTag(),
+    });
+
+    this.addCommand({
+      id: 'create-ai-moc',
+      name: t('cmd_create_ai_moc'),
+      callback: () => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source)).open(),
     });
 
     this.addCommand({
@@ -147,6 +158,10 @@ export default class ContextPackPlugin extends Plugin {
             .setTitle(t('menu_export_note'))
             .setIcon('download')
             .onClick(() => exportSingleNote(this.app, file, this.formatOptions())));
+          menu.addItem(item => item
+            .setTitle(t('menu_create_ai_moc'))
+            .setIcon('map')
+            .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file).open()));
           const cache = this.app.metadataCache.getFileCache(file);
           if ((cache?.links?.length ?? 0) > 0) {
             menu.addItem(item => item
@@ -462,6 +477,19 @@ export default class ContextPackPlugin extends Plugin {
     } catch (err) {
       this.handlePackError(notice, err);
     }
+  }
+
+  private packFromFileList(files: TFile[], source: string): void {
+    const { notice, controller, setProgress } = this.startProgress(t('notice_packing'));
+    buildContextPack(files, this.app, this.formatOptions(), {
+      title: source,
+      source: `moc:${source}`,
+    }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal)
+      .then(content => {
+        notice.hide();
+        this.handlePackOutput(content, `ai-moc-${source}`, files.length, source);
+      })
+      .catch(err => this.handlePackError(notice, err));
   }
 
   private applyStarterPrompt(content: string, source: string, noteCount: number, target: OutputTarget): string {
