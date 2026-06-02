@@ -47,6 +47,8 @@ Obsidian Vault
 
 **Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so the AI understands your knowledge hierarchy.
 
+**AI MOC** generates a Map of Content from any note by tracing its wikilinks outward. Select a root note, choose how deep to explore, and the plugin builds a structured MOC file showing your knowledge hierarchy — with an optional Context Pack of all collected notes generated at the same time.
+
 **Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, Claude, Gemini, or Claude Code. For ChatGPT, Claude, Gemini, and Claude Code, the pack is copied to your clipboard. **Common Instructions** are prepended automatically — a shared base you can customize, with AI-specific instructions added after it for each target.
 
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
@@ -59,29 +61,74 @@ Both Context Pack and Export run the same formatter: frontmatter is removed, wik
 
 ## Screenshots
 
-### Ribbon menu — access everything from one icon
+<video src="docs/demo.mp4" autoplay loop muted playsinline width="100%"></video>
 
-![Ribbon menu](docs/ribbon-menu.png)
+<table>
+<tr>
+<td align="center" width="50%">
 
-### Choose a folder to pack
+**Ribbon menu**<br>
+<img src="docs/ribbon-menu.png">
 
-![Folder picker](docs/folder-suggest.png)
+</td>
+<td align="center" width="50%">
 
-### Or choose by tag
+**Folder picker**<br>
+<img src="docs/folder-suggest.png">
 
-![Tag picker](docs/tag-suggest.png)
+</td>
+</tr>
+<tr>
+<td align="center">
 
-### Progress dialog with cancel
+**Tag picker**<br>
+<img src="docs/tag-suggest.png">
 
-![Progress dialog](docs/progress.png)
+</td>
+<td align="center">
 
-### Right-click any folder in the file explorer
+**Output target selector**<br>
+<img src="docs/output-target.png">
 
-![Right-click menu](docs/right-click.png)
+</td>
+</tr>
+<tr>
+<td align="center">
 
-### The resulting Context Pack — clean, structured, AI-ready
+**Right-click menu**<br>
+<img src="docs/right-click.png">
 
-![Context Pack output](docs/output.png)
+</td>
+<td align="center">
+
+**AI MOC dialog**<br>
+<img src="docs/ai-moc-dialog.png">
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+**Generated MOC**<br>
+<img src="docs/output.png">
+
+</td>
+<td align="center">
+
+**Daily Notes Pack**<br>
+<img src="docs/daily-notes.png">
+
+</td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+
+**Context Pack output — clean, structured, AI-ready**<br>
+<img src="docs/pack-output.png">
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -135,14 +182,101 @@ Exports notes as individual cleaned-up `.md` files in a ZIP.
 | Right-click folder → Export this folder (ZIP) | That folder |
 | Right-click file → Export this note (.md) | Single note |
 
-### MOC (Map of Content)
+### MOC (Map of Content) — folder and tag
 
-Automatically generates a MOC note — a list of wikilinks to all notes in a folder or tag. Use it as an index, then run **Create Context Pack from this MOC** to pack exactly those notes.
+A **MOC (Map of Content)** is an Obsidian convention: a note that works like a table of contents, containing wikilinks to a group of related notes. These commands generate a MOC automatically from a folder or tag.
 
 | Trigger | Source |
 |---|---|
 | Ribbon → Create MOC (from tag) | All notes with selected tag |
 | Right-click folder → Create MOC from this folder | All notes in folder |
+
+Once you have a MOC, run **Create Context Pack from this MOC** to pack exactly those linked notes.
+
+---
+
+## AI MOC — Generate a MOC from any note
+
+**AI MOC** builds a Map of Content by following the `[[wikilinks]]` in a note outward — automatically discovering what each note connects to, and organizing it into a structured hierarchy.
+
+You don't need to maintain an index manually. Start from any note and the plugin maps its connections for you.
+
+### How it works
+
+```
+Root Note
+    │
+    ├── Core Concepts (notes directly linked from root)
+    │       └── Related Notes (notes linked from those)
+    │
+    └── Referenced By (notes that link back to root)
+```
+
+1. Choose a **Root Note** — the starting point for exploration
+2. The plugin follows its `[[wikilinks]]` outward (breadth-first search)
+3. **Direct Links** scope — collects only depth-1 links (Core Concepts)
+4. **Related Notes** scope — also collects depth-2 links (Related Notes)
+5. Notes that link *back* to your root appear in **Referenced By**
+6. A `{Root} MOC.md` is saved to your vault
+7. Optionally, a **Context Pack** of all collected notes is generated at the same time
+
+### Usage
+
+| Trigger | Action |
+|---|---|
+| Right-click any `.md` file → **Create AI MOC from this note** | Opens dialog with that note pre-selected |
+| Ribbon → **Create MOC (from note)** | Opens dialog |
+| Command Palette → **Create AI MOC from note** | Opens dialog |
+
+### Dialog options
+
+| Option | Default | Description |
+|---|---|---|
+| Root Note | — | Starting note for link traversal |
+| Scope: Direct Links | | Collect only notes directly linked from root (depth 1) |
+| Scope: Related Notes | ✓ | Also collect notes linked from *those* notes (depth 2) |
+| Backlinks in MOC | ✓ | Include notes that link *to* the root |
+| Backlinks in Context Pack | | Include backlink notes in the generated Context Pack |
+| Generate Context Pack | ✓ | Build a Context Pack from all collected notes at the same time |
+
+### Example — Paintings vault
+
+With `Masterpieces of the World` as the root note:
+
+```markdown
+---
+generated: 2026-06-02
+generatedBy: ai-context-pack
+root: Masterpieces of the World
+scope: related
+includeBacklinks: true
+---
+
+# [[Masterpieces of the World]]
+
+## Core Concepts
+
+- [[Impressionism]]
+- [[Renaissance]]
+- [[Baroque]]
+- [[Modern Art]]
+
+## Related Notes
+
+- [[Claude Monet]]
+- [[Leonardo da Vinci]]
+- [[Rembrandt]]
+- [[Vincent van Gogh]]
+- [[Pablo Picasso]]
+- … (12 artists total)
+
+## Referenced By
+
+- [[Museum Guide]]
+- [[Art for Beginners]]
+```
+
+The generated MOC reflects exactly what your notes contain — no manual curation needed.
 
 ---
 
@@ -213,15 +347,17 @@ If auto-detection doesn't find the right folder, click **Change folder** in the 
 
 Want to try the plugin without setting up your vault first? Download a ready-made sample vault and open it in Obsidian.
 
-| Vault | Notes | Download |
-|---|---|---|
-| 🇺🇸 English (recipes / travel / books / linkbox-spec) | 65 notes | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
-| 🇯🇵 Japanese（料理 / 旅行 / 読書 / linkbox-spec）| 65件 | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
+| Vault | Notes | Topics | Download |
+|---|---|---|---|
+| 🇺🇸 English | 86 notes | recipes / travel / books / paintings / linkbox-spec | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
+| 🇯🇵 Japanese | 86件 | 料理 / 旅行 / 読書 / 絵画 / linkbox-spec | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
 
 1. Download and unzip
 2. In Obsidian: **Open another vault → Open folder as vault** → select the unzipped folder
 3. Enable AI Context Pack in Community plugins
-4. Try it — pack the `recipes/` folder, explore by tag, or build a MOC
+4. Try packing a folder, exploring by tag, or using **AI MOC**:
+   - Right-click `Masterpieces of the World.md` → **Create AI MOC from this note**
+   - Set scope to **Related Notes** to discover 4 movements + 12 artists at once
 5. To try Claude Code: pack the `linkbox-spec/` folder and choose **Claude Code** as the output target
 
 ---
@@ -241,6 +377,17 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 | *"Which destination is best for a first solo trip on a mid-range budget?"* | Ranked recommendations from your notes |
 | *"Plan a 10-day Europe itinerary covering Paris, Barcelona, and Rome"* | Day-by-day itinerary with travel order |
 | *"Create a packing checklist based on the climates and cultures in these notes"* | Tailored checklist per destination |
+
+### Sample queries — Paintings (AI MOC)
+
+Use **AI MOC** on `Masterpieces of the World`, generate a Context Pack, then ask:
+
+| Question | What you get |
+|---|---|
+| *"Compare how Impressionism and Baroque each use light"* | Side-by-side analysis drawing on Monet, Caravaggio, and Rembrandt |
+| *"Which artist in these notes would be most accessible to someone seeing art for the first time?"* | Recommendation with reasoning from your notes |
+| *"What connects Van Gogh, Picasso, and Dalí beyond the fact that they're all Modern Art?"* | Thematic analysis from the collected notes |
+| *"Give me a one-sentence description of each artist's signature style"* | Quick-reference summary for all 12 artists |
 
 > **Tip:** Turn on **Open AI website after export** in settings to open ChatGPT automatically after exporting.
 
@@ -345,6 +492,14 @@ AI Context Pack is the successor to Context Pack for NotebookLM. All existing fe
 ---
 
 ## Changelog
+
+### v2.5.0
+- **AI MOC** — generate a Map of Content from any note by tracing its `[[wikilinks]]` outward (breadth-first, up to depth 2). Produces a structured MOC file with *Core Concepts*, *Related Notes*, and *Referenced By* sections. Optionally generates a Context Pack from all collected notes at the same time.
+- **AI MOC dialog** — choose Root Note, Scope (Direct Links / Related Notes), Backlinks inclusion, and Context Pack generation in one step
+- **Right-click menu** — right-click any `.md` file to open the AI MOC dialog with that note pre-selected
+- **Safe overwrite** — existing MOC files generated by AI Context Pack are updated silently; manually written MOC files show a confirmation dialog before overwriting
+- **Common Instructions improvement** — added instruction to avoid meta-commentary about Obsidian, Context Pack, or NotebookLM, so AI assistants focus on content rather than reviewing the document itself
+- **Sample vaults updated** — paintings topic added (19 notes each, 86 total); wikilinks and hub notes added throughout recipes and travel notes
 
 ### v2.4.0
 - **AI-specific starter prompts** — each AI target (ChatGPT, Claude, Gemini, Claude Code) now receives optimized instructions tailored to its strengths
