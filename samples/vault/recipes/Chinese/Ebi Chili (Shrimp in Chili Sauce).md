@@ -49,3 +49,8 @@ Plump shrimp tossed in a sweet and spicy chili sauce. A crowd-pleasing Chinese-J
 ## Notes
 
 A spoonful of mayonnaise makes it milder and creamy — an "Ebi Mayo" variation.
+
+## Related Recipes
+
+- [[Sweet and Sour Pork (Subuta)]]（Chinese restaurant staple）
+- [[Chahan (Chinese Fried Rice)]]（great side dish）

@@ -40,3 +40,8 @@ About 7–8 hours direct from Tokyo. Daniel K. Inouye International Airport is a
 ## Tips & Advice
 
 ESTA required ($21). Use "reef-safe" sunscreen — Oahu has banned coral-damaging chemicals. ABC Stores are convenient 24-hour shops throughout Waikiki.
+
+## Nearby Destinations
+
+- [[New York City]]（American city trip）
+- [[Sydney]]（Southern Hemisphere resort）

@@ -47,3 +47,8 @@ Japan's answer to croquettes — crispy breaded potato-and-meat patties best eat
 ## Notes
 
 Add curry powder for a curry korokke twist. Makes great freeze-ahead meals.
+
+## Related Recipes
+
+- [[Japanese Hamburg Steak]]（Western-style staple）
+- [[Omurice]]（set-meal pairing）

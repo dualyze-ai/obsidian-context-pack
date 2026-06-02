@@ -38,3 +38,8 @@ About 9–10 hours direct from Tokyo. Train from Sydney Airport reaches Central 
 ## Tips & Advice
 
 Southern hemisphere = opposite seasons (Dec–Feb is summer). The Opal Card covers buses, ferries, and trains. An ETA visa is required — apply in advance.
+
+## Nearby Destinations
+
+- [[New York City]]（English-speaking city trip）
+- [[Honolulu (Hawaii)]]

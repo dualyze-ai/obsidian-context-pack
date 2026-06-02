@@ -46,3 +46,8 @@ Authentic Roman-style carbonara with no cream — just eggs, aged cheese, and gu
 ## Notes
 
 The starch in pasta water is the key emulsifier. Reserve more than you think you need.
+
+## Related Recipes
+
+- [[Macaroni Gratin]]（creamy Western-style dish）
+- [[Minestrone]]（Italian cuisine）

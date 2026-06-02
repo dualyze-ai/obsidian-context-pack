@@ -48,3 +48,9 @@ A thick, hearty miso soup loaded with pork and root vegetables. The ultimate war
 ## Notes
 
 A pinch of shichimi chili flakes adds a nice kick. Just as good reheated the next day.
+
+## Related Recipes
+
+- [[Nikujaga]]（hearty root vegetable home cooking）
+- [[Dashimaki Tamago]]（dashi-based Japanese classic）
+- [[Chikuzen-ni]]（vegetable-packed simmered dish）

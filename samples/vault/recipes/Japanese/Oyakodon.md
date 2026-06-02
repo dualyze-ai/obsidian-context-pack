@@ -47,3 +47,8 @@ Chicken and egg gently simmered in dashi and served over rice. One of Japan's mo
 ## Notes
 
 Marinating chicken in soy sauce beforehand adds extra depth.
+
+## Related Recipes
+
+- [[Karaage (Japanese Fried Chicken)]]（chicken-based dish）
+- [[Dashimaki Tamago]]（egg-based Japanese cooking）
