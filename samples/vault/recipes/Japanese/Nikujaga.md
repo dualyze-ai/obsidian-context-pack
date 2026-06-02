@@ -49,3 +49,9 @@ A beloved Japanese home-cooked dish of beef and potatoes simmered in a sweet-sav
 ## Notes
 
 Beef is traditional in Kansai, pork in Kanto. Add more sugar for a sweeter finish.
+
+## Related Recipes
+
+- [[Tonjiru (Pork Miso Soup)]]（root vegetable comfort food）
+- [[Chikuzen-ni]]（simmered root vegetable dish）
+- [[Kakuni (Braised Pork Belly)]]（meat simmered in sweet-savory sauce）

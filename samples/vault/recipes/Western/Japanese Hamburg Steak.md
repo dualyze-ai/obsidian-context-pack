@@ -50,3 +50,9 @@ The beloved Japanese-style hamburger steak with a crispy crust and juicy center,
 ## Notes
 
 Substitute tofu for a lighter version. A Japanese-style sauce with grated daikon is equally delicious.
+
+## Related Recipes
+
+- [[Beef Stew]]（beef and pork Western-style dish）
+- [[Korokke (Japanese Croquettes)]]（fried Western-style classic）
+- [[Omurice]]（Western-style set menu staple）

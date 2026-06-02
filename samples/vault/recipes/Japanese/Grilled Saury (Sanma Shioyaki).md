@@ -45,3 +45,8 @@ The taste of autumn in Japan. Simply salted and grilled pacific saury, enjoyed w
 ## Notes
 
 True connoisseurs enjoy the bitter liver — try it whole! Peak season is September–October.
+
+## Related Recipes
+
+- [[Tonjiru (Pork Miso Soup)]]（autumn Japanese meal pairing）
+- [[Dashimaki Tamago]]（classic Japanese side dish）

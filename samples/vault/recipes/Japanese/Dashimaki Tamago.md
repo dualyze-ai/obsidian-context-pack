@@ -45,3 +45,8 @@ A fluffy, dashi-infused rolled omelette in the Kansai style. Deceptively simple,
 ## Notes
 
 Add 1 tbsp sugar for a sweeter version. Serve with grated daikon for a classic diner touch.
+
+## Related Recipes
+
+- [[Oyakodon]]（egg-based Japanese dish）
+- [[Tonjiru (Pork Miso Soup)]]（dashi-forward cooking）

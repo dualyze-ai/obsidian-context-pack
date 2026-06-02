@@ -41,3 +41,8 @@ About 2h 30min direct from Tokyo. AREX express train from Incheon Airport reache
 ## Tips & Advice
 
 T-money card works on all subway and buses. No visa needed for stays up to 90 days. Money exchange in the city offers better rates than the airport.
+
+## Nearby Destinations
+
+- [[Taipei]]（Asian food and sightseeing）
+- [[Bangkok]]

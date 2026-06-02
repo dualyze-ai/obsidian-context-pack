@@ -40,3 +40,8 @@ About 13–14 hours from Tokyo via Madrid or direct. About 30 minutes from El Pr
 ## Tips & Advice
 
 Sagrada Família requires advance online booking — do this before your trip. Pickpockets are common on Las Ramblas. Embrace the late-night bar culture.
+
+## Nearby Destinations
+
+- [[Paris]]（art and gastronomy）
+- [[Rome]]（ancient history · Italian food）

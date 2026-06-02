@@ -51,3 +51,8 @@ The iconic Sichuan dish — silken tofu in a fiery, numbing sauce of doubanjiang
 ## Notes
 
 Adjust heat level with doubanjiang quantity. Extra chili oil adds more fire.
+
+## Related Recipes
+
+- [[Dan Dan Noodles (Tantanmen)]]（Sichuan cuisine with hua jiao）
+- [[Chahan (Chinese Fried Rice)]]（classic pairing）

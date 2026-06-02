@@ -41,3 +41,8 @@ About 2 hours from Asakusa on the Tobu Nikko Limited Express Spacia. About 45 mi
 ## Tips & Advice
 
 Autumn foliage (mid-Oct to early Nov) is spectacular but extremely crowded. A bus is needed for the Chuzenji Lake area.
+
+## Nearby Destinations
+
+- [[Kamakura]]（coastal historical spot）
+- [[Hakone]]（mountain hot spring resort）

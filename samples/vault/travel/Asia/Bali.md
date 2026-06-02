@@ -40,3 +40,8 @@ About 7 hours direct from Tokyo. Taxi from Ngurah Rai International Airport to m
 ## Tips & Advice
 
 Each area has a distinct vibe: Ubud = culture & wellness; Kuta = lively & surfy; Seminyak = stylish & upscale. Take care on rental scooters — traffic can be unpredictable.
+
+## Nearby Destinations
+
+- [[Bangkok]]（Southeast Asian travel）
+- [[Taipei]]（culture and food）

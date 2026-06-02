@@ -40,3 +40,8 @@ About 85 min from Shinjuku on the Odakyu Romance Car to Hakone-Yumoto. About 35 
 ## Tips & Advice
 
 The Hakone Free Pass covers unlimited travel on all area transport — great value. Weekend road traffic is heavy; train travel is recommended.
+
+## Nearby Destinations
+
+- [[Kamakura]]（seaside history town）
+- [[Nikko]]（inland UNESCO heritage site）

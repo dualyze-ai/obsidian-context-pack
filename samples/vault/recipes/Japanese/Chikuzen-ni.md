@@ -50,3 +50,8 @@ A hearty simmered dish of chicken and root vegetables, essential for New Year's 
 ## Notes
 
 Great for meal prep — keeps in the fridge for 3–4 days.
+
+## Related Recipes
+
+- [[Nikujaga]]（simmered root vegetable dish）
+- [[Tonjiru (Pork Miso Soup)]]（hearty Japanese home cooking）

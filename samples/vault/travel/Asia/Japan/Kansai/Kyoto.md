@@ -42,3 +42,8 @@ About 2h 15min from Tokyo by Shinkansen (Nozomi). 30–45 min from Osaka by JR, 
 ## Tips & Advice
 
 Spring (cherry blossoms, March–April) and autumn (foliage, November) bring crowds and high hotel prices. A bus/subway day pass is convenient. Don't miss Gion Matsuri in July.
+
+## Nearby Destinations
+
+- [[Osaka]]（~30 min by train · food and entertainment）
+- [[Nara]]（~45 min by train · deer park and Great Buddha）

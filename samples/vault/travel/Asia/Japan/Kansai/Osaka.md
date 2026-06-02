@@ -41,3 +41,8 @@ About 2h 30min from Tokyo by Shinkansen (Nozomi). Shin-Osaka Station is the Shin
 ## Tips & Advice
 
 ICOCA is the handy IC transit card for the Kansai region. The Osaka Amazing Pass offers great value. Dotonbori and Kuromon Market are the best street food zones.
+
+## Nearby Destinations
+
+- [[Kyoto]]（~30 min by train · history and culture）
+- [[Nara]]（~1 hour by train · UNESCO World Heritage）

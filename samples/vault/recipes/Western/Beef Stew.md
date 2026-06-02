@@ -51,3 +51,8 @@ A classic slow-braised beef stew with red wine, root vegetables, and demi-glace.
 ## Notes
 
 Even better reheated the next day. Serve with mashed potatoes for a classic presentation.
+
+## Related Recipes
+
+- [[Japanese Hamburg Steak]]（beef-based Western dish）
+- [[Minestrone]]（hearty soup and stew）
