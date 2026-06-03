@@ -137,8 +137,7 @@ export default {
 
   default_common_instructions: `The following is a Context Pack generated from {count} Obsidian notes in "{source}".
 
-Please treat this Context Pack as the primary knowledge source for this conversation.
-If the Context Pack and general knowledge conflict, prioritize the Context Pack and note the contradiction.
+If information exists in this Context Pack, please prioritize it.
 If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
 Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do not offer suggestions for improving this document.`,
 
@@ -167,17 +166,26 @@ Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do no
   setting_default_mode_desc: 'Mode-specific instructions are appended to the prompt after AI-specific additions.',
 
   modal_mode_label:         'Mode',
+  modal_mode_desc:          'Append mode-specific instructions to the prompt',
   modal_mode_not_supported: 'Not supported for this output',
 
   mode_none_name:        'None',
   mode_none_desc:        'No additional instructions',
   mode_research_name:    'Research',
   mode_research_desc:    'Information gathering, comparison, analysis',
+  mode_learning_name:    'Learning',
+  mode_learning_desc:    'Step-by-step explanations, educational support',
+  mode_writing_name:     'Writing',
+  mode_writing_desc:     'Article and document writing support',
   mode_development_name: 'Development',
   mode_development_desc: 'Implementation, code, development support',
 
-  mode_research_prompt:    'Prioritize comparison, evidence-based reasoning, and comprehensive coverage. Clearly distinguish between facts and inferences. Present counterarguments or alternative interpretations when relevant.',
-  mode_development_prompt: 'Break tasks into actionable steps. Prioritize code over explanation. Clarify unclear requirements before starting. State the reason and impact of any changes to existing specifications.',
+  mode_research_prompt:    'Prioritize comparison, evidence-based reasoning, and comprehensive coverage. Clearly distinguish between facts and inferences. Present counterarguments or alternative interpretations when relevant. Whenever possible, cite the specific notes that support your answer.',
+  mode_learning_prompt:    'Emphasize step-by-step explanations, examples, and comprehension checks. Define technical terms when needed.',
+  mode_writing_prompt:     'Focus on consistent style, structural suggestions, and reader perspective.',
+  mode_development_prompt: `Respond with actionable steps.
+Prioritize concrete changes over vague suggestions.
+If your answer differs from existing specifications, explain why.`,
 
   ai_addition_claude_code: `This Context Pack is project knowledge. When implementing:
 - Treat the Context Pack as fact
