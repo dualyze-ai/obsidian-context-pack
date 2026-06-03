@@ -2,6 +2,8 @@
 
 > Package your Obsidian notes into context packs for any AI — NotebookLM, ChatGPT, Claude, Gemini, and more.
 
+<img src="docs/demo.gif" width="100%">
+
 ---
 
 ## Supported AI Assistants
@@ -56,79 +58,6 @@ Obsidian Vault
 **Daily Notes Pack** collects your daily notes within a date range and bundles them into a single AI-ready file. Filter by tag, choose a preset period, or set a custom range. Supports weekly summary mode.
 
 Both Context Pack and Export run the same formatter: frontmatter is removed, wikilinks are resolved, embeds and comments are stripped, and blank lines are collapsed.
-
----
-
-## Screenshots
-
-<video src="https://github.com/user-attachments/assets/97f6b829-30e1-42d9-865e-52a748696d3c" autoplay loop muted playsinline width="100%"></video>
-
-<table>
-<tr>
-<td align="center" width="50%">
-
-**Ribbon menu**<br>
-<img src="docs/ribbon-menu.png">
-
-</td>
-<td align="center" width="50%">
-
-**Folder picker**<br>
-<img src="docs/folder-suggest.png">
-
-</td>
-</tr>
-<tr>
-<td align="center">
-
-**Tag picker**<br>
-<img src="docs/tag-suggest.png">
-
-</td>
-<td align="center">
-
-**Output target selector**<br>
-<img src="docs/output-target.png">
-
-</td>
-</tr>
-<tr>
-<td align="center">
-
-**Right-click menu**<br>
-<img src="docs/right-click.png">
-
-</td>
-<td align="center">
-
-**AI MOC dialog**<br>
-<img src="docs/ai-moc-dialog.png">
-
-</td>
-</tr>
-<tr>
-<td align="center">
-
-**Generated MOC**<br>
-<img src="docs/output.png">
-
-</td>
-<td align="center">
-
-**Daily Notes Pack**<br>
-<img src="docs/daily-notes.png">
-
-</td>
-</tr>
-<tr>
-<td align="center" colspan="2">
-
-**Context Pack output — clean, structured, AI-ready**<br>
-<img src="docs/pack-output.png">
-
-</td>
-</tr>
-</table>
 
 ---
 
