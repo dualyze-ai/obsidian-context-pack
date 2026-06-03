@@ -44,6 +44,8 @@ export interface ModeDefinition {
 export const MODES: ModeDefinition[] = [
   { id: 'none',        nameKey: 'mode_none_name',        descriptionKey: 'mode_none_desc',        promptKey: '' },
   { id: 'research',    nameKey: 'mode_research_name',    descriptionKey: 'mode_research_desc',    promptKey: 'mode_research_prompt' },
+  { id: 'learning',    nameKey: 'mode_learning_name',    descriptionKey: 'mode_learning_desc',    promptKey: 'mode_learning_prompt' },
+  { id: 'writing',     nameKey: 'mode_writing_name',     descriptionKey: 'mode_writing_desc',     promptKey: 'mode_writing_prompt' },
   { id: 'development', nameKey: 'mode_development_name', descriptionKey: 'mode_development_desc', promptKey: 'mode_development_prompt' },
 ];
 

@@ -1,4 +1,4 @@
-import { App, Modal } from 'obsidian';
+import { App, Modal, Setting } from 'obsidian';
 import { OUTPUT_PRESETS, MODES, type OutputTarget, type OutputPreset } from './types';
 import { estimateTokens, getTokenWarning } from './token-counter';
 import type { PluginSettings } from './settings';
@@ -57,17 +57,22 @@ export class OutputTargetModal extends Modal {
       this.renderPresetBtn(presetsEl, preset);
     }
 
-    const modeRowEl = contentEl.createEl('div', { cls: 'cp-output-mode-row' });
-    modeRowEl.createEl('span', { cls: 'cp-output-mode-label', text: t('modal_mode_label') });
-    this.modeSelectEl = modeRowEl.createEl('select', { cls: 'cp-output-mode-select' });
-    for (const m of MODES) {
-      const opt = this.modeSelectEl.createEl('option', { text: t(m.nameKey), value: m.id });
-      if (m.id === this.mode) opt.selected = true;
-    }
-    this.modeSelectEl.addEventListener('change', () => {
-      this.mode = this.modeSelectEl.value;
-      this.updatePreview();
-    });
+    new Setting(contentEl)
+      .setClass('cp-output-mode-setting')
+      .setName(t('modal_mode_label'))
+      .setDesc(t('modal_mode_desc'))
+      .addDropdown(drop => {
+        for (const m of MODES) {
+          drop.addOption(m.id, t(m.nameKey));
+        }
+        drop.setValue(this.mode);
+        drop.onChange(value => {
+          this.mode = value;
+          this.modeSelectEl = drop.selectEl;
+          this.updatePreview();
+        });
+        this.modeSelectEl = drop.selectEl;
+      });
 
     this.previewEl = contentEl.createEl('div', { cls: 'cp-output-preview' });
     this.methodEl = contentEl.createEl('div', { cls: 'cp-output-method' });
@@ -125,15 +130,15 @@ export class OutputTargetModal extends Modal {
     this.methodEl.empty();
 
     const infoEl = this.previewEl.createEl('div', { cls: 'cp-output-info' });
-    infoEl.createEl('span', { cls: 'cp-output-info-target', text: `${t('modal_mode_label') === 'Mode' ? 'Target AI' : '出力先'}: ${preset.label}` });
+    infoEl.createEl('div', { cls: 'cp-output-info-target', text: `${t('modal_mode_label') === 'Mode' ? 'Target AI' : '出力先'}: ${preset.label}` });
 
     const modeLabel = isNotebookLM
       ? t('modal_mode_not_supported')
       : (MODES.find(m => m.id === this.mode) ? t(MODES.find(m => m.id === this.mode)!.nameKey) : this.mode);
-    infoEl.createEl('span', { cls: 'cp-output-info-mode', text: `${t('modal_mode_label')}: ${modeLabel}` });
+    infoEl.createEl('div', { cls: 'cp-output-info-mode', text: `${t('modal_mode_label')}: ${modeLabel}` });
 
     if (this.settings.showTokenCount) {
-      infoEl.createEl('span', { cls: 'cp-output-info-tokens', text: t('modal_token_estimated', this.tokenCount) });
+      infoEl.createEl('div', { cls: 'cp-output-info-tokens', text: t('modal_token_estimated', this.tokenCount) });
 
       if (this.settings.warnOnTokenLimit) {
         const warning = getTokenWarning(this.tokenCount, preset);
