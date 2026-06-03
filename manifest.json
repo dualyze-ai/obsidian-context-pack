@@ -1,7 +1,7 @@
 {
   "id": "context-pack-for-notebooklm",
   "name": "AI Context Pack",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "minAppVersion": "0.15.0",
   "description": "Package your vault notes into context packs for any AI — NotebookLM, ChatGPT, Claude, Gemini, and more. (AI Context Pack).",
   "author": "dualyzeAI",
