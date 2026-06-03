@@ -2,7 +2,7 @@ import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
 import type { OutputTarget, PromptProfile } from './types';
-import { OUTPUT_PRESETS } from './types';
+import { OUTPUT_PRESETS, MODES } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
 
@@ -29,6 +29,7 @@ export interface PluginSettings {
   includeStarterPrompt: boolean;
   starterPrompt: string;
   promptProfiles: PromptProfile[];
+  defaultMode: string;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -53,6 +54,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   includeStarterPrompt: true,
   starterPrompt: '',
   promptProfiles: [],
+  defaultMode: 'none',
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -242,6 +244,20 @@ export class SettingsTab extends PluginSettingTab {
         drop.setValue(this.plugin.settings.defaultOutputTarget);
         drop.onChange(async value => {
           this.plugin.settings.defaultOutputTarget = value as OutputTarget;
+          await this.plugin.saveSettings();
+        });
+      });
+
+    new Setting(containerEl)
+      .setName(t('setting_default_mode'))
+      .setDesc(t('setting_default_mode_desc'))
+      .addDropdown(drop => {
+        for (const mode of MODES) {
+          drop.addOption(mode.id, t(mode.nameKey));
+        }
+        drop.setValue(this.plugin.settings.defaultMode);
+        drop.onChange(async value => {
+          this.plugin.settings.defaultMode = value;
           await this.plugin.saveSettings();
         });
       });

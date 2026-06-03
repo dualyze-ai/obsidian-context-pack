@@ -163,6 +163,22 @@ Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do no
   ai_moc_overwrite_cancel:   'Cancel',
   ai_moc_overwrite_confirm:  'Overwrite',
 
+  setting_default_mode:      'Default Mode',
+  setting_default_mode_desc: 'Mode-specific instructions are appended to the prompt after AI-specific additions.',
+
+  modal_mode_label:         'Mode',
+  modal_mode_not_supported: 'Not supported for this output',
+
+  mode_none_name:        'None',
+  mode_none_desc:        'No additional instructions',
+  mode_research_name:    'Research',
+  mode_research_desc:    'Information gathering, comparison, analysis',
+  mode_development_name: 'Development',
+  mode_development_desc: 'Implementation, code, development support',
+
+  mode_research_prompt:    'Prioritize comparison, evidence-based reasoning, and comprehensive coverage. Clearly distinguish between facts and inferences. Present counterarguments or alternative interpretations when relevant.',
+  mode_development_prompt: 'Break tasks into actionable steps. Prioritize code over explanation. Clarify unclear requirements before starting. State the reason and impact of any changes to existing specifications.',
+
   ai_addition_claude_code: `This Context Pack is project knowledge. When implementing:
 - Treat the Context Pack as fact
 - Follow coding conventions and architecture guidelines

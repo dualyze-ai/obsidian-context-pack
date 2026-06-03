@@ -31,12 +31,21 @@ export interface PromptProfile {
   prompt: string;
 }
 
+export type ModeId = string;
+
 export interface ModeDefinition {
   id: string;
   nameKey: string;
   descriptionKey: string;
   promptKey: string;
+  category?: string;
 }
+
+export const MODES: ModeDefinition[] = [
+  { id: 'none',        nameKey: 'mode_none_name',        descriptionKey: 'mode_none_desc',        promptKey: '' },
+  { id: 'research',    nameKey: 'mode_research_name',    descriptionKey: 'mode_research_desc',    promptKey: 'mode_research_prompt' },
+  { id: 'development', nameKey: 'mode_development_name', descriptionKey: 'mode_development_desc', promptKey: 'mode_development_prompt' },
+];
 
 export function buildProfileMap(profiles: PromptProfile[]): Record<string, PromptProfile> {
   return Object.fromEntries(profiles.map(p => [p.id, p]));
