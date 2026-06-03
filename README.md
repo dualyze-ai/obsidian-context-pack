@@ -3,7 +3,7 @@
 > Package your Obsidian notes into context packs for any AI — NotebookLM, ChatGPT, Claude, Gemini, and more.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/demo.gif" width="600">
+<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/demo.gif" width="100%">
 </div>
 
 ---
