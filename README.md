@@ -55,6 +55,8 @@ Obsidian Vault
 
 **Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, Claude, Gemini, or Claude Code. For ChatGPT, Claude, Gemini, and Claude Code, the pack is copied to your clipboard. **Common Instructions** are prepended automatically — a shared base you can customize, with AI-specific instructions added after it for each target.
 
+**Mode selector** lets you append purpose-specific instructions to every pack. Choose from Research, Learning, Writing, or Development — each adds tailored guidance to the prompt so the AI responds in the style that fits your workflow.
+
 **Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
 
 **Daily Notes Pack** collects your daily notes within a date range and bundles them into a single AI-ready file. Filter by tag, choose a preset period, or set a custom range. Supports weekly summary mode.
@@ -423,6 +425,9 @@ AI Context Pack is the successor to Context Pack for NotebookLM. All existing fe
 ---
 
 ## Changelog
+
+### v2.6.0
+- **Purpose-Aware Context Packs** — add a Mode selector to the output modal. Choose Research, Learning, Writing, or Development to append mode-specific instructions to every pack automatically.
 
 ### v2.5.0
 - **AI MOC** — generate a Map of Content from any note by tracing its `[[wikilinks]]` outward (breadth-first, up to depth 2). Produces a structured MOC file with *Core Concepts*, *Related Notes*, and *Referenced By* sections. Optionally generates a Context Pack from all collected notes at the same time.
