@@ -5,7 +5,7 @@ import { buildContextPack } from './context-pack';
 import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
 import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
-import { OUTPUT_PRESETS, buildProfileMap, type OutputTarget } from './types';
+import { OUTPUT_PRESETS, MODES, buildProfileMap, type OutputTarget } from './types';
 import { AiMocModal } from './ai-moc-modal';
 import { t } from './i18n';
 
@@ -492,26 +492,32 @@ export default class ContextPackPlugin extends Plugin {
       .catch(err => this.handlePackError(notice, err));
   }
 
-  private applyStarterPrompt(content: string, source: string, noteCount: number, target: OutputTarget): string {
+  private applyStarterPrompt(content: string, source: string, noteCount: number, target: OutputTarget, mode = 'none'): string {
     const profileMap = buildProfileMap(this.settings.promptProfiles);
     const customProfile = profileMap[`${target}-default`];
 
-    let promptText: string;
+    let prompt: string;
     if (customProfile) {
-      promptText = customProfile.prompt;
+      prompt = customProfile.prompt
+        .replace('{source}', source)
+        .replace('{count}', String(noteCount));
     } else {
       const base = (this.settings.starterPrompt.trim() || t('default_common_instructions'))
         .replace('{source}', source)
         .replace('{count}', String(noteCount));
       const addition = this.getAiAdditionForTarget(target);
-      promptText = addition ? `${base}\n\n${addition}` : base;
-      return `${promptText}\n\n---\n\n${content}`;
+      prompt = addition ? `${base}\n\n${addition}` : base;
     }
 
-    const prompt = promptText
-      .replace('{source}', source)
-      .replace('{count}', String(noteCount));
+    const modeText = this.getModePrompt(mode);
+    if (modeText) prompt = `${prompt}\n\n${modeText}`;
+
     return `${prompt}\n\n---\n\n${content}`;
+  }
+
+  private getModePrompt(mode: string): string {
+    const def = MODES.find(m => m.id === mode);
+    return def?.promptKey ? t(def.promptKey) : '';
   }
 
   private getAiAdditionForTarget(target: OutputTarget): string {
@@ -529,7 +535,7 @@ export default class ContextPackPlugin extends Plugin {
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, async (choice) => {
         const preset = OUTPUT_PRESETS[choice.target];
-        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt) ? this.applyStarterPrompt(content, source, noteCount, choice.target) : content;
+        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt) ? this.applyStarterPrompt(content, source, noteCount, choice.target, choice.mode) : content;
         if (choice.target === 'notebooklm-text') {
           await this.saveContextPack(finalContent, slug, noteCount);
         } else {
@@ -545,7 +551,7 @@ export default class ContextPackPlugin extends Plugin {
       const target = this.settings.defaultOutputTarget;
       const preset = OUTPUT_PRESETS[target];
       const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
-      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount, target) : content;
+      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount, target, this.settings.defaultMode) : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
         this.saveContextPack(finalContent, slug, noteCount);
       } else {

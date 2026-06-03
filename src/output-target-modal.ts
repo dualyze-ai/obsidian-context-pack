@@ -1,5 +1,5 @@
 import { App, Modal } from 'obsidian';
-import { OUTPUT_PRESETS, type OutputTarget, type OutputPreset } from './types';
+import { OUTPUT_PRESETS, MODES, type OutputTarget, type OutputPreset } from './types';
 import { estimateTokens, getTokenWarning } from './token-counter';
 import type { PluginSettings } from './settings';
 import { t } from './i18n';
@@ -10,6 +10,7 @@ export interface OutputChoice {
   saveToFile: boolean;
   includeStarterPrompt: boolean;
   openAiUrl: boolean;
+  mode: string;
 }
 
 export class OutputTargetModal extends Modal {
@@ -18,9 +19,11 @@ export class OutputTargetModal extends Modal {
   private doFile: boolean;
   private doPrompt: boolean;
   private doOpenUrl: boolean;
+  private mode: string;
   private tokenCount: number;
   private previewEl!: HTMLElement;
   private methodEl!: HTMLElement;
+  private modeSelectEl!: HTMLSelectElement;
 
   constructor(
     app: App,
@@ -38,6 +41,7 @@ export class OutputTargetModal extends Modal {
     this.doFile = preset.saveToFile;
     this.doPrompt = settings.includeStarterPrompt;
     this.doOpenUrl = settings.openAiUrl && !!preset.aiUrl;
+    this.mode = settings.defaultMode ?? 'none';
   }
 
   onOpen() {
@@ -52,6 +56,18 @@ export class OutputTargetModal extends Modal {
       if (preset.target === 'notebooklm-zip') continue;
       this.renderPresetBtn(presetsEl, preset);
     }
+
+    const modeRowEl = contentEl.createEl('div', { cls: 'cp-output-mode-row' });
+    modeRowEl.createEl('span', { cls: 'cp-output-mode-label', text: t('modal_mode_label') });
+    this.modeSelectEl = modeRowEl.createEl('select', { cls: 'cp-output-mode-select' });
+    for (const m of MODES) {
+      const opt = this.modeSelectEl.createEl('option', { text: t(m.nameKey), value: m.id });
+      if (m.id === this.mode) opt.selected = true;
+    }
+    this.modeSelectEl.addEventListener('change', () => {
+      this.mode = this.modeSelectEl.value;
+      this.updatePreview();
+    });
 
     this.previewEl = contentEl.createEl('div', { cls: 'cp-output-preview' });
     this.methodEl = contentEl.createEl('div', { cls: 'cp-output-method' });
@@ -70,6 +86,7 @@ export class OutputTargetModal extends Modal {
         saveToFile: this.doFile,
         includeStarterPrompt: this.doPrompt,
         openAiUrl: this.doOpenUrl,
+        mode: this.mode,
       });
     });
   }
@@ -96,18 +113,27 @@ export class OutputTargetModal extends Modal {
       const isNotebookLM = preset.target === 'notebooklm-text' || preset.target === 'notebooklm-zip';
       this.doPrompt = isNotebookLM ? false : this.settings.includeStarterPrompt;
       this.doOpenUrl = this.settings.openAiUrl && !!preset.aiUrl;
+      this.modeSelectEl.disabled = isNotebookLM;
       this.updatePreview();
     });
   }
 
   private updatePreview() {
     const preset = OUTPUT_PRESETS[this.selected];
+    const isNotebookLM = this.selected === 'notebooklm-text' || this.selected === 'notebooklm-zip';
     this.previewEl.empty();
     this.methodEl.empty();
 
+    const infoEl = this.previewEl.createEl('div', { cls: 'cp-output-info' });
+    infoEl.createEl('span', { cls: 'cp-output-info-target', text: `${t('modal_mode_label') === 'Mode' ? 'Target AI' : '出力先'}: ${preset.label}` });
+
+    const modeLabel = isNotebookLM
+      ? t('modal_mode_not_supported')
+      : (MODES.find(m => m.id === this.mode) ? t(MODES.find(m => m.id === this.mode)!.nameKey) : this.mode);
+    infoEl.createEl('span', { cls: 'cp-output-info-mode', text: `${t('modal_mode_label')}: ${modeLabel}` });
+
     if (this.settings.showTokenCount) {
-      const tokenEl = this.previewEl.createEl('div', { cls: 'cp-output-tokens' });
-      tokenEl.setText(t('modal_token_estimated', this.tokenCount));
+      infoEl.createEl('span', { cls: 'cp-output-info-tokens', text: t('modal_token_estimated', this.tokenCount) });
 
       if (this.settings.warnOnTokenLimit) {
         const warning = getTokenWarning(this.tokenCount, preset);
@@ -117,7 +143,6 @@ export class OutputTargetModal extends Modal {
       }
     }
 
-    const isNotebookLM = this.selected === 'notebooklm-text' || this.selected === 'notebooklm-zip';
     const hasAiUrl = !!preset.aiUrl;
 
     if (preset.copyToClipboard || preset.saveToFile) {
