@@ -90,6 +90,7 @@ Want to try the plugin without setting up your vault first?
 4. Try packing a folder, exploring by tag, or using **AI MOC**:
    - Right-click `Masterpieces of the World.md` → **Create AI MOC from this note**
    - Set scope to **Related Notes** to discover 4 movements + 12 artists at once
+5. To try Claude Code: pack the `linkbox-spec/` folder and choose **Agents → Claude Code** as the output target
 
 ---
 
