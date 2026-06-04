@@ -213,6 +213,35 @@ The generated MOC reflects exactly what your notes contain — no manual curatio
 
 ---
 
+## Mode Selector — Purpose-Aware Context Packs
+
+The **Mode selector** appears in the output modal. Choose a mode to append purpose-specific instructions to the prompt automatically — after the Common Instructions and AI-specific additions.
+
+| Mode | Best for | Added instructions |
+|------|---------|-------------------|
+| **None** | General use | No additions |
+| **Research** | Fact-checking, comparative analysis | Prioritize evidence, distinguish facts from inference, cite source notes |
+| **Learning** | Study notes, tutorials | Step-by-step explanations, examples, define technical terms |
+| **Writing** | Articles, documentation | Consistent style, structural suggestions, reader perspective |
+| **Development** | Code, specs, architecture | Actionable steps, concrete changes over vague suggestions, explain deviations from existing specs |
+
+### Combinations
+
+| Target AI | Mode | Use case |
+|-----------|------|---------|
+| Claude | Research | Deep analysis of your reading notes |
+| ChatGPT | Learning | Turn your study notes into a tutor session |
+| Claude Code | Development | Implement features from your spec notes |
+| Gemini | Research | Survey a large note collection for evidence |
+
+### Default mode
+
+Set a default mode in **Settings → AI Context Pack → Default Mode** so you don't need to change it every time.
+
+> **Note:** Mode is not applied when exporting to NotebookLM (NotebookLM does not use a starter prompt).
+
+---
+
 ## Daily Notes Pack
 
 Click the **calendar-arrow-down** ribbon icon (or use the Command Palette) to open the date range picker.
