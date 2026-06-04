@@ -5,75 +5,12 @@ import { estimateTokens } from './token-counter';
 import type { OutputPreset, OutputSelectorState } from './types';
 import { t } from './i18n';
 
-const PROJECT_KNOWLEDGE_INSTRUCTIONS: Record<string, string> = {
-  chatgpt_projects: `
-Treat this pack as project knowledge.
-
-Use the information in these notes as the primary reference.
-
-Do not assume missing requirements.
-
-If a specification is unclear or absent:
-- explicitly identify the gap
-- list possible interpretations
-- ask for clarification when necessary
-
-Prioritize consistency with existing project decisions over introducing new patterns.
-`.trim(),
-
-  claude_project: `
-Treat this pack as project knowledge.
-
-When analyzing requirements or specifications:
-- connect related information across multiple notes
-- identify dependencies and implications
-- identify relationships, conceptual links, and thematic connections
-- highlight contradictions or unresolved decisions
-- explain reasoning using evidence from the provided notes
-
-Do not replace project conventions with generic best practices unless explicitly requested.
-`.trim(),
-
-  gemini_notebook_library: `
-Treat this pack as a knowledge repository.
-
-When answering:
-- search broadly across the provided notes
-- synthesize information from multiple sections
-- identify recurring themes and patterns
-- cite the relevant note sections when possible
-
-Prefer conclusions supported by multiple notes over isolated statements.
-`.trim(),
-
-  agents_claudecode: `
-Treat this pack as project knowledge.
-
-Before generating code:
-- identify relevant specifications
-- identify architectural constraints
-- identify naming conventions
-- identify existing design decisions
-
-Generated code should follow the project knowledge whenever possible.
-
-If implementation details are missing:
-- explain assumptions explicitly
-- avoid inventing APIs or structures without evidence
-
-Do not replace existing architecture or refactor existing code
-unless explicitly requested.
-
-Prefer consistency with project documentation over generic examples.
-`.trim(),
-};
-
 export function getProjectKnowledgeInstructions(state: OutputSelectorState): string | null {
   const { activeTab, chatgptMode, claudeMode, geminiMode, agentMode } = state;
-  if (activeTab === 'chatgpt' && chatgptMode === 'projects')   return PROJECT_KNOWLEDGE_INSTRUCTIONS.chatgpt_projects;
-  if (activeTab === 'claude'  && claudeMode  === 'project')    return PROJECT_KNOWLEDGE_INSTRUCTIONS.claude_project;
-  if (activeTab === 'gemini'  && geminiMode  === 'notebook')   return PROJECT_KNOWLEDGE_INSTRUCTIONS.gemini_notebook_library;
-  if (activeTab === 'agents'  && agentMode   === 'claudecode') return PROJECT_KNOWLEDGE_INSTRUCTIONS.agents_claudecode;
+  if (activeTab === 'chatgpt' && chatgptMode === 'projects')   return t('pk_chatgpt_projects');
+  if (activeTab === 'claude'  && claudeMode  === 'project')    return t('pk_claude_project');
+  if (activeTab === 'gemini'  && geminiMode  === 'notebook')   return t('pk_gemini_notebook');
+  if (activeTab === 'agents'  && agentMode   === 'claudecode') return t('pk_agents_claudecode');
   return null;
 }
 

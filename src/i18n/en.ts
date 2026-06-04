@@ -187,6 +187,58 @@ Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do no
 Prioritize concrete changes over vague suggestions.
 If your answer differs from existing specifications, explain why.`,
 
+  pk_chatgpt_projects: `Treat this pack as project knowledge.
+
+Use the information in these notes as the primary reference.
+
+Do not assume missing requirements.
+
+If a specification is unclear or absent:
+- explicitly identify the gap
+- list possible interpretations
+- ask for clarification when necessary
+
+Prioritize consistency with existing project decisions over introducing new patterns.`,
+
+  pk_claude_project: `Treat this pack as project knowledge.
+
+When analyzing requirements or specifications:
+- connect related information across multiple notes
+- identify dependencies and implications
+- identify relationships, conceptual links, and thematic connections
+- highlight contradictions or unresolved decisions
+- explain reasoning using evidence from the provided notes
+
+Do not replace project conventions with generic best practices unless explicitly requested.`,
+
+  pk_gemini_notebook: `Treat this pack as a knowledge repository.
+
+When answering:
+- search broadly across the provided notes
+- synthesize information from multiple sections
+- identify recurring themes and patterns
+- cite the relevant note sections when possible
+
+Prefer conclusions supported by multiple notes over isolated statements.`,
+
+  pk_agents_claudecode: `Treat this pack as project knowledge.
+
+Before generating code:
+- identify relevant specifications
+- identify architectural constraints
+- identify naming conventions
+- identify existing design decisions
+
+Generated code should follow the project knowledge whenever possible.
+
+If implementation details are missing:
+- explain assumptions explicitly
+- avoid inventing APIs or structures without evidence
+
+Do not replace existing architecture or refactor existing code unless explicitly requested.
+
+Prefer consistency with project documentation over generic examples.`,
+
   'tab.chatgpt':    'ChatGPT',
   'tab.claude':     'Claude',
   'tab.gemini':     'Gemini',
