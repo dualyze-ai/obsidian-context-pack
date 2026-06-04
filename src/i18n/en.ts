@@ -187,6 +187,17 @@ Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do no
 Prioritize concrete changes over vague suggestions.
 If your answer differs from existing specifications, explain why.`,
 
+  'tab.chatgpt':    'ChatGPT',
+  'tab.claude':     'Claude',
+  'tab.gemini':     'Gemini',
+  'tab.agents':     'Agents',
+  'mode.chat':      'Chat',
+  'mode.projects':  'Projects',
+  'mode.project':   'Project',
+  'mode.notebook':  'Notebook',
+  'mode.claudecode': 'Claude Code',
+  'mode.notebooklm': 'NotebookLM',
+
   ai_addition_claude_code: `This Context Pack is project knowledge. When implementing:
 - Treat the Context Pack as fact
 - Follow coding conventions and architecture guidelines

@@ -9,6 +9,38 @@ export type OutputTarget =
 
 export type OutputKind = 'chat' | 'agent';
 
+export type OutputTab = 'chatgpt' | 'claude' | 'gemini' | 'agents';
+
+export type ChatGPTMode = 'chat' | 'projects';
+export type ClaudeMode  = 'chat' | 'project';
+export type GeminiMode  = 'chat' | 'notebook';
+export type AgentMode   = 'claudecode' | 'notebooklm';
+
+export interface OutputSelectorState {
+  activeTab:   OutputTab;
+  chatgptMode: ChatGPTMode;
+  claudeMode:  ClaudeMode;
+  geminiMode:  GeminiMode;
+  agentMode:   AgentMode;
+}
+
+export const DEFAULT_OUTPUT_SELECTOR_STATE: OutputSelectorState = {
+  activeTab:   'chatgpt',
+  chatgptMode: 'chat',
+  claudeMode:  'chat',
+  geminiMode:  'chat',
+  agentMode:   'claudecode',
+};
+
+export function getOutputTargetFromState(state: OutputSelectorState): OutputTarget {
+  switch (state.activeTab) {
+    case 'chatgpt': return 'chatgpt';
+    case 'claude':  return 'claude';
+    case 'gemini':  return 'gemini';
+    case 'agents':  return state.agentMode === 'claudecode' ? 'claude-code' : 'notebooklm-text';
+  }
+}
+
 export interface OutputPreset {
   target: OutputTarget;
   label: string;
