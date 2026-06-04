@@ -95,9 +95,9 @@ Want to try the plugin without setting up your vault first?
 
 ## Documentation
 
-- [Features](docs/features.md) — Usage, Context Pack, AI MOC, Mode Selector, Daily Notes, Settings
-- [AI Guides](docs/ai-guides.md) — Step-by-step guides for ChatGPT, Claude, Gemini, Claude Code, NotebookLM
-- [Changelog](docs/changelog.md)
+- [Features](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md) — Usage, Context Pack, AI MOC, Mode Selector, Daily Notes, Settings
+- [AI Guides](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-guides.md) — Step-by-step guides for ChatGPT, Claude, Gemini, Claude Code, NotebookLM
+- [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
 ---
 
