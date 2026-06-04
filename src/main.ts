@@ -1,11 +1,11 @@
 import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu, Platform, moment } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
-import { exportVault, exportSingleNote, downloadBlob, buildAiOutput } from './exporter';
+import { exportVault, exportSingleNote, downloadBlob, buildAiOutput, getProjectKnowledgeInstructions } from './exporter';
 import { buildContextPack } from './context-pack';
 import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
 import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
-import { OUTPUT_PRESETS, MODES, buildProfileMap, type OutputTarget } from './types';
+import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState } from './types';
 import { AiMocModal } from './ai-moc-modal';
 import { t } from './i18n';
 
@@ -175,7 +175,11 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   async loadSettings() {
-    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    const saved = await this.loadData() as Record<string, unknown> | null;
+    this.settings = Object.assign({}, DEFAULT_SETTINGS, saved);
+    if (!saved?.outputSelectorState) {
+      this.settings.outputSelectorState = migrateOutputTarget(this.settings.defaultOutputTarget);
+    }
   }
 
   async saveSettings() {
@@ -492,7 +496,8 @@ export default class ContextPackPlugin extends Plugin {
       .catch(err => this.handlePackError(notice, err));
   }
 
-  private applyStarterPrompt(content: string, source: string, noteCount: number, target: OutputTarget, mode = 'none'): string {
+  private applyStarterPrompt(content: string, source: string, noteCount: number, selectorState: OutputSelectorState, mode = 'none'): string {
+    const target = getOutputTargetFromState(selectorState);
     const profileMap = buildProfileMap(this.settings.promptProfiles);
     const customProfile = profileMap[`${target}-default`];
 
@@ -505,8 +510,11 @@ export default class ContextPackPlugin extends Plugin {
       const base = (this.settings.starterPrompt.trim() || t('default_common_instructions'))
         .replace('{source}', source)
         .replace('{count}', String(noteCount));
-      const addition = this.getAiAdditionForTarget(target);
-      prompt = addition ? `${base}\n\n${addition}` : base;
+      const pkInstructions = getProjectKnowledgeInstructions(selectorState);
+      const aiAddition = this.getAiAdditionForTarget(target);
+      prompt = base;
+      if (pkInstructions) prompt = `${prompt}\n\n${pkInstructions}`;
+      if (aiAddition)     prompt = `${prompt}\n\n${aiAddition}`;
     }
 
     const modeText = this.getModePrompt(mode);
@@ -533,9 +541,11 @@ export default class ContextPackPlugin extends Plugin {
 
   private handlePackOutput(content: string, slug: string, noteCount: number, source: string): void {
     if (this.settings.showOutputModal) {
-      new OutputTargetModal(this.app, content, this.settings, async (choice) => {
+      new OutputTargetModal(this.app, content, this.settings, () => this.saveSettings(), async (choice) => {
         const preset = OUTPUT_PRESETS[choice.target];
-        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt) ? this.applyStarterPrompt(content, source, noteCount, choice.target, choice.mode) : content;
+        const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt)
+          ? this.applyStarterPrompt(content, source, noteCount, choice.selectorState, choice.mode)
+          : content;
         if (choice.target === 'notebooklm-text') {
           await this.saveContextPack(finalContent, slug, noteCount);
         } else {
@@ -548,10 +558,13 @@ export default class ContextPackPlugin extends Plugin {
         }
       }).open();
     } else {
-      const target = this.settings.defaultOutputTarget;
+      const selectorState = this.settings.outputSelectorState;
+      const target = getOutputTargetFromState(selectorState);
       const preset = OUTPUT_PRESETS[target];
       const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
-      const finalContent = doPrompt ? this.applyStarterPrompt(content, source, noteCount, target, this.settings.defaultMode) : content;
+      const finalContent = doPrompt
+        ? this.applyStarterPrompt(content, source, noteCount, selectorState, this.settings.defaultMode)
+        : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
         this.saveContextPack(finalContent, slug, noteCount);
       } else {
@@ -661,6 +674,19 @@ class FolderSuggest extends SuggestModal<string> {
   onChooseSuggestion(folder: string): void {
     this.onChoose(folder);
   }
+}
+
+function migrateOutputTarget(target: OutputTarget): OutputSelectorState {
+  const state = { ...DEFAULT_OUTPUT_SELECTOR_STATE };
+  switch (target) {
+    case 'claude':         state.activeTab = 'claude'; break;
+    case 'gemini':         state.activeTab = 'gemini'; break;
+    case 'claude-code':    state.activeTab = 'agents'; state.agentMode = 'claudecode'; break;
+    case 'notebooklm-text':
+    case 'notebooklm-zip': state.activeTab = 'agents'; state.agentMode = 'notebooklm'; break;
+    default:               state.activeTab = 'chatgpt'; break;
+  }
+  return state;
 }
 
 function promptText(app: App, placeholder: string): Promise<string | null> {

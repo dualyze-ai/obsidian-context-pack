@@ -1,10 +1,33 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
-import type { OutputTarget, PromptProfile } from './types';
-import { OUTPUT_PRESETS, MODES } from './types';
+import type { OutputTarget, PromptProfile, OutputSelectorState } from './types';
+import { OUTPUT_PRESETS, MODES, DEFAULT_OUTPUT_SELECTOR_STATE } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
+
+function selectorStateToKey(state: OutputSelectorState): string {
+  const { activeTab, chatgptMode, claudeMode, geminiMode, agentMode } = state;
+  if (activeTab === 'chatgpt') return `chatgpt-${chatgptMode}`;
+  if (activeTab === 'claude')  return `claude-${claudeMode}`;
+  if (activeTab === 'gemini')  return `gemini-${geminiMode}`;
+  return `agents-${agentMode}`;
+}
+
+function selectorStateFromKey(key: string): OutputSelectorState {
+  const state = { ...DEFAULT_OUTPUT_SELECTOR_STATE };
+  switch (key) {
+    case 'chatgpt-chat':      state.activeTab = 'chatgpt'; state.chatgptMode = 'chat'; break;
+    case 'chatgpt-projects':  state.activeTab = 'chatgpt'; state.chatgptMode = 'projects'; break;
+    case 'claude-chat':       state.activeTab = 'claude';  state.claudeMode  = 'chat'; break;
+    case 'claude-project':    state.activeTab = 'claude';  state.claudeMode  = 'project'; break;
+    case 'gemini-chat':       state.activeTab = 'gemini';  state.geminiMode  = 'chat'; break;
+    case 'gemini-notebook':   state.activeTab = 'gemini';  state.geminiMode  = 'notebook'; break;
+    case 'agents-claudecode': state.activeTab = 'agents';  state.agentMode   = 'claudecode'; break;
+    case 'agents-notebooklm': state.activeTab = 'agents';  state.agentMode   = 'notebooklm'; break;
+  }
+  return state;
+}
 
 
 export interface PluginSettings {
@@ -30,6 +53,7 @@ export interface PluginSettings {
   starterPrompt: string;
   promptProfiles: PromptProfile[];
   defaultMode: string;
+  outputSelectorState: OutputSelectorState;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -55,6 +79,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   starterPrompt: '',
   promptProfiles: [],
   defaultMode: 'none',
+  outputSelectorState: DEFAULT_OUTPUT_SELECTOR_STATE,
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -236,14 +261,17 @@ export class SettingsTab extends PluginSettingTab {
       .setName(t('setting_default_target'))
       .setDesc(t('setting_default_target_desc'))
       .addDropdown(drop => {
-        for (const preset of Object.values(OUTPUT_PRESETS)) {
-          if (preset.target !== 'notebooklm-zip') {
-            drop.addOption(preset.target, preset.label);
-          }
-        }
-        drop.setValue(this.plugin.settings.defaultOutputTarget);
+        drop.addOption('chatgpt-chat',      `${t('tab.chatgpt')} — ${t('mode.chat')}`);
+        drop.addOption('chatgpt-projects',  `${t('tab.chatgpt')} — ${t('mode.projects')}`);
+        drop.addOption('claude-chat',       `${t('tab.claude')} — ${t('mode.chat')}`);
+        drop.addOption('claude-project',    `${t('tab.claude')} — ${t('mode.project')}`);
+        drop.addOption('gemini-chat',       `${t('tab.gemini')} — ${t('mode.chat')}`);
+        drop.addOption('gemini-notebook',   `${t('tab.gemini')} — ${t('mode.notebook')}`);
+        drop.addOption('agents-claudecode', t('mode.claudecode'));
+        drop.addOption('agents-notebooklm', t('mode.notebooklm'));
+        drop.setValue(selectorStateToKey(this.plugin.settings.outputSelectorState));
         drop.onChange(async value => {
-          this.plugin.settings.defaultOutputTarget = value as OutputTarget;
+          this.plugin.settings.outputSelectorState = selectorStateFromKey(value);
           await this.plugin.saveSettings();
         });
       });

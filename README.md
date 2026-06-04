@@ -1,22 +1,22 @@
 # AI Context Pack
 
-> Package your Obsidian notes into context packs for any AI — NotebookLM, ChatGPT, Claude, Gemini, and more.
+> Package your Obsidian notes into context packs for any AI — ChatGPT, Claude, Gemini, NotebookLM, and more.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/demo.gif" width="100%">
+<img src="docs/demo.gif" width="100%">
 </div>
 
 ---
 
 ## Supported AI Assistants
 
-| AI | Output | How to Use |
+| AI | Chat | Project / Notebook |
 |---|---|---|
-| NotebookLM | ZIP / Text | Upload as source |
-| ChatGPT | Markdown | Copy to clipboard / Save file |
-| Claude | Markdown | Copy to clipboard / Save file |
-| Gemini | Markdown | Copy to clipboard / Save file |
-| Claude Code | Markdown | Copy to clipboard / Save file |
+| ChatGPT | ✓ | ✓ Projects |
+| Claude | ✓ | ✓ Project |
+| Gemini | ✓ | ✓ Notebook |
+| Claude Code | ✓ | — |
+| NotebookLM | — | ✓ |
 
 ---
 
@@ -45,23 +45,19 @@ Obsidian Vault
  ChatGPT / Claude / Gemini / NotebookLM / Claude Code
 ```
 
----
+**Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export.
 
-## What it does
+**AI MOC** generates a Map of Content from any note by tracing its wikilinks outward, producing a structured hierarchy with Core Concepts, Related Notes, and Referenced By sections.
 
-**Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export. Each note section includes its vault path so the AI understands your knowledge hierarchy.
+**Output target selector** lets you choose where to send the pack each time — with AI-specific instructions prepended automatically.
 
-**AI MOC** generates a Map of Content from any note by tracing its wikilinks outward. Select a root note, choose how deep to explore, and the plugin builds a structured MOC file showing your knowledge hierarchy — with an optional Context Pack of all collected notes generated at the same time.
+**Mode selector** appends purpose-specific instructions (Research, Learning, Writing, Development) so the AI responds in the style that fits your workflow.
 
-**Output target selector** lets you choose where to send the pack each time — NotebookLM, ChatGPT, Claude, Gemini, or Claude Code. For ChatGPT, Claude, Gemini, and Claude Code, the pack is copied to your clipboard. **Common Instructions** are prepended automatically — a shared base you can customize, with AI-specific instructions added after it for each target.
+**Daily Notes Pack** collects your daily notes within a date range and bundles them into a single AI-ready file.
 
-**Mode selector** lets you append purpose-specific instructions to every pack. Choose from Research, Learning, Writing, or Development — each adds tailored guidance to the prompt so the AI responds in the style that fits your workflow.
-
-**Export** packages your notes as a clean ZIP file, ready to upload to NotebookLM as individual sources.
-
-**Daily Notes Pack** collects your daily notes within a date range and bundles them into a single AI-ready file. Filter by tag, choose a preset period, or set a custom range. Supports weekly summary mode.
-
-Both Context Pack and Export run the same formatter: frontmatter is removed, wikilinks are resolved, embeds and comments are stripped, and blank lines are collapsed.
+<div align="center">
+<img src="docs/demo-features.gif" width="100%">
+</div>
 
 ---
 
@@ -79,235 +75,9 @@ Download `main.js`, `styles.css`, and `manifest.json` from the [latest release](
 
 ---
 
-## Usage
-
-This plugin adds **two ribbon icons** to the left sidebar:
-
-| Icon | Function |
-|------|----------|
-| <img src="docs/icon-package.png" width="16"> | Context Pack / Export menu — folder, tag, MOC, and ZIP export |
-| <img src="docs/icon-calendar-arrow-down.png" width="16"> | Daily Notes Pack — open the date range picker |
-
-All commands are also available from the **Command Palette** (`Cmd/Ctrl+P`) and **right-click menus** in the file explorer.
-
-### Context Pack
-
-Bundles multiple notes into one `.md` file. After building the pack, the **output target selector** appears — choose NotebookLM, ChatGPT, or another destination.
-
-| Trigger | Source |
-|---|---|
-| Ribbon → Context Pack (choose folder) | All notes in a selected folder |
-| Ribbon → Context Pack (choose tag) | All notes with a selected tag |
-| Right-click file → Create Context Pack from this MOC | Notes linked from the current file |
-| Command: Create Context Pack from MOC | Same as above |
-
-The pack is saved as `pack-folder-chatgpt-20240101.md` (named by source, AI target, and date).
-
-### Export (ZIP)
-
-Exports notes as individual cleaned-up `.md` files in a ZIP.
-
-| Trigger | Source |
-|---|---|
-| Ribbon → Export entire vault (ZIP) | Entire vault |
-| Ribbon → Export folder (ZIP) | Selected folder |
-| Ribbon → Export by tag (ZIP) | Notes with selected tag |
-| Right-click folder → Export this folder (ZIP) | That folder |
-| Right-click file → Export this note (.md) | Single note |
-
-### MOC (Map of Content) — folder and tag
-
-A **MOC (Map of Content)** is an Obsidian convention: a note that works like a table of contents, containing wikilinks to a group of related notes. These commands generate a MOC automatically from a folder or tag.
-
-| Trigger | Source |
-|---|---|
-| Ribbon → Create MOC (from tag) | All notes with selected tag |
-| Right-click folder → Create MOC from this folder | All notes in folder |
-
-Once you have a MOC, run **Create Context Pack from this MOC** to pack exactly those linked notes.
-
----
-
-## AI MOC — Generate a MOC from any note
-
-**AI MOC** builds a Map of Content by following the `[[wikilinks]]` in a note outward — automatically discovering what each note connects to, and organizing it into a structured hierarchy.
-
-You don't need to maintain an index manually. Start from any note and the plugin maps its connections for you.
-
-### How it works
-
-```
-Root Note
-    │
-    ├── Core Concepts (notes directly linked from root)
-    │       └── Related Notes (notes linked from those)
-    │
-    └── Referenced By (notes that link back to root)
-```
-
-1. Choose a **Root Note** — the starting point for exploration
-2. The plugin follows its `[[wikilinks]]` outward (breadth-first search)
-3. **Direct Links** scope — collects only depth-1 links (Core Concepts)
-4. **Related Notes** scope — also collects depth-2 links (Related Notes)
-5. Notes that link *back* to your root appear in **Referenced By**
-6. A `{Root} MOC.md` is saved to your vault
-7. Optionally, a **Context Pack** of all collected notes is generated at the same time
-
-### Usage
-
-| Trigger | Action |
-|---|---|
-| Right-click any `.md` file → **Create AI MOC from this note** | Opens dialog with that note pre-selected |
-| Ribbon → **Create MOC (from note)** | Opens dialog |
-| Command Palette → **Create AI MOC from note** | Opens dialog |
-
-### Dialog options
-
-| Option | Default | Description |
-|---|---|---|
-| Root Note | — | Starting note for link traversal |
-| Scope: Direct Links | | Collect only notes directly linked from root (depth 1) |
-| Scope: Related Notes | ✓ | Also collect notes linked from *those* notes (depth 2) |
-| Backlinks in MOC | ✓ | Include notes that link *to* the root |
-| Backlinks in Context Pack | | Include backlink notes in the generated Context Pack |
-| Generate Context Pack | ✓ | Build a Context Pack from all collected notes at the same time |
-
-### Example — Paintings vault
-
-With `Masterpieces of the World` as the root note:
-
-```markdown
----
-generated: 2026-06-02
-generatedBy: ai-context-pack
-root: Masterpieces of the World
-scope: related
-includeBacklinks: true
----
-
-# [[Masterpieces of the World]]
-
-## Core Concepts
-
-- [[Impressionism]]
-- [[Renaissance]]
-- [[Baroque]]
-- [[Modern Art]]
-
-## Related Notes
-
-- [[Claude Monet]]
-- [[Leonardo da Vinci]]
-- [[Rembrandt]]
-- [[Vincent van Gogh]]
-- [[Pablo Picasso]]
-- … (12 artists total)
-
-## Referenced By
-
-- [[Museum Guide]]
-- [[Art for Beginners]]
-```
-
-The generated MOC reflects exactly what your notes contain — no manual curation needed.
-
----
-
-## Mode Selector — Purpose-Aware Context Packs
-
-The **Mode selector** appears in the output modal. Choose a mode to append purpose-specific instructions to the prompt automatically — after the Common Instructions and AI-specific additions.
-
-| Mode | Best for | Added instructions |
-|------|---------|-------------------|
-| **None** | General use | No additions |
-| **Research** | Fact-checking, comparative analysis | Prioritize evidence, distinguish facts from inference, cite source notes |
-| **Learning** | Study notes, tutorials | Step-by-step explanations, examples, define technical terms |
-| **Writing** | Articles, documentation | Consistent style, structural suggestions, reader perspective |
-| **Development** | Code, specs, architecture | Actionable steps, concrete changes over vague suggestions, explain deviations from existing specs |
-
-### Combinations
-
-| Target AI | Mode | Use case |
-|-----------|------|---------|
-| Claude | Research | Deep analysis of your reading notes |
-| ChatGPT | Learning | Turn your study notes into a tutor session |
-| Claude Code | Development | Implement features from your spec notes |
-| Gemini | Research | Survey a large note collection for evidence |
-
-### Default mode
-
-Set a default mode in **Settings → AI Context Pack → Default Mode** so you don't need to change it every time.
-
-> **Note:** Mode is not applied when exporting to NotebookLM (NotebookLM does not use a starter prompt).
-
----
-
-## Daily Notes Pack
-
-Click the **calendar-arrow-down** ribbon icon (or use the Command Palette) to open the date range picker.
-
-**Presets:** This week / Last week / Last 7 days / Last 14 days / Last 30 days / Custom
-
-**Folder auto-detection** tries the following sources in order:
-1. Obsidian built-in Daily Notes plugin settings
-2. Japanese Calendar plugin settings
-3. Periodic Notes plugin settings
-4. Vault scan — finds the folder containing the most `YYYY-MM-DD.md` files
-
-If auto-detection doesn't find the right folder, click **Change folder** in the modal to pick it manually. The selection is saved for next time.
-
-**Exclude tags** — comma-separated list of tags to exclude (e.g. `#private, #draft`). Notes containing any of these tags are skipped.
-
-**Weekly summary** — adds a summary header (`# Weekly Summary: 2026 Week 22`) before the daily notes content.
-
-### Commands
-
-| Command | Description |
-|---------|-------------|
-| Daily Notes: Create pack (default range) | Uses the default range from settings |
-| Daily Notes: Create pack (choose range) | Opens the date range picker modal |
-| Daily Notes: Create weekly summary pack | Packs this week's notes with a summary header |
-
----
-
-## Settings
-
-| Setting | Description | Default |
-|---|---|---|
-| Output folder | Where to save ZIP exports | Vault root |
-| Flatten folder structure | Merge all files into one folder in the ZIP | Off |
-| Include frontmatter title | Convert `title:` and `tags:` to plain text at the top of each note | On |
-| Open folder after export | Auto-open the output folder when done (desktop only) | Off |
-| Custom replacement rules | Find/replace rules applied before export (plain text or regex) | — |
-
-### Output settings
-
-| Setting | Description | Default |
-|---|---|---|
-| Show output selector | Choose the output target each time | On |
-| Default output target | Used when the selector is off | NotebookLM (text) |
-| Show token count | Display estimated token count in the selector | On |
-| Warn when over limit | Warn when the pack exceeds the AI's recommended token limit | On |
-| Open AI website after export | Open the AI site after clipboard copy (ChatGPT, Claude, Gemini) | Off |
-| Include Common Instructions by default | Prepend Common Instructions to every pack | On |
-| Common Instructions | Editable base instructions prepended to every pack. AI-specific instructions are added automatically after this. Use `{source}` for folder/tag name, `{count}` for note count | — |
-
-### Daily Notes mode settings
-
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Auto-detect Daily Notes | Auto-detect folder and format from plugin settings | On |
-| Daily Notes folder | Folder path (manual, when auto-detect is off) | — |
-| Date format | moment.js format | YYYY-MM-DD |
-| Default range | Preset period for quick pack | Last 7 days |
-| Exclude tags | Tags to skip (comma-separated) | — |
-| Sort order | Oldest first / Newest first | Oldest first |
-
----
-
 ## Sample data
 
-Want to try the plugin without setting up your vault first? Download a ready-made sample vault and open it in Obsidian.
+Want to try the plugin without setting up your vault first?
 
 | Vault | Notes | Topics | Download |
 |---|---|---|---|
@@ -320,206 +90,20 @@ Want to try the plugin without setting up your vault first? Download a ready-mad
 4. Try packing a folder, exploring by tag, or using **AI MOC**:
    - Right-click `Masterpieces of the World.md` → **Create AI MOC from this note**
    - Set scope to **Related Notes** to discover 4 movements + 12 artists at once
-5. To try Claude Code: pack the `linkbox-spec/` folder and choose **Claude Code** as the output target
 
 ---
 
-## Using with ChatGPT
+## Documentation
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **ChatGPT**
-3. Check **Copy to clipboard** (and optionally **Save to Vault**)
-4. Click **Export** — the pack is copied to your clipboard
-5. Open [ChatGPT](https://chat.openai.com/) and paste (`Cmd/Ctrl+V`) — Common Instructions with ChatGPT-specific additions are already included
-
-### Sample queries — Travel notes
-
-| Question | What you get |
-|---|---|
-| *"Which destination is best for a first solo trip on a mid-range budget?"* | Ranked recommendations from your notes |
-| *"Plan a 10-day Europe itinerary covering Paris, Barcelona, and Rome"* | Day-by-day itinerary with travel order |
-| *"Create a packing checklist based on the climates and cultures in these notes"* | Tailored checklist per destination |
-
-### Sample queries — Paintings (AI MOC)
-
-Use **AI MOC** on `Masterpieces of the World`, generate a Context Pack, then ask:
-
-| Question | What you get |
-|---|---|
-| *"Compare how Impressionism and Baroque each use light"* | Side-by-side analysis drawing on Monet, Caravaggio, and Rembrandt |
-| *"Which artist in these notes would be most accessible to someone seeing art for the first time?"* | Recommendation with reasoning from your notes |
-| *"What connects Van Gogh, Picasso, and Dalí beyond the fact that they're all Modern Art?"* | Thematic analysis from the collected notes |
-| *"Give me a one-sentence description of each artist's signature style"* | Quick-reference summary for all 12 artists |
-
-> **Tip:** Turn on **Open AI website after export** in settings to open ChatGPT automatically after exporting.
-
----
-
-## Using with Claude
-
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Claude**
-3. Click **Export** — the pack is copied to your clipboard
-4. Open [Claude](https://claude.ai/) and paste (`Cmd/Ctrl+V`)
-5. When the pack is large, Claude shows it as a **PASTED** block — this is normal. The content is included and Claude will read it in full.
-
-Claude handles packs up to ~180K tokens and excels at analysis, structured reasoning, and detailed comparisons.
-
-### Sample queries — Book notes
-
-| Question | What you get |
-|---|---|
-| *"Which books in my notes would you recommend I read next, and why?"* | Ranked recommendations based on your highlights |
-| *"What themes appear most often across my reading notes?"* | Cross-book pattern analysis |
-| *"Summarize the key arguments from each book in one sentence"* | Concise per-book summaries |
-| *"Which ideas from these books could apply to my work?"* | Practical connections drawn from your notes |
-
-> **Tip:** Turn on **Open AI website after export** in settings to open Claude automatically after exporting.
-
----
-
-## Using with Gemini
-
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Gemini**
-3. Click **Export** — the pack is copied to your clipboard
-4. Open [Gemini](https://gemini.google.com/) and paste (`Cmd/Ctrl+V`)
-
-Gemini supports packs up to ~800K tokens — ideal for large note collections you want to query all at once.
-
-### Sample queries — Travel notes
-
-| Question | What you get |
-|---|---|
-| *"Give me an overview of all the destinations in my notes"* | Full summary across all travel notes |
-| *"Which trips had the most budget tips? Summarize them"* | Budget advice extracted from your notes |
-| *"Find any recurring recommendations across multiple destinations"* | Cross-destination patterns |
-| *"What should I know before visiting each place in these notes?"* | Per-destination highlights |
-
-> **Tip:** Turn on **Open AI website after export** in settings to open Gemini automatically after exporting.
-
----
-
-## Using with Claude Code
-
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Claude Code**
-3. Click **Export** — the pack is copied to your clipboard
-4. Open your project in Claude Code and paste the pack as context
-
-Common Instructions with Claude Code-specific additions are prepended automatically — treating the pack as project knowledge, following coding conventions, and asking before making assumptions.
-
-Claude Code handles packs up to ~50K tokens, ideal for project specs, architecture notes, and decision records.
-
-### Sample queries — Project specs
-
-| Question | What you get |
-|---|---|
-| *"Based on these specs, scaffold the initial project structure"* | File and folder layout matching the spec |
-| *"Implement the data model described in the notes"* | TypeScript types and storage logic |
-| *"What open questions need to be resolved before we start building?"* | Summary of unresolved items |
-| *"Generate a task list from these specs"* | Prioritized implementation checklist |
-
-> **Tip:** Pack a single folder (e.g. `linkbox-spec/`) to keep the context focused on one feature area.
-
----
-
-## Using with NotebookLM
-
-1. Run **Context Pack** on a folder or tag → a `pack-recipes-notebooklm-20240101.md` file is downloaded
-2. Open [NotebookLM](https://notebooklm.google.com) → **New notebook** → **Add source** → **Upload file** → select the `.md` file
-3. Start asking questions
-
-### Sample queries — Recipes
-
-Once you've packed your recipe notes and uploaded them to NotebookLM, try asking:
-
-| Question | What you get |
-|---|---|
-| *"What can I make for dinner tonight using pork and vegetables?"* | Suggestions filtered from your notes |
-| *"Which recipes take under 30 minutes?"* | Quick-cook recipes from your collection |
-| *"I want something warming for a cold day. Any ideas?"* | Miso soup, stew, hot pot, etc. |
-| *"Compare the ingredients in carbonara and gratin"* | Side-by-side breakdown |
-| *"Give me a shopping list for making nikujaga for 4 people"* | Ingredient list pulled directly from your note |
-| *"What Chinese dishes are in my notes?"* | All Chinese recipes listed |
-
-> **Tip:** The more notes you include in the pack, the richer the answers. Try packing your entire recipe folder at once.
+- [Features](docs/features.md) — Usage, Context Pack, AI MOC, Mode Selector, Daily Notes, Settings
+- [AI Guides](docs/ai-guides.md) — Step-by-step guides for ChatGPT, Claude, Gemini, Claude Code, NotebookLM
+- [Changelog](docs/changelog.md)
 
 ---
 
 ## Migration from Context Pack for NotebookLM
 
 AI Context Pack is the successor to Context Pack for NotebookLM. All existing features work exactly the same. NotebookLM output is fully supported.
-
----
-
-## Changelog
-
-### v2.6.0
-- **Purpose-Aware Context Packs** — add a Mode selector to the output modal. Choose Research, Learning, Writing, or Development to append mode-specific instructions to every pack automatically.
-
-### v2.5.0
-- **AI MOC** — generate a Map of Content from any note by tracing its `[[wikilinks]]` outward (breadth-first, up to depth 2). Produces a structured MOC file with *Core Concepts*, *Related Notes*, and *Referenced By* sections. Optionally generates a Context Pack from all collected notes at the same time.
-- **AI MOC dialog** — choose Root Note, Scope (Direct Links / Related Notes), Backlinks inclusion, and Context Pack generation in one step
-- **Right-click menu** — right-click any `.md` file to open the AI MOC dialog with that note pre-selected
-- **Safe overwrite** — existing MOC files generated by AI Context Pack are updated silently; manually written MOC files show a confirmation dialog before overwriting
-- **Common Instructions improvement** — added instruction to avoid meta-commentary about Obsidian, Context Pack, or NotebookLM, so AI assistants focus on content rather than reviewing the document itself
-- **Sample vaults updated** — paintings topic added (19 notes each, 86 total); wikilinks and hub notes added throughout recipes and travel notes
-
-### v2.4.0
-- **AI-specific starter prompts** — each AI target (ChatGPT, Claude, Gemini, Claude Code) now receives optimized instructions tailored to its strengths
-- **Common Instructions** — the base prompt is now a shared, editable foundation; AI-specific instructions are appended automatically on export
-- **Reset to default** button added to the Common Instructions setting
-- **Claude Code** — now includes AI-specific instructions (project knowledge, coding conventions, no guessing)
-- **Agent context** — `outputKind` field added to presets to distinguish chat AI from agent-based tools (future extensibility)
-
-### v2.3.0
-- **Claude Code support** — copy to clipboard and paste into Claude Code; no starter prompt added
-- **Project spec sample vault** — `linkbox-spec/` folder added to both English and Japanese sample vaults
-- **Folder picker title** — folder selection dialog now shows a title above the search field
-- **Progress dialog** — cleaner appearance with dark background
-
-### v2.2.0
-- **Claude support** — copy to clipboard and paste directly into Claude.ai
-- **Gemini support** — copy to clipboard and paste directly into Gemini
-- **AI target in filename** — output files now include the AI name (e.g. `pack-recipes-gemini-20260601.md`)
-
-### v2.1.0
-- **Output target selector** — choose NotebookLM or ChatGPT each time you create a pack
-- **ChatGPT support** — copy to clipboard and/or save as file, with estimated token count
-- **Starter prompt** — customizable prompt prepended to every pack (`{source}` and `{count}` placeholders)
-- **Token counter** — estimated token count with per-AI context limit comparison
-- **Open AI website after export** — automatically opens ChatGPT after clipboard copy
-
-### v2.0.0
-- Renamed to **AI Context Pack** — now supports NotebookLM, ChatGPT, Claude, Gemini, and Claude Code
-- Full backward compatibility maintained — all existing features unchanged
-
-### v1.1.5
-- Fix pack output containing Japanese text when using English locale — all output strings now follow the app language setting
-
-### v1.1.4
-- Fix Daily Notes modal appearing blank briefly on open
-
-### v1.1.0
-- **Daily Notes Pack** — bundle daily notes by date range (presets + custom), with tag exclusion and weekly summary mode
-- Auto-detect Daily Notes folder from Obsidian / Japanese Calendar / Periodic Notes / Vault scan
-- New ribbon icon (`calendar-arrow-down`) dedicated to Daily Notes
-- Full English/Japanese i18n for all new UI
-- Mobile support for Daily Notes output (saves to Vault)
-
-### v1.0.2
-- Fix content loss when a note starts with a horizontal rule (`---`)
-- Fix invalid frontmatter causing parse errors on export
-
-### v1.0.1
-- Fix ENOENT error when tag names contain slashes (e.g. `project/work`)
-
-### v1.0.0
-- **Mobile support** — Context Pack and ZIP export now save directly to your Vault on iOS and Android
-
-### v0.1.x
-- Initial releases: folder/tag/MOC-based export, ZIP export, sample vaults, formatter, settings
 
 ---
 
