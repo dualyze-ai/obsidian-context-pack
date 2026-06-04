@@ -5,6 +5,7 @@ import {
   type OutputTarget, type OutputSelectorState, type OutputTab,
 } from './types';
 import { estimateTokens, getTokenWarning } from './token-counter';
+import { getProjectKnowledgeInstructions } from './exporter';
 import type { PluginSettings } from './settings';
 import { t } from './i18n';
 
@@ -209,10 +210,12 @@ export class OutputTargetModal extends Modal {
     this.methodEl.empty();
 
     if (this.settings.showTokenCount) {
+      const pk = getProjectKnowledgeInstructions(this.state);
+      const displayTokens = this.tokenCount + (pk ? estimateTokens(pk) : 0);
       const infoEl = this.previewEl.createEl('div', { cls: 'cp-output-info' });
-      infoEl.createEl('div', { cls: 'cp-output-info-tokens', text: t('modal_token_estimated', this.tokenCount) });
+      infoEl.createEl('div', { cls: 'cp-output-info-tokens', text: t('modal_token_estimated', displayTokens) });
       if (this.settings.warnOnTokenLimit) {
-        const warn = getTokenWarning(this.tokenCount, preset);
+        const warn = getTokenWarning(displayTokens, preset);
         if (warn) this.previewEl.createEl('div', { cls: 'cp-output-warning', text: warn });
       }
     }
