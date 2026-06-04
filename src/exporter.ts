@@ -2,8 +2,17 @@ import { App, TFile, Notice, Platform } from 'obsidian'; // Notice is used by ex
 import { zip, strToU8 } from 'fflate';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 import { estimateTokens } from './token-counter';
-import type { OutputPreset } from './types';
+import type { OutputPreset, OutputSelectorState } from './types';
 import { t } from './i18n';
+
+export function getProjectKnowledgeInstructions(state: OutputSelectorState): string | null {
+  const { activeTab, chatgptMode, claudeMode, geminiMode, agentMode } = state;
+  if (activeTab === 'chatgpt' && chatgptMode === 'projects')   return t('pk_chatgpt_projects');
+  if (activeTab === 'claude'  && claudeMode  === 'project')    return t('pk_claude_project');
+  if (activeTab === 'gemini'  && geminiMode  === 'notebook')   return t('pk_gemini_notebook');
+  if (activeTab === 'agents'  && agentMode   === 'claudecode') return t('pk_agents_claudecode');
+  return null;
+}
 
 interface ExportOptions extends FormatOptions {
   targetFolder: string;

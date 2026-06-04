@@ -254,6 +254,54 @@
   padding: 6px 14px;
 }
 
+/* Output target modal — TAB menu */
+.cp-output-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--background-modifier-border);
+  margin-bottom: 14px;
+  gap: 0;
+}
+
+.cp-output-tab {
+  padding: 7px 18px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.cp-output-tab:hover {
+  color: var(--text-normal);
+}
+
+.cp-output-tab-active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.cp-output-radios {
+  margin-bottom: 8px;
+}
+
+.cp-output-radio-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cp-output-radio-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
 /* Starter prompt textarea in settings */
 .cp-starter-prompt-area {
   width: 100%;
