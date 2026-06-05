@@ -201,12 +201,12 @@ export default class ContextPackPlugin extends Plugin {
   } {
     const controller = new AbortController();
     const notice = new Notice('', 0);
-    notice.messageEl.addClass('cp-progress');
-    notice.messageEl.empty();
+    notice.noticeEl.addClass('cp-progress');
+    notice.noticeEl.empty();
 
-    notice.messageEl.createEl('div', { cls: 'cp-title', text: initialMsg });
-    const msgEl = notice.messageEl.createEl('div', { cls: 'cp-progress-msg', text: '' });
-    const btn = notice.messageEl.createEl('button', { cls: 'cp-cancel-btn', text: t('btn_cancel') });
+    notice.noticeEl.createEl('div', { cls: 'cp-title', text: initialMsg });
+    const msgEl = notice.noticeEl.createEl('div', { cls: 'cp-progress-msg', text: '' });
+    const btn = notice.noticeEl.createEl('button', { cls: 'cp-cancel-btn', text: t('btn_cancel') });
     btn.addEventListener('click', () => controller.abort());
 
     return { notice, controller, setProgress: (msg) => msgEl.setText(msg) };
