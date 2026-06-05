@@ -50,7 +50,7 @@ export async function exportVault(
       ? file.path.replace(/\//g, '__')
       : file.path;
 
-    zipEntries[zipPath] = strToU8(content);
+    zipEntries[zipPath] = strToU8(content) as Uint8Array;
     count++;
   }
 
