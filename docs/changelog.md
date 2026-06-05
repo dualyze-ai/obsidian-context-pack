@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.8
+- **Lint fixes** — `activeDocument as Document` cast to resolve TypeScript ESLint unsafe-access warnings; reverted `messageEl` → `noticeEl` to avoid unsupported-API error; fixed unused parameter in token-counter; added local ESLint setup
+
 ### v2.7.7
 - **Lint error/warning fixes** — raised `minAppVersion` to 1.5.0 for `messageEl` support, replaced undocumented `getTags()` with documented metadata API, fixed async callbacks in void contexts, fixed floating Promise in `super.onOpen()`, added `.catch()` to auto-detect promise chain
 
