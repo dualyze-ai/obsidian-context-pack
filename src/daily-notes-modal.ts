@@ -86,16 +86,16 @@ export class DailyNotesModal extends Modal {
           const r = getDateRange(p.value);
           this.result.start = r.start;
           this.result.end = r.end;
-          this.customEl.style.display = 'none';
+          this.customEl.hide();
         } else {
-          this.customEl.style.display = '';
+          this.customEl.show();
         }
         this.updatePreview();
       });
     }
 
     this.customEl = contentEl.createDiv({ cls: 'cp-dn-custom' });
-    this.customEl.style.display = this.result.preset === 'custom' ? '' : 'none';
+    this.customEl.toggle(this.result.preset === 'custom');
 
     new Setting(this.customEl)
       .setName(t('daily_start_date'))
@@ -160,10 +160,12 @@ export class DailyNotesModal extends Modal {
 
     if (count === 0) {
       this.previewEl.setText(t('daily_preview_none'));
-      this.previewEl.style.color = 'var(--text-muted)';
+      this.previewEl.removeClass('cp-dn-preview-found');
+      this.previewEl.addClass('cp-dn-preview-none');
     } else {
       this.previewEl.setText(t('daily_preview_found', count));
-      this.previewEl.style.color = 'var(--color-green)';
+      this.previewEl.removeClass('cp-dn-preview-none');
+      this.previewEl.addClass('cp-dn-preview-found');
     }
   }
 

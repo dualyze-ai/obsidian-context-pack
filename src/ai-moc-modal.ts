@@ -53,9 +53,9 @@ export class AiMocModal extends Modal {
       .createDiv({ cls: 'setting-item-name', text: 'Root Note' });
     const noteControl = noteRow.createDiv({ cls: 'setting-item-control' });
     this.noteInput = noteControl.createEl('input', {
+      cls: 'cp-moc-note-input',
       attr: { type: 'text', readonly: 'true', placeholder: t('ai_moc_note_placeholder') },
     });
-    this.noteInput.style.cursor = 'pointer';
     this.noteInput.value = this.selectedFile?.basename ?? '';
     this.noteInput.addEventListener('click', () => this.openFileSuggest());
     noteControl.createEl('button', { text: t('ai_moc_btn_select') })
@@ -65,10 +65,7 @@ export class AiMocModal extends Modal {
     const scopeRow = contentEl.createDiv({ cls: 'setting-item' });
     scopeRow.createDiv({ cls: 'setting-item-info' })
       .createDiv({ cls: 'setting-item-name', text: 'Scope' });
-    const scopeControl = scopeRow.createDiv({ cls: 'setting-item-control' });
-    scopeControl.style.flexDirection = 'column';
-    scopeControl.style.alignItems = 'flex-start';
-    scopeControl.style.gap = '4px';
+    const scopeControl = scopeRow.createDiv({ cls: 'setting-item-control cp-moc-column-control' });
 
     for (const [value, label] of [['direct', t('ai_moc_scope_direct')], ['related', t('ai_moc_scope_related')]] as const) {
       const lbl = scopeControl.createEl('label', { cls: 'cp-radio-label' });
@@ -83,10 +80,7 @@ export class AiMocModal extends Modal {
     const backlinkInfo = backlinkRow.createDiv({ cls: 'setting-item-info' });
     backlinkInfo.createDiv({ cls: 'setting-item-name', text: 'Backlinks' });
     backlinkInfo.createDiv({ cls: 'setting-item-description', text: t('ai_moc_backlinks_note') });
-    const backlinkControl = backlinkRow.createDiv({ cls: 'setting-item-control' });
-    backlinkControl.style.flexDirection = 'column';
-    backlinkControl.style.alignItems = 'flex-start';
-    backlinkControl.style.gap = '4px';
+    const backlinkControl = backlinkRow.createDiv({ cls: 'setting-item-control cp-moc-column-control' });
 
     for (const [field, label, defaultVal] of [
       ['moc', t('ai_moc_backlinks_moc'), this.includeBacklinksInMoc],
