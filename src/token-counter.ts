@@ -9,7 +9,7 @@ export function estimateTokens(text: string): number {
     : Math.round(text.length / 4);
 }
 
-export function buildTokenReport(tokenCount: number, target: OutputTarget): string {
+export function buildTokenReport(tokenCount: number, _target: OutputTarget): string {
   const fmt = (n: number) => (n / 1000).toFixed(0) + 'K';
   const lines = Object.values(OUTPUT_PRESETS)
     .filter(p => p.target !== 'notebooklm-zip' && p.target !== 'custom' && p.target !== 'claude-code')

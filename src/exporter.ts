@@ -96,12 +96,13 @@ export async function exportSingleNote(app: App, file: TFile, options: FormatOpt
 
 export function downloadBlob(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
-  const a = activeDocument.createElement('a');
+  const doc = activeDocument as Document;
+  const a = doc.createElement('a');
   a.href = url;
   a.download = filename;
-  activeDocument.body.appendChild(a);
+  doc.body.appendChild(a);
   a.click();
-  activeDocument.body.removeChild(a);
+  doc.body.removeChild(a);
   window.setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
