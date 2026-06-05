@@ -157,7 +157,7 @@ export class SettingsTab extends PluginSettingTab {
           await this.plugin.saveSettings();
         }));
 
-    containerEl.createEl('h3', { text: t('setting_daily_section') });
+    new Setting(containerEl).setName(t('setting_daily_section')).setHeading();
 
     let folderSetting: Setting;
     let formatSetting: Setting;
@@ -245,7 +245,7 @@ export class SettingsTab extends PluginSettingTab {
           await this.plugin.saveSettings();
         }));
 
-    containerEl.createEl('h3', { text: t('setting_output_section') });
+    new Setting(containerEl).setName(t('setting_output_section')).setHeading();
 
     new Setting(containerEl)
       .setName(t('setting_show_modal'))
@@ -349,7 +349,7 @@ export class SettingsTab extends PluginSettingTab {
       await this.plugin.saveSettings();
     });
 
-    containerEl.createEl('h3', { text: 'Custom replacement rules' });
+    new Setting(containerEl).setName('Custom replacement rules').setHeading();
 
     for (let i = 0; i < this.plugin.settings.customRules.length; i++) {
       this.renderRuleRow(containerEl, i);
