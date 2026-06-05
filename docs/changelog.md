@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.5
+- **Lint fixes** — replaced direct style assignments with CSS classes, heading elements with `Setting.setHeading()`, updated `minAppVersion` to 1.4.0
+
 ### v2.7.4
 - **Documentation fix** — plain URLs converted to titled links throughout README and AI Guides
 
