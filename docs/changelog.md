@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.4
+- **Documentation fix** — plain URLs converted to titled links throughout README and AI Guides
+
 ### v2.7.3
 - **Documentation refresh** — README, Features, and AI Guides rewritten for the Obsidian community page
 
