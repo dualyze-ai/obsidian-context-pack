@@ -96,13 +96,16 @@ export async function exportSingleNote(app: App, file: TFile, options: FormatOpt
 
 export function downloadBlob(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
-  const doc = activeDocument as Document;
+  // activeDocument can be undefined after async operations (clipboard, etc.) reset focus
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const doc = (activeDocument ?? window.document) as Document;
+  const container = doc.body ?? doc.documentElement;
   const a = doc.createElement('a');
   a.href = url;
   a.download = filename;
-  doc.body.appendChild(a);
+  container.appendChild(a);
   a.click();
-  doc.body.removeChild(a);
+  container.removeChild(a);
   window.setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
@@ -169,7 +172,12 @@ export async function buildAiOutput(
   if (options.saveToFile && preset.saveToFile) {
     // When openAiUrl is enabled, force vault save so we can await completion before opening URL
     const forceVault = !!options.openAiUrl;
-    savedPath = await exportAsText(app, content, filename, options.outputFolder, forceVault);
+    try {
+      savedPath = await exportAsText(app, content, filename, options.outputFolder, forceVault);
+    } catch (err) {
+      new Notice(`Export failed: ${err instanceof Error ? err.message : String(err)}`, 8000);
+      return;
+    }
   }
 
   if (options.copyToClipboard && preset.copyToClipboard && savedPath) {

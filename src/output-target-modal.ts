@@ -89,16 +89,19 @@ export class OutputTargetModal extends Modal {
   private async handleSubmit(): Promise<void> {
     this.settings.outputSelectorState = { ...this.state };
     await this.saveSettings();
-    this.close();
-    await this.onSubmit({
-      target: getOutputTargetFromState(this.state),
-      selectorState: { ...this.state },
-      copyToClipboard: this.doCopy,
-      saveToFile: this.doFile,
-      includeStarterPrompt: this.doPrompt,
-      openAiUrl: this.doOpenUrl,
-      mode: this.mode,
-    });
+    try {
+      await this.onSubmit({
+        target: getOutputTargetFromState(this.state),
+        selectorState: { ...this.state },
+        copyToClipboard: this.doCopy,
+        saveToFile: this.doFile,
+        includeStarterPrompt: this.doPrompt,
+        openAiUrl: this.doOpenUrl,
+        mode: this.mode,
+      });
+    } finally {
+      this.close();
+    }
   }
 
   private renderTabs(container: HTMLElement) {
