@@ -88,7 +88,7 @@ export class AiMocModal extends Modal {
     ] as const) {
       const lbl = backlinkControl.createEl('label', { cls: 'cp-checkbox-label' });
       const cb = lbl.createEl('input', { attr: { type: 'checkbox' } });
-      cb.checked = defaultVal as boolean;
+      cb.checked = Boolean(defaultVal);
       cb.addEventListener('change', () => {
         if (field === 'moc') this.includeBacklinksInMoc = cb.checked;
         else this.includeBacklinksInPack = cb.checked;
@@ -110,7 +110,7 @@ export class AiMocModal extends Modal {
     btnRow.createEl('button', { text: t('ai_moc_btn_cancel') })
       .addEventListener('click', () => this.close());
     btnRow.createEl('button', { text: t('ai_moc_btn_create'), cls: 'mod-cta' })
-      .addEventListener('click', () => this.handleCreate());
+      .addEventListener('click', () => { void this.handleCreate(); });
   }
 
   onClose(): void {

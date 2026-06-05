@@ -57,11 +57,11 @@ export class DailyNotesModal extends Modal {
 
     folderRow.createEl('button', { text: t('daily_folder_label'), cls: 'cp-dn-folder-btn' })
       .addEventListener('click', () => {
-        new FolderPickerModal(this.app, t('daily_folder_picker'), async (folder) => {
+        new FolderPickerModal(this.app, t('daily_folder_picker'), (folder) => {
           this.dnConfig.folder = folder;
           this.updateFolderLabel();
           this.updatePreview();
-          if (this.onSaveFolder) await this.onSaveFolder(folder);
+          if (this.onSaveFolder) void this.onSaveFolder(folder);
         }).open();
       });
 
@@ -153,8 +153,9 @@ export class DailyNotesModal extends Modal {
       if (excludeTags.length === 0) return true;
       const cache = this.app.metadataCache.getFileCache(file);
       const inline = cache?.tags?.map(t => t.tag.replace('#', '')) ?? [];
-      const fm = cache?.frontmatter?.tags ?? [];
-      const all = [...inline, ...(Array.isArray(fm) ? fm : [fm])];
+      const fmRaw: unknown = cache?.frontmatter?.['tags'];
+      const fm: string[] = Array.isArray(fmRaw) ? (fmRaw as string[]) : (fmRaw != null ? [String(fmRaw)] : []);
+      const all = [...inline, ...fm];
       return !excludeTags.some(tag => all.includes(tag));
     }).length;
 

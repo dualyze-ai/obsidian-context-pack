@@ -76,7 +76,7 @@ function stripEmbeds(text: string): string {
 }
 
 function resolveWikiLinks(text: string): string {
-  return text.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, target, alias) => alias ?? target);
+  return text.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_: string, target: string, alias: string | undefined) => alias ?? target);
 }
 
 function stripObsidianComments(text: string): string {

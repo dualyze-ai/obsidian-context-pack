@@ -79,24 +79,26 @@ export class OutputTargetModal extends Modal {
       .addEventListener('click', () => this.close());
 
     footerEl.createEl('button', { text: t('modal_btn_export'), cls: 'cp-output-submit mod-cta' })
-      .addEventListener('click', async () => {
-        this.settings.outputSelectorState = { ...this.state };
-        await this.saveSettings();
-        this.close();
-        await this.onSubmit({
-          target: getOutputTargetFromState(this.state),
-          selectorState: { ...this.state },
-          copyToClipboard: this.doCopy,
-          saveToFile: this.doFile,
-          includeStarterPrompt: this.doPrompt,
-          openAiUrl: this.doOpenUrl,
-          mode: this.mode,
-        });
-      });
+      .addEventListener('click', () => { void this.handleSubmit(); });
   }
 
   onClose() {
     this.contentEl.empty();
+  }
+
+  private async handleSubmit(): Promise<void> {
+    this.settings.outputSelectorState = { ...this.state };
+    await this.saveSettings();
+    this.close();
+    await this.onSubmit({
+      target: getOutputTargetFromState(this.state),
+      selectorState: { ...this.state },
+      copyToClipboard: this.doCopy,
+      saveToFile: this.doFile,
+      includeStarterPrompt: this.doPrompt,
+      openAiUrl: this.doOpenUrl,
+      mode: this.mode,
+    });
   }
 
   private renderTabs(container: HTMLElement) {

@@ -1,4 +1,4 @@
-import { App, TFile, Notice, Platform } from 'obsidian'; // Notice is used by exportSingleNote
+import { App, TFile, Notice, Platform } from 'obsidian';
 import { zip, strToU8 } from 'fflate';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 import { estimateTokens } from './token-counter';
@@ -57,7 +57,7 @@ export async function exportVault(
   const date = window.moment().format('YYYYMMDD');
   const filename = `notebooklm-export-${date}.zip`;
   const blob = await new Promise<Blob>((resolve, reject) => {
-    zip(zipEntries, (err, data) => {
+    zip(zipEntries, (err: Error | null, data: Uint8Array) => {
       if (err) reject(err);
       else resolve(new Blob([data], { type: 'application/zip' }));
     });
@@ -99,8 +99,10 @@ export function downloadBlob(blob: Blob, filename: string): void {
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;
+  document.body.appendChild(a);
   a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 10000);
+  document.body.removeChild(a);
+  window.setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
 async function saveToVault(app: App, folder: string, filename: string, blob: Blob): Promise<void> {
@@ -115,7 +117,7 @@ async function saveToVault(app: App, folder: string, filename: string, blob: Blo
 }
 
 function yieldToUI(): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, 0));
+  return new Promise(resolve => window.setTimeout(resolve, 0));
 }
 
 export async function copyToClipboard(content: string): Promise<void> {

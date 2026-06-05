@@ -169,7 +169,7 @@ async function createAiMoc(
   const existing = app.vault.getAbstractFileByPath(mocFilename);
   if (existing instanceof TFile) {
     const existingCache = app.metadataCache.getFileCache(existing);
-    const generatedBy = existingCache?.frontmatter?.generatedBy;
+    const generatedBy: unknown = existingCache?.frontmatter?.['generatedBy'];
 
     if (generatedBy === 'ai-context-pack') {
       await app.vault.modify(existing, content);

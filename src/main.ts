@@ -53,7 +53,7 @@ export default class ContextPackPlugin extends Plugin {
 
     this.addRibbonIcon('calendar-arrow-down', t('ribbon_daily'), () => {
       new DailyNotesModal(this.app, this.settings, async (result) => {
-        await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder as 'asc' | 'desc', false, result.dnConfig);
+        await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder, false, result.dnConfig);
       }, async (folder) => { this.settings.dailyNotesFolder = folder; this.settings.dailyNotesAutoDetect = false; await this.saveSettings(); }).open();
     });
 
@@ -69,7 +69,7 @@ export default class ContextPackPlugin extends Plugin {
       checkCallback: (checking) => {
         const file = this.app.workspace.getActiveFile();
         if (!file) return false;
-        if (!checking) exportSingleNote(this.app, file, this.formatOptions());
+        if (!checking) void exportSingleNote(this.app, file, this.formatOptions());
         return true;
       },
     });
@@ -109,10 +109,11 @@ export default class ContextPackPlugin extends Plugin {
 
     this.addCommand({
       id: 'daily-notes-pack-custom',
+
       name: t('cmd_daily_custom'),
       callback: () => {
         new DailyNotesModal(this.app, this.settings, async (result) => {
-          await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder as 'asc' | 'desc', false, result.dnConfig);
+          await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder, false, result.dnConfig);
         }, async (folder) => { this.settings.dailyNotesFolder = folder; this.settings.dailyNotesAutoDetect = false; await this.saveSettings(); }).open();
       },
     });
@@ -132,7 +133,7 @@ export default class ContextPackPlugin extends Plugin {
       checkCallback: (checking) => {
         const file = this.app.workspace.getActiveFile();
         if (!file) return false;
-        if (!checking) this.packFromMoc(file);
+        if (!checking) void this.packFromMoc(file);
         return true;
       },
     });
@@ -157,7 +158,7 @@ export default class ContextPackPlugin extends Plugin {
           menu.addItem(item => item
             .setTitle(t('menu_export_note'))
             .setIcon('download')
-            .onClick(() => exportSingleNote(this.app, file, this.formatOptions())));
+            .onClick(() => void exportSingleNote(this.app, file, this.formatOptions())));
           menu.addItem(item => item
             .setTitle(t('menu_create_ai_moc'))
             .setIcon('map')
@@ -167,7 +168,7 @@ export default class ContextPackPlugin extends Plugin {
             menu.addItem(item => item
               .setTitle(t('menu_pack_moc'))
               .setIcon('list')
-              .onClick(() => this.packFromMoc(file)));
+              .onClick(() => void this.packFromMoc(file)));
           }
         }
       })
@@ -200,12 +201,12 @@ export default class ContextPackPlugin extends Plugin {
   } {
     const controller = new AbortController();
     const notice = new Notice('', 0);
-    notice.noticeEl.addClass('cp-progress');
-    notice.noticeEl.empty();
+    notice.messageEl.addClass('cp-progress');
+    notice.messageEl.empty();
 
-    notice.noticeEl.createEl('div', { cls: 'cp-title', text: initialMsg });
-    const msgEl = notice.noticeEl.createEl('div', { cls: 'cp-progress-msg', text: '' });
-    const btn = notice.noticeEl.createEl('button', { cls: 'cp-cancel-btn', text: t('btn_cancel') });
+    notice.messageEl.createEl('div', { cls: 'cp-title', text: initialMsg });
+    const msgEl = notice.messageEl.createEl('div', { cls: 'cp-progress-msg', text: '' });
+    const btn = notice.messageEl.createEl('button', { cls: 'cp-cancel-btn', text: t('btn_cancel') });
     btn.addEventListener('click', () => controller.abort());
 
     return { notice, controller, setProgress: (msg) => msgEl.setText(msg) };
@@ -252,7 +253,7 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private exportFromFolderPath(folderPath: string) {
-    this.runExport(folderPath);
+    void this.runExport(folderPath);
   }
 
   private async createMocFromFolderPath(folderPath: string) {
@@ -326,7 +327,8 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private getAllTags(): string[] {
-    return Object.keys(this.app.metadataCache.getTags())
+    const tags = this.app.metadataCache.getTags() as Record<string, number>;
+    return Object.keys(tags)
       .map(tag => tag.replace(/^#/, ''))
       .sort();
   }
@@ -335,8 +337,9 @@ export default class ContextPackPlugin extends Plugin {
     return this.app.vault.getMarkdownFiles().filter(f => {
       const cache = this.app.metadataCache.getFileCache(f);
       const inlineTags = cache?.tags?.map(t => t.tag.replace('#', '')) ?? [];
-      const fmTags = cache?.frontmatter?.tags ?? [];
-      const allTags = [...inlineTags, ...(Array.isArray(fmTags) ? fmTags : [fmTags])];
+      const fmTagsRaw: unknown = cache?.frontmatter?.['tags'];
+      const fmTags: string[] = Array.isArray(fmTagsRaw) ? (fmTagsRaw as string[]) : (fmTagsRaw != null ? [String(fmTagsRaw)] : []);
+      const allTags = [...inlineTags, ...fmTags];
       return allTags.includes(tag);
     });
   }
@@ -375,7 +378,7 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
-    const { notice, controller, setProgress } = this.startProgress(t('notice_packing'));
+    const { notice } = this.startProgress(t('notice_packing'));
 
     const excludeTags = excludeTagsStr.split(',').map(t => t.trim()).filter(Boolean);
     const options = { excludeTags, sortOrder };
@@ -566,9 +569,9 @@ export default class ContextPackPlugin extends Plugin {
         ? this.applyStarterPrompt(content, source, noteCount, selectorState, this.settings.defaultMode)
         : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
-        this.saveContextPack(finalContent, slug, noteCount);
+        void this.saveContextPack(finalContent, slug, noteCount);
       } else {
-        buildAiOutput(this.app, finalContent, slug, preset, {
+        void buildAiOutput(this.app, finalContent, slug, preset, {
           copyToClipboard: preset.copyToClipboard,
           saveToFile: preset.saveToFile,
           outputFolder: this.settings.contextPackOutputFolder || this.settings.outputFolder,
@@ -689,15 +692,3 @@ function migrateOutputTarget(target: OutputTarget): OutputSelectorState {
   return state;
 }
 
-function promptText(app: App, placeholder: string): Promise<string | null> {
-  return new Promise(resolve => {
-    const modal = new class extends SuggestModal<string> {
-      getSuggestions(query: string): string[] { return query ? [query] : []; }
-      renderSuggestion(val: string, el: HTMLElement): void { el.setText(val); }
-      onChooseSuggestion(val: string): void { resolve(val); }
-      onClose(): void { resolve(null); }
-    }(app);
-    modal.setPlaceholder(placeholder);
-    modal.open();
-  });
-}

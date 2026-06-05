@@ -2,7 +2,7 @@ import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
 import type { OutputTarget, PromptProfile, OutputSelectorState } from './types';
-import { OUTPUT_PRESETS, MODES, DEFAULT_OUTPUT_SELECTOR_STATE } from './types';
+import { MODES, DEFAULT_OUTPUT_SELECTOR_STATE } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
 
@@ -91,6 +91,10 @@ export class SettingsTab extends PluginSettingTab {
   }
 
   display(): void {
+    this.renderSettings();
+  }
+
+  private renderSettings(): void {
     const { containerEl } = this;
     containerEl.empty();
 
@@ -193,7 +197,7 @@ export class SettingsTab extends PluginSettingTab {
             this.plugin.settings.dailyNotesFolder = folder;
             this.plugin.settings.dailyNotesAutoDetect = false;
             await this.plugin.saveSettings();
-            this.display();
+            this.renderSettings();
           }).open();
         }));
 
@@ -361,7 +365,7 @@ export class SettingsTab extends PluginSettingTab {
         .onClick(async () => {
           this.plugin.settings.customRules.push({ find: '', replace: '', useRegex: false, enabled: true });
           await this.plugin.saveSettings();
-          this.display();
+          this.renderSettings();
         }));
   }
 
@@ -402,7 +406,7 @@ export class SettingsTab extends PluginSettingTab {
         .onClick(async () => {
           this.plugin.settings.customRules.splice(i, 1);
           await this.plugin.saveSettings();
-          this.display();
+          this.renderSettings();
         }));
 
     setting.nameEl.setText(`Rule ${i + 1}`);
