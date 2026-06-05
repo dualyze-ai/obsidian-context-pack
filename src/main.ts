@@ -52,8 +52,8 @@ export default class ContextPackPlugin extends Plugin {
     });
 
     this.addRibbonIcon('calendar-arrow-down', t('ribbon_daily'), () => {
-      new DailyNotesModal(this.app, this.settings, async (result) => {
-        await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder, false, result.dnConfig);
+      new DailyNotesModal(this.app, this.settings, (result) => {
+        void this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder, false, result.dnConfig);
       }, async (folder) => { this.settings.dailyNotesFolder = folder; this.settings.dailyNotesAutoDetect = false; await this.saveSettings(); }).open();
     });
 
@@ -112,8 +112,8 @@ export default class ContextPackPlugin extends Plugin {
 
       name: t('cmd_daily_custom'),
       callback: () => {
-        new DailyNotesModal(this.app, this.settings, async (result) => {
-          await this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder, false, result.dnConfig);
+        new DailyNotesModal(this.app, this.settings, (result) => {
+          void this.runDailyNotesPack(result.start, result.end, result.excludeTags, result.sortOrder, false, result.dnConfig);
         }, async (folder) => { this.settings.dailyNotesFolder = folder; this.settings.dailyNotesAutoDetect = false; await this.saveSettings(); }).open();
       },
     });
@@ -288,49 +288,62 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private createMocFromTag() {
-    new TagSuggest(this.app, this.getAllTags(), async (tag) => {
-      const files = this.getFilesByTag(tag);
-      if (files.length === 0) { new Notice(t('notice_no_files')); return; }
-      const lines: string[] = [`# MOC: #${tag}`, ''];
-      for (const file of files.sort((a, b) => a.basename.localeCompare(b.basename))) {
-        lines.push(`- [[${file.basename}]]`);
-      }
-      lines.push('');
-      await this.saveMoc(`MOC-tag-${tag.replace(/\//g, '-')}.md`, lines.join('\n'), files.length);
-    }).open();
+    new TagSuggest(this.app, this.getAllTags(), (tag) => { void this.handleMocFromTag(tag); }).open();
+  }
+
+  private async handleMocFromTag(tag: string): Promise<void> {
+    const files = this.getFilesByTag(tag);
+    if (files.length === 0) { new Notice(t('notice_no_files')); return; }
+    const lines: string[] = [`# MOC: #${tag}`, ''];
+    for (const file of files.sort((a, b) => a.basename.localeCompare(b.basename))) {
+      lines.push(`- [[${file.basename}]]`);
+    }
+    lines.push('');
+    await this.saveMoc(`MOC-tag-${tag.replace(/\//g, '-')}.md`, lines.join('\n'), files.length);
   }
 
   private exportFromTag() {
-    new TagSuggest(this.app, this.getAllTags(), async (tag) => {
-      const files = this.getFilesByTag(tag);
-      if (files.length === 0) { new Notice(t('notice_no_files')); return; }
-      const options = {
-        ...this.formatOptions(),
-        targetFolder: '',
-        outputFolder: this.settings.outputFolder,
-        flattenStructure: this.settings.flattenStructure,
-        openAfterExport: this.settings.openAfterExport,
-      };
-      const { notice, controller, setProgress } = this.startProgress(t('notice_exporting'));
-      try {
-        const result = await exportVault(this.app, options,
-          (cur, total) => setProgress(`${cur} / ${total}`),
-          controller.signal, files
-        );
-        notice.hide();
-        if (!result) new Notice(t('notice_no_files'));
-        else new Notice(`${t('notice_done', result.count)}\n📄 ${result.filename}`, 8000);
-      } catch (err) {
-        this.handlePackError(notice, err);
-      }
-    }).open();
+    new TagSuggest(this.app, this.getAllTags(), (tag) => { void this.handleExportFromTag(tag); }).open();
+  }
+
+  private async handleExportFromTag(tag: string): Promise<void> {
+    const files = this.getFilesByTag(tag);
+    if (files.length === 0) { new Notice(t('notice_no_files')); return; }
+    const options = {
+      ...this.formatOptions(),
+      targetFolder: '',
+      outputFolder: this.settings.outputFolder,
+      flattenStructure: this.settings.flattenStructure,
+      openAfterExport: this.settings.openAfterExport,
+    };
+    const { notice, controller, setProgress } = this.startProgress(t('notice_exporting'));
+    try {
+      const result = await exportVault(this.app, options,
+        (cur, total) => setProgress(`${cur} / ${total}`),
+        controller.signal, files
+      );
+      notice.hide();
+      if (!result) new Notice(t('notice_no_files'));
+      else new Notice(`${t('notice_done', result.count)}\n📄 ${result.filename}`, 8000);
+    } catch (err) {
+      this.handlePackError(notice, err);
+    }
   }
 
   private getAllTags(): string[] {
-    const tags = this.app.metadataCache.getTags() as Record<string, number>;
-    return Object.keys(tags)
-      .map(tag => tag.replace(/^#/, ''))
-      .sort();
+    const tagSet = new Set<string>();
+    for (const file of this.app.vault.getMarkdownFiles()) {
+      const cache = this.app.metadataCache.getFileCache(file);
+      if (!cache) continue;
+      for (const ref of cache.tags ?? []) tagSet.add(ref.tag.replace(/^#/, ''));
+      const fmTags: unknown = cache.frontmatter?.['tags'];
+      if (Array.isArray(fmTags)) {
+        for (const t of fmTags) { if (typeof t === 'string') tagSet.add(t.replace(/^#/, '')); }
+      } else if (typeof fmTags === 'string' && fmTags) {
+        for (const t of fmTags.split(',')) { const s = t.trim().replace(/^#/, ''); if (s) tagSet.add(s); }
+      }
+    }
+    return Array.from(tagSet).sort();
   }
 
   private getFilesByTag(tag: string): TFile[] {
@@ -408,7 +421,7 @@ export default class ContextPackPlugin extends Plugin {
 
   private packFromFolder() {
     const folders = this.getFolders();
-    new FolderSuggest(this.app, folders, (folder) => this.packFromFolderPath(folder), t('folder_picker_title_pack')).open();
+    new FolderSuggest(this.app, folders, (folder) => { void this.packFromFolderPath(folder); }, t('folder_picker_title_pack')).open();
   }
 
   private async packFromFolderPath(folderPath: string) {
@@ -435,20 +448,22 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private packFromTag() {
-    new TagSuggest(this.app, this.getAllTags(), async (tag) => {
-      const files = this.getFilesByTag(tag);
-      if (files.length === 0) { new Notice(t('notice_no_files')); return; }
-      const { notice, controller, setProgress } = this.startProgress(t('notice_packing'));
-      try {
-        const content = await buildContextPack(files, this.app, this.formatOptions(), {
-          title: tag, source: `tag:${tag}`,
-        }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
-        notice.hide();
-        this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length, `#${tag}`);
-      } catch (err) {
-        this.handlePackError(notice, err);
-      }
-    }).open();
+    new TagSuggest(this.app, this.getAllTags(), (tag) => { void this.handlePackFromTag(tag); }).open();
+  }
+
+  private async handlePackFromTag(tag: string): Promise<void> {
+    const files = this.getFilesByTag(tag);
+    if (files.length === 0) { new Notice(t('notice_no_files')); return; }
+    const { notice, controller, setProgress } = this.startProgress(t('notice_packing'));
+    try {
+      const content = await buildContextPack(files, this.app, this.formatOptions(), {
+        title: tag, source: `tag:${tag}`,
+      }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
+      notice.hide();
+      this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length, `#${tag}`);
+    } catch (err) {
+      this.handlePackError(notice, err);
+    }
   }
 
   private async packFromMoc(moc: TFile) {
@@ -657,7 +672,7 @@ class FolderSuggest extends SuggestModal<string> {
   }
 
   onOpen(): void {
-    super.onOpen();
+    void super.onOpen();
     if (this.title) {
       const target = this.modalEl.querySelector('.prompt') ?? this.inputEl.parentElement;
       target?.insertAdjacentElement('beforebegin',
