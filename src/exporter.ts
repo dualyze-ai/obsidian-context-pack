@@ -96,8 +96,6 @@ export async function exportSingleNote(app: App, file: TFile, options: FormatOpt
 
 export function downloadBlob(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
-  // activeDocument can be undefined after async operations (clipboard, etc.) reset focus
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const doc = (activeDocument ?? window.document) as Document;
   const container = doc.body ?? doc.documentElement;
   const a = doc.createElement('a');
