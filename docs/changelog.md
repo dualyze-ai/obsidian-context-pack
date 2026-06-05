@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.3
+- **Documentation refresh** — README, Features, and AI Guides rewritten for the Obsidian community page
+
 ### v2.7.0
 - **Output Target TAB menu** — ChatGPT, Claude, Gemini, and Agents tabs replace the single dropdown. Each tab shows context-appropriate options (Chat / Projects / Project / Notebook / Claude Code / NotebookLM).
 - **Project Knowledge Instructions** — when Projects, Project, Notebook, or Claude Code is selected, a tailored instruction block is automatically prepended, telling the AI to treat the pack as project knowledge.

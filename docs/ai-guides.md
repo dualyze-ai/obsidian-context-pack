@@ -1,156 +1,515 @@
 # AI Context Pack — AI Guides
 
-## Chat vs Project / Notebook
+This guide explains how to use AI Context Pack with each supported AI assistant.
+
+---
+
+# Chat vs Project / Notebook
+
+AI Context Pack supports two major workflows.
 
 | | Chat | Project / Notebook |
 |---|---|---|
-| **How to use** | Copy → paste each time | Upload once, reuse |
-| **Best for** | One-off queries, frequently updated notes | Same notes queried repeatedly |
-| **On note update** | Re-export → re-paste | Re-export → replace the file |
+| Setup | Paste every time | Upload once |
+| Context Lifetime | Current conversation | Persistent |
+| Best For | Temporary tasks | Long-term knowledge |
+| Updating Notes | Re-export and paste | Re-export and replace file |
 
 ---
 
-## ChatGPT
+## When to Use Chat
 
-### Chat
+Use Chat when:
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **ChatGPT → Chat**
-3. Click **Export** — the pack is copied to your clipboard
-4. Open [ChatGPT](https://chat.openai.com/) and paste (`Cmd/Ctrl+V`)
+- Notes change frequently
+- You want quick answers
+- You only need the context once
+- You are experimenting
 
-### Projects
+Examples:
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **ChatGPT → Projects**
-3. Click **Export** — a file is saved
-4. Open [ChatGPT](https://chat.openai.com/) → your project → **Sources** tab → **Add source** → upload the file
-5. Query the project — no need to paste context each time
-
-### Sample queries — Travel notes
-
-| Question | What you get |
-|---|---|
-| *"Which destination is best for a first solo trip on a mid-range budget?"* | Ranked recommendations from your notes |
-| *"Plan a 10-day Europe itinerary covering Paris, Barcelona, and Rome"* | Day-by-day itinerary with travel order |
-| *"Create a packing checklist based on the climates and cultures in these notes"* | Tailored checklist per destination |
-
-### Sample queries — Paintings (AI MOC)
-
-| Question | What you get |
-|---|---|
-| *"Compare how Impressionism and Baroque each use light"* | Side-by-side analysis drawing on Monet, Caravaggio, and Rembrandt |
-| *"Which artist in these notes would be most accessible to someone seeing art for the first time?"* | Recommendation with reasoning from your notes |
-| *"Give me a one-sentence description of each artist's signature style"* | Quick-reference summary for all 12 artists |
-
-> **Tip:** Turn on **Open AI website after export** in settings to open ChatGPT automatically after exporting.
+- ChatGPT Chat
+- Claude Chat
+- Gemini Chat
 
 ---
 
-## Claude
+## When to Use Project / Notebook
 
-### Chat
+Use Projects or Notebooks when:
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Claude → Chat**
-3. Click **Export** — the pack is copied to your clipboard
-4. Open [Claude](https://claude.ai/) and paste (`Cmd/Ctrl+V`)
+- The same notes are used repeatedly
+- You have a stable knowledge base
+- You want persistent context
+- You want to avoid pasting large packs repeatedly
 
-When the pack is large, Claude shows it as a **PASTED** block — this is normal. The content is included and Claude will read it in full.
+Examples:
 
-### Project
-
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Claude → Project**
-3. Click **Export** — a file is saved
-4. Open [Claude](https://claude.ai/) → your project → right panel **Files** → **+** → **Upload from device**
-5. Query the project — the pack is always available as project knowledge
-
-Claude handles packs up to ~180K tokens and excels at analysis, structured reasoning, and detailed comparisons.
-
-### Sample queries — Book notes
-
-| Question | What you get |
-|---|---|
-| *"Which books in my notes would you recommend I read next, and why?"* | Ranked recommendations based on your highlights |
-| *"What themes appear most often across my reading notes?"* | Cross-book pattern analysis |
-| *"Summarize the key arguments from each book in one sentence"* | Concise per-book summaries |
-| *"Which ideas from these books could apply to my work?"* | Practical connections drawn from your notes |
-
-> **Tip:** Turn on **Open AI website after export** in settings to open Claude automatically after exporting.
+- ChatGPT Projects
+- Claude Project
+- Gemini Notebook
+- NotebookLM
 
 ---
 
-## Gemini
+# ChatGPT
 
-### Chat
+## Chat
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Gemini → Chat**
-3. Click **Export** — the pack is copied to your clipboard
-4. Open [Gemini](https://gemini.google.com/) and paste (`Cmd/Ctrl+V`)
+1. Run **Context Pack**
+2. Select:
 
-### Notebook (NotebookLM)
+```text
+ChatGPT → Chat
+```
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Gemini → Notebook**
-3. Click **Export** — a file is saved
-4. Open [NotebookLM](https://notebooklm.google.com) → your notebook → **+ Add source** → upload the file
-5. Query the notebook — the pack is always available as a knowledge source
+3. Click **Export**
+4. The pack is copied to your clipboard
+5. Open ChatGPT
+6. Paste (`Cmd/Ctrl+V`)
 
-Gemini supports packs up to ~800K tokens — ideal for large note collections.
-
-### Sample queries — Travel notes
-
-| Question | What you get |
-|---|---|
-| *"Give me an overview of all the destinations in my notes"* | Full summary across all travel notes |
-| *"Which trips had the most budget tips? Summarize them"* | Budget advice extracted from your notes |
-| *"Find any recurring recommendations across multiple destinations"* | Cross-destination patterns |
-
-> **Tip:** Turn on **Open AI website after export** in settings to open Gemini automatically after exporting.
+AI Context Pack automatically adds ChatGPT-specific instructions.
 
 ---
 
-## Claude Code
+## Projects
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Agents → Claude Code**
-3. Click **Export** — the pack is copied to your clipboard
-4. Open your project in Claude Code and paste the pack as context
+1. Run **Context Pack**
+2. Select:
 
-Common Instructions with Claude Code-specific additions are prepended automatically — treating the pack as project knowledge, following coding conventions, and asking before making assumptions.
+```text
+ChatGPT → Projects
+```
 
-Claude Code handles packs up to ~50K tokens, ideal for project specs, architecture notes, and decision records.
+3. Click **Export**
+4. Save the generated file
+5. Open ChatGPT
+6. Open your Project
+7. Go to **Sources**
+8. Click **Add Source**
+9. Upload the file
 
-### Sample queries — Project specs
-
-| Question | What you get |
-|---|---|
-| *"Based on these specs, scaffold the initial project structure"* | File and folder layout matching the spec |
-| *"Implement the data model described in the notes"* | TypeScript types and storage logic |
-| *"What open questions need to be resolved before we start building?"* | Summary of unresolved items |
-| *"Generate a task list from these specs"* | Prioritized implementation checklist |
-
-> **Tip:** Pack a single folder (e.g. `linkbox-spec/`) to keep the context focused on one feature area.
+The notes become permanent project knowledge.
 
 ---
 
-## NotebookLM
+## Good Use Cases
 
-1. Run **Context Pack** on a folder or tag
-2. In the output selector, choose **Agents → NotebookLM**
-3. Click **Export** — a `pack-recipes-notebooklm-20240101.md` file is saved
-4. Open [NotebookLM](https://notebooklm.google.com) → **New notebook** → **Add source** → **Upload file** → select the file
-5. Start asking questions
+### Study Notes
 
-### Sample queries — Recipes
+Ask:
 
-| Question | What you get |
-|---|---|
-| *"What can I make for dinner tonight using pork and vegetables?"* | Suggestions filtered from your notes |
-| *"Which recipes take under 30 minutes?"* | Quick-cook recipes from your collection |
-| *"Compare the ingredients in carbonara and gratin"* | Side-by-side breakdown |
-| *"Give me a shopping list for making nikujaga for 4 people"* | Ingredient list pulled directly from your note |
+> Explain this topic step-by-step.
 
-> **Tip:** The more notes you include in the pack, the richer the answers. Try packing your entire recipe folder at once.
+### Reading Notes
+
+Ask:
+
+> What themes appear across these notes?
+
+### Travel Notes
+
+Ask:
+
+> Build a 10-day itinerary from my notes.
+
+---
+
+## Tip
+
+Enable:
+
+```text
+Open AI Website After Export
+```
+
+to launch ChatGPT automatically.
+
+---
+
+# Claude
+
+## Chat
+
+1. Run **Context Pack**
+2. Select:
+
+```text
+Claude → Chat
+```
+
+3. Click **Export**
+4. Paste into Claude
+
+Large packs may appear as:
+
+```text
+PASTED
+```
+
+This is normal.
+
+Claude still reads the content.
+
+---
+
+## Project
+
+1. Run **Context Pack**
+2. Select:
+
+```text
+Claude → Project
+```
+
+3. Click **Export**
+4. Save the file
+5. Open Claude
+6. Open a Project
+7. Upload the generated file
+
+The pack becomes part of project knowledge.
+
+---
+
+## Good Use Cases
+
+### Research
+
+Ask:
+
+> Compare competing viewpoints in these notes.
+
+### Reading Collections
+
+Ask:
+
+> Identify recurring themes across all notes.
+
+### Writing
+
+Ask:
+
+> Turn these notes into a structured article.
+
+---
+
+## Why Claude?
+
+Claude excels at:
+
+- Long-context analysis
+- Comparative reasoning
+- Evidence gathering
+- Structured explanations
+
+---
+
+## Tip
+
+Enable:
+
+```text
+Open AI Website After Export
+```
+
+to launch Claude automatically.
+
+---
+
+# Gemini
+
+## Chat
+
+1. Run **Context Pack**
+2. Select:
+
+```text
+Gemini → Chat
+```
+
+3. Click **Export**
+4. Paste into Gemini
+
+---
+
+## Notebook
+
+1. Run **Context Pack**
+2. Select:
+
+```text
+Gemini → Notebook
+```
+
+3. Click **Export**
+4. Save the file
+5. Open Gemini
+6. Create or open a Notebook
+7. Upload the file
+
+The pack becomes notebook knowledge.
+
+---
+
+## Good Use Cases
+
+### Large Vaults
+
+Ask:
+
+> Summarize all destinations in my travel notes.
+
+### Research Collections
+
+Ask:
+
+> Identify patterns across hundreds of notes.
+
+### Knowledge Surveys
+
+Ask:
+
+> What topics appear most frequently?
+
+---
+
+## Why Gemini?
+
+Gemini is especially useful for:
+
+- Very large context windows
+- Broad summarization
+- Knowledge exploration
+
+---
+
+## Tip
+
+Enable:
+
+```text
+Open AI Website After Export
+```
+
+to launch Gemini automatically.
+
+---
+
+# Claude Code
+
+Claude Code is designed for software development workflows.
+
+---
+
+## Workflow
+
+1. Run **Context Pack**
+2. Select:
+
+```text
+Agents → Claude Code
+```
+
+3. Click **Export**
+4. Copy the generated pack
+5. Open Claude Code
+6. Paste the pack into your session
+
+---
+
+## Best Sources
+
+- Specifications
+- Architecture notes
+- Design decisions
+- Technical documentation
+- ADRs
+
+---
+
+## Example Questions
+
+### Architecture
+
+Ask:
+
+> Generate a project structure from these specifications.
+
+### Implementation
+
+Ask:
+
+> Implement the data model described in these notes.
+
+### Planning
+
+Ask:
+
+> Create a prioritized task list.
+
+### Review
+
+Ask:
+
+> Identify unresolved design decisions.
+
+---
+
+## Recommended Mode
+
+```text
+Development
+```
+
+Development mode adds instructions optimized for engineering workflows.
+
+---
+
+# NotebookLM
+
+NotebookLM works differently from conversational AI.
+
+Instead of pasting context into chat, you upload knowledge sources.
+
+---
+
+## Workflow
+
+1. Run **Context Pack**
+2. Select:
+
+```text
+Agents → NotebookLM
+```
+
+3. Click **Export**
+4. Save the file
+
+Example:
+
+```text
+pack-recipes-notebooklm-20260605.md
+```
+
+5. Open NotebookLM
+
+https://notebooklm.google.com
+
+6. Create a notebook
+7. Click **Add Source**
+8. Upload the generated file
+
+---
+
+## Example Questions
+
+### Recipes
+
+Ask:
+
+> What can I make with pork and vegetables?
+
+### Travel
+
+Ask:
+
+> Compare all destinations in my notes.
+
+### Books
+
+Ask:
+
+> Summarize the key ideas across these books.
+
+### Study Notes
+
+Ask:
+
+> Generate a study guide from these notes.
+
+---
+
+## Why NotebookLM?
+
+NotebookLM is ideal when:
+
+- Sources should remain separate
+- Citations matter
+- You want notebook-style exploration
+- You want source-grounded answers
+
+---
+
+# Recommended Combinations
+
+| Goal | AI | Mode |
+|---|---|---|
+| Learning a subject | ChatGPT | Learning |
+| Deep research | Claude | Research |
+| Large knowledge base | Gemini Notebook | Research |
+| Software development | Claude Code | Development |
+| Source-grounded exploration | NotebookLM | None |
+| Documentation writing | Claude | Writing |
+| Blog writing | ChatGPT | Writing |
+| Technical specifications | Claude Code | Development |
+
+---
+
+# Sample Vault Workflows
+
+## Paintings Vault
+
+```text
+Masterpieces of the World
+        ↓
+Create AI MOC
+        ↓
+Generate Context Pack
+        ↓
+Upload to ChatGPT Projects
+```
+
+Ask:
+
+> Compare Impressionism and Baroque.
+
+---
+
+## Travel Vault
+
+```text
+Travel Folder
+        ↓
+Context Pack
+        ↓
+Gemini Notebook
+```
+
+Ask:
+
+> Which destination is best for a first-time solo traveler?
+
+---
+
+## Project Specifications
+
+```text
+linkbox-spec
+        ↓
+Context Pack
+        ↓
+Claude Code
+```
+
+Ask:
+
+> Generate the implementation roadmap.
+
+---
+
+# Related Documentation
+
+- README.md
+- docs/features.md
+- docs/changelog.md
