@@ -12,39 +12,55 @@ export interface PackOptions {
   sortOrder: 'asc' | 'desc';
 }
 
-export async function getDailyNotesSettings(app: App): Promise<DailyNotesConfig> {
-  const defaults: DailyNotesConfig = { folder: '', format: 'YYYY-MM-DD' };
+interface DnPluginOptions {
+  folder?: string;
+  format?: string;
+}
+interface JpCalOptions {
+  dailyNoteFolder?: string;
+  dailyNoteFormat?: string;
+}
+interface PeriodicNotesOptions {
+  daily?: { folder?: string; format?: string };
+}
+interface InternalApp {
+  internalPlugins?: { plugins?: Record<string, { instance?: { options?: DnPluginOptions } }> };
+  plugins?: { plugins?: Record<string, { settings?: PeriodicNotesOptions }> };
+}
 
+export async function getDailyNotesSettings(app: App): Promise<DailyNotesConfig> {
   // 方法①: internalPlugins API
   try {
-    const plugin = (app as any).internalPlugins?.plugins?.['daily-notes'];
-    const opts = plugin?.instance?.options ?? plugin?.options;
+    const iApp = app as unknown as InternalApp;
+    const plugin = iApp.internalPlugins?.plugins?.['daily-notes'];
+    const opts: DnPluginOptions | undefined = plugin?.instance?.options;
     if (opts && (opts.folder !== undefined || opts.format !== undefined)) {
       return { folder: opts.folder ?? '', format: opts.format ?? 'YYYY-MM-DD' };
     }
-  } catch {}
+  } catch { /* try next method */ }
 
   // 方法②: .obsidian/daily-notes.json を直接読む
   try {
     const json = await app.vault.adapter.read(`${app.vault.configDir}/daily-notes.json`);
-    const config = JSON.parse(json);
+    const config = JSON.parse(json) as DnPluginOptions;
     return { folder: config.folder ?? '', format: config.format ?? 'YYYY-MM-DD' };
-  } catch {}
+  } catch { /* try next method */ }
 
   // 方法③: Japanese Calendar プラグイン
   try {
     const json = await app.vault.adapter.read(`${app.vault.configDir}/plugins/japanese-calendar/data.json`);
-    const config = JSON.parse(json);
+    const config = JSON.parse(json) as JpCalOptions;
     if (config.dailyNoteFolder !== undefined) {
       return { folder: config.dailyNoteFolder ?? '', format: config.dailyNoteFormat ?? 'YYYY-MM-DD' };
     }
-  } catch {}
+  } catch { /* try next method */ }
 
   // 方法④: Periodic Notes コミュニティプラグイン
   try {
-    const pn = (app as any).plugins?.plugins?.['periodic-notes']?.settings?.daily;
+    const iApp = app as unknown as InternalApp;
+    const pn = iApp.plugins?.plugins?.['periodic-notes']?.settings?.daily;
     if (pn) return { folder: pn.folder ?? '', format: pn.format ?? 'YYYY-MM-DD' };
-  } catch {}
+  } catch { /* try next method */ }
 
   // 方法⑤: Vaultをスキャンして日付形式ファイルが最も多いフォルダを推定
   return inferDailyNotesFolder(app);
@@ -115,8 +131,9 @@ export async function buildDailyPack(
     if (excludeTags.length > 0) {
       const cache = app.metadataCache.getFileCache(file);
       const inline = cache?.tags?.map(t => t.tag.replace('#', '')) ?? [];
-      const fm = cache?.frontmatter?.tags ?? [];
-      const all = [...inline, ...(Array.isArray(fm) ? fm : [fm])];
+      const fmRaw: unknown = cache?.frontmatter?.['tags'];
+      const fm: string[] = Array.isArray(fmRaw) ? (fmRaw as string[]) : (fmRaw != null ? [String(fmRaw)] : []);
+      const all = [...inline, ...fm];
       if (excludeTags.some(tag => all.includes(tag))) continue;
     }
     filtered.push(file);

@@ -22,7 +22,7 @@ export async function buildContextPack(
     const file = files[i];
     if (i % 10 === 0) {
       onProgress?.(i + 1, files.length);
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => window.setTimeout(resolve, 0));
     }
     const raw = await app.vault.read(file);
     const body = formatForNotebookLM(raw, options);

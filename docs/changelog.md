@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.6
+- **Lint warning fixes** — removed unused variables and imports, typed async callbacks, replaced deprecated APIs (`noticeEl`→`messageEl`, `this.display()`→private method), added `void` to unhandled promises, typed `any` casts with proper interfaces
+
 ### v2.7.5
 - **Lint fixes** — replaced direct style assignments with CSS classes, heading elements with `Setting.setHeading()`, updated `minAppVersion` to 1.4.0
 
