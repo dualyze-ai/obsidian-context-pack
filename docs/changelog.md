@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.9
+- **Lint fixes** — explicit `Uint8Array` cast on `strToU8` assignment; replaced deprecated `noticeEl` with `messageEl`; bumped minAppVersion to 1.8.7
+
 ### v2.7.8
 - **Lint fixes** — `activeDocument as Document` cast to resolve TypeScript ESLint unsafe-access warnings; reverted `messageEl` → `noticeEl` to avoid unsupported-API error; fixed unused parameter in token-counter; added local ESLint setup
 
