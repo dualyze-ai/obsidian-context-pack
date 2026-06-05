@@ -143,11 +143,7 @@ Features:
 
 ### Manual Installation
 
-Download the latest release:
-
-https://github.com/dualyze-ai/obsidian-context-pack/releases/latest
-
-Copy:
+Download the [latest release](https://github.com/dualyze-ai/obsidian-context-pack/releases/latest) and copy:
 
 - `main.js`
 - `manifest.json`
@@ -167,8 +163,8 @@ Try the plugin immediately without preparing your own vault.
 
 | Vault | Notes | Topics | Download |
 |---|---|---|---|
-| 🇺🇸 English | 86 notes | recipes / travel / books / paintings / linkbox-spec | https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip |
-| 🇯🇵 Japanese | 86件 | 料理 / 旅行 / 読書 / 絵画 / linkbox-spec | https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip |
+| 🇺🇸 English | 86 notes | recipes / travel / books / paintings / linkbox-spec | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
+| 🇯🇵 Japanese | 86件 | 料理 / 旅行 / 読書 / 絵画 / linkbox-spec | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
 
 ### Quick Start
 
@@ -201,9 +197,7 @@ Ask ChatGPT or Claude
 
 ## Documentation
 
-### Features
-
-https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md
+### [Features](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md)
 
 Detailed documentation covering:
 
@@ -214,9 +208,7 @@ Detailed documentation covering:
 - Daily Notes Pack
 - Settings
 
-### AI Guides
-
-https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-guides.md
+### [AI Guides](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-guides.md)
 
 Step-by-step guides for:
 
@@ -229,9 +221,7 @@ Step-by-step guides for:
 - Claude Code
 - NotebookLM
 
-### Changelog
-
-https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md
+### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
 Release history and feature updates.
 
@@ -263,11 +253,7 @@ Current focus:
 
 ## Contributing
 
-Issues and pull requests are welcome.
-
-GitHub:
-
-https://github.com/dualyze-ai/obsidian-context-pack
+Issues and pull requests are welcome on [GitHub](https://github.com/dualyze-ai/obsidian-context-pack).
 
 ---
 
@@ -275,6 +261,4 @@ https://github.com/dualyze-ai/obsidian-context-pack
 
 MIT
 
-Made by dualyzeAI
-
-https://dualyzeai.com
+Made by [dualyzeAI](https://dualyzeai.com)

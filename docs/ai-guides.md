@@ -392,10 +392,7 @@ Example:
 pack-recipes-notebooklm-20260605.md
 ```
 
-5. Open NotebookLM
-
-https://notebooklm.google.com
-
+5. Open [NotebookLM](https://notebooklm.google.com)
 6. Create a notebook
 7. Click **Add Source**
 8. Upload the generated file
