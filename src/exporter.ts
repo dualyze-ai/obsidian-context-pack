@@ -1,4 +1,4 @@
-import { App, TFile, Notice, Platform } from 'obsidian';
+import { App, TFile, Notice, Platform, activeDocument } from 'obsidian';
 import { zip, strToU8 } from 'fflate';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 import { estimateTokens } from './token-counter';
@@ -57,7 +57,7 @@ export async function exportVault(
   const date = window.moment().format('YYYYMMDD');
   const filename = `notebooklm-export-${date}.zip`;
   const blob = await new Promise<Blob>((resolve, reject) => {
-    zip(zipEntries, (err: Error | null, data: Uint8Array) => {
+    zip(zipEntries, (err, data: Uint8Array) => {
       if (err) reject(err);
       else resolve(new Blob([data], { type: 'application/zip' }));
     });
@@ -96,12 +96,12 @@ export async function exportSingleNote(app: App, file: TFile, options: FormatOpt
 
 export function downloadBlob(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = activeDocument.createElement('a');
   a.href = url;
   a.download = filename;
-  document.body.appendChild(a);
+  activeDocument.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
+  activeDocument.body.removeChild(a);
   window.setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 

@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.7
+- **Lint error/warning fixes** — raised `minAppVersion` to 1.5.0 for `messageEl` support, replaced undocumented `getTags()` with documented metadata API, fixed async callbacks in void contexts, fixed floating Promise in `super.onOpen()`, added `.catch()` to auto-detect promise chain
+
 ### v2.7.6
 - **Lint warning fixes** — removed unused variables and imports, typed async callbacks, replaced deprecated APIs (`noticeEl`→`messageEl`, `this.display()`→private method), added `void` to unhandled promises, typed `any` casts with proper interfaces
 

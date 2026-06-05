@@ -193,11 +193,10 @@ export class SettingsTab extends PluginSettingTab {
         .setIcon('folder')
         .setTooltip(t('daily_folder_label'))
         .onClick(() => {
-          new FolderPickerModal(this.app, t('daily_folder_picker'), async (folder) => {
+          new FolderPickerModal(this.app, t('daily_folder_picker'), (folder) => {
             this.plugin.settings.dailyNotesFolder = folder;
             this.plugin.settings.dailyNotesAutoDetect = false;
-            await this.plugin.saveSettings();
-            this.renderSettings();
+            void this.plugin.saveSettings().then(() => this.renderSettings());
           }).open();
         }));
 
@@ -348,9 +347,9 @@ export class SettingsTab extends PluginSettingTab {
     const promptArea = containerEl.createEl('textarea', { cls: 'cp-starter-prompt-area' });
     promptArea.value = this.plugin.settings.starterPrompt || t('default_common_instructions');
     promptArea.rows = 5;
-    promptArea.addEventListener('change', async () => {
+    promptArea.addEventListener('change', () => {
       this.plugin.settings.starterPrompt = promptArea.value;
-      await this.plugin.saveSettings();
+      void this.plugin.saveSettings();
     });
 
     new Setting(containerEl).setName('Custom replacement rules').setHeading();

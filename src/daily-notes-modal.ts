@@ -48,11 +48,11 @@ export class DailyNotesModal extends Modal {
     this.updateFolderLabel();
 
     if (this.settings.dailyNotesAutoDetect) {
-      getDailyNotesSettings(this.app).then(config => {
+      void getDailyNotesSettings(this.app).then(config => {
         this.dnConfig = config;
         this.updateFolderLabel();
         this.updatePreview();
-      });
+      }).catch(() => { /* auto-detect failed, use defaults */ });
     }
 
     folderRow.createEl('button', { text: t('daily_folder_label'), cls: 'cp-dn-folder-btn' })
