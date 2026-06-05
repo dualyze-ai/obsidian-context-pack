@@ -1,10 +1,17 @@
 # AI Context Pack
 
-> Package your Obsidian notes into context packs for any AI — ChatGPT, Claude, Gemini, NotebookLM, and more.
+> Turn your notes into AI-ready knowledge.
 
 <div align="center">
 <img src="docs/demo.gif" width="100%">
 </div>
+
+## From notes to knowledge
+
+1. Collect notes
+2. Build knowledge maps (AI MOC)
+3. Package context
+4. Use with ChatGPT, Claude, Gemini, NotebookLM, and Claude Code
 
 ---
 
@@ -20,40 +27,104 @@
 
 ---
 
-## The problem
+## Why AI Context Pack?
 
-Raw Obsidian notes contain noise:
+Raw Obsidian notes contain a lot of information that is useful to humans but noisy for AI:
 
 - Wikilinks
 - Frontmatter
 - Comments
 - Templates
+- Embedded content
+- Obsidian-specific syntax
 
-AI models perform better when context is clean and structured. This plugin solves that.
+AI Context Pack transforms your vault into clean, structured context optimized for AI assistants.
 
 ---
 
 ## How it works
 
-```
+```text
 Obsidian Vault
+      ↓
+   AI MOC
       ↓
  Context Pack
       ↓
- AI-ready Context
+ AI-ready Knowledge
       ↓
- ChatGPT / Claude / Gemini / NotebookLM / Claude Code
+ ChatGPT / Claude / Gemini
+ NotebookLM / Claude Code
 ```
 
-**Context Pack** bundles related notes into a single formatted `.md` file — organized by folder, tag, or MOC — and strips all Obsidian-specific syntax before export.
+### Context Pack
 
-**AI MOC** generates a Map of Content from any note by tracing its wikilinks outward, producing a structured hierarchy with Core Concepts, Related Notes, and Referenced By sections.
+Bundle related notes into a single AI-ready Markdown file.
 
-**Output target selector** lets you choose where to send the pack each time — with AI-specific instructions prepended automatically.
+Organize by:
 
-**Mode selector** appends purpose-specific instructions (Research, Learning, Writing, Development) so the AI responds in the style that fits your workflow.
+- Folder
+- Tag
+- MOC
+- AI MOC
 
-**Daily Notes Pack** collects your daily notes within a date range and bundles them into a single AI-ready file.
+All Obsidian-specific syntax is cleaned automatically.
+
+### AI MOC
+
+Generate a Map of Content from any note.
+
+AI MOC follows wikilinks outward and creates a structured knowledge map:
+
+```text
+Root Note
+    │
+    ├── Core Concepts
+    │       └── Related Notes
+    │
+    └── Referenced By
+```
+
+No manual index maintenance required.
+
+### Output Targets
+
+Choose where the pack will be used:
+
+- ChatGPT Chat
+- ChatGPT Projects
+- Claude Chat
+- Claude Project
+- Gemini Chat
+- Gemini Notebook
+- Claude Code
+- NotebookLM
+
+AI-specific instructions are added automatically.
+
+### Purpose-Aware Modes
+
+Choose how the AI should use your notes:
+
+| Mode | Best for |
+|---|---|
+| Research | Analysis and evidence gathering |
+| Learning | Tutorials and study |
+| Writing | Documentation and articles |
+| Development | Specs, code, architecture |
+
+### Daily Notes Pack
+
+Create AI-ready packs from daily notes.
+
+Features:
+
+- Date range selection
+- Weekly summaries
+- Tag exclusion
+- Auto-detection of Daily Notes folders
+
+---
 
 <div align="center">
 <img src="docs/demo-features.gif" width="100%">
@@ -63,51 +134,147 @@ Obsidian Vault
 
 ## Installation
 
-### Community plugins (recommended)
+### Community Plugins (Recommended)
 
 1. Open **Settings → Community plugins → Browse**
 2. Search for **AI Context Pack**
-3. Install and enable
+3. Install
+4. Enable
 
-### Manual
+### Manual Installation
 
-Download `main.js`, `styles.css`, and `manifest.json` from the [latest release](../../releases/latest) and copy them to `.obsidian/plugins/context-pack-for-notebooklm/` in your vault.
+Download the latest release:
+
+https://github.com/dualyze-ai/obsidian-context-pack/releases/latest
+
+Copy:
+
+- `main.js`
+- `manifest.json`
+- `styles.css`
+
+to:
+
+```text
+.obsidian/plugins/context-pack-for-notebooklm/
+```
 
 ---
 
-## Sample data
+## Sample Vaults
 
-Want to try the plugin without setting up your vault first?
+Try the plugin immediately without preparing your own vault.
 
 | Vault | Notes | Topics | Download |
 |---|---|---|---|
-| 🇺🇸 English | 86 notes | recipes / travel / books / paintings / linkbox-spec | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
-| 🇯🇵 Japanese | 86件 | 料理 / 旅行 / 読書 / 絵画 / linkbox-spec | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
+| 🇺🇸 English | 86 notes | recipes / travel / books / paintings / linkbox-spec | https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip |
+| 🇯🇵 Japanese | 86件 | 料理 / 旅行 / 読書 / 絵画 / linkbox-spec | https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip |
 
-1. Download and unzip
-2. In Obsidian: **Open another vault → Open folder as vault** → select the unzipped folder
-3. Enable AI Context Pack in Community plugins
-4. Try packing a folder, exploring by tag, or using **AI MOC**:
-   - Right-click `Masterpieces of the World.md` → **Create AI MOC from this note**
-   - Set scope to **Related Notes** to discover 4 movements + 12 artists at once
-5. To try Claude Code: pack the `linkbox-spec/` folder and choose **Agents → Claude Code** as the output target
+### Quick Start
+
+1. Download a sample vault
+2. Unzip
+3. Open the folder as a vault in Obsidian
+4. Enable AI Context Pack
+5. Explore:
+
+- Context Pack
+- AI MOC
+- Daily Notes Pack
+- Claude Code workflows
+
+Example:
+
+```text
+Masterpieces of the World.md
+        ↓
+Create AI MOC from this note
+        ↓
+Related Notes
+        ↓
+Generate Context Pack
+        ↓
+Ask ChatGPT or Claude
+```
 
 ---
 
 ## Documentation
 
-- [Features](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md) — Usage, Context Pack, AI MOC, Mode Selector, Daily Notes, Settings
-- [AI Guides](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-guides.md) — Step-by-step guides for ChatGPT, Claude, Gemini, Claude Code, NotebookLM
-- [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
+### Features
+
+https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md
+
+Detailed documentation covering:
+
+- Context Pack
+- Output Targets
+- AI MOC
+- Mode Selector
+- Daily Notes Pack
+- Settings
+
+### AI Guides
+
+https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-guides.md
+
+Step-by-step guides for:
+
+- ChatGPT
+- ChatGPT Projects
+- Claude
+- Claude Projects
+- Gemini
+- Gemini Notebook
+- Claude Code
+- NotebookLM
+
+### Changelog
+
+https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md
+
+Release history and feature updates.
 
 ---
 
 ## Migration from Context Pack for NotebookLM
 
-AI Context Pack is the successor to Context Pack for NotebookLM. All existing features work exactly the same. NotebookLM output is fully supported.
+AI Context Pack is the direct successor to:
+
+**Context Pack for NotebookLM**
+
+All existing workflows continue to work.
+
+NotebookLM remains fully supported.
+
+---
+
+## Roadmap
+
+Current focus:
+
+- Better Project Knowledge workflows
+- Additional AI targets
+- Enhanced AI MOC generation
+- Improved token management
+- Larger vault support
+
+---
+
+## Contributing
+
+Issues and pull requests are welcome.
+
+GitHub:
+
+https://github.com/dualyze-ai/obsidian-context-pack
 
 ---
 
 ## License
 
-MIT — made by [dualyzeAI](https://dualyzeai.com)
+MIT
+
+Made by dualyzeAI
+
+https://dualyzeai.com
