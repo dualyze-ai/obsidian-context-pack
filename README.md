@@ -227,15 +227,20 @@ Release history and feature updates.
 
 ---
 
-## Migration from Context Pack for NotebookLM
+## Part of the AI Research Workflow
 
-AI Context Pack is the direct successor to:
+AI Context Pack can be used on its own,
+or as part of a broader AI research workflow:
 
-**Context Pack for NotebookLM**
+| Tool | Role |
+|--------|--------|
+| DualyzeAI | Compare & Analyze |
+| Obsidian | Save & Organize |
+| AI Context Pack | Package & Prepare |
+| ChatGPT / Claude / Gemini / NotebookLM | Research Deeper |
 
-All existing workflows continue to work.
-
-NotebookLM remains fully supported.
+Optional:
+→ [Learn more about DualyzeAI](https://dualyzeai.com)
 
 ---
 
@@ -250,6 +255,7 @@ Current focus:
 - Larger vault support
 
 ---
+
 
 ## Contributing
 
