@@ -1,6 +1,6 @@
-import { App, Plugin, TFile, TFolder, TAbstractFile, SuggestModal, Notice, Menu, Platform, moment } from 'obsidian';
+import { App, Plugin, TFile, TFolder, TAbstractFile, SuggestModal, Notice, Menu, moment } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
-import { exportVault, exportSingleNote, downloadBlob, buildAiOutput, getProjectKnowledgeInstructions } from './exporter';
+import { exportVault, exportSingleNote, buildAiOutput, getProjectKnowledgeInstructions } from './exporter';
 import { buildContextPack } from './context-pack';
 import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
 import { DailyNotesModal } from './daily-notes-modal';
@@ -33,6 +33,9 @@ export default class ContextPackPlugin extends Plugin {
     await this.loadSettings();
     this.addSettingTab(new SettingsTab(this.app, this));
 
+    // If a previous onload() threw after registerView, Obsidian skips onunload()
+    // so the type stays registered. Unregister it first.
+    (this.app as any).viewRegistry?.unregisterView?.(FRESHNESS_VIEW_TYPE);
     this.registerView(FRESHNESS_VIEW_TYPE, (leaf) => new FreshnessView(leaf, this));
 
     this.addRibbonIcon('activity', 'Project Knowledge Packs', () => {
@@ -63,7 +66,7 @@ export default class ContextPackPlugin extends Plugin {
       menu.addItem(item => item
         .setTitle(t('ribbon_create_moc_note'))
         .setIcon('file-plus')
-        .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source)).open()));
+        .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), undefined, this.settings.outputFolder).open()));
       menu.addSeparator();
       menu.addItem(item => item
         .setTitle(t('ribbon_export_vault'))
@@ -124,7 +127,7 @@ export default class ContextPackPlugin extends Plugin {
     this.addCommand({
       id: 'create-ai-moc',
       name: t('cmd_create_ai_moc'),
-      callback: () => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source)).open(),
+      callback: () => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), undefined, this.settings.outputFolder).open(),
     });
 
     this.addCommand({
@@ -191,7 +194,7 @@ export default class ContextPackPlugin extends Plugin {
           menu.addItem(item => item
             .setTitle(t('menu_create_ai_moc'))
             .setIcon('map')
-            .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file).open()));
+            .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file, this.settings.outputFolder).open()));
           const cache = this.app.metadataCache.getFileCache(file);
           if ((cache?.links?.length ?? 0) > 0) {
             menu.addItem(item => item
@@ -240,10 +243,11 @@ export default class ContextPackPlugin extends Plugin {
     this.app.workspace.revealLeaf(leaf);
   }
 
-  async savePackRecord(meta: PackMeta, outputTarget: OutputTarget): Promise<void> {
+  async savePackRecord(meta: PackMeta, outputTarget: OutputTarget, selectorState?: OutputSelectorState): Promise<void> {
     const freshnessTarget = toFreshnessTarget(outputTarget);
     if (!freshnessTarget) return;
     const record = buildPackRecord(meta.name, meta.source, freshnessTarget, meta.files);
+    if (selectorState) record.outputSelectorState = selectorState;
     const key = packKey(meta.source, freshnessTarget);
     const idx = this.settings.packRegistry.findIndex(
       (p) => packKey(p.source, p.target) === key,
@@ -278,6 +282,9 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   async reExportPack(pack: PackRecord): Promise<void> {
+    if (pack.outputSelectorState) {
+      this.settings.outputSelectorState = { ...pack.outputSelectorState };
+    }
     switch (pack.source.type) {
       case 'folder':
         await this.packFromFolderPath(pack.source.query);
@@ -466,13 +473,15 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private async saveMoc(filename: string, content: string, noteCount: number) {
-    const existing = this.app.vault.getAbstractFileByPath(filename);
+    const folder = this.settings.outputFolder || '';
+    const path = folder ? `${folder}/${filename}` : filename;
+    const existing = this.app.vault.getAbstractFileByPath(path);
     let mocFile: TFile;
     if (existing instanceof TFile) {
       await this.app.vault.modify(existing, content);
       mocFile = existing;
     } else {
-      mocFile = await this.app.vault.create(filename, content);
+      mocFile = await this.app.vault.create(path, content);
     }
     await this.app.workspace.getLeaf().openFile(mocFile);
     new Notice(t('notice_moc_done', noteCount));
@@ -705,7 +714,10 @@ export default class ContextPackPlugin extends Plugin {
             openAiUrl: choice.openAiUrl,
           });
         }
-        if (packMeta) await this.savePackRecord(packMeta, choice.target);
+        if (packMeta) {
+          await this.savePackRecord(packMeta, choice.target, choice.selectorState);
+          this.refreshFreshnessViewIfOpen();
+        }
       }).open();
     } else {
       const selectorState = this.settings.outputSelectorState;
@@ -725,7 +737,9 @@ export default class ContextPackPlugin extends Plugin {
           openAiUrl: this.settings.openAiUrl,
         });
       }
-      if (packMeta) void this.savePackRecord(packMeta, target);
+      if (packMeta) {
+        void this.savePackRecord(packMeta, target).then(() => this.refreshFreshnessViewIfOpen());
+      }
     }
   }
 
@@ -734,22 +748,15 @@ export default class ContextPackPlugin extends Plugin {
     const filename = `pack-${slug}-${date}.md`;
 
     try {
-      const blob = new Blob([content], { type: 'text/markdown' });
-      if (Platform.isDesktop && !this.settings.outputFolder) {
-        downloadBlob(blob, filename);
+      const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+      const path = folder ? `${folder}/${filename}` : filename;
+      const existing = this.app.vault.getAbstractFileByPath(path);
+      if (existing instanceof TFile) {
+        await this.app.vault.modify(existing, content);
       } else {
-        const folder = this.settings.outputFolder || '';
-        const path = folder ? `${folder}/${filename}` : filename;
-        const existing = this.app.vault.getAbstractFileByPath(path);
-        if (existing instanceof TFile) {
-          await this.app.vault.modify(existing, content);
-        } else {
-          await this.app.vault.create(path, content);
-        }
-        new Notice(`${t('notice_pack_done', noteCount)}\n📄 ${path}`, 8000);
-        return;
+        await this.app.vault.create(path, content);
       }
-      new Notice(t('notice_pack_done', noteCount), 5000);
+      new Notice(`${t('notice_pack_done', noteCount)}\n📄 ${path}`, 8000);
     } catch (err) {
       console.error('[AI Context Pack] Failed to save pack:', err);
       new Notice(t('notice_error'));
