@@ -237,8 +237,9 @@ Freshness tracking, context diff, and re-export workflows.
 
 ### [Features](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md)
 
-Detailed documentation covering:
+Complete feature reference:
 
+- Project Knowledge Packs
 - Context Pack
 - Output Targets
 - AI MOC
