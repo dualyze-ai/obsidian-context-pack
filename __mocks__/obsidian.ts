@@ -129,3 +129,27 @@ export function moment() {
 }
 
 export const moment_static = moment;
+
+export function getAllTags(cache: { tags?: Array<{ tag: string }> }): string[] {
+  return cache.tags?.map((t) => t.tag) ?? [];
+}
+
+export class ItemView {
+  app: App;
+  containerEl: HTMLElement;
+  leaf: unknown;
+
+  constructor(leaf: unknown) {
+    this.app = new App();
+    this.leaf = leaf;
+    this.containerEl = document.createElement('div');
+  }
+
+  getViewType(): string { return ''; }
+  getDisplayText(): string { return ''; }
+  getIcon(): string { return ''; }
+  async onOpen(): Promise<void> {}
+  async onClose(): Promise<void> {}
+}
+
+export class WorkspaceLeaf {}
