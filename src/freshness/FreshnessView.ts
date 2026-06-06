@@ -2,14 +2,13 @@ import { ItemView, WorkspaceLeaf, Notice, moment } from 'obsidian';
 import type ContextPackPlugin from '../main';
 import { type PackRecord, type PackCheckResult, type FreshnessLevel, TARGET_LABEL } from './types';
 import { checkAllPacks, packKey } from './checker';
+import { t } from '../i18n';
 
 export const FRESHNESS_VIEW_TYPE = 'freshness-view';
 
-const LEVEL_LABEL: Record<FreshnessLevel, string> = {
-  fresh: '最新',
-  warn:  '要確認',
-  stale: '古い',
-};
+function levelLabel(level: FreshnessLevel): string {
+  return t(`freshness_level_${level}`);
+}
 
 export class FreshnessView extends ItemView {
   private plugin: ContextPackPlugin;
@@ -24,7 +23,7 @@ export class FreshnessView extends ItemView {
 
   getViewType(): string { return FRESHNESS_VIEW_TYPE; }
   getDisplayText(): string { return 'Project Knowledge Packs'; }
-  getIcon(): string { return 'activity'; }
+  getIcon(): string { return 'boxes'; }
 
   async onOpen(): Promise<void> { await this.refresh(); }
   async onClose(): Promise<void> {}
@@ -78,7 +77,7 @@ export class FreshnessView extends ItemView {
     refreshBtn.addEventListener('click', () => void this.refresh());
 
     if (this.loading) {
-      containerEl.createEl('div', { cls: 'cp-freshness-loading', text: 'Checking freshness…' });
+      containerEl.createEl('div', { cls: 'cp-freshness-loading', text: t('freshness_loading') });
       return;
     }
 
@@ -87,7 +86,7 @@ export class FreshnessView extends ItemView {
     if (packs.length === 0) {
       containerEl.createEl('div', {
         cls: 'cp-freshness-empty',
-        text: 'No packs yet. Generate a pack to start tracking freshness.',
+        text: t('freshness_empty'),
       });
       return;
     }
@@ -103,9 +102,9 @@ export class FreshnessView extends ItemView {
 
     const summary = container.createEl('div', { cls: 'cp-freshness-summary' });
     const items: Array<{ label: string; count: number; cls: string }> = [
-      { label: '最新',   count: freshCount, cls: 'fresh' },
-      { label: '要確認', count: warnCount,  cls: 'warn'  },
-      { label: '古い',   count: staleCount, cls: 'stale' },
+      { label: t('freshness_level_fresh'), count: freshCount, cls: 'fresh' },
+      { label: t('freshness_level_warn'),  count: warnCount,  cls: 'warn'  },
+      { label: t('freshness_level_stale'), count: staleCount, cls: 'stale' },
     ];
     for (const item of items) {
       const chip = summary.createEl('span', { cls: `cp-freshness-chip cp-freshness-chip--${item.cls}` });
@@ -145,7 +144,7 @@ export class FreshnessView extends ItemView {
     // Per-row level chip
     const rowChip = topLine.createEl('span', { cls: `cp-freshness-row-chip cp-freshness-chip--${result.level}` });
     rowChip.createEl('span', { cls: `cp-freshness-chip-dot cp-freshness-dot--${result.level}` });
-    rowChip.createEl('span', { text: ` ${LEVEL_LABEL[result.level]}` });
+    rowChip.createEl('span', { text: ` ${levelLabel(result.level)}` });
 
     // ── Count
     const countEl = body.createEl('div', { cls: 'cp-freshness-count' });
@@ -153,19 +152,19 @@ export class FreshnessView extends ItemView {
 
     // ── Meta + delete button
     const metaLine = body.createEl('div', { cls: 'cp-freshness-meta' });
-    metaLine.createEl('span', { text: `投入 ${moment(pack.createdAt).fromNow()}` });
+    metaLine.createEl('span', { text: t('freshness_created_at', moment(pack.createdAt).fromNow()) });
     const deleteBtn = metaLine.createEl('button', {
       cls: 'cp-freshness-delete-btn',
       text: '✕',
     });
-    deleteBtn.setAttribute('title', 'このパックを削除');
+    deleteBtn.setAttribute('title', t('freshness_delete_title'));
     deleteBtn.addEventListener('click', () => void this.deletePack(pack));
 
     // ── Missing warning
     if (result.missing.length > 0) {
       body.createEl('div', {
         cls: 'cp-freshness-missing',
-        text: `⚠ ${result.missing.length} Not Found`,
+        text: t('freshness_not_found', result.missing.length),
       });
     }
 
@@ -175,28 +174,28 @@ export class FreshnessView extends ItemView {
 
       const diffBtn = actions.createEl('button', {
         cls: 'cp-freshness-btn cp-freshness-btn--secondary',
-        text: '差分を見る',
+        text: t('freshness_diff_btn'),
       });
       diffBtn.addEventListener('click', () => {
-        new Notice('差分表示は近日公開予定です。');
+        new Notice(t('freshness_diff_soon'));
       });
 
       const reBtn = actions.createEl('button', {
         cls: 'cp-freshness-btn cp-freshness-btn--primary',
-        text: '再エクスポート',
+        text: t('freshness_reexport_btn'),
       });
       reBtn.addEventListener('click', () => void this.plugin.reExportPack(pack));
     }
   }
 
   private buildCountText(result: PackCheckResult): string {
-    if (result.level === 'fresh') return `最新 / ${result.matchedCount} ノート`;
+    if (result.level === 'fresh') return t('freshness_count_fresh', result.matchedCount);
 
     const parts: string[] = [];
-    if (result.updated.length > 0) parts.push(`${result.updated.length} 更新`);
-    if (result.added.length > 0)   parts.push(`${result.added.length} 新規`);
+    if (result.updated.length > 0) parts.push(t('freshness_updated', result.updated.length));
+    if (result.added.length > 0)   parts.push(t('freshness_added',   result.added.length));
 
-    return `${parts.join(' ・ ')} / ${result.matchedCount} ノート`;
+    return `${parts.join(' · ')} ${t('freshness_count_notes', result.matchedCount)}`;
   }
 
   private async deletePack(pack: PackRecord): Promise<void> {
