@@ -35,7 +35,7 @@ export default class ContextPackPlugin extends Plugin {
 
     // If a previous onload() threw after registerView, Obsidian skips onunload()
     // so the type stays registered. Unregister it first.
-    (this.app as any).viewRegistry?.unregisterView?.(FRESHNESS_VIEW_TYPE);
+    (this.app as unknown as { viewRegistry?: { unregisterView?: (type: string) => void } }).viewRegistry?.unregisterView?.(FRESHNESS_VIEW_TYPE);
     this.registerView(FRESHNESS_VIEW_TYPE, (leaf) => new FreshnessView(leaf, this));
 
     this.addRibbonIcon('boxes', 'Project Knowledge Packs', () => {
@@ -234,13 +234,13 @@ export default class ContextPackPlugin extends Plugin {
   async activateFreshnessView(): Promise<void> {
     const existing = this.app.workspace.getLeavesOfType(FRESHNESS_VIEW_TYPE);
     if (existing.length > 0) {
-      this.app.workspace.revealLeaf(existing[0]);
+      await this.app.workspace.revealLeaf(existing[0]);
       return;
     }
     const leaf = this.app.workspace.getRightLeaf(false);
     if (!leaf) return;
     await leaf.setViewState({ type: FRESHNESS_VIEW_TYPE, active: true });
-    this.app.workspace.revealLeaf(leaf);
+    await this.app.workspace.revealLeaf(leaf);
   }
 
   async savePackRecord(meta: PackMeta, outputTarget: OutputTarget, selectorState?: OutputSelectorState): Promise<void> {

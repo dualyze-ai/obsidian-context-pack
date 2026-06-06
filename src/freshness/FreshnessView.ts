@@ -66,10 +66,9 @@ export class FreshnessView extends ItemView {
       text: this.plugin.settings.freshnessViewDark ? '☀️' : '🌙',
     });
     darkBtn.setAttribute('title', this.plugin.settings.freshnessViewDark ? 'ライトモード' : 'ダークモード');
-    darkBtn.addEventListener('click', async () => {
+    darkBtn.addEventListener('click', () => {
       this.plugin.settings.freshnessViewDark = !this.plugin.settings.freshnessViewDark;
-      await this.plugin.saveSettings();
-      this.render();
+      void this.plugin.saveSettings().then(() => this.render());
     });
 
     const refreshBtn = controls.createEl('button', { cls: 'cp-freshness-icon-btn', text: '↻' });
