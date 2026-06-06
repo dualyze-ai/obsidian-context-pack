@@ -4,6 +4,12 @@ Keep your AI knowledge up to date.
 
 ---
 
+<div align="center">
+<img src="project-knowledge-packs.png" width="320">
+</div>
+
+---
+
 ## Opening the panel
 
 Click the **activity** ribbon icon in the Obsidian sidebar.
