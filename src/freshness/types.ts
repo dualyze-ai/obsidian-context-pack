@@ -1,3 +1,5 @@
+import type { OutputSelectorState } from '../types';
+
 export interface FileRecord {
   path: string;
   mtime: number;
@@ -13,6 +15,7 @@ export interface PackRecord {
   target: 'chatgpt' | 'claude' | 'gemini' | 'notebooklm';
   createdAt: number;
   files: FileRecord[];
+  outputSelectorState?: OutputSelectorState;
 }
 
 export type FreshnessLevel = 'fresh' | 'warn' | 'stale';
