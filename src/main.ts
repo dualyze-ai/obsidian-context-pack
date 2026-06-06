@@ -38,7 +38,7 @@ export default class ContextPackPlugin extends Plugin {
     (this.app as any).viewRegistry?.unregisterView?.(FRESHNESS_VIEW_TYPE);
     this.registerView(FRESHNESS_VIEW_TYPE, (leaf) => new FreshnessView(leaf, this));
 
-    this.addRibbonIcon('activity', 'Project Knowledge Packs', () => {
+    this.addRibbonIcon('boxes', 'Project Knowledge Packs', () => {
       void this.activateFreshnessView();
     });
 
