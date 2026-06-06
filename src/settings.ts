@@ -5,6 +5,8 @@ import type { OutputTarget, PromptProfile, OutputSelectorState } from './types';
 import { MODES, DEFAULT_OUTPUT_SELECTOR_STATE } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
+import type { PackRecord, FreshnessSettings } from './freshness/types';
+import { DEFAULT_FRESHNESS_SETTINGS } from './freshness/types';
 
 function selectorStateToKey(state: OutputSelectorState): string {
   const { activeTab, chatgptMode, claudeMode, geminiMode, agentMode } = state;
@@ -54,6 +56,8 @@ export interface PluginSettings {
   promptProfiles: PromptProfile[];
   defaultMode: string;
   outputSelectorState: OutputSelectorState;
+  packRegistry: PackRecord[];
+  freshnessSettings: FreshnessSettings;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -80,6 +84,8 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   promptProfiles: [],
   defaultMode: 'none',
   outputSelectorState: DEFAULT_OUTPUT_SELECTOR_STATE,
+  packRegistry: [],
+  freshnessSettings: DEFAULT_FRESHNESS_SETTINGS,
 };
 
 export class SettingsTab extends PluginSettingTab {
