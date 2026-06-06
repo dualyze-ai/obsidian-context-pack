@@ -375,6 +375,50 @@
   --text-error:    #f87171;
   background: #1a1a1a;
   border-radius: 6px;
+  color: #e0e0e0;
+}
+
+/* ダークモード: Obsidianのグローバルbuttonスタイルを明示上書き */
+.cp-freshness-view--dark button {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #3a3a3a;
+}
+
+.cp-freshness-view--dark .cp-freshness-icon-btn {
+  background: transparent;
+  color: #e0e0e0;
+}
+
+.cp-freshness-view--dark .cp-freshness-icon-btn:hover {
+  background: #333333;
+}
+
+.cp-freshness-view--dark .cp-freshness-btn--secondary {
+  background: #2a2a2a;
+  color: #bbbbbb;
+  border-color: #4a4a4a;
+}
+
+.cp-freshness-view--dark .cp-freshness-btn--secondary:hover {
+  background: #333333;
+  color: #e0e0e0;
+}
+
+.cp-freshness-view--dark .cp-freshness-btn--primary {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+}
+
+.cp-freshness-view--dark .cp-freshness-delete-btn {
+  background: transparent;
+  color: #666666;
+}
+
+.cp-freshness-view--dark .cp-freshness-delete-btn:hover {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
 }
 
 .cp-freshness-loading,
