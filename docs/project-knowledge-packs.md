@@ -4,6 +4,61 @@ Keep your AI knowledge up to date.
 
 ---
 
+## Opening the panel
+
+Click the **activity** ribbon icon in the Obsidian sidebar.
+
+```
+⊹  Project Knowledge Packs
+```
+
+Or run the command:
+
+```
+Open Project Knowledge Packs
+```
+
+The panel opens in the right sidebar.
+
+---
+
+## Panel overview
+
+```
+Project Knowledge Packs          ↻ 2 min ago  🌙  ↻
+
+● Fresh: 5   ● Needs Review: 2   ● Stale: 0
+
+┌─────────────────────────────────────────────┐
+│ Hokkaido   ChatGPT Projects   ● Fresh       │
+│ Up to date / 3 notes                        │
+│ Added 2 days ago                        ✕   │
+└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────┐
+│ Hakodate   Claude Project   ● Needs Review  │
+│ 1 updated / 5 notes                         │
+│ Added 3 days ago          View diff  Re-export  ✕ │
+└─────────────────────────────────────────────┘
+```
+
+**Header**
+
+| Element | Description |
+|---|---|
+| `↻ 2 min ago` | Time since the last freshness check |
+| 🌙 | Toggle dark / light mode |
+| ↻ | Re-run the freshness check |
+
+**Summary chips**
+
+Shows the count of packs at each freshness level.
+
+**Pack cards**
+
+Sorted by freshness — the most outdated packs appear at the top.
+
+---
+
 ## The problem
 
 ChatGPT Projects, Claude Projects, and NotebookLM are great for long-term knowledge.
