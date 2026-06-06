@@ -1,5 +1,21 @@
 # Changelog
 
+### v3.0.0
+
+**Project Knowledge Packs — Track freshness of AI project knowledge**
+
+- **Freshness panel** — new sidebar panel (boxes icon) shows all exported packs with 🟢 Fresh / 🟡 Needs Review / 🔴 Stale status
+- **Freshness labels** — colored dot indicators; summary chips show counts per status
+- **Relative timestamps** — "Added 2 hours ago" instead of fixed dates
+- **Last checked time** — "↻ 2 min ago" displayed in panel header
+- **Rename tracking** — pack registry automatically updates when notes or folders are renamed or moved
+- **Re-export** — one-click re-export with original output target pre-filled
+- **Auto-refresh panel** — FreshnessView refreshes automatically after export
+- **Vault-only output** — Context Pack, AI MOC, and MOC files now save to the configured vault folder
+- **ZIP export** — saves to Downloads folder
+- **i18n** — all panel strings localized (English / Japanese)
+- **Delete button** — bottom-right of each pack card
+
 ### v2.7.9
 - **Lint fixes** — explicit `Uint8Array` cast on `strToU8` assignment; replaced deprecated `noticeEl` with `messageEl`; bumped minAppVersion to 1.8.7
 

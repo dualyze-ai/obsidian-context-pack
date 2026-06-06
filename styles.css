@@ -320,7 +320,348 @@
   cursor: pointer;
 }
 
-/* Starter prompt textarea in settings */
+/* ── Freshness View ─────────────────────────────────────── */
+.cp-freshness-view {
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.cp-freshness-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cp-freshness-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.cp-freshness-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cp-freshness-last-checked {
+  font-size: 11px;
+  color: var(--text-faint);
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.cp-freshness-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.cp-freshness-icon-btn:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+/* ── Dark mode override (scoped CSS variables) */
+.cp-freshness-view--dark {
+  --background-primary:          #1a1a1a;
+  --background-secondary:        #242424;
+  --background-secondary-alt:    #2a2a2a;
+  --background-modifier-border:  #3a3a3a;
+  --background-modifier-hover:   #333333;
+  --text-normal:   #e0e0e0;
+  --text-muted:    #999999;
+  --text-faint:    #666666;
+  --text-error:    #f87171;
+  background: #1a1a1a;
+  border-radius: 6px;
+  color: #e0e0e0;
+}
+
+/* ダークモード: Obsidianのグローバルbuttonスタイルを明示上書き */
+.cp-freshness-view--dark button {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #3a3a3a;
+}
+
+.cp-freshness-view--dark .cp-freshness-icon-btn {
+  background: transparent;
+  color: #e0e0e0;
+}
+
+.cp-freshness-view--dark .cp-freshness-icon-btn:hover {
+  background: #333333;
+}
+
+.cp-freshness-view--dark .cp-freshness-btn--secondary {
+  background: #2a2a2a;
+  color: #bbbbbb;
+  border-color: #4a4a4a;
+}
+
+.cp-freshness-view--dark .cp-freshness-btn--secondary:hover {
+  background: #333333;
+  color: #e0e0e0;
+}
+
+.cp-freshness-view--dark .cp-freshness-btn--primary {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+}
+
+.cp-freshness-view--dark .cp-freshness-delete-btn {
+  background: transparent;
+  color: #999999;
+}
+
+.cp-freshness-view--dark .cp-freshness-delete-btn:hover {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+.cp-freshness-loading,
+.cp-freshness-empty {
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 24px 8px;
+}
+
+/* Summary chips */
+.cp-freshness-summary {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.cp-freshness-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cp-freshness-chip--fresh {
+  background: rgba(var(--color-green-rgb, 68, 168, 68), 0.15);
+  color: var(--color-green);
+}
+
+.cp-freshness-chip--warn {
+  background: rgba(var(--color-yellow-rgb, 230, 180, 0), 0.15);
+  color: var(--color-yellow);
+}
+
+.cp-freshness-chip--stale {
+  background: rgba(var(--color-red-rgb, 220, 60, 60), 0.15);
+  color: var(--color-red);
+}
+
+.cp-freshness-chip-count {
+  font-weight: 700;
+}
+
+/* Pack list */
+.cp-freshness-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cp-freshness-row {
+  display: flex;
+  border-radius: 6px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  overflow: hidden;
+}
+
+.cp-freshness-border {
+  width: 4px;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-left: 3px;
+  flex-shrink: 0;
+}
+
+.cp-freshness-border--fresh { background-color: var(--color-green); }
+.cp-freshness-border--warn  { background-color: var(--color-yellow); }
+.cp-freshness-border--stale { background-color: var(--color-red); }
+
+.cp-freshness-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+.cp-freshness-chip-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.cp-freshness-dot--fresh { background: var(--color-green); }
+.cp-freshness-dot--warn  { background: var(--color-yellow); }
+.cp-freshness-dot--stale { background: var(--color-red); }
+
+.cp-freshness-body {
+  padding: 10px 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cp-freshness-topline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  flex-wrap: nowrap;
+}
+
+.cp-freshness-topline-spacer {
+  flex: 1;
+}
+
+.cp-freshness-row-chip {
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cp-freshness-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 1px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cp-freshness-delete-btn:hover {
+  background: var(--background-modifier-error);
+  color: var(--text-error);
+}
+
+.cp-freshness-pack-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-normal);
+}
+
+.cp-freshness-target-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cp-freshness-target-badge[data-target="chatgpt"] {
+  background: rgba(16, 163, 127, 0.15);
+  color: #10a37f;
+}
+
+.cp-freshness-target-badge[data-target="claude"] {
+  background: rgba(204, 120, 92, 0.15);
+  color: #cc785c;
+}
+
+.cp-freshness-target-badge[data-target="gemini"] {
+  background: rgba(66, 133, 244, 0.15);
+  color: #4285f4;
+}
+
+.cp-freshness-target-badge[data-target="notebooklm"] {
+  background: rgba(251, 188, 4, 0.15);
+  color: #c69104;
+}
+
+.cp-freshness-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.cp-freshness-row--stale .cp-freshness-count,
+.cp-freshness-row--warn .cp-freshness-count {
+  color: var(--text-normal);
+  font-weight: 500;
+}
+
+.cp-freshness-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.cp-freshness-missing {
+  font-size: 11px;
+  color: var(--text-error);
+  margin-bottom: 4px;
+}
+
+.cp-freshness-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.cp-freshness-btn {
+  padding: 3px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--background-modifier-border);
+}
+
+.cp-freshness-btn--secondary {
+  background: var(--background-primary);
+  color: var(--text-muted);
+}
+
+.cp-freshness-btn--secondary:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.cp-freshness-btn--primary {
+  background: var(--color-accent);
+  color: var(--text-on-accent);
+  border-color: var(--color-accent);
+  font-weight: 500;
+}
+
+.cp-freshness-btn--primary:hover {
+  opacity: 0.85;
+}
+
+/* ── Starter prompt textarea in settings */
 .cp-starter-prompt-area {
   width: 100%;
   box-sizing: border-box;

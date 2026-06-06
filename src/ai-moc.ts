@@ -19,6 +19,7 @@ interface AiMocConfig {
   includeBacklinksInMoc: boolean;
   includeBacklinksInPack: boolean;
   generateContextPack: boolean;
+  outputFolder?: string;
 }
 
 async function collectLinkedNotes(
@@ -163,7 +164,10 @@ async function createAiMoc(
   const result = await collectLinkedNotes(app, config.rootFile, config.scope);
   const content = buildMocContent(result, config);
 
-  const mocFilename = `${result.root.basename} MOC.md`;
+  const folder = config.outputFolder || '';
+  const mocFilename = folder
+    ? `${folder}/${result.root.basename} MOC.md`
+    : `${result.root.basename} MOC.md`;
   let mocFile: TFile;
 
   const existing = app.vault.getAbstractFileByPath(mocFilename);

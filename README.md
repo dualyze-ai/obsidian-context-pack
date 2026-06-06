@@ -11,7 +11,8 @@
 1. Collect notes
 2. Build knowledge maps (AI MOC)
 3. Package context
-4. Use with ChatGPT, Claude, Gemini, NotebookLM, and Claude Code
+4. Use with ChatGPT Projects, Claude Projects, Gemini, and NotebookLM
+5. Keep your knowledge fresh
 
 ---
 
@@ -56,6 +57,39 @@ Obsidian Vault
  ChatGPT / Claude / Gemini
  NotebookLM / Claude Code
 ```
+
+## Project Knowledge Packs
+
+AI Context Pack doesn't stop at export.
+
+Track which notes were sent to:
+
+- ChatGPT Projects
+- Claude Projects
+- Gemini
+- NotebookLM
+
+and monitor whether they are still up to date.
+
+### Freshness Tracking
+
+Know when:
+
+- Notes were updated
+- New matching notes were added
+- Files were deleted or renamed
+
+Re-export only when needed.
+
+### Context Diff
+
+See exactly what changed since the last export.
+
+No more guessing whether your AI project knowledge is stale.
+
+→ [Learn more about Project Knowledge Packs](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/project-knowledge-packs.md)
+
+---
 
 ### Context Pack
 
@@ -196,6 +230,10 @@ Ask ChatGPT or Claude
 ---
 
 ## Documentation
+
+### [Project Knowledge Packs](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/project-knowledge-packs.md)
+
+Freshness tracking, context diff, and re-export workflows.
 
 ### [Features](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md)
 
