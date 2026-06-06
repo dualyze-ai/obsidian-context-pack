@@ -1,4 +1,4 @@
-import { App, TFile, Notice, Platform, activeDocument } from 'obsidian';
+import { App, TFile, Notice, activeDocument } from 'obsidian';
 import { zip, strToU8 } from 'fflate';
 import { formatForNotebookLM, type FormatOptions } from './formatter';
 import { estimateTokens } from './token-counter';
