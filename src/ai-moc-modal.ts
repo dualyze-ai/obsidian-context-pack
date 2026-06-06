@@ -37,7 +37,8 @@ export class AiMocModal extends Modal {
   constructor(
     app: App,
     private onPackRequested: (files: TFile[], source: string) => void,
-    initialFile?: TFile
+    initialFile?: TFile,
+    private outputFolder = ''
   ) {
     super(app);
     this.selectedFile = initialFile;
@@ -138,6 +139,7 @@ export class AiMocModal extends Modal {
       includeBacklinksInMoc: this.includeBacklinksInMoc,
       includeBacklinksInPack: this.includeBacklinksInPack,
       generateContextPack: this.generateContextPack,
+      outputFolder: this.outputFolder,
     };
 
     new Notice(t('ai_moc_notice_creating'));
