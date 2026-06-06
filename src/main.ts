@@ -29,6 +29,10 @@ function toFreshnessTarget(target: OutputTarget): PackRecord['target'] | null {
 export default class ContextPackPlugin extends Plugin {
   settings!: PluginSettings;
 
+  onunload() {
+    this.app.workspace.detachLeavesOfType(FRESHNESS_VIEW_TYPE);
+  }
+
   async onload() {
     await this.loadSettings();
     this.addSettingTab(new SettingsTab(this.app, this));
