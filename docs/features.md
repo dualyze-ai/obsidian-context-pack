@@ -10,6 +10,7 @@ AI Context Pack adds two ribbon icons to the Obsidian sidebar.
 
 | Icon | Function |
 |------|----------|
+| <img src="icon-boxes.png" width="16"> | [Project Knowledge Packs](project-knowledge-packs.md) — freshness tracking panel |
 | <img src="icon-package.png" width="16"> | Context Pack / Export menu |
 | <img src="icon-calendar-arrow-down.png" width="16"> | Daily Notes Pack |
 

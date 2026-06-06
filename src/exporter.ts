@@ -63,16 +63,9 @@ export async function exportVault(
     });
   });
 
-  let savedPath = filename;
-  if (Platform.isDesktop && !options.outputFolder) {
-    downloadBlob(blob, filename);
-  } else {
-    const folder = options.outputFolder || '';
-    savedPath = folder ? `${folder}/${filename}` : filename;
-    await saveToVault(app, folder, filename, blob);
-  }
+  downloadBlob(blob, filename);
 
-  return { filename: savedPath, count };
+  return { filename, count };
 }
 
 function getMarkdownFiles(app: App, targetFolder: string): TFile[] {
@@ -131,14 +124,9 @@ export async function exportAsText(
   content: string,
   filename: string,
   outputFolder: string,
-  forceVault = false
 ): Promise<string> {
   const blob = new Blob([content], { type: 'text/markdown' });
   const savedPath = outputFolder ? `${outputFolder}/${filename}` : filename;
-  if (Platform.isDesktop && !outputFolder && !forceVault) {
-    downloadBlob(blob, filename);
-    return '';
-  }
   await saveToVault(app, outputFolder, filename, blob);
   return savedPath;
 }
@@ -168,10 +156,8 @@ export async function buildAiOutput(
   }
 
   if (options.saveToFile && preset.saveToFile) {
-    // When openAiUrl is enabled, force vault save so we can await completion before opening URL
-    const forceVault = !!options.openAiUrl;
     try {
-      savedPath = await exportAsText(app, content, filename, options.outputFolder, forceVault);
+      savedPath = await exportAsText(app, content, filename, options.outputFolder);
     } catch (err) {
       new Notice(`Export failed: ${err instanceof Error ? err.message : String(err)}`, 8000);
       return;
