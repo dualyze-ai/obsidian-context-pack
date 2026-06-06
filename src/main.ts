@@ -8,6 +8,23 @@ import { OutputTargetModal } from './output-target-modal';
 import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState } from './types';
 import { AiMocModal } from './ai-moc-modal';
 import { t } from './i18n';
+import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
+import { buildPackRecord, packKey } from './freshness/checker';
+import type { PackRecord } from './freshness/types';
+
+interface PackMeta {
+  source: PackRecord['source'];
+  files: TFile[];
+  name: string;
+}
+
+function toFreshnessTarget(target: OutputTarget): PackRecord['target'] | null {
+  if (target === 'chatgpt') return 'chatgpt';
+  if (target === 'claude') return 'claude';
+  if (target === 'gemini') return 'gemini';
+  if (target === 'notebooklm-text' || target === 'notebooklm-zip') return 'notebooklm';
+  return null;
+}
 
 export default class ContextPackPlugin extends Plugin {
   settings!: PluginSettings;
@@ -15,6 +32,18 @@ export default class ContextPackPlugin extends Plugin {
   async onload() {
     await this.loadSettings();
     this.addSettingTab(new SettingsTab(this.app, this));
+
+    this.registerView(FRESHNESS_VIEW_TYPE, (leaf) => new FreshnessView(leaf, this));
+
+    this.addRibbonIcon('activity', 'Project Knowledge Packs', () => {
+      void this.activateFreshnessView();
+    });
+
+    this.addCommand({
+      id: 'open-freshness-panel',
+      name: 'Open Project Knowledge Packs',
+      callback: () => void this.activateFreshnessView(),
+    });
 
     this.addRibbonIcon('package', t('ribbon_tooltip'), (evt: MouseEvent) => {
       const menu = new Menu();
@@ -181,10 +210,62 @@ export default class ContextPackPlugin extends Plugin {
     if (!saved?.outputSelectorState) {
       this.settings.outputSelectorState = migrateOutputTarget(this.settings.defaultOutputTarget);
     }
+    if (!Array.isArray(this.settings.packRegistry)) {
+      this.settings.packRegistry = [];
+    }
+    if (!this.settings.freshnessSettings) {
+      this.settings.freshnessSettings = DEFAULT_SETTINGS.freshnessSettings;
+    }
   }
 
   async saveSettings() {
     await this.saveData(this.settings);
+  }
+
+  async activateFreshnessView(): Promise<void> {
+    const existing = this.app.workspace.getLeavesOfType(FRESHNESS_VIEW_TYPE);
+    if (existing.length > 0) {
+      this.app.workspace.revealLeaf(existing[0]);
+      return;
+    }
+    const leaf = this.app.workspace.getRightLeaf(false);
+    if (!leaf) return;
+    await leaf.setViewState({ type: FRESHNESS_VIEW_TYPE, active: true });
+    this.app.workspace.revealLeaf(leaf);
+  }
+
+  async savePackRecord(meta: PackMeta, outputTarget: OutputTarget): Promise<void> {
+    const freshnessTarget = toFreshnessTarget(outputTarget);
+    if (!freshnessTarget) return;
+    const record = buildPackRecord(meta.name, meta.source, freshnessTarget, meta.files);
+    const key = packKey(meta.source, freshnessTarget);
+    const idx = this.settings.packRegistry.findIndex(
+      (p) => packKey(p.source, p.target) === key,
+    );
+    if (idx >= 0) {
+      this.settings.packRegistry[idx] = record;
+    } else {
+      this.settings.packRegistry.push(record);
+    }
+    await this.saveSettings();
+  }
+
+  async reExportPack(pack: PackRecord): Promise<void> {
+    switch (pack.source.type) {
+      case 'folder':
+        await this.packFromFolderPath(pack.source.query);
+        break;
+      case 'tag':
+        await this.handlePackFromTag(pack.source.query.replace(/^#/, ''));
+        break;
+      case 'moc': {
+        const moc = this.app.vault.getAbstractFileByPath(pack.source.query);
+        if (moc instanceof TFile) await this.packFromMoc(moc);
+        break;
+      }
+      default:
+        new Notice('Re-export for this pack type is not yet supported.');
+    }
   }
 
   private formatOptions() {
@@ -413,7 +494,14 @@ export default class ContextPackPlugin extends Plugin {
 
       const dateStr = moment().format('YYYYMMDD');
       const prefix = weeklySummary ? 'weekly' : 'daily';
-      this.handlePackOutput(content, `${prefix}-notes-${dateStr}`, files.length, weeklySummary ? 'Weekly Notes' : 'Daily Notes');
+      const startIso = moment(startDate).format('YYYY-MM-DD');
+      const endIso = moment(endDate).format('YYYY-MM-DD');
+      const packName = weeklySummary ? 'Weekly Notes' : 'Daily Notes';
+      this.handlePackOutput(content, `${prefix}-notes-${dateStr}`, files.length, packName, {
+        source: { type: 'daily', query: `${startIso}..${endIso}` },
+        files,
+        name: packName,
+      });
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -441,7 +529,11 @@ export default class ContextPackPlugin extends Plugin {
         source: `folder:${folderPath}`,
       }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
       notice.hide();
-      this.handlePackOutput(content, `folder-${title}`, files.length, title);
+      this.handlePackOutput(content, `folder-${title}`, files.length, title, {
+        source: { type: 'folder', query: folderPath },
+        files,
+        name: title,
+      });
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -460,7 +552,11 @@ export default class ContextPackPlugin extends Plugin {
         title: tag, source: `tag:${tag}`,
       }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
       notice.hide();
-      this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length, `#${tag}`);
+      this.handlePackOutput(content, `tag-${tag.replace(/\//g, '-')}`, files.length, `#${tag}`, {
+        source: { type: 'tag', query: tag },
+        files,
+        name: `#${tag}`,
+      });
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -495,7 +591,11 @@ export default class ContextPackPlugin extends Plugin {
         source: `moc:${moc.basename}`,
       }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
       notice.hide();
-      this.handlePackOutput(content, `moc-${moc.basename}`, files.length, moc.basename);
+      this.handlePackOutput(content, `moc-${moc.basename}`, files.length, moc.basename, {
+        source: { type: 'moc', query: moc.path },
+        files,
+        name: moc.basename,
+      });
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -509,7 +609,11 @@ export default class ContextPackPlugin extends Plugin {
     }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal)
       .then(content => {
         notice.hide();
-        this.handlePackOutput(content, `ai-moc-${source}`, files.length, source);
+        this.handlePackOutput(content, `ai-moc-${source}`, files.length, source, {
+          source: { type: 'moc', query: source },
+          files,
+          name: source,
+        });
       })
       .catch(err => this.handlePackError(notice, err));
   }
@@ -557,7 +661,7 @@ export default class ContextPackPlugin extends Plugin {
     return key ? t(key) : '';
   }
 
-  private handlePackOutput(content: string, slug: string, noteCount: number, source: string): void {
+  private handlePackOutput(content: string, slug: string, noteCount: number, source: string, packMeta?: PackMeta): void {
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, () => this.saveSettings(), async (choice) => {
         const preset = OUTPUT_PRESETS[choice.target];
@@ -574,6 +678,7 @@ export default class ContextPackPlugin extends Plugin {
             openAiUrl: choice.openAiUrl,
           });
         }
+        if (packMeta) await this.savePackRecord(packMeta, choice.target);
       }).open();
     } else {
       const selectorState = this.settings.outputSelectorState;
@@ -593,6 +698,7 @@ export default class ContextPackPlugin extends Plugin {
           openAiUrl: this.settings.openAiUrl,
         });
       }
+      if (packMeta) void this.savePackRecord(packMeta, target);
     }
   }
 
