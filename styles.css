@@ -346,6 +346,13 @@
   gap: 4px;
 }
 
+.cp-freshness-last-checked {
+  font-size: 11px;
+  color: var(--text-faint);
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
 .cp-freshness-icon-btn {
   background: transparent;
   border: none;
@@ -413,7 +420,7 @@
 
 .cp-freshness-view--dark .cp-freshness-delete-btn {
   background: transparent;
-  color: #666666;
+  color: #999999;
 }
 
 .cp-freshness-view--dark .cp-freshness-delete-btn:hover {
@@ -500,6 +507,15 @@
   margin-top: 2px;
 }
 
+.cp-freshness-chip-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
 .cp-freshness-dot--fresh { background: var(--color-green); }
 .cp-freshness-dot--warn  { background: var(--color-yellow); }
 .cp-freshness-dot--stale { background: var(--color-red); }
@@ -536,8 +552,8 @@
   border: none;
   cursor: pointer;
   font-size: 12px;
-  color: var(--text-faint);
-  padding: 1px 5px;
+  color: var(--text-muted);
+  padding: 1px 4px;
   border-radius: 4px;
   line-height: 1;
   flex-shrink: 0;
@@ -596,8 +612,11 @@
 }
 
 .cp-freshness-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 11px;
-  color: var(--text-faint);
+  color: var(--text-muted);
   margin-bottom: 2px;
 }
 
