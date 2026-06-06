@@ -58,6 +58,7 @@ export interface PluginSettings {
   outputSelectorState: OutputSelectorState;
   packRegistry: PackRecord[];
   freshnessSettings: FreshnessSettings;
+  freshnessViewDark: boolean;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -86,6 +87,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   outputSelectorState: DEFAULT_OUTPUT_SELECTOR_STATE,
   packRegistry: [],
   freshnessSettings: DEFAULT_FRESHNESS_SETTINGS,
+  freshnessViewDark: false,
 };
 
 export class SettingsTab extends PluginSettingTab {

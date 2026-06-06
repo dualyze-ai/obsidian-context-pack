@@ -42,10 +42,27 @@ export class FreshnessView extends ItemView {
     const { containerEl } = this;
     containerEl.empty();
     containerEl.addClass('cp-freshness-view');
+    if (this.plugin.settings.freshnessViewDark) {
+      containerEl.addClass('cp-freshness-view--dark');
+    }
 
     const header = containerEl.createEl('div', { cls: 'cp-freshness-header' });
     header.createEl('h4', { text: 'Project Knowledge Packs', cls: 'cp-freshness-title' });
-    const refreshBtn = header.createEl('button', { cls: 'cp-freshness-refresh', text: '↻' });
+
+    const controls = header.createEl('div', { cls: 'cp-freshness-controls' });
+
+    const darkBtn = controls.createEl('button', {
+      cls: 'cp-freshness-icon-btn',
+      text: this.plugin.settings.freshnessViewDark ? '☀️' : '🌙',
+    });
+    darkBtn.setAttribute('title', this.plugin.settings.freshnessViewDark ? 'ライトモード' : 'ダークモード');
+    darkBtn.addEventListener('click', async () => {
+      this.plugin.settings.freshnessViewDark = !this.plugin.settings.freshnessViewDark;
+      await this.plugin.saveSettings();
+      this.render();
+    });
+
+    const refreshBtn = controls.createEl('button', { cls: 'cp-freshness-icon-btn', text: '↻' });
     refreshBtn.setAttribute('title', 'Refresh');
     refreshBtn.addEventListener('click', () => void this.refresh());
 
