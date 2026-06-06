@@ -42,6 +42,7 @@ export class FreshnessView extends ItemView {
     const { containerEl } = this;
     containerEl.empty();
     containerEl.addClass('cp-freshness-view');
+    containerEl.removeClass('cp-freshness-view--dark');
     if (this.plugin.settings.freshnessViewDark) {
       containerEl.addClass('cp-freshness-view--dark');
     }
