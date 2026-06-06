@@ -340,19 +340,41 @@
   color: var(--text-normal);
 }
 
-.cp-freshness-refresh {
+.cp-freshness-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cp-freshness-icon-btn {
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-muted);
   padding: 2px 6px;
   border-radius: 4px;
+  line-height: 1.4;
 }
 
-.cp-freshness-refresh:hover {
+.cp-freshness-icon-btn:hover {
   background: var(--background-modifier-hover);
   color: var(--text-normal);
+}
+
+/* ── Dark mode override (scoped CSS variables) */
+.cp-freshness-view--dark {
+  --background-primary:          #1a1a1a;
+  --background-secondary:        #242424;
+  --background-secondary-alt:    #2a2a2a;
+  --background-modifier-border:  #3a3a3a;
+  --background-modifier-hover:   #333333;
+  --text-normal:   #e0e0e0;
+  --text-muted:    #999999;
+  --text-faint:    #666666;
+  --text-error:    #f87171;
+  background: #1a1a1a;
+  border-radius: 6px;
 }
 
 .cp-freshness-loading,
