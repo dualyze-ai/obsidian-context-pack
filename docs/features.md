@@ -6,7 +6,7 @@ This page explains every feature available in AI Context Pack.
 
 # Usage
 
-AI Context Pack adds two ribbon icons to the Obsidian sidebar.
+AI Context Pack adds three ribbon icons to the Obsidian sidebar.
 
 | Icon | Function |
 |------|----------|
@@ -19,6 +19,20 @@ All commands are also available from:
 - Command Palette (`Cmd/Ctrl+P`)
 - Right-click context menus
 - File Explorer menus
+
+---
+
+# Project Knowledge Packs
+
+Track which notes were sent to ChatGPT Projects, Claude Projects, Gemini, or NotebookLM — and monitor whether they are still up to date.
+
+| Status | Meaning |
+|---|---|
+| 🟢 Fresh | No changes detected |
+| 🟡 Needs Review | A small number of notes changed |
+| 🔴 Stale | Significant changes detected |
+
+→ [Full documentation](project-knowledge-packs.md)
 
 ---
 
