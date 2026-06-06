@@ -256,4 +256,20 @@ Prefer consistency with project documentation over generic examples.`,
 - Do not make new designs based on inference
 - Respect consistency with existing implementations
 - Ask when requirements are unclear`,
+
+  freshness_level_fresh:  'Fresh',
+  freshness_level_warn:   'Needs Review',
+  freshness_level_stale:  'Stale',
+  freshness_loading:      'Checking freshness…',
+  freshness_empty:        'No packs yet. Generate a pack to start tracking freshness.',
+  freshness_count_fresh:  (n: number) => `Up to date / ${n} notes`,
+  freshness_count_notes:  (n: number) => `/ ${n} notes`,
+  freshness_updated:      (n: number) => `${n} updated`,
+  freshness_added:        (n: number) => `${n} added`,
+  freshness_created_at:   (s: string) => `Added ${s}`,
+  freshness_not_found:    (n: number) => `⚠ ${n} Not Found`,
+  freshness_diff_btn:     'View diff',
+  freshness_diff_soon:    'Diff view coming soon.',
+  freshness_reexport_btn: 'Re-export',
+  freshness_delete_title: 'Delete this pack',
 };

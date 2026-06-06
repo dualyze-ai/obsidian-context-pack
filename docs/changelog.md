@@ -1,5 +1,8 @@
 # Changelog
 
+### v3.0.1
+- **Lint fixes** — resolve ESLint errors for Obsidian plugin submission: minAppVersion 1.7.2, unused import, async handler, type-safe cast
+
 ### v3.0.0
 
 **Project Knowledge Packs — Track freshness of AI project knowledge**
