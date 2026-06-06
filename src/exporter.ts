@@ -63,11 +63,9 @@ export async function exportVault(
     });
   });
 
-  const folder = options.outputFolder || '';
-  const savedPath = folder ? `${folder}/${filename}` : filename;
-  await saveToVault(app, folder, filename, blob);
+  downloadBlob(blob, filename);
 
-  return { filename: savedPath, count };
+  return { filename, count };
 }
 
 function getMarkdownFiles(app: App, targetFolder: string): TFile[] {

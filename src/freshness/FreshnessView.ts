@@ -15,6 +15,7 @@ export class FreshnessView extends ItemView {
   private plugin: ContextPackPlugin;
   private results: PackCheckResult[] = [];
   private loading = false;
+  private lastChecked: number | null = null;
 
   constructor(leaf: WorkspaceLeaf, plugin: ContextPackPlugin) {
     super(leaf);
@@ -34,6 +35,7 @@ export class FreshnessView extends ItemView {
     const packs = this.plugin.settings.packRegistry ?? [];
     this.results = await checkAllPacks(this.app, packs, this.plugin.settings.freshnessSettings);
     this.results.sort((a, b) => a.freshnessScore - b.freshnessScore);
+    this.lastChecked = Date.now();
     this.loading = false;
     this.render();
   }
@@ -51,6 +53,14 @@ export class FreshnessView extends ItemView {
     header.createEl('h4', { text: 'Project Knowledge Packs', cls: 'cp-freshness-title' });
 
     const controls = header.createEl('div', { cls: 'cp-freshness-controls' });
+
+    if (this.lastChecked) {
+      const checkedEl = controls.createEl('span', {
+        cls: 'cp-freshness-last-checked',
+        text: `↻ ${moment(this.lastChecked).fromNow()}`,
+      });
+      checkedEl.setAttribute('title', moment(this.lastChecked).format('YYYY-MM-DD HH:mm'));
+    }
 
     const darkBtn = controls.createEl('button', {
       cls: 'cp-freshness-icon-btn',
@@ -99,8 +109,9 @@ export class FreshnessView extends ItemView {
     ];
     for (const item of items) {
       const chip = summary.createEl('span', { cls: `cp-freshness-chip cp-freshness-chip--${item.cls}` });
+      chip.createEl('span', { cls: `cp-freshness-chip-dot cp-freshness-dot--${item.cls}` });
+      chip.createEl('span', { cls: 'cp-freshness-chip-label', text: ` ${item.label}: ` });
       chip.createEl('span', { cls: 'cp-freshness-chip-count', text: String(item.count) });
-      chip.createEl('span', { cls: 'cp-freshness-chip-label', text: ` ${item.label}` });
     }
   }
 
@@ -132,27 +143,23 @@ export class FreshnessView extends ItemView {
     targetBadge.setAttribute('data-target', pack.target);
 
     // Per-row level chip
-    topLine.createEl('span', {
-      cls: `cp-freshness-row-chip cp-freshness-chip--${result.level}`,
-      text: LEVEL_LABEL[result.level],
-    });
-
-    // Delete button (spacer pushes it to right)
-    topLine.createEl('span', { cls: 'cp-freshness-topline-spacer' });
-    const deleteBtn = topLine.createEl('button', {
-      cls: 'cp-freshness-delete-btn',
-      text: '✕',
-    });
-    deleteBtn.setAttribute('title', 'このパックを削除');
-    deleteBtn.addEventListener('click', () => void this.deletePack(pack));
+    const rowChip = topLine.createEl('span', { cls: `cp-freshness-row-chip cp-freshness-chip--${result.level}` });
+    rowChip.createEl('span', { cls: `cp-freshness-chip-dot cp-freshness-dot--${result.level}` });
+    rowChip.createEl('span', { text: ` ${LEVEL_LABEL[result.level]}` });
 
     // ── Count
     const countEl = body.createEl('div', { cls: 'cp-freshness-count' });
     countEl.setText(this.buildCountText(result));
 
-    // ── Meta
+    // ── Meta + delete button
     const metaLine = body.createEl('div', { cls: 'cp-freshness-meta' });
-    metaLine.setText(`投入 ${moment(pack.createdAt).format('MM/DD')} ・ 現在 ${moment().format('MM/DD')}`);
+    metaLine.createEl('span', { text: `投入 ${moment(pack.createdAt).fromNow()}` });
+    const deleteBtn = metaLine.createEl('button', {
+      cls: 'cp-freshness-delete-btn',
+      text: '✕',
+    });
+    deleteBtn.setAttribute('title', 'このパックを削除');
+    deleteBtn.addEventListener('click', () => void this.deletePack(pack));
 
     // ── Missing warning
     if (result.missing.length > 0) {
