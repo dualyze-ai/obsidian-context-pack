@@ -1,5 +1,5 @@
 import { TFile } from 'obsidian';
-import { checkPack, packKey, buildPackRecord } from '../src/freshness/checker';
+import { checkPack, packKey, buildPackRecord, applyRenameToRegistry } from '../src/freshness/checker';
 import type { PackRecord, FreshnessSettings } from '../src/freshness/types';
 
 const DEFAULT_SETTINGS: FreshnessSettings = { warnThreshold: 0.01, staleThreshold: 0.20 };
@@ -156,5 +156,84 @@ describe('checkPack — tag source', () => {
     const result = await checkPack(app, pack, DEFAULT_SETTINGS);
     expect(result.level).toBe('fresh');
     expect(result.unchanged).toContain('Notes/tagged.md');
+  });
+});
+
+describe('applyRenameToRegistry', () => {
+  function makeRegistry(): import('../src/freshness/types').PackRecord[] {
+    return [
+      buildPackRecord('Hokkaido', { type: 'folder', query: 'Japan/Hokkaido' }, 'claude', [
+        makeFile('Japan/Hokkaido/a.md', 1000, 100),
+        makeFile('Japan/Hokkaido/sub/b.md', 2000, 200),
+      ]),
+      buildPackRecord('MOC Pack', { type: 'moc', query: 'Japan/Hokkaido/index.md' }, 'gemini', [
+        makeFile('Japan/Hokkaido/index.md', 1000, 50),
+      ]),
+      buildPackRecord('Kansai', { type: 'folder', query: 'Japan/Kansai' }, 'chatgpt', [
+        makeFile('Japan/Kansai/c.md', 3000, 300),
+      ]),
+    ];
+  }
+
+  test('フォルダリネーム: source.query と files[].path を一括更新', () => {
+    const registry = makeRegistry();
+    const changed = applyRenameToRegistry(registry, 'Japan/Hokkaido', 'Japan/Hokkaido2', true);
+
+    expect(changed).toBe(true);
+    expect(registry[0].source.query).toBe('Japan/Hokkaido2');
+    expect(registry[0].files[0].path).toBe('Japan/Hokkaido2/a.md');
+    expect(registry[0].files[1].path).toBe('Japan/Hokkaido2/sub/b.md');
+  });
+
+  test('フォルダリネーム: MOC の source.query はファイルタイプなので更新されない', () => {
+    const registry = makeRegistry();
+    applyRenameToRegistry(registry, 'Japan/Hokkaido', 'Japan/Hokkaido2', true);
+    // moc source.query はフォルダリネームでは更新しない（ファイルパスとして files[] 経由で更新される）
+    expect(registry[1].files[0].path).toBe('Japan/Hokkaido2/index.md');
+  });
+
+  test('フォルダリネーム: 無関係なフォルダは変更されない', () => {
+    const registry = makeRegistry();
+    applyRenameToRegistry(registry, 'Japan/Hokkaido', 'Japan/Hokkaido2', true);
+
+    expect(registry[2].source.query).toBe('Japan/Kansai');
+    expect(registry[2].files[0].path).toBe('Japan/Kansai/c.md');
+  });
+
+  test('ファイルリネーム: 該当ファイルのみ path を更新', () => {
+    const registry = makeRegistry();
+    const changed = applyRenameToRegistry(
+      registry, 'Japan/Hokkaido/a.md', 'Japan/Hokkaido/a-renamed.md', false,
+    );
+
+    expect(changed).toBe(true);
+    expect(registry[0].files[0].path).toBe('Japan/Hokkaido/a-renamed.md');
+    expect(registry[0].files[1].path).toBe('Japan/Hokkaido/sub/b.md'); // 変化なし
+  });
+
+  test('MOC ファイルリネーム: source.query を更新', () => {
+    const registry = makeRegistry();
+    applyRenameToRegistry(
+      registry, 'Japan/Hokkaido/index.md', 'Japan/Hokkaido/index2.md', false,
+    );
+
+    expect(registry[1].source.query).toBe('Japan/Hokkaido/index2.md');
+  });
+
+  test('一致なし: changed = false', () => {
+    const registry = makeRegistry();
+    const changed = applyRenameToRegistry(registry, 'Unrelated/path', 'Unrelated/new', true);
+    expect(changed).toBe(false);
+  });
+
+  test('親フォルダのリネーム: 子フォルダの source.query も更新', () => {
+    const registry = [
+      buildPackRecord('Sub', { type: 'folder', query: 'Japan/Hokkaido/sub' }, 'claude', [
+        makeFile('Japan/Hokkaido/sub/x.md', 1000, 100),
+      ]),
+    ];
+    applyRenameToRegistry(registry, 'Japan', 'Asia', true);
+    expect(registry[0].source.query).toBe('Asia/Hokkaido/sub');
+    expect(registry[0].files[0].path).toBe('Asia/Hokkaido/sub/x.md');
   });
 });

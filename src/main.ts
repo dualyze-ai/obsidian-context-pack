@@ -1,4 +1,4 @@
-import { App, Plugin, TFile, TFolder, SuggestModal, Notice, Menu, Platform, moment } from 'obsidian';
+import { App, Plugin, TFile, TFolder, TAbstractFile, SuggestModal, Notice, Menu, Platform, moment } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
 import { exportVault, exportSingleNote, downloadBlob, buildAiOutput, getProjectKnowledgeInstructions } from './exporter';
 import { buildContextPack } from './context-pack';
@@ -9,7 +9,7 @@ import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAU
 import { AiMocModal } from './ai-moc-modal';
 import { t } from './i18n';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
-import { buildPackRecord, packKey } from './freshness/checker';
+import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
 import type { PackRecord } from './freshness/types';
 
 interface PackMeta {
@@ -202,6 +202,12 @@ export default class ContextPackPlugin extends Plugin {
         }
       })
     );
+
+    this.registerEvent(
+      this.app.vault.on('rename', (file, oldPath) => {
+        void this.handleRename(file, oldPath);
+      })
+    );
   }
 
   async loadSettings() {
@@ -248,6 +254,27 @@ export default class ContextPackPlugin extends Plugin {
       this.settings.packRegistry.push(record);
     }
     await this.saveSettings();
+  }
+
+  private async handleRename(file: TAbstractFile, oldPath: string): Promise<void> {
+    const changed = applyRenameToRegistry(
+      this.settings.packRegistry,
+      oldPath,
+      file.path,
+      file instanceof TFolder,
+    );
+    if (changed) {
+      await this.saveSettings();
+      this.refreshFreshnessViewIfOpen();
+    }
+  }
+
+  private refreshFreshnessViewIfOpen(): void {
+    for (const leaf of this.app.workspace.getLeavesOfType(FRESHNESS_VIEW_TYPE)) {
+      if (leaf.view instanceof FreshnessView) {
+        void leaf.view.refresh();
+      }
+    }
   }
 
   async reExportPack(pack: PackRecord): Promise<void> {
