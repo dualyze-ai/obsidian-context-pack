@@ -483,18 +483,38 @@
 }
 
 .cp-freshness-pack-name {
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 14px;
   color: var(--text-normal);
 }
 
 .cp-freshness-target-badge {
-  font-size: 11px;
-  padding: 1px 7px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 9px;
   border-radius: 10px;
-  background: var(--background-modifier-border);
-  color: var(--text-muted);
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cp-freshness-target-badge[data-target="chatgpt"] {
+  background: rgba(16, 163, 127, 0.15);
+  color: #10a37f;
+}
+
+.cp-freshness-target-badge[data-target="claude"] {
+  background: rgba(204, 120, 92, 0.15);
+  color: #cc785c;
+}
+
+.cp-freshness-target-badge[data-target="gemini"] {
+  background: rgba(66, 133, 244, 0.15);
+  color: #4285f4;
+}
+
+.cp-freshness-target-badge[data-target="notebooklm"] {
+  background: rgba(251, 188, 4, 0.15);
+  color: #c69104;
 }
 
 .cp-freshness-count {
