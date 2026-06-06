@@ -447,9 +447,39 @@
 .cp-freshness-topline {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 4px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+}
+
+.cp-freshness-topline-spacer {
+  flex: 1;
+}
+
+.cp-freshness-row-chip {
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cp-freshness-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-faint);
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cp-freshness-delete-btn:hover {
+  background: var(--background-modifier-error);
+  color: var(--text-error);
 }
 
 .cp-freshness-pack-name {
