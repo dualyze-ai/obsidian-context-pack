@@ -132,3 +132,43 @@ export async function checkAllPacks(
 ): Promise<PackCheckResult[]> {
   return Promise.all(packs.map((p) => checkPack(app, p, settings)));
 }
+
+/** ファイル/フォルダのリネーム・移動に合わせて PackRecord 群を更新する（破壊的）。変更があれば true を返す。 */
+export function applyRenameToRegistry(
+  packs: PackRecord[],
+  oldPath: string,
+  newPath: string,
+  isFolder: boolean,
+): boolean {
+  let changed = false;
+
+  for (const pack of packs) {
+    // source.query の更新
+    if (isFolder && pack.source.type === 'folder') {
+      if (pack.source.query === oldPath) {
+        pack.source.query = newPath;
+        changed = true;
+      } else if (pack.source.query.startsWith(oldPath + '/')) {
+        pack.source.query = newPath + pack.source.query.slice(oldPath.length);
+        changed = true;
+      }
+    }
+    if (!isFolder && pack.source.type === 'moc' && pack.source.query === oldPath) {
+      pack.source.query = newPath;
+      changed = true;
+    }
+
+    // files[].path の更新
+    for (const rec of pack.files) {
+      if (rec.path === oldPath) {
+        rec.path = newPath;
+        changed = true;
+      } else if (isFolder && rec.path.startsWith(oldPath + '/')) {
+        rec.path = newPath + rec.path.slice(oldPath.length);
+        changed = true;
+      }
+    }
+  }
+
+  return changed;
+}
