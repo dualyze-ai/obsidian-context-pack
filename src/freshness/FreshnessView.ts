@@ -153,7 +153,7 @@ export class FreshnessView extends ItemView {
         text: '差分を見る',
       });
       diffBtn.addEventListener('click', () => {
-        new Notice('差分表示は近日公開予定です (v3.1)');
+        new Notice('差分表示は近日公開予定です。');
       });
 
       const reBtn = actions.createEl('button', {
