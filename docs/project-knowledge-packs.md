@@ -14,9 +14,7 @@ Keep your AI knowledge up to date.
 
 Click the <img src="icon-boxes.png" width="16"> ribbon icon in the Obsidian sidebar.
 
-```
-⊹  Project Knowledge Packs
-```
+<img src="icon-boxes.png" width="16">  Project Knowledge Packs
 
 Or run the command:
 
