@@ -1,5 +1,8 @@
 # Changelog
 
+### v3.0.3
+- **Fix** — remove "Obsidian" from manifest description (Obsidian plugin submission rule)
+
 ### v3.0.2
 - **Freshness Auto Check** — new setting to automatically check pack freshness on vault startup
 - **Doc fix** — corrected ribbon icon name in project-knowledge-packs.md
