@@ -12,7 +12,7 @@ Keep your AI knowledge up to date.
 
 ## Opening the panel
 
-Click the **activity** ribbon icon in the Obsidian sidebar.
+Click the **boxes** ribbon icon in the Obsidian sidebar.
 
 ```
 ⊹  Project Knowledge Packs
