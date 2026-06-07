@@ -59,6 +59,7 @@ export interface PluginSettings {
   packRegistry: PackRecord[];
   freshnessSettings: FreshnessSettings;
   freshnessViewDark: boolean;
+  freshnessAutoCheck: boolean;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -88,6 +89,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   packRegistry: [],
   freshnessSettings: DEFAULT_FRESHNESS_SETTINGS,
   freshnessViewDark: true,
+  freshnessAutoCheck: false,
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -359,6 +361,18 @@ export class SettingsTab extends PluginSettingTab {
       this.plugin.settings.starterPrompt = promptArea.value;
       void this.plugin.saveSettings();
     });
+
+    new Setting(containerEl).setName(t('setting_freshness_section')).setHeading();
+
+    new Setting(containerEl)
+      .setName(t('setting_freshness_auto_check'))
+      .setDesc(t('setting_freshness_auto_check_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.freshnessAutoCheck)
+        .onChange(async value => {
+          this.plugin.settings.freshnessAutoCheck = value;
+          await this.plugin.saveSettings();
+        }));
 
     new Setting(containerEl).setName('Custom replacement rules').setHeading();
 

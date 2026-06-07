@@ -1,5 +1,10 @@
 # Changelog
 
+### v3.0.2
+- **Freshness Auto Check** — new setting to automatically check pack freshness on vault startup
+- **Doc fix** — corrected ribbon icon name in project-knowledge-packs.md
+- **Description update** — updated plugin description in manifest
+
 ### v3.0.1
 - **Lint fixes** — resolve ESLint errors for Obsidian plugin submission: minAppVersion 1.7.2, unused import, async handler, type-safe cast
 

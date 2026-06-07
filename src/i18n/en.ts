@@ -257,6 +257,10 @@ Prefer consistency with project documentation over generic examples.`,
 - Respect consistency with existing implementations
 - Ask when requirements are unclear`,
 
+  setting_freshness_section:          'Freshness Auto Check',
+  setting_freshness_auto_check:       'Check pack freshness on startup',
+  setting_freshness_auto_check_desc:  'Automatically check all pack freshness when Obsidian starts.',
+
   freshness_level_fresh:  'Fresh',
   freshness_level_warn:   'Needs Review',
   freshness_level_stale:  'Stale',

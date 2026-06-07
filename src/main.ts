@@ -211,6 +211,18 @@ export default class ContextPackPlugin extends Plugin {
         void this.handleRename(file, oldPath);
       })
     );
+
+    this.app.workspace.onLayoutReady(() => {
+      if (this.settings.freshnessAutoCheck) {
+        const leaves = this.app.workspace.getLeavesOfType(FRESHNESS_VIEW_TYPE);
+        if (leaves.length > 0) {
+          const view = leaves[0].view;
+          if (view instanceof FreshnessView) {
+            void view.refresh();
+          }
+        }
+      }
+    });
   }
 
   async loadSettings() {
