@@ -375,6 +375,8 @@ Prefer consistency with project documentation over generic examples.`,
     `This document is structured into ${n} section${n !== 1 ? 's' : ''}: ${names}.`,
   brief_hi_clusters:         (n: number, names: string) =>
     `The vault is organized into ${n} cluster${n !== 1 ? 's' : ''}: ${names}.`,
+  brief_hi_clusters_with_index: (n: number, names: string, indexName: string) =>
+    `The vault has ${n} main cluster${n !== 1 ? 's' : ''} (${names}) and one index note (${indexName}).`,
   brief_hi_conn_high:        'Notes are well connected within their topic areas.',
   brief_hi_conn_mid:         'Most notes are connected within their regional clusters. Cross-cluster connections are limited.',
   brief_hi_conn_low:         'Most notes have few connections. Adding links would improve navigability.',
