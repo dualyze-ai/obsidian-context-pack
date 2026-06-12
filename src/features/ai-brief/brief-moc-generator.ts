@@ -63,6 +63,17 @@ export function isAiBrief(content: string): boolean {
   return allHeadings.filter(h => content.includes(`## ${h}`)).length >= 2;
 }
 
+// Content-based detection for export-time filtering (when metadata cache may be stale)
+export function isAiBriefContent(content: string): boolean {
+  if (/^#\s+AI Brief\b/m.test(content)) return true;
+  const markers = [
+    '## Executive Insight', '## Executive Summary',
+    '## Knowledge Health', '## Open Questions', '## Suggested Prompts',
+    '## エグゼクティブサマリー', '## ナレッジヘルス', '## 未解決の課題', '## 推奨プロンプト',
+  ];
+  return markers.filter(m => content.includes(m)).length >= 2;
+}
+
 function detectLanguage(content: string): 'en' | 'ja' {
   return BRIEF_HEADINGS_JA.filter(h => content.includes(`## ${h}`)).length >= 2 ? 'ja' : 'en';
 }

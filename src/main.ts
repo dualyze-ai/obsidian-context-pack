@@ -12,7 +12,7 @@ import { t } from './i18n';
 import { AIBriefGenerator } from './features/ai-brief/ai-brief-generator';
 import { BriefRenderer } from './features/ai-brief/brief-renderer';
 import { BriefExporter } from './features/ai-brief/brief-exporter';
-import { isAiBriefByHeadings, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName } from './features/ai-brief/brief-moc-generator';
+import { isAiBriefByHeadings, isAiBriefContent, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
@@ -708,18 +708,36 @@ export default class ContextPackPlugin extends Plugin {
     let knowledgeOverview: string | undefined;
 
     if (isAiBriefMoc) {
-      const aiBriefFiles: TFile[] = [];
-      packFiles = allLinkedFiles.filter(f => {
-        if (this.isAiBriefFile(f)) { aiBriefFiles.push(f); return false; }
-        return true;
-      });
+      // Primary: resolve AI Brief file directly from MOC's `source` frontmatter
+      const sourceName = cache?.frontmatter?.['source'] as string | undefined;
+      const directBriefFile = sourceName
+        ? this.app.metadataCache.getFirstLinkpathDest(sourceName, moc.path) ?? null
+        : null;
 
-      if (aiBriefFiles.length > 0) {
-        const briefContent = await this.app.vault.read(aiBriefFiles[0]);
+      const aiBriefFiles: TFile[] = [];
+      const packFilesList: TFile[] = [];
+
+      for (const f of allLinkedFiles) {
+        let detected = false;
+        if (directBriefFile && f.path === directBriefFile.path) {
+          detected = true;
+        } else if (this.isAiBriefFile(f)) {
+          detected = true;
+        } else {
+          // Content-based fallback: read file and check for AI Brief markers
+          const content = await this.app.vault.read(f);
+          detected = isAiBriefContent(content);
+        }
+        if (detected) { aiBriefFiles.push(f); } else { packFilesList.push(f); }
+      }
+      packFiles = packFilesList;
+
+      const briefFile = directBriefFile ?? aiBriefFiles[0];
+      if (briefFile) {
+        const briefContent = await this.app.vault.read(briefFile);
         const briefData = parseBriefContent(briefContent);
         if (briefData) {
-          const sourceName = (cache?.frontmatter?.['source'] as string | undefined) ?? moc.basename;
-          knowledgeOverview = buildKnowledgeOverview(briefData, titleFromSourceName(sourceName));
+          knowledgeOverview = buildKnowledgeOverview(briefData, titleFromSourceName(sourceName ?? moc.basename));
         }
       }
     }
