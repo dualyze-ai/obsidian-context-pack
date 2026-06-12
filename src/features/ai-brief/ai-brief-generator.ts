@@ -97,6 +97,10 @@ export class AIBriefGenerator {
 
     const health = this.healthAnalyzer.calculate(notes, clusters, similarPairs.length);
     const openQuestions = this.openQuestionGenerator.generate(notes, clusters, health);
+    const expansionCandidates = notes
+      .filter(n => n.backlinks.length >= 3 && n.wordCount < 100)
+      .sort((a, b) => b.backlinks.length - a.backlinks.length)
+      .map(n => n.title);
     const relationships = this.computeRelationships(notes);
     const suggestedPrompts = this.buildPrompts(keyTopics, clusters);
 
@@ -130,6 +134,7 @@ export class AIBriefGenerator {
       relatedPairs,
       health,
       openQuestions,
+      expansionCandidates,
       suggestedPrompts,
       executiveSummary,
       executiveInsight,
