@@ -112,6 +112,17 @@ export class AIBriefGenerator {
   private enrichClusters(clusters: TopicCluster[], notes: NoteModel[]): void {
     const noteMap = new Map<string, NoteModel>(notes.map(n => [n.title, n]));
 
+    // Tags on more than half the vault are too generic to be meaningful themes
+    const globalTagFreq = new Map<string, number>();
+    for (const note of notes) {
+      for (const tag of note.tags) {
+        if (!this.isMetadataTag(tag)) {
+          globalTagFreq.set(tag, (globalTagFreq.get(tag) ?? 0) + 1);
+        }
+      }
+    }
+    const genericThreshold = notes.length * 0.5;
+
     for (const cluster of clusters) {
       const tagFreq = new Map<string, number>();
       for (const title of cluster.notes) {
@@ -119,9 +130,9 @@ export class AIBriefGenerator {
         if (!note) continue;
         for (const tag of note.tags) {
           if (this.isMetadataTag(tag)) continue;
-          if (tag.toLowerCase() !== cluster.name.toLowerCase()) {
-            tagFreq.set(tag, (tagFreq.get(tag) ?? 0) + 1);
-          }
+          if (tag.toLowerCase() === cluster.name.toLowerCase()) continue;
+          if ((globalTagFreq.get(tag) ?? 0) >= genericThreshold) continue;
+          tagFreq.set(tag, (tagFreq.get(tag) ?? 0) + 1);
         }
       }
       cluster.themes = Array.from(tagFreq.entries())
@@ -152,21 +163,28 @@ export class AIBriefGenerator {
   ): string {
     const nonTrivial = clusters.filter(c => c.notes.length > 1);
     const dominant = nonTrivial[0];
-    const topTopic = keyTopics[0];
     const parts: string[] = [];
 
     if (dominant) {
       const pct = Math.round(dominant.notes.length / notes.length * 100);
       parts.push(
-        `This knowledge base contains ${notes.length} notes organized into ${clusters.length} topic cluster${clusters.length > 1 ? 's' : ''}. ` +
+        `This knowledge base contains ${notes.length} notes organized into ${clusters.length} topic cluster${clusters.length !== 1 ? 's' : ''}. ` +
         `"${dominant.name}" is the largest cluster, accounting for ${pct}% of all notes.`
       );
     } else {
       parts.push(`This knowledge base contains ${notes.length} notes in a single topic area.`);
     }
 
-    if (topTopic) {
-      parts.push(`"${topTopic.name}" is the most central note and serves as a primary entry point.`);
+    if (dominant) {
+      const themes = dominant.themes.slice(0, 2);
+      let hubLine = `"${dominant.name}" forms the primary knowledge hub`;
+      if (themes.length > 0) hubLine += `, with themes including ${themes.join(' and ')}`;
+      hubLine += '.';
+      if (nonTrivial.length > 1) {
+        const second = nonTrivial[1];
+        hubLine += ` "${second.name}" is the next developed area with ${second.notes.length} notes.`;
+      }
+      parts.push(hubLine);
     }
 
     if (health.connectivityScore >= 60) {
@@ -234,13 +252,22 @@ export class AIBriefGenerator {
     keyTopics: Array<{ name: string; score: number }>,
     clusters: TopicCluster[]
   ): string[] {
+    const substantialClusters = clusters.filter(c => c.notes.length > 1);
+    const clusterNames = substantialClusters.slice(0, 3).map(c => c.name);
     const top = keyTopics.slice(0, 3).map(t => t.name);
-    const clusterNames = clusters.filter(c => c.notes.length > 1).slice(0, 3).map(c => c.name);
 
     const dynamic: string[] = [];
-    if (top.length >= 2) dynamic.push(`Compare and contrast ${top[0]} and ${top[1]}.`);
-    if (top[0])          dynamic.push(`Create a structured overview of ${top[0]}.`);
+
+    // Prefer same-cluster pair for comparison to avoid cross-domain juxtaposition
+    const samePair = this.findSameClusterPair(keyTopics, substantialClusters);
+    if (samePair) {
+      dynamic.push(`Compare and contrast "${samePair[0]}" and "${samePair[1]}".`);
+    } else if (top.length >= 2) {
+      dynamic.push(`Compare and contrast "${top[0]}" and "${top[1]}".`);
+    }
+
     if (clusterNames[0]) dynamic.push(`Summarize the key themes in ${clusterNames[0]}.`);
+    if (top[0])          dynamic.push(`Create a structured overview of "${top[0]}".`);
     if (clusterNames.length >= 2) {
       dynamic.push(`What are the connections between ${clusterNames[0]} and ${clusterNames[1]}?`);
     }
@@ -253,6 +280,18 @@ export class AIBriefGenerator {
     ];
 
     return [...dynamic, ...generic];
+  }
+
+  private findSameClusterPair(
+    keyTopics: Array<{ name: string; score: number }>,
+    clusters: TopicCluster[]
+  ): [string, string] | null {
+    for (const cluster of clusters) {
+      const clusterSet = new Set(cluster.notes);
+      const matches = keyTopics.filter(t => clusterSet.has(t.name));
+      if (matches.length >= 2) return [matches[0].name, matches[1].name];
+    }
+    return null;
   }
 
   private computeRelationships(notes: NoteModel[]): RelationshipPair[] {
