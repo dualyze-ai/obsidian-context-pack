@@ -8,6 +8,10 @@ import { OutputTargetModal } from './output-target-modal';
 import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState } from './types';
 import { AiMocModal } from './ai-moc-modal';
 import { t } from './i18n';
+import { AIBriefGenerator } from './features/ai-brief/ai-brief-generator';
+import { BriefRenderer } from './features/ai-brief/brief-renderer';
+import { BriefExporter } from './features/ai-brief/brief-exporter';
+import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
 import type { PackRecord } from './freshness/types';
@@ -160,6 +164,29 @@ export default class ContextPackPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'generate-brief-folder',
+      name: t('cmd_generate_brief_folder'),
+      callback: () => this.generateBriefFromFolder(),
+    });
+
+    this.addCommand({
+      id: 'generate-brief-tag',
+      name: t('cmd_generate_brief_tag'),
+      callback: () => this.generateBriefFromTag(),
+    });
+
+    this.addCommand({
+      id: 'generate-brief-moc',
+      name: t('cmd_generate_brief_moc'),
+      checkCallback: (checking) => {
+        const file = this.app.workspace.getActiveFile();
+        if (!file) return false;
+        if (!checking) void this.generateBriefFromMoc(file);
+        return true;
+      },
+    });
+
+    this.addCommand({
       id: 'pack-moc',
       name: t('cmd_pack_moc'),
       checkCallback: (checking) => {
@@ -185,6 +212,10 @@ export default class ContextPackPlugin extends Plugin {
             .setTitle(t('menu_export_folder'))
             .setIcon('folder-down')
             .onClick(() => this.exportFromFolderPath(file.path)));
+          menu.addItem(item => item
+            .setTitle(t('menu_generate_brief'))
+            .setIcon('brain-circuit')
+            .onClick(() => void this.generateBriefFromFolderPath(file.path)));
         }
         if (file instanceof TFile && file.extension === 'md') {
           menu.addItem(item => item
@@ -236,6 +267,9 @@ export default class ContextPackPlugin extends Plugin {
     }
     if (!this.settings.freshnessSettings) {
       this.settings.freshnessSettings = DEFAULT_SETTINGS.freshnessSettings;
+    }
+    if (!this.settings.aiBriefSettings) {
+      this.settings.aiBriefSettings = DEFAULT_AI_BRIEF_SETTINGS;
     }
   }
 
@@ -773,6 +807,62 @@ export default class ContextPackPlugin extends Plugin {
       console.error('[AI Context Pack] Failed to save pack:', err);
       new Notice(t('notice_error'));
     }
+  }
+
+  private getBriefSettings() {
+    return Object.assign({}, DEFAULT_AI_BRIEF_SETTINGS, this.settings.aiBriefSettings);
+  }
+
+  private async runBriefGeneration(files: TFile[], title: string): Promise<void> {
+    if (files.length === 0) { new Notice(t('notice_no_files')); return; }
+
+    const notice = new Notice(t('notice_generating_brief'), 0);
+    try {
+      const briefSettings = this.getBriefSettings();
+      const generator = new AIBriefGenerator(this.app);
+      const renderer = new BriefRenderer();
+      const exporter = new BriefExporter(this.app);
+
+      const model = await generator.generate(files, title, briefSettings);
+      const content = renderer.render(model, briefSettings);
+      const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+      const savedFile = await exporter.save(content, title, outputFolder);
+
+      notice.hide();
+      new Notice(t('notice_brief_done', savedFile.path), 8000);
+      await this.app.workspace.getLeaf().openFile(savedFile);
+    } catch (err) {
+      notice.hide();
+      console.error('[AI Context Pack]', err);
+      new Notice(t('notice_error'));
+    }
+  }
+
+  private generateBriefFromFolder(): void {
+    const folders = this.getFolders();
+    new FolderSuggest(this.app, folders, (folder) => void this.generateBriefFromFolderPath(folder), t('folder_picker_title_brief')).open();
+  }
+
+  private async generateBriefFromFolderPath(folderPath: string): Promise<void> {
+    const files = this.app.vault.getMarkdownFiles().filter(f => f.path.startsWith(folderPath + '/'));
+    const title = folderPath.split('/').pop() ?? folderPath;
+    await this.runBriefGeneration(files, title);
+  }
+
+  private generateBriefFromTag(): void {
+    new TagSuggest(this.app, this.getAllTags(), (tag) => void this.runBriefGeneration(this.getFilesByTag(tag), tag)).open();
+  }
+
+  private async generateBriefFromMoc(moc: TFile): Promise<void> {
+    const cache = this.app.metadataCache.getFileCache(moc);
+    const links = cache?.links?.map(l => l.link) ?? [];
+    const files: TFile[] = [];
+    for (const link of links) {
+      const linked = this.app.metadataCache.getFirstLinkpathDest(link, moc.path);
+      if (linked instanceof TFile && linked.extension === 'md') files.push(linked);
+    }
+    if (files.length === 0) { new Notice(t('notice_no_links')); return; }
+    await this.runBriefGeneration(files, moc.basename);
   }
 
   private getFolders(): string[] {

@@ -276,4 +276,21 @@ Prefer consistency with project documentation over generic examples.`,
   freshness_diff_soon:    'Diff view coming soon.',
   freshness_reexport_btn: 'Re-export',
   freshness_delete_title: 'Delete this pack',
+
+  cmd_generate_brief_folder: 'Generate AI Brief from folder',
+  cmd_generate_brief_tag:    'Generate AI Brief from tag',
+  cmd_generate_brief_moc:    'Generate AI Brief from MOC',
+  menu_generate_brief:       'Generate AI Brief from this folder',
+  notice_generating_brief:   'Generating AI Brief…',
+  notice_brief_done:         (path: string) => `AI Brief saved: ${path}`,
+
+  setting_ai_brief_section:          'AI Brief Generator',
+  setting_ai_brief_mermaid:          'Enable Mermaid diagrams',
+  setting_ai_brief_mermaid_desc:     'Render the Knowledge Map as a Mermaid mindmap diagram.',
+  setting_ai_brief_max_topics:       'Max key topics',
+  setting_ai_brief_max_topics_desc:  'Maximum number of key topics to include in the brief.',
+  setting_ai_brief_similarity:       'Similarity threshold (%)',
+  setting_ai_brief_similarity_desc:  'Minimum similarity score to include a pair in the Similar Notes section.',
+
+  folder_picker_title_brief: 'Choose a folder for AI Brief',
 };
