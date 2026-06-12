@@ -2,6 +2,14 @@ import type { Graph } from './link-analyzer';
 import type { TopicCluster } from '../models/topic-cluster';
 import type { NoteModel } from '../models/note-model';
 
+function isMetadataTag(tag: string): boolean {
+  return tag.includes(':') || /^\d/.test(tag);
+}
+
+function capitalizeLabel(label: string): string {
+  return label.split(/(\s+)/).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
+}
+
 export class ClusterAnalyzer {
   detect(notes: NoteModel[], graph: Graph): TopicCluster[] {
     // Strategy 1: Folder-based clustering (hierarchical vaults)
@@ -47,16 +55,17 @@ export class ClusterAnalyzer {
     const tagFreq = new Map<string, number>();
     for (const note of notes) {
       for (const tag of note.tags) {
+        if (isMetadataTag(tag)) continue;
         tagFreq.set(tag, (tagFreq.get(tag) ?? 0) + 1);
       }
     }
 
     if (tagFreq.size === 0) return new Map();
 
-    // Tags shared by nearly all notes are not discriminating
+    // Tags shared by more than half the notes are too generic to discriminate
     const total = notes.length;
     const usableTags = Array.from(tagFreq.entries())
-      .filter(([, freq]) => freq < total * 0.8 && freq >= 2)
+      .filter(([, freq]) => freq < total * 0.5 && freq >= 2)
       .sort((a, b) => b[1] - a[1]);
 
     if (usableTags.length === 0) return new Map();
@@ -96,7 +105,7 @@ export class ClusterAnalyzer {
     for (const [label, groupNotes] of groups) {
       clusters.push({
         id: `cluster-${i++}`,
-        name: label,
+        name: capitalizeLabel(label),
         notes: groupNotes,
         score: this.scoreCluster(groupNotes, graph),
         themes: [],
