@@ -409,7 +409,7 @@ function buildOverviewSection(lines: string[], stats: BriefStats | undefined, is
 function buildNavigationPathsSection(lines: string[], clusters: TopicCluster[], isJa: boolean): void {
   if (clusters.length === 0) return;
 
-  lines.push(isJa ? '## ナビゲーションパス' : '## Navigation Paths', '');
+  lines.push(isJa ? '## トピックで探索' : '## Explore by Topic', '');
   for (const cluster of clusters) {
     const allNotes = [...cluster.representativeNotes, ...cluster.additionalNotes];
     if (allNotes.length === 0) continue;
@@ -429,7 +429,7 @@ function buildDocumentStructureSections(
     lines.push('## 概要', '', 'このMOCはAI BriefのDocument Structure Modeから生成されました。', '', 'ドキュメントのナビゲーション層として活用してください。', '');
     lines.push('## ドキュメント構造', '');
     for (const section of data.documentSections) lines.push(`- [[${section}]]`);
-    lines.push('', '## ナビゲーションパス', '');
+    lines.push('', '## トピックで探索', '');
     lines.push('- 利用可能であれば概要セクションを出発点にしてください。');
     lines.push('- 技術的な詳細と関連するセクションをリンクしてください。');
     lines.push('- 実装前に未解決の課題を確認してください。');
@@ -438,7 +438,7 @@ function buildDocumentStructureSections(
     lines.push('## Overview', '', 'This MOC was generated from an AI Brief in Document Structure Mode.', '', 'Use it as a navigation layer for the analyzed document.', '');
     lines.push('## Document Structure', '');
     for (const section of data.documentSections) lines.push(`- [[${section}]]`);
-    lines.push('', '## Navigation Paths', '');
+    lines.push('', '## Explore by Topic', '');
     lines.push('- Use overview as the entry point.');
     lines.push('- Link technical details to related screen and data sections.');
     lines.push('- Review open questions before implementation.');
