@@ -1,0 +1,81 @@
+import type { NoteModel } from '../models/note-model';
+
+const GENERIC_HEADINGS = new Set([
+  // English
+  'overview', 'summary', 'introduction', 'conclusion', 'notes',
+  'key points', 'references', 'resources', 'background', 'description',
+  'details', 'examples', 'tips', 'related', 'links',
+  'takeaways', 'action items', 'learnings', 'how to apply',
+  'quotes', 'key quotes', 'memorable quotes', 'impressions', 'review', 'thoughts',
+  'ingredients', 'instructions', 'directions', 'method', 'preparation', 'serving',
+  // Japanese
+  '概要', '要約', 'まとめ', 'はじめに', '重要なポイント',
+  'ポイント', 'メモ', '参考', '参考文献', 'リンク', '関連',
+  '詳細', '説明', '注意', 'ヒント',
+  '印象的な言葉', '学び', '学び・活かし方', '活かし方', '感想', '引用',
+  '読書メモ', 'レビュー', 'アクションアイテム', '気づき',
+  '材料', '調味料', '作り方', '手順', '盛り付け', '準備', '下準備',
+]);
+
+// Strip parenthetical qualifiers (e.g. "材料（4人分）" → "材料") before heading comparison
+function normalizeHeading(h: string): string {
+  return h.replace(/[（(][^）)]*[）)]/g, '').trim().toLowerCase();
+}
+
+function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
+  if (a.size === 0 && b.size === 0) return 1;
+  let intersection = 0;
+  for (const item of a) { if (b.has(item)) intersection++; }
+  const union = a.size + b.size - intersection;
+  return union === 0 ? 0 : intersection / union;
+}
+
+function tokenize(text: string): string[] {
+  return text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
+}
+
+function bigrams(tokens: string[]): Set<string> {
+  const result = new Set<string>();
+  for (let i = 0; i < tokens.length - 1; i++) {
+    result.add(`${tokens[i]} ${tokens[i + 1]}`);
+  }
+  return result;
+}
+
+export class SimilarityAnalyzer {
+  calculate(a: NoteModel, b: NoteModel): number {
+    const titleSim = jaccardSimilarity(
+      new Set(tokenize(a.title)),
+      new Set(tokenize(b.title))
+    );
+    const tagSim = jaccardSimilarity(
+      new Set(a.tags.map(t => t.toLowerCase())),
+      new Set(b.tags.map(t => t.toLowerCase()))
+    );
+    const aHeadings = new Set(a.headings.map(normalizeHeading).filter(h => h && !GENERIC_HEADINGS.has(h)));
+    const bHeadings = new Set(b.headings.map(normalizeHeading).filter(h => h && !GENERIC_HEADINGS.has(h)));
+    const headingSim = (aHeadings.size === 0 && bHeadings.size === 0)
+      ? 0
+      : jaccardSimilarity(aHeadings, bHeadings);
+    const linkSim = jaccardSimilarity(new Set(a.links), new Set(b.links));
+    const contentSim = jaccardSimilarity(
+      bigrams(tokenize(a.content.slice(0, 5000))),
+      bigrams(tokenize(b.content.slice(0, 5000)))
+    );
+
+    return Math.round(titleSim * 20 + tagSim * 20 + headingSim * 20 + linkSim * 20 + contentSim * 20);
+  }
+
+  findSimilarPairs(notes: NoteModel[], threshold: number): Array<{ a: NoteModel; b: NoteModel; score: number }> {
+    const pairs: Array<{ a: NoteModel; b: NoteModel; score: number }> = [];
+    for (let i = 0; i < notes.length; i++) {
+      for (let j = i + 1; j < notes.length; j++) {
+        const score = this.calculate(notes[i], notes[j]);
+        if (score >= threshold) {
+          pairs.push({ a: notes[i], b: notes[j], score });
+        }
+      }
+    }
+    return pairs.sort((a, b) => b.score - a.score);
+  }
+}

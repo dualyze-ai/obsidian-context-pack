@@ -1,6 +1,6 @@
 # AI Context Pack
 
-> Turn your notes into AI-ready knowledge.
+> Analyze your vault. Generate AI Briefs. Export AI-ready knowledge.
 
 <div align="center">
 <img src="docs/demo.gif" width="100%">
@@ -13,6 +13,39 @@
 3. Package context
 4. Use with ChatGPT Projects, Claude Projects, Gemini, and NotebookLM
 5. Keep your knowledge fresh
+
+## ✨ New in v3.1: AI Brief Generator
+
+AI Brief Generator analyzes your vault and automatically generates:
+
+- Executive Insights
+- Topic Clusters
+- Knowledge Maps
+- Relationship Maps
+- Knowledge Health Diagnostics
+- Development Candidates
+- Suggested AI Prompts
+
+Understand your knowledge before exporting it.
+
+AI Brief works with:
+
+- Personal Knowledge Bases
+- Reading Notes
+- Travel Notes
+- Research Collections
+- Technical Specifications
+- Project Documentation
+
+Analyze your knowledge before exporting it.
+
+<div align="center">
+<img src="docs/ai-brief-paintings-overview.png" width="90%">
+</div>
+
+*Example AI Brief generated from a 19-note Art History vault.*
+
+Analyze your knowledge before exporting it.
 
 ---
 
@@ -47,15 +80,16 @@ AI Context Pack transforms your vault into clean, structured context optimized f
 
 ```text
 Obsidian Vault
-      ↓
-   AI MOC
-      ↓
- Context Pack
-      ↓
- AI-ready Knowledge
-      ↓
- ChatGPT / Claude / Gemini
- NotebookLM / Claude Code
+        ↓
+     AI Brief
+        ↓
+      AI MOC
+        ↓
+   Context Pack
+        ↓
+ChatGPT / Claude
+Gemini / NotebookLM
+Claude Code
 ```
 
 ## Project Knowledge Packs
@@ -259,6 +293,18 @@ Step-by-step guides for:
 - Gemini Notebook
 - Claude Code
 - NotebookLM
+
+### [AI Brief Generator](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-generator.md)
+
+Understand your vault before exporting it.
+
+- Topic Clustering
+- Knowledge Maps
+- Relationship Analysis
+- Knowledge Health
+- Suggested AI Prompts
+
+
 
 ### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
