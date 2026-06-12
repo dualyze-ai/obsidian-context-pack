@@ -1,5 +1,16 @@
 import type { NoteModel } from '../models/note-model';
 
+const GENERIC_HEADINGS = new Set([
+  // English
+  'overview', 'summary', 'introduction', 'conclusion', 'notes',
+  'key points', 'references', 'resources', 'background', 'description',
+  'details', 'examples', 'tips', 'related', 'links',
+  // Japanese
+  '概要', '要約', 'まとめ', 'はじめに', '重要なポイント',
+  'ポイント', 'メモ', '参考', '参考文献', 'リンク', '関連',
+  '詳細', '説明', '注意', 'ヒント',
+]);
+
 function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
   if (a.size === 0 && b.size === 0) return 1;
   let intersection = 0;
@@ -30,10 +41,11 @@ export class SimilarityAnalyzer {
       new Set(a.tags.map(t => t.toLowerCase())),
       new Set(b.tags.map(t => t.toLowerCase()))
     );
-    const headingSim = jaccardSimilarity(
-      new Set(a.headings.map(h => h.toLowerCase())),
-      new Set(b.headings.map(h => h.toLowerCase()))
-    );
+    const aHeadings = new Set(a.headings.map(h => h.toLowerCase()).filter(h => !GENERIC_HEADINGS.has(h)));
+    const bHeadings = new Set(b.headings.map(h => h.toLowerCase()).filter(h => !GENERIC_HEADINGS.has(h)));
+    const headingSim = (aHeadings.size === 0 && bHeadings.size === 0)
+      ? 0
+      : jaccardSimilarity(aHeadings, bHeadings);
     const linkSim = jaccardSimilarity(new Set(a.links), new Set(b.links));
     const contentSim = jaccardSimilarity(
       bigrams(tokenize(a.content.slice(0, 5000))),

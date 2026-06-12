@@ -15,6 +15,15 @@ import { t } from '../../i18n';
 
 const RELATED_THRESHOLD = 30;
 
+const GENERIC_HEADINGS_BRIEF = new Set([
+  'overview', 'summary', 'introduction', 'conclusion', 'notes',
+  'key points', 'references', 'resources', 'background', 'description',
+  'details', 'examples', 'tips', 'related', 'links',
+  '概要', '要約', 'まとめ', 'はじめに', '重要なポイント',
+  'ポイント', 'メモ', '参考', '参考文献', 'リンク', '関連',
+  '詳細', '説明', '注意', 'ヒント',
+]);
+
 export class AIBriefGenerator {
   private noteParser: NoteParser;
   private linkAnalyzer: LinkAnalyzer;
@@ -246,9 +255,11 @@ export class AIBriefGenerator {
 
   private getSharedFeatures(a: NoteModel, b: NoteModel): string[] {
     const sharedTags = a.tags.filter(t => b.tags.includes(t) && !this.isMetadataTag(t));
-    const sharedHeadings = a.headings.filter(h =>
-      b.headings.some(bh => bh.toLowerCase() === h.toLowerCase())
-    );
+    const sharedHeadings = a.headings.filter(h => {
+      const lower = h.toLowerCase();
+      if (GENERIC_HEADINGS_BRIEF.has(lower)) return false;
+      return b.headings.some(bh => bh.toLowerCase() === lower);
+    });
     return [...sharedTags.slice(0, 3), ...sharedHeadings.slice(0, 2)];
   }
 
