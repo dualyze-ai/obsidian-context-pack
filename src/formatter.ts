@@ -93,12 +93,17 @@ function collapseBlankLines(text: string): string {
 }
 
 // Replace Mermaid code blocks with text summaries suitable for AI consumption.
-// Knowledge Map Mermaid (ROOT → cluster → note structure) → "## Knowledge Map Summary" list.
+// "## Knowledge Map" heading + Mermaid → single "## Knowledge Map Summary" list.
 // Other Mermaid diagrams → stripped (empty string).
 function transformMermaidBlocks(text: string): string {
-  return text.replace(/```mermaid\n([\s\S]*?)```/g, (_, mermaidBody: string) => {
-    return buildKnowledgeMapSummary(mermaidBody) ?? '';
-  });
+  // Match "## Knowledge Map" (EN or JA) followed by a Mermaid block and replace both together
+  text = text.replace(
+    /## (?:Knowledge Map|ナレッジマップ)\n\n```mermaid\n([\s\S]*?)```/g,
+    (_, mermaidBody: string) => buildKnowledgeMapSummary(mermaidBody) ?? '',
+  );
+  // Strip any remaining Mermaid blocks (non-Knowledge-Map diagrams)
+  text = text.replace(/```mermaid\n[\s\S]*?```/g, '');
+  return text;
 }
 
 function buildKnowledgeMapSummary(mermaid: string): string | null {
