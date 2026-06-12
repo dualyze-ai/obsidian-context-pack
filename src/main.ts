@@ -706,6 +706,9 @@ export default class ContextPackPlugin extends Plugin {
     const isAiBriefMoc = cache?.frontmatter?.['sourceType'] === 'ai-brief';
     let packFiles = allLinkedFiles;
     let knowledgeOverview: string | undefined;
+    let packTitle: string | undefined;
+    let packDescription: string | undefined;
+    let displaySource: string = moc.basename;
 
     if (isAiBriefMoc) {
       // Primary: resolve AI Brief file directly from MOC's `source` frontmatter
@@ -724,9 +727,8 @@ export default class ContextPackPlugin extends Plugin {
         } else if (this.isAiBriefFile(f)) {
           detected = true;
         } else {
-          // Content-based fallback: read file and check for AI Brief markers
-          const content = await this.app.vault.read(f);
-          detected = isAiBriefContent(content);
+          const rawContent = await this.app.vault.read(f);
+          detected = isAiBriefContent(rawContent);
         }
         if (detected) { aiBriefFiles.push(f); } else { packFilesList.push(f); }
       }
@@ -737,7 +739,14 @@ export default class ContextPackPlugin extends Plugin {
         const briefContent = await this.app.vault.read(briefFile);
         const briefData = parseBriefContent(briefContent);
         if (briefData) {
-          knowledgeOverview = buildKnowledgeOverview(briefData, titleFromSourceName(sourceName ?? moc.basename));
+          const topic = titleFromSourceName(sourceName ?? moc.basename);
+          const isJa = briefData.language === 'ja';
+          knowledgeOverview = buildKnowledgeOverview(briefData, topic);
+          packTitle = isJa ? `${topic} ナレッジベース` : `${topic} Knowledge Base`;
+          packDescription = isJa
+            ? `このドキュメントには「${topic}」に関するソース知識が含まれています。`
+            : `This document contains source knowledge about ${topic.toLowerCase()}.`;
+          displaySource = topic;
         }
       }
     }
@@ -752,14 +761,20 @@ export default class ContextPackPlugin extends Plugin {
       let content = await buildContextPack(packFiles, this.app, this.formatOptions(), {
         title: moc.basename,
         source: `moc:${moc.basename}`,
+        ...(isAiBriefMoc && packTitle ? { titleOverride: packTitle, description: packDescription, omitMeta: true } : {}),
       }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
 
-      if (knowledgeOverview) {
-        content = `${knowledgeOverview}\n${content}`;
+      if (isAiBriefMoc && knowledgeOverview) {
+        // Inject Knowledge Overview between title/description and first note separator
+        const sep = '\n\n---\n\n';
+        const sepIdx = content.indexOf(sep);
+        if (sepIdx !== -1) {
+          content = content.slice(0, sepIdx) + '\n\n' + knowledgeOverview + sep + content.slice(sepIdx + sep.length);
+        }
       }
 
       notice.hide();
-      this.handlePackOutput(content, `moc-${moc.basename}`, packFiles.length, moc.basename, {
+      this.handlePackOutput(content, `moc-${moc.basename}`, packFiles.length, displaySource, {
         source: { type: 'moc', query: moc.path },
         files: packFiles,
         name: moc.basename,
@@ -797,7 +812,10 @@ export default class ContextPackPlugin extends Plugin {
         .replace('{source}', source)
         .replace('{count}', String(noteCount));
     } else {
-      const base = (this.settings.starterPrompt.trim() || t('default_common_instructions'))
+      const baseTemplate = hasAiBrief && !this.settings.starterPrompt.trim()
+        ? t('default_knowledge_base_instructions')
+        : (this.settings.starterPrompt.trim() || t('default_common_instructions'));
+      const base = baseTemplate
         .replace('{source}', source)
         .replace('{count}', String(noteCount));
       const pkInstructions = getProjectKnowledgeInstructions(selectorState);
