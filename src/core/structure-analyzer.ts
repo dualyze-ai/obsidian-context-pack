@@ -5,6 +5,10 @@ export interface TopicScore {
   score: number;
 }
 
+function isMetadataTag(tag: string): boolean {
+  return tag.includes(':') || /^\d/.test(tag);
+}
+
 export class StructureAnalyzer {
   getKeyTopics(notes: NoteModel[], topN = 10): TopicScore[] {
     const headingFreq = new Map<string, number>();
@@ -18,6 +22,7 @@ export class StructureAnalyzer {
     const tagFreq = new Map<string, number>();
     for (const note of notes) {
       for (const tag of note.tags) {
+        if (isMetadataTag(tag)) continue;
         const key = tag.toLowerCase();
         tagFreq.set(key, (tagFreq.get(key) ?? 0) + 1);
       }
@@ -27,8 +32,9 @@ export class StructureAnalyzer {
     for (const note of notes) {
       const linkCount = note.links.length;
       const backlinkCount = note.backlinks.length;
-      const tagScore = note.tags.length > 0
-        ? note.tags.reduce((sum, t) => sum + (tagFreq.get(t.toLowerCase()) ?? 1), 0) / note.tags.length
+      const topicTags = note.tags.filter(t => !isMetadataTag(t));
+      const tagScore = topicTags.length > 0
+        ? topicTags.reduce((sum, t) => sum + (tagFreq.get(t.toLowerCase()) ?? 1), 0) / topicTags.length
         : 0;
       const headingScore = note.headings.length > 0
         ? note.headings.reduce((sum, h) => sum + (headingFreq.get(h.toLowerCase()) ?? 1), 0) / note.headings.length
