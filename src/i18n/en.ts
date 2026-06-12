@@ -294,6 +294,8 @@ Prefer consistency with project documentation over generic examples.`,
 
   folder_picker_title_brief: 'Choose a folder for AI Brief',
 
+  cluster_other:             'Other',
+
   // ── AI Brief output content ──────────────────────────────────────────────
   brief_generated:           (date: string, n: number) => `_Generated: ${date} | ${n} notes_`,
   brief_h_executive_insight: '## Executive Insight',
