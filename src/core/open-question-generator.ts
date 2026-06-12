@@ -79,13 +79,6 @@ export class OpenQuestionGenerator {
       }
     }
 
-    // Highly referenced but under-documented
-    const underDocumented = notes.filter(n => n.backlinks.length >= 3 && n.wordCount < 100);
-    if (underDocumented.length > 0) {
-      const names = underDocumented.slice(0, 5).map(n => `"${n.title}"`).join(', ');
-      questions.push(t('oq_under_documented', underDocumented.length, names));
-    }
-
     // Duplicate candidates
     if (health.duplicateCandidates > 0) {
       questions.push(t('oq_duplicate_candidates', health.duplicateCandidates));

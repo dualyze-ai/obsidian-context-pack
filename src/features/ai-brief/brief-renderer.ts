@@ -54,6 +54,13 @@ export class BriefRenderer {
 
     if (settings.includeOpenQuestions) {
       sections.push(t('brief_h_open_questions'), '', this.renderList(model.openQuestions), '');
+      if (model.expansionCandidates.length > 0) {
+        sections.push(
+          t('brief_h_expansion_candidates'), '',
+          t('brief_expansion_desc'), '',
+          this.renderList(model.expansionCandidates), ''
+        );
+      }
     }
 
     if (settings.includeSuggestedPrompts) {
