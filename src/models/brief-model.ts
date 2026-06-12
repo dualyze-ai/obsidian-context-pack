@@ -12,6 +12,7 @@ export interface SimilarPair {
   noteB: string;
   score: number;
   level: string;
+  sharedFeatures: string[];
 }
 
 export interface BriefModel {
@@ -24,6 +25,7 @@ export interface BriefModel {
   keyTopics: Array<{ name: string; score: number }>;
   relationships: RelationshipPair[];
   similarPairs: SimilarPair[];
+  relatedPairs: SimilarPair[];
   health: KnowledgeHealth;
   openQuestions: string[];
   suggestedPrompts: string[];

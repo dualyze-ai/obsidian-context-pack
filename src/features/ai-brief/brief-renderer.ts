@@ -23,7 +23,7 @@ export class BriefRenderer {
     }
 
     if (settings.includeSimilarNotes) {
-      sections.push('## Similar Notes', '', this.renderSimilarNotes(model.similarPairs), '');
+      sections.push('## Similar Notes', '', this.renderSimilarNotes(model.similarPairs, model.relatedPairs), '');
     }
 
     if (settings.includeKnowledgeHealth) {
@@ -80,11 +80,33 @@ export class BriefRenderer {
     ).join('\n\n');
   }
 
-  private renderSimilarNotes(pairs: SimilarPair[]): string {
-    if (pairs.length === 0) return '_No similar notes detected above threshold._';
-    return pairs.slice(0, 10).map(p =>
-      `- **${p.noteA}** ↔ **${p.noteB}** — ${p.score}% (${p.level})`
-    ).join('\n');
+  private renderSimilarNotes(pairs: SimilarPair[], related: SimilarPair[]): string {
+    const lines: string[] = [];
+
+    if (pairs.length > 0) {
+      lines.push('**Similar Notes**', '');
+      for (const p of pairs.slice(0, 10)) {
+        lines.push(`- **${p.noteA}** ↔ **${p.noteB}** — ${p.score}% (${p.level})`);
+        if (p.sharedFeatures.length > 0) {
+          lines.push(`  - Shared: ${p.sharedFeatures.join(', ')}`);
+        }
+      }
+    } else {
+      lines.push('_No notes exceed the similarity threshold._');
+    }
+
+    if (related.length > 0) {
+      if (lines.length > 0) lines.push('');
+      lines.push('**Potentially Related**', '');
+      for (const p of related.slice(0, 10)) {
+        lines.push(`- **${p.noteA}** ↔ **${p.noteB}** — ${p.score}%`);
+        if (p.sharedFeatures.length > 0) {
+          lines.push(`  - Shared: ${p.sharedFeatures.join(', ')}`);
+        }
+      }
+    }
+
+    return lines.length > 0 ? lines.join('\n') : '_No similar notes detected._';
   }
 
   private renderHealth(model: BriefModel): string {
