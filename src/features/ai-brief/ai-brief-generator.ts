@@ -72,15 +72,23 @@ export class AIBriefGenerator {
 
     const tagCount = new Set(notes.flatMap(n => n.tags)).size;
     const totalLinks = notes.reduce((sum, n) => sum + n.links.length, 0);
+    const isDocumentMode = clusters.length > 0 && clusters.every(c => c.notes.length === 1);
 
-    const executiveSummary = [
-      'This knowledge base contains:',
-      '',
-      `- ${notes.length} notes`,
-      `- ${totalLinks} links`,
-      `- ${tagCount} tags`,
-      `- ${clusters.length} major topic clusters`,
-    ].join('\n');
+    const executiveSummary = isDocumentMode
+      ? [
+          'This document contains:',
+          '',
+          `- ${clusters.length} section${clusters.length !== 1 ? 's' : ''}`,
+          `- ${tagCount} tags`,
+        ].join('\n')
+      : [
+          'This knowledge base contains:',
+          '',
+          `- ${notes.length} notes`,
+          `- ${totalLinks} links`,
+          `- ${tagCount} tags`,
+          `- ${clusters.length} major topic clusters`,
+        ].join('\n');
 
     const executiveInsight = this.buildExecutiveInsight(notes, clusters, keyTopics, health);
     const healthInsights = this.buildHealthInsights(clusters, health);
@@ -161,6 +169,22 @@ export class AIBriefGenerator {
     keyTopics: Array<{ name: string; score: number }>,
     health: KnowledgeHealth
   ): string {
+    const isDocumentMode = clusters.length > 0 && clusters.every(c => c.notes.length === 1);
+
+    if (isDocumentMode) {
+      const sectionNames = clusters.map(c => c.notes[0]);
+      const listed = sectionNames.length > 1
+        ? sectionNames.slice(0, -1).join(', ') + ', and ' + sectionNames[sectionNames.length - 1]
+        : sectionNames[0];
+      const parts = [`This document contains ${clusters.length} section${clusters.length !== 1 ? 's' : ''}: ${listed}.`];
+      if (health.connectivityScore >= 30) {
+        parts.push('The sections are linked to each other, forming a cohesive reference structure.');
+      } else {
+        parts.push('Sections are relatively standalone. Adding links between them would improve navigability.');
+      }
+      return parts.join('\n\n');
+    }
+
     const nonTrivial = clusters.filter(c => c.notes.length > 1);
     const dominant = nonTrivial[0];
     const parts: string[] = [];
@@ -208,9 +232,13 @@ export class AIBriefGenerator {
 
   private buildHealthInsights(clusters: TopicCluster[], health: KnowledgeHealth): string[] {
     const insights: string[] = [];
+    const isDocumentMode = clusters.length > 0 && clusters.every(c => c.notes.length === 1);
     const nonTrivial = clusters.filter(c => c.notes.length > 1);
 
-    if (nonTrivial.length > 0) {
+    if (isDocumentMode) {
+      const names = clusters.map(c => c.notes[0]).join(', ');
+      insights.push(`This document is structured into ${clusters.length} section${clusters.length !== 1 ? 's' : ''}: ${names}.`);
+    } else if (nonTrivial.length > 0) {
       const names = nonTrivial.map(c => c.name).join(', ');
       insights.push(`The vault is organized into ${nonTrivial.length} cluster${nonTrivial.length > 1 ? 's' : ''}: ${names}.`);
     }
