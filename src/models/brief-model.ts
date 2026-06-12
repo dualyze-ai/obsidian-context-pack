@@ -28,6 +28,7 @@ export interface BriefModel {
   relatedPairs: SimilarPair[];
   health: KnowledgeHealth;
   openQuestions: string[];
+  expansionCandidates: string[];
   suggestedPrompts: string[];
   executiveSummary: string;
   executiveInsight: string;
