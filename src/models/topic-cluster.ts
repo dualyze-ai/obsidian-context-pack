@@ -3,4 +3,6 @@ export interface TopicCluster {
   name: string;
   notes: string[];
   score: number;
+  themes: string[];
+  representativeNotes: string[];
 }
