@@ -293,6 +293,8 @@ Step-by-step guides for:
 - NotebookLM
 
 ### AI Brief Generator
+### [AI Brief Generator](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-generator.md)
+
 
 Understand your vault before exporting it.
 
@@ -302,7 +304,7 @@ Understand your vault before exporting it.
 - Knowledge Health
 - Suggested AI Prompts
 
-→ docs/ai-brief-generator.md
+
 
 ### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
