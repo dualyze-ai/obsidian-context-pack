@@ -7,13 +7,20 @@ const GENERIC_HEADINGS = new Set([
   'details', 'examples', 'tips', 'related', 'links',
   'takeaways', 'action items', 'learnings', 'how to apply',
   'quotes', 'key quotes', 'memorable quotes', 'impressions', 'review', 'thoughts',
+  'ingredients', 'instructions', 'directions', 'method', 'preparation', 'serving',
   // Japanese
   '概要', '要約', 'まとめ', 'はじめに', '重要なポイント',
   'ポイント', 'メモ', '参考', '参考文献', 'リンク', '関連',
   '詳細', '説明', '注意', 'ヒント',
   '印象的な言葉', '学び', '学び・活かし方', '活かし方', '感想', '引用',
   '読書メモ', 'レビュー', 'アクションアイテム', '気づき',
+  '材料', '調味料', '作り方', '手順', '盛り付け', '準備', '下準備',
 ]);
+
+// Strip parenthetical qualifiers (e.g. "材料（4人分）" → "材料") before heading comparison
+function normalizeHeading(h: string): string {
+  return h.replace(/[（(][^）)]*[）)]/g, '').trim().toLowerCase();
+}
 
 function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
   if (a.size === 0 && b.size === 0) return 1;
@@ -45,8 +52,8 @@ export class SimilarityAnalyzer {
       new Set(a.tags.map(t => t.toLowerCase())),
       new Set(b.tags.map(t => t.toLowerCase()))
     );
-    const aHeadings = new Set(a.headings.map(h => h.toLowerCase()).filter(h => !GENERIC_HEADINGS.has(h)));
-    const bHeadings = new Set(b.headings.map(h => h.toLowerCase()).filter(h => !GENERIC_HEADINGS.has(h)));
+    const aHeadings = new Set(a.headings.map(normalizeHeading).filter(h => h && !GENERIC_HEADINGS.has(h)));
+    const bHeadings = new Set(b.headings.map(normalizeHeading).filter(h => h && !GENERIC_HEADINGS.has(h)));
     const headingSim = (aHeadings.size === 0 && bHeadings.size === 0)
       ? 0
       : jaccardSimilarity(aHeadings, bHeadings);
