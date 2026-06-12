@@ -6,8 +6,9 @@ export class OpenQuestionGenerator {
   generate(notes: NoteModel[], clusters: TopicCluster[], health: KnowledgeHealth): string[] {
     const questions: string[] = [];
     const noteMap = new Map<string, NoteModel>(notes.map(n => [n.title, n]));
+    const noteSet = new Set(notes.map(n => n.title));
 
-    // Isolated notes
+    // Isolated notes (no links at all)
     if (health.orphanNotes > 0) {
       questions.push(
         `${health.orphanNotes} note${health.orphanNotes > 1 ? 's are' : ' is'} isolated from the main knowledge graph.`
@@ -18,15 +19,73 @@ export class OpenQuestionGenerator {
     const smallClusters = clusters.filter(c => c.notes.length === 1);
     if (smallClusters.length > 0) {
       questions.push(
-        `${smallClusters.length} topic cluster${smallClusters.length > 1 ? 's lack' : ' lacks'} supporting material (single-note clusters).`
+        `${smallClusters.length} cluster${smallClusters.length > 1 ? 's contain' : ' contains'} only a single note and may need more supporting material.`
       );
     }
 
-    // Duplicate candidates
-    if (health.duplicateCandidates > 0) {
+    // Which cluster should be primary?
+    if (clusters.length > 1) {
+      questions.push('Which topic cluster should be treated as the primary focus of this knowledge base?');
+    }
+
+    // One cluster dominates
+    if (clusters.length > 1 && clusters[0].notes.length / notes.length > 0.5) {
       questions.push(
-        `${health.duplicateCandidates} pair${health.duplicateCandidates > 1 ? 's' : ''} of highly similar notes may be candidates for merging.`
+        `The "${clusters[0].name}" cluster contains over half of all notes. Consider breaking it into sub-topic groupings.`
       );
+    }
+
+    // Notes only connected through hub notes (no direct peer links)
+    const hubThreshold = Math.max(3, notes.length * 0.15);
+    const hubTitles = new Set(notes.filter(n => n.links.length >= hubThreshold).map(n => n.title));
+
+    const peerIsolated = notes.filter(n => {
+      if (hubTitles.has(n.title)) return false;
+      const peerLinks = n.links.filter(l => noteSet.has(l) && !hubTitles.has(l));
+      return peerLinks.length === 0;
+    });
+    if (peerIsolated.length / notes.length > 0.3) {
+      questions.push(
+        `${peerIsolated.length} notes are only connected through hub or index notes, lacking direct peer connections.`
+      );
+    }
+
+    // Clusters with sparse internal connections
+    const sparseClusters = clusters.filter(c => {
+      if (c.notes.length < 3) return false;
+      const clusterSet = new Set(c.notes);
+      const totalInternalLinks = c.notes.reduce((sum, title) => {
+        const n = noteMap.get(title);
+        if (!n) return sum;
+        return sum + n.links.filter(l => clusterSet.has(l)).length;
+      }, 0);
+      return totalInternalLinks / c.notes.length < 0.5;
+    });
+    if (sparseClusters.length > 0) {
+      const names = sparseClusters.map(c => `"${c.name}"`).join(', ');
+      questions.push(
+        `Cluster${sparseClusters.length > 1 ? 's' : ''} ${names} have few internal connections. Consider linking related notes within the cluster.`
+      );
+    }
+
+    // Cross-cluster connections missing (excluding hub notes)
+    if (clusters.length > 1) {
+      const clusterIndex = new Map<string, string>();
+      for (const cluster of clusters) {
+        for (const title of cluster.notes) clusterIndex.set(title, cluster.id);
+      }
+      let nonHubCrossLinks = 0;
+      for (const note of notes) {
+        if (hubTitles.has(note.title)) continue;
+        const fromCluster = clusterIndex.get(note.title);
+        for (const link of note.links) {
+          const toCluster = clusterIndex.get(link);
+          if (fromCluster && toCluster && fromCluster !== toCluster) nonHubCrossLinks++;
+        }
+      }
+      if (nonHubCrossLinks === 0) {
+        questions.push('No direct cross-cluster links exist between non-hub notes. Consider adding connections between related topics across clusters.');
+      }
     }
 
     // Highly referenced but under-documented
@@ -37,62 +96,10 @@ export class OpenQuestionGenerator {
       );
     }
 
-    // Low connectivity overall
-    if (health.connectivityScore < 30) {
+    // Duplicate candidates
+    if (health.duplicateCandidates > 0) {
       questions.push(
-        'The overall link density is low. Adding more connections between notes could improve knowledge navigability.'
-      );
-    }
-
-    // No cross-cluster connections
-    if (clusters.length > 1) {
-      const clusterIndex = new Map<string, string>();
-      for (const cluster of clusters) {
-        for (const title of cluster.notes) clusterIndex.set(title, cluster.id);
-      }
-
-      let crossLinks = 0;
-      for (const note of notes) {
-        const fromCluster = clusterIndex.get(note.title);
-        for (const link of note.links) {
-          const toCluster = clusterIndex.get(link);
-          if (fromCluster && toCluster && fromCluster !== toCluster) crossLinks++;
-        }
-      }
-
-      if (crossLinks === 0) {
-        questions.push(
-          'The topic clusters have no connecting links between them. Consider adding cross-cluster references.'
-        );
-      }
-    }
-
-    // Clusters missing a hub or summary note
-    if (clusters.length > 1) {
-      const clustersWithoutHub = clusters.filter(c => {
-        if (c.notes.length < 3) return false;
-        return !c.notes.some(title => (noteMap.get(title)?.backlinks.length ?? 0) >= 2);
-      });
-      if (clustersWithoutHub.length > 0) {
-        questions.push(
-          `${clustersWithoutHub.length} cluster${clustersWithoutHub.length > 1 ? 's lack' : ' lacks'} a hub or index note.`
-        );
-      }
-    }
-
-    // Notes without headings (unstructured)
-    const noHeadings = notes.filter(n => n.headings.length === 0);
-    if (noHeadings.length / notes.length > 0.3) {
-      questions.push(
-        `${noHeadings.length} notes have no headings and may benefit from better structure.`
-      );
-    }
-
-    // Notes without tags
-    const noTags = notes.filter(n => n.tags.length === 0);
-    if (noTags.length / notes.length > 0.3) {
-      questions.push(
-        `${noTags.length} notes have no tags, which may limit discovery and clustering.`
+        `${health.duplicateCandidates} pair${health.duplicateCandidates > 1 ? 's' : ''} of highly similar notes may be candidates for merging.`
       );
     }
 

@@ -10,7 +10,7 @@ import type { BriefModel, RelationshipPair, SimilarPair } from '../../models/bri
 import type { NoteModel } from '../../models/note-model';
 import type { AIBriefSettings } from '../../settings';
 
-const RELATED_THRESHOLD = 40;
+const RELATED_THRESHOLD = 30;
 
 export class AIBriefGenerator {
   private noteParser: NoteParser;

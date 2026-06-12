@@ -11,7 +11,12 @@ export class HealthAnalyzer {
     const connectivityScore = this.calcConnectivity(totalLinks, totalNotes);
     const topicCoverageScore = this.calcTopicCoverage(clusters, totalNotes);
     const avg = Math.round((connectivityScore + topicCoverageScore) / 2);
-    const healthRating = avg >= 90 ? 'Excellent' : avg >= 70 ? 'Good' : avg >= 50 ? 'Fair' : 'Poor';
+    const healthRating =
+      avg >= 85 ? 'Excellent' :
+      avg >= 70 ? 'Good' :
+      avg >= 50 ? 'Fair' :
+      avg >= 30 ? 'Developing' :
+      'Poor';
 
     return {
       totalNotes,
