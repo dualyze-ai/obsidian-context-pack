@@ -32,6 +32,34 @@ function selectorStateFromKey(key: string): OutputSelectorState {
 }
 
 
+export interface AIBriefSettings {
+  includeExecutiveSummary: boolean;
+  includeKeyTopics: boolean;
+  includeKnowledgeMap: boolean;
+  includeRelationshipMap: boolean;
+  includeSimilarNotes: boolean;
+  includeKnowledgeHealth: boolean;
+  includeOpenQuestions: boolean;
+  includeSuggestedPrompts: boolean;
+  enableMermaid: boolean;
+  maxTopics: number;
+  similarityThreshold: number;
+}
+
+export const DEFAULT_AI_BRIEF_SETTINGS: AIBriefSettings = {
+  includeExecutiveSummary: true,
+  includeKeyTopics: true,
+  includeKnowledgeMap: true,
+  includeRelationshipMap: true,
+  includeSimilarNotes: true,
+  includeKnowledgeHealth: true,
+  includeOpenQuestions: true,
+  includeSuggestedPrompts: true,
+  enableMermaid: true,
+  maxTopics: 10,
+  similarityThreshold: 70,
+};
+
 export interface PluginSettings {
   targetFolder: string;
   outputFolder: string;
@@ -60,6 +88,7 @@ export interface PluginSettings {
   freshnessSettings: FreshnessSettings;
   freshnessViewDark: boolean;
   freshnessAutoCheck: boolean;
+  aiBriefSettings: AIBriefSettings;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -90,6 +119,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   freshnessSettings: DEFAULT_FRESHNESS_SETTINGS,
   freshnessViewDark: true,
   freshnessAutoCheck: false,
+  aiBriefSettings: DEFAULT_AI_BRIEF_SETTINGS,
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -371,6 +401,42 @@ export class SettingsTab extends PluginSettingTab {
         .setValue(this.plugin.settings.freshnessAutoCheck)
         .onChange(async value => {
           this.plugin.settings.freshnessAutoCheck = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl).setName(t('setting_ai_brief_section')).setHeading();
+
+    new Setting(containerEl)
+      .setName(t('setting_ai_brief_mermaid'))
+      .setDesc(t('setting_ai_brief_mermaid_desc'))
+      .addToggle(toggle => toggle
+        .setValue(this.plugin.settings.aiBriefSettings.enableMermaid)
+        .onChange(async value => {
+          this.plugin.settings.aiBriefSettings.enableMermaid = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_ai_brief_max_topics'))
+      .setDesc(t('setting_ai_brief_max_topics_desc'))
+      .addSlider(slider => slider
+        .setLimits(5, 20, 1)
+        .setValue(this.plugin.settings.aiBriefSettings.maxTopics)
+        .setDynamicTooltip()
+        .onChange(async value => {
+          this.plugin.settings.aiBriefSettings.maxTopics = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('setting_ai_brief_similarity'))
+      .setDesc(t('setting_ai_brief_similarity_desc'))
+      .addSlider(slider => slider
+        .setLimits(50, 95, 5)
+        .setValue(this.plugin.settings.aiBriefSettings.similarityThreshold)
+        .setDynamicTooltip()
+        .onChange(async value => {
+          this.plugin.settings.aiBriefSettings.similarityThreshold = value;
           await this.plugin.saveSettings();
         }));
 
