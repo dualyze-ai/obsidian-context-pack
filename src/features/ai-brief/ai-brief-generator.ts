@@ -300,18 +300,19 @@ export class AIBriefGenerator {
       for (let j = i + 1; j < notes.length; j++) {
         const a = notes[i];
         const b = notes[j];
-        const sharedTags = a.tags.filter(t => b.tags.includes(t)).length;
+        const sharedTags = a.tags.filter(t => b.tags.includes(t) && !this.isMetadataTag(t)).length;
         const sharedLinks = a.links.filter(l => b.links.includes(l)).length;
         const sharedBacklinks = a.backlinks.filter(bl => b.backlinks.includes(bl)).length;
-        const total = sharedTags + sharedLinks + sharedBacklinks;
-        if (total > 0) {
-          const maxPossible = Math.max(
-            a.tags.length + a.links.length + a.backlinks.length,
-            b.tags.length + b.links.length + b.backlinks.length,
-            1
-          );
-          pairs.push({ noteA: a.title, noteB: b.title, score: total / maxPossible });
-        }
+        const sharedCount = sharedTags + sharedLinks + sharedBacklinks;
+        if (sharedCount < 2) continue;
+        const maxPossible = Math.max(
+          a.tags.filter(t => !this.isMetadataTag(t)).length + a.links.length + a.backlinks.length,
+          b.tags.filter(t => !this.isMetadataTag(t)).length + b.links.length + b.backlinks.length,
+          1
+        );
+        const score = sharedCount / maxPossible;
+        if (score < 0.6) continue;
+        pairs.push({ noteA: a.title, noteB: b.title, score });
       }
     }
     return pairs.sort((a, b) => b.score - a.score).slice(0, 20);

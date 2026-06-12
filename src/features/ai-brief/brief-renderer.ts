@@ -18,7 +18,12 @@ export class BriefRenderer {
 
     if (settings.includeKnowledgeMap && model.clusters.length > 0) {
       sections.push('## Knowledge Map', '', this.renderKnowledgeMap(model, settings.enableMermaid), '');
-      sections.push('## Topic Clusters', '', this.renderTopicClusters(model.clusters), '');
+      const isDocumentMode = model.clusters.every(c => c.notes.length === 1);
+      if (isDocumentMode) {
+        sections.push('## Document Structure', '', this.renderDocumentStructure(model.clusters), '');
+      } else {
+        sections.push('## Topic Clusters', '', this.renderTopicClusters(model.clusters), '');
+      }
     }
 
     if (settings.includeRelationshipMap) {
@@ -151,6 +156,10 @@ export class BriefRenderer {
     );
 
     return lines.join('\n');
+  }
+
+  private renderDocumentStructure(clusters: TopicCluster[]): string {
+    return clusters.map(c => `- ${c.notes[0]}`).join('\n');
   }
 
   private topicCoverageLabel(score: number): string {
