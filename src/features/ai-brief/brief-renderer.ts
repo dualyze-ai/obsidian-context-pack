@@ -180,6 +180,10 @@ export class BriefRenderer {
       t('brief_health_row_coverage', h.topicCoverageScore, this.topicCoverageLabel(h.topicCoverageScore)),
     );
 
+    if (h.orphanNotes === 0 && h.connectivityScore < 50 && h.totalLinks > 0) {
+      lines.push('', t('brief_health_conn_note'));
+    }
+
     return lines.join('\n');
   }
 

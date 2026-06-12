@@ -19,9 +19,13 @@ const GENERIC_HEADINGS_BRIEF = new Set([
   'overview', 'summary', 'introduction', 'conclusion', 'notes',
   'key points', 'references', 'resources', 'background', 'description',
   'details', 'examples', 'tips', 'related', 'links',
+  'takeaways', 'action items', 'learnings', 'how to apply',
+  'quotes', 'key quotes', 'memorable quotes', 'impressions', 'review', 'thoughts',
   '概要', '要約', 'まとめ', 'はじめに', '重要なポイント',
   'ポイント', 'メモ', '参考', '参考文献', 'リンク', '関連',
   '詳細', '説明', '注意', 'ヒント',
+  '印象的な言葉', '学び', '学び・活かし方', '活かし方', '感想', '引用',
+  '読書メモ', 'レビュー', 'アクションアイテム', '気づき',
 ]);
 
 export class AIBriefGenerator {
