@@ -246,6 +246,16 @@ export class AIBriefGenerator {
       insights.push(t('brief_hi_orphans', health.orphanNotes));
     }
 
+    if (!isDocumentMode) {
+      if (health.topicCoverageScore >= 75) {
+        insights.push(t('brief_hi_coverage_high'));
+      } else if (health.topicCoverageScore >= 45) {
+        insights.push(t('brief_hi_coverage_mid'));
+      } else {
+        insights.push(t('brief_hi_coverage_low'));
+      }
+    }
+
     if (nonTrivial.length > 1) {
       insights.push(t('brief_hi_overview', this.joinList(nonTrivial.slice(0, 4).map(c => c.name))));
     }

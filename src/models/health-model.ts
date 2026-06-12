@@ -5,5 +5,4 @@ export interface KnowledgeHealth {
   duplicateCandidates: number;
   connectivityScore: number;
   topicCoverageScore: number;
-  healthRating: string;
 }
