@@ -7,10 +7,12 @@ import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
 import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState } from './types';
 import { AiMocModal } from './ai-moc-modal';
+import { ConfirmModal } from './ai-moc';
 import { t } from './i18n';
 import { AIBriefGenerator } from './features/ai-brief/ai-brief-generator';
 import { BriefRenderer } from './features/ai-brief/brief-renderer';
 import { BriefExporter } from './features/ai-brief/brief-exporter';
+import { isAiBriefByHeadings, parseBriefContent, buildBriefMocContent } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
@@ -187,6 +189,20 @@ export default class ContextPackPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'generate-ai-moc-from-brief',
+      name: t('cmd_generate_ai_moc_from_brief'),
+      checkCallback: (checking) => {
+        const file = this.app.workspace.getActiveFile();
+        if (!file) return false;
+        const cache = this.app.metadataCache.getFileCache(file);
+        const headings = (cache?.headings ?? []).map(h => h.heading);
+        if (!isAiBriefByHeadings(headings)) return false;
+        if (!checking) void this.generateAiMocFromBrief(file);
+        return true;
+      },
+    });
+
+    this.addCommand({
       id: 'pack-moc',
       name: t('cmd_pack_moc'),
       checkCallback: (checking) => {
@@ -227,6 +243,13 @@ export default class ContextPackPlugin extends Plugin {
             .setIcon('map')
             .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file, this.settings.outputFolder).open()));
           const cache = this.app.metadataCache.getFileCache(file);
+          const headings = (cache?.headings ?? []).map(h => h.heading);
+          if (isAiBriefByHeadings(headings)) {
+            menu.addItem(item => item
+              .setTitle(t('menu_generate_ai_moc_from_brief'))
+              .setIcon('layout-list')
+              .onClick(() => void this.generateAiMocFromBrief(file)));
+          }
           if ((cache?.links?.length ?? 0) > 0) {
             menu.addItem(item => item
               .setTitle(t('menu_pack_moc'))
@@ -863,6 +886,50 @@ export default class ContextPackPlugin extends Plugin {
     }
     if (files.length === 0) { new Notice(t('notice_no_links')); return; }
     await this.runBriefGeneration(files, moc.basename);
+  }
+
+  private async generateAiMocFromBrief(file: TFile): Promise<void> {
+    const content = await this.app.vault.cachedRead(file);
+
+    const data = parseBriefContent(content);
+    if (!data) {
+      new Notice(t('notice_brief_not_detected'));
+      return;
+    }
+    if (data.clusters.length === 0 && data.relationships.length === 0 && data.documentSections.length === 0) {
+      new Notice(t('notice_brief_no_structure'));
+      return;
+    }
+
+    const mocContent = buildBriefMocContent(data, file.basename);
+    const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+    const mocFilename = `${file.basename} MOC.md`;
+    const mocPath = folder ? `${folder}/${mocFilename}` : mocFilename;
+
+    const existing = this.app.vault.getAbstractFileByPath(mocPath);
+    let mocFile: TFile;
+
+    if (existing instanceof TFile) {
+      const existingCache = this.app.metadataCache.getFileCache(existing);
+      const generatedBy: unknown = existingCache?.frontmatter?.['generatedBy'];
+      if (generatedBy === 'ai-context-pack') {
+        await this.app.vault.modify(existing, mocContent);
+        mocFile = existing;
+      } else {
+        const confirmed = await new ConfirmModal(
+          this.app,
+          t('ai_moc_overwrite_message', file.basename),
+        ).confirm();
+        if (!confirmed) return;
+        await this.app.vault.modify(existing, mocContent);
+        mocFile = existing;
+      }
+    } else {
+      mocFile = await this.app.vault.create(mocPath, mocContent);
+    }
+
+    await this.app.workspace.getLeaf().openFile(mocFile);
+    new Notice(t('notice_brief_moc_done', mocFile.path), 8000);
   }
 
   private getFolders(): string[] {
