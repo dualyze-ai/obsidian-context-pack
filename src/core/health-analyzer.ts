@@ -10,20 +10,6 @@ export class HealthAnalyzer {
 
     const connectivityScore = this.calcConnectivity(totalLinks, totalNotes);
     const topicCoverageScore = this.calcTopicCoverage(clusters, totalNotes);
-    const orphanScore = totalNotes > 0 ? Math.round((1 - orphanNotes / totalNotes) * 100) : 0;
-    const clusterBalance = this.calcClusterBalance(clusters, totalNotes);
-
-    const composite = Math.round(
-      connectivityScore * 0.4 +
-      topicCoverageScore * 0.3 +
-      orphanScore * 0.2 +
-      clusterBalance * 0.1
-    );
-    const healthRating =
-      composite >= 80 ? 'Excellent' :
-      composite >= 60 ? 'Good' :
-      composite >= 30 ? 'Developing' :
-      'Sparse';
 
     return {
       totalNotes,
@@ -32,7 +18,6 @@ export class HealthAnalyzer {
       duplicateCandidates,
       connectivityScore,
       topicCoverageScore,
-      healthRating,
     };
   }
 
@@ -51,9 +36,4 @@ export class HealthAnalyzer {
     return Math.round(Math.min(100, 100 / (1 + cv)));
   }
 
-  private calcClusterBalance(clusters: TopicCluster[], totalNotes: number): number {
-    if (clusters.length === 0 || totalNotes === 0) return 0;
-    const maxSize = Math.max(...clusters.map(c => c.notes.length));
-    return Math.round((1 - maxSize / totalNotes) * 100);
-  }
 }
