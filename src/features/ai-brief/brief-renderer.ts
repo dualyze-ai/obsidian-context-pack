@@ -156,7 +156,7 @@ export class BriefRenderer {
     const h = model.health;
     const lines: string[] = [];
 
-    lines.push(t('brief_health_rating', h.healthRating), '');
+    lines.push(t('brief_health_rating', t('brief_rating_' + h.healthRating.toLowerCase())), '');
 
     if (model.healthInsights.length > 0) {
       for (const insight of model.healthInsights) {
