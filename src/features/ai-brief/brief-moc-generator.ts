@@ -24,7 +24,9 @@ export const AI_BRIEF_HEADING_NAMES = new Set([...BRIEF_HEADINGS_EN, ...BRIEF_HE
 
 export interface TopicCluster {
   name: string;
+  noteCount?: number;
   representativeNotes: string[];
+  additionalNotes: string[];  // from Mermaid, not already in representativeNotes
 }
 
 export interface Relationship {
@@ -33,12 +35,21 @@ export interface Relationship {
   score: string;
 }
 
+export interface BriefStats {
+  totalNotes?: number;
+  totalLinks?: number;
+  clusterCount: number;
+  largestClusters: { name: string; count?: number }[];
+}
+
 export interface BriefMocData {
   mode: 'knowledge-base' | 'document-structure';
   clusters: TopicCluster[];
   relationships: Relationship[];
   documentSections: string[];
   language: 'en' | 'ja';
+  stats?: BriefStats;
+  mermaidDiagram?: string;
 }
 
 // Check using heading names from the metadata cache (no file read needed)
@@ -67,12 +78,16 @@ function extractSection(content: string, heading: string): string {
   return content.slice(afterHeading, nextH2).trim();
 }
 
-function parseTopicClusters(content: string, language: 'en' | 'ja'): TopicCluster[] {
+// Parse Topic Clusters section — returns representative notes and per-cluster note count
+function parseTopicClusters(
+  content: string,
+  language: 'en' | 'ja',
+): Array<{ name: string; noteCount?: number; representativeNotes: string[] }> {
   const heading = language === 'ja' ? 'トピッククラスター' : 'Topic Clusters';
   const section = extractSection(content, heading);
   if (!section) return [];
 
-  const clusters: TopicCluster[] = [];
+  const result: Array<{ name: string; noteCount?: number; representativeNotes: string[] }> = [];
   const parts = section.split(/\n(?=### )/);
 
   for (const part of parts) {
@@ -80,6 +95,14 @@ function parseTopicClusters(content: string, language: 'en' | 'ja'): TopicCluste
     if (!nameMatch) continue;
     const clusterName = nameMatch[1].trim();
 
+    // Parse note count: **Notes:** N  or  **ノート数：** N
+    const countPattern = language === 'ja'
+      ? /\*\*ノート数[：:]\*\*\s*(\d+)/
+      : /\*\*Notes:\*\*\s*(\d+)/;
+    const countMatch = part.match(countPattern);
+    const noteCount = countMatch ? parseInt(countMatch[1], 10) : undefined;
+
+    // Parse representative notes
     const repHeader = language === 'ja' ? '**代表ノート：**' : '**Representative Notes:**';
     const repIdx = part.indexOf(repHeader);
     const notes: string[] = [];
@@ -97,28 +120,31 @@ function parseTopicClusters(content: string, language: 'en' | 'ja'): TopicCluste
       }
     }
 
-    clusters.push({ name: clusterName, representativeNotes: notes });
+    result.push({ name: clusterName, noteCount, representativeNotes: notes });
   }
 
-  return clusters;
+  return result;
 }
 
-function parseMermaidClusters(content: string, language: 'en' | 'ja'): TopicCluster[] {
+// Parse Mermaid in Knowledge Map — returns all notes per cluster (up to 4 each)
+function parseMermaidClusters(
+  content: string,
+  language: 'en' | 'ja',
+): Map<string, string[]> {
   const heading = language === 'ja' ? 'ナレッジマップ' : 'Knowledge Map';
   const section = extractSection(content, heading);
-  if (!section) return [];
+  if (!section) return new Map();
 
   const mermaidStart = section.indexOf('```');
-  if (mermaidStart === -1) return [];
+  if (mermaidStart === -1) return new Map();
   const mermaidEnd = section.indexOf('```', mermaidStart + 3);
-  if (mermaidEnd === -1) return [];
+  if (mermaidEnd === -1) return new Map();
   const mermaid = section.slice(mermaidStart + 3, mermaidEnd);
 
   const clusterNodeIds = new Map<string, string>(); // nodeId -> cluster name
   const clusterMap = new Map<string, string[]>();    // cluster name -> notes
 
   for (const line of mermaid.split('\n')) {
-    // Cluster: ROOT --> C0["Italy"]
     const clusterDef = line.match(/ROOT\s*-->\s*(C\d+)\["([^"]+)"\]/);
     if (clusterDef) {
       const [, nodeId, name] = clusterDef;
@@ -126,7 +152,6 @@ function parseMermaidClusters(content: string, language: 'en' | 'ja'): TopicClus
       if (!clusterMap.has(name)) clusterMap.set(name, []);
       continue;
     }
-    // Note under cluster: C0 --> N0x0["Renaissance"]
     const noteInCluster = line.match(/(C\d+)\s*-->\s*\w+\["([^"]+)"\]/);
     if (noteInCluster) {
       const [, nodeId, noteName] = noteInCluster;
@@ -137,9 +162,47 @@ function parseMermaidClusters(content: string, language: 'en' | 'ja'): TopicClus
     }
   }
 
-  return Array.from(clusterMap.entries()).map(([name, notes]) => ({
+  return clusterMap;
+}
+
+// Extract the raw Mermaid code block from Knowledge Map section
+function extractMermaidDiagram(content: string, language: 'en' | 'ja'): string | undefined {
+  const heading = language === 'ja' ? 'ナレッジマップ' : 'Knowledge Map';
+  const section = extractSection(content, heading);
+  if (!section) return undefined;
+
+  const mermaidStart = section.indexOf('```mermaid');
+  if (mermaidStart === -1) return undefined;
+  const mermaidEnd = section.indexOf('```', mermaidStart + 10);
+  if (mermaidEnd === -1) return undefined;
+
+  return section.slice(mermaidStart, mermaidEnd + 3);
+}
+
+// Merge Topic Clusters (representative notes) with Mermaid (all notes) into unified clusters
+function buildClusters(content: string, language: 'en' | 'ja'): TopicCluster[] {
+  const repClusters = parseTopicClusters(content, language);
+  const mermaidMap = parseMermaidClusters(content, language);
+
+  if (repClusters.length > 0) {
+    return repClusters.map(c => {
+      const mermaidNotes = mermaidMap.get(c.name) ?? [];
+      const repSet = new Set(c.representativeNotes);
+      return {
+        name: c.name,
+        noteCount: c.noteCount,
+        representativeNotes: c.representativeNotes,
+        additionalNotes: mermaidNotes.filter(n => !repSet.has(n)),
+      };
+    });
+  }
+
+  // Fallback: Mermaid only (no Topic Clusters section)
+  return Array.from(mermaidMap.entries()).map(([name, notes]) => ({
     name,
+    noteCount: undefined,
     representativeNotes: notes,
+    additionalNotes: [],
   }));
 }
 
@@ -154,7 +217,7 @@ function parseRelationships(content: string, language: 'en' | 'ja'): Relationshi
     const section = extractSection(content, heading);
     if (!section) continue;
 
-    // Relationship Map format: **Note A** ↔ **Note B**\nScore: 80%
+    // Relationship Map: **Note A** ↔ **Note B**\nScore: 80%
     const mapPattern = /\*\*([^*]+)\*\*\s*↔\s*\*\*([^*]+)\*\*[\s\S]*?Score:\s*(\d+%)/g;
     let match;
     while ((match = mapPattern.exec(section)) !== null) {
@@ -165,7 +228,7 @@ function parseRelationships(content: string, language: 'en' | 'ja'): Relationshi
       }
     }
 
-    // Similar/Related Notes format: - **A** ↔ **B** — 63%
+    // Similar/Related Notes: - **A** ↔ **B** — 63%
     const pairPattern = /^- \*\*([^*]+)\*\*\s*↔\s*\*\*([^*]+)\*\*\s*[—–-]\s*(\d+%)/gm;
     while ((match = pairPattern.exec(section)) !== null) {
       const left = match[1].trim();
@@ -198,6 +261,41 @@ function parseDocumentStructure(content: string, language: 'en' | 'ja'): string[
   return sections;
 }
 
+function parseStats(content: string, language: 'en' | 'ja', clusters: TopicCluster[]): BriefStats {
+  let totalNotes: number | undefined;
+  let totalLinks: number | undefined;
+
+  // Parse from health table
+  const healthSection = extractSection(content, language === 'ja' ? 'ナレッジヘルス' : 'Knowledge Health');
+  if (healthSection) {
+    const notesPattern = language === 'ja'
+      ? /\|\s*ノート数\s*\|\s*(\d+)\s*\|/
+      : /\|\s*Total Notes\s*\|\s*(\d+)\s*\|/;
+    const linksPattern = language === 'ja'
+      ? /\|\s*リンク数\s*\|\s*(\d+)\s*\|/
+      : /\|\s*Total Links\s*\|\s*(\d+)\s*\|/;
+
+    const nm = healthSection.match(notesPattern);
+    if (nm) totalNotes = parseInt(nm[1], 10);
+    const lm = healthSection.match(linksPattern);
+    if (lm) totalLinks = parseInt(lm[1], 10);
+  }
+
+  // Sort clusters by noteCount desc for largest clusters list
+  const sorted = [...clusters].sort((a, b) => {
+    const ac = a.noteCount ?? (a.representativeNotes.length + a.additionalNotes.length);
+    const bc = b.noteCount ?? (b.representativeNotes.length + b.additionalNotes.length);
+    return bc - ac;
+  });
+
+  return {
+    totalNotes,
+    totalLinks,
+    clusterCount: clusters.length,
+    largestClusters: sorted.slice(0, 3).map(c => ({ name: c.name, count: c.noteCount })),
+  };
+}
+
 export function parseBriefContent(content: string): BriefMocData | null {
   if (!isAiBrief(content)) return null;
 
@@ -214,20 +312,23 @@ export function parseBriefContent(content: string): BriefMocData | null {
     };
   }
 
-  let clusters = parseTopicClusters(content, language);
-  if (clusters.length === 0) clusters = parseMermaidClusters(content, language);
+  const clusters = buildClusters(content, language);
+  const relationships = parseRelationships(content, language);
+  const stats = parseStats(content, language, clusters);
+  const mermaidDiagram = extractMermaidDiagram(content, language);
 
   return {
     mode: 'knowledge-base',
     clusters,
-    relationships: parseRelationships(content, language),
+    relationships,
     documentSections: [],
     language,
+    stats,
+    mermaidDiagram,
   };
 }
 
 function titleFromSourceName(sourceName: string): string {
-  // Strip -AI-Brief or _AI_Brief suffix (case-insensitive)
   const base = sourceName.replace(/[-_]AI[-_]Brief$/i, '').trim();
   if (!base) return sourceName;
   return base
@@ -269,6 +370,106 @@ export function buildBriefMocContent(data: BriefMocData, sourceName: string): st
   return lines.join('\n');
 }
 
+function buildOverviewSection(lines: string[], stats: BriefStats | undefined, isJa: boolean): void {
+  if (isJa) {
+    lines.push('## 概要', '');
+    if (stats) {
+      lines.push('**ナレッジベース概要**', '');
+      if (stats.totalNotes !== undefined) lines.push(`- ノート：${stats.totalNotes}`);
+      if (stats.totalLinks !== undefined) lines.push(`- リンク：${stats.totalLinks}`);
+      lines.push(`- トピッククラスター：${stats.clusterCount}`);
+      if (stats.largestClusters.length > 0) {
+        lines.push('', '**主要クラスター**');
+        for (const c of stats.largestClusters) lines.push(`- ${c.name}`);
+      }
+    } else {
+      lines.push('このMOCはAI Briefから生成されました。', '', '分析されたナレッジベースのナビゲーション層として活用してください。');
+    }
+    lines.push('');
+  } else {
+    lines.push('## Overview', '');
+    if (stats) {
+      lines.push('**Knowledge Base Summary**', '');
+      if (stats.totalNotes !== undefined) lines.push(`- Notes: ${stats.totalNotes}`);
+      if (stats.totalLinks !== undefined) lines.push(`- Links: ${stats.totalLinks}`);
+      lines.push(`- Topic Clusters: ${stats.clusterCount}`);
+      if (stats.largestClusters.length > 0) {
+        lines.push('', '**Largest Clusters**');
+        for (const c of stats.largestClusters) lines.push(`- ${c.name}`);
+      }
+    } else {
+      lines.push('This MOC was generated from an AI Brief.', '', 'Use it as a navigation layer for the analyzed knowledge base.');
+    }
+    lines.push('');
+  }
+}
+
+function buildStartHereSection(
+  lines: string[],
+  clusters: TopicCluster[],
+  relationships: Relationship[],
+  isJa: boolean,
+): void {
+  if (clusters.length === 0) return;
+
+  // Sort by size descending
+  const sorted = [...clusters].sort((a, b) => {
+    const ac = a.noteCount ?? (a.representativeNotes.length + a.additionalNotes.length);
+    const bc = b.noteCount ?? (b.representativeNotes.length + b.additionalNotes.length);
+    return bc - ac;
+  });
+
+  const largestCluster = sorted[0];
+  const beginnerNotes = [
+    ...largestCluster.representativeNotes,
+    ...largestCluster.additionalNotes,
+  ].slice(0, 4);
+
+  // Advanced: unique notes from top relationships; fallback to 2nd cluster
+  const advancedNotes: string[] = [];
+  if (relationships.length > 0) {
+    const seen = new Set<string>();
+    for (const rel of relationships) {
+      if (!seen.has(rel.left)) { seen.add(rel.left); advancedNotes.push(rel.left); }
+      if (!seen.has(rel.right)) { seen.add(rel.right); advancedNotes.push(rel.right); }
+      if (advancedNotes.length >= 4) break;
+    }
+  } else if (sorted.length > 1) {
+    const second = sorted[1];
+    advancedNotes.push(
+      ...[...second.representativeNotes, ...second.additionalNotes].slice(0, 4),
+    );
+  }
+
+  if (beginnerNotes.length === 0 && advancedNotes.length === 0) return;
+
+  if (isJa) {
+    lines.push('## スタートガイド', '');
+    if (beginnerNotes.length > 0) {
+      lines.push('### 入門パス', '');
+      for (const n of beginnerNotes) lines.push(`- [[${n}]]`);
+      lines.push('');
+    }
+    if (advancedNotes.length > 0) {
+      lines.push('### 発展パス', '');
+      for (const n of advancedNotes) lines.push(`- [[${n}]]`);
+      lines.push('');
+    }
+  } else {
+    lines.push('## Start Here', '');
+    if (beginnerNotes.length > 0) {
+      lines.push('### Beginner Path', '');
+      for (const n of beginnerNotes) lines.push(`- [[${n}]]`);
+      lines.push('');
+    }
+    if (advancedNotes.length > 0) {
+      lines.push('### Advanced Path', '');
+      for (const n of advancedNotes) lines.push(`- [[${n}]]`);
+      lines.push('');
+    }
+  }
+}
+
 function buildDocumentStructureSections(
   lines: string[],
   data: BriefMocData,
@@ -279,7 +480,7 @@ function buildDocumentStructureSections(
     lines.push('## 概要', '', 'このMOCはAI BriefのDocument Structure Modeから生成されました。', '', 'ドキュメントのナビゲーション層として活用してください。', '');
     lines.push('## ドキュメント構造', '');
     for (const section of data.documentSections) lines.push(`- [[${section}]]`);
-    lines.push('', '## 推奨ナビゲーション', '');
+    lines.push('', '## スタートガイド', '');
     lines.push('- 利用可能であれば概要セクションを出発点にしてください。');
     lines.push('- 技術的な詳細と関連するセクションをリンクしてください。');
     lines.push('- 実装前に未解決の課題を確認してください。');
@@ -288,7 +489,7 @@ function buildDocumentStructureSections(
     lines.push('## Overview', '', 'This MOC was generated from an AI Brief in Document Structure Mode.', '', 'Use it as a navigation layer for the analyzed document.', '');
     lines.push('## Document Structure', '');
     for (const section of data.documentSections) lines.push(`- [[${section}]]`);
-    lines.push('', '## Suggested Navigation', '');
+    lines.push('', '## Start Here', '');
     lines.push('- Use overview as the entry point.');
     lines.push('- Link technical details to related screen and data sections.');
     lines.push('- Review open questions before implementation.');
@@ -302,45 +503,43 @@ function buildKnowledgeBaseSections(
   sourceName: string,
   isJa: boolean,
 ): void {
-  if (isJa) {
-    lines.push('## 概要', '', 'このMOCはAI Briefから生成されました。', '', '分析されたナレッジベースのナビゲーション層として活用してください。', '');
-    if (data.clusters.length > 0) {
-      lines.push('## トピッククラスター', '');
-      for (const cluster of data.clusters) {
-        lines.push(`### ${cluster.name}`, '');
-        for (const note of cluster.representativeNotes) lines.push(`- [[${note}]]`);
-        lines.push('');
-      }
-    }
-    if (data.relationships.length > 0) {
-      lines.push('## 関係性', '');
-      for (const rel of data.relationships) lines.push(`- [[${rel.left}]] ↔ [[${rel.right}]] — ${rel.score}`);
-      lines.push('');
-    }
-    lines.push('## 推奨ナビゲーション', '');
-    lines.push('- 最も大きい、または中心的なクラスターから始めてください。');
-    lines.push('- 強く関連するノート同士を確認してください。');
-    lines.push('- 必要に応じてクラスター間リンクを追加してください。');
-    lines.push('', '## 元のAI Brief', '', `- [[${sourceName}]]`);
-  } else {
-    lines.push('## Overview', '', 'This MOC was generated from an AI Brief.', '', 'Use it as a navigation layer for the analyzed knowledge base.', '');
-    if (data.clusters.length > 0) {
-      lines.push('## Topic Clusters', '');
-      for (const cluster of data.clusters) {
-        lines.push(`### ${cluster.name}`, '');
-        for (const note of cluster.representativeNotes) lines.push(`- [[${note}]]`);
-        lines.push('');
-      }
-    }
-    if (data.relationships.length > 0) {
-      lines.push('## Relationships', '');
-      for (const rel of data.relationships) lines.push(`- [[${rel.left}]] ↔ [[${rel.right}]] — ${rel.score}`);
-      lines.push('');
-    }
-    lines.push('## Suggested Navigation', '');
-    lines.push('- Start with the largest or most central cluster.');
-    lines.push('- Review relationships between strongly connected notes.');
-    lines.push('- Add cross-cluster links where useful.');
-    lines.push('', '## Source AI Brief', '', `- [[${sourceName}]]`);
+  // ① Overview with stats
+  buildOverviewSection(lines, data.stats, isJa);
+
+  // ③ Knowledge Map (Mermaid)
+  if (data.mermaidDiagram) {
+    lines.push(isJa ? '## ナレッジマップ' : '## Knowledge Map', '', data.mermaidDiagram, '');
   }
+
+  // ① Topic Clusters with representative + additional notes
+  if (data.clusters.length > 0) {
+    lines.push(isJa ? '## トピッククラスター' : '## Topic Clusters', '');
+    for (const cluster of data.clusters) {
+      lines.push(`### ${cluster.name}`, '');
+      if (cluster.representativeNotes.length > 0) {
+        lines.push(isJa ? '**代表ノート**' : '**Representative Notes**', '');
+        for (const note of cluster.representativeNotes) lines.push(`- [[${note}]]`);
+        lines.push('');
+      }
+      if (cluster.additionalNotes.length > 0) {
+        lines.push(isJa ? '**関連ノート**' : '**Related Notes**', '');
+        for (const note of cluster.additionalNotes) lines.push(`- [[${note}]]`);
+        lines.push('');
+      }
+    }
+  }
+
+  // Relationships
+  if (data.relationships.length > 0) {
+    lines.push(isJa ? '## 関係性' : '## Relationships', '');
+    for (const rel of data.relationships) {
+      lines.push(`- [[${rel.left}]] ↔ [[${rel.right}]] — ${rel.score}`);
+    }
+    lines.push('');
+  }
+
+  // ④ Start Here (replaces Suggested Navigation)
+  buildStartHereSection(lines, data.clusters, data.relationships, isJa);
+
+  lines.push(isJa ? '## 元のAI Brief' : '## Source AI Brief', '', `- [[${sourceName}]]`);
 }
