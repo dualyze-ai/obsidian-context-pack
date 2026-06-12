@@ -1,64 +1,65 @@
 import type { BriefModel, RelationshipPair, SimilarPair } from '../../models/brief-model';
 import type { TopicCluster } from '../../models/topic-cluster';
 import type { AIBriefSettings } from '../../settings';
+import { t } from '../../i18n';
 
 export class BriefRenderer {
   render(model: BriefModel, settings: AIBriefSettings): string {
     const sections: string[] = ['# AI Brief', ''];
-    sections.push(`_Generated: ${model.generatedAt} | ${model.noteCount} notes_`, '');
+    sections.push(t('brief_generated', model.generatedAt, model.noteCount), '');
 
     if (settings.includeExecutiveSummary) {
-      sections.push('## Executive Insight', '', model.executiveInsight, '');
-      sections.push('## Executive Summary', '', model.executiveSummary, '');
+      sections.push(t('brief_h_executive_insight'), '', model.executiveInsight, '');
+      sections.push(t('brief_h_executive_summary'), '', model.executiveSummary, '');
     }
 
     if (settings.includeKeyTopics && model.keyTopics.length > 0) {
-      sections.push('## Key Topics', '', this.renderKeyTopics(model), '');
+      sections.push(t('brief_h_key_topics'), '', this.renderKeyTopics(model), '');
     }
 
     if (settings.includeKnowledgeMap && model.clusters.length > 0) {
-      sections.push('## Knowledge Map', '', this.renderKnowledgeMap(model, settings.enableMermaid), '');
+      sections.push(t('brief_h_knowledge_map'), '', this.renderKnowledgeMap(model, settings.enableMermaid), '');
       const isDocumentMode = model.clusters.every(c => c.notes.length === 1);
       if (isDocumentMode) {
-        sections.push('## Document Structure', '', this.renderDocumentStructure(model.clusters), '');
+        sections.push(t('brief_h_document_structure'), '', this.renderDocumentStructure(model.clusters), '');
       } else {
-        sections.push('## Topic Clusters', '', this.renderTopicClusters(model.clusters), '');
+        sections.push(t('brief_h_topic_clusters'), '', this.renderTopicClusters(model.clusters), '');
       }
     }
 
     if (settings.includeRelationshipMap) {
-      sections.push('## Relationship Map', '', this.renderRelationshipMap(model.relationships), '');
+      sections.push(t('brief_h_relationship_map'), '', this.renderRelationshipMap(model.relationships), '');
     }
 
     if (settings.includeSimilarNotes) {
       if (model.similarPairs.length > 0) {
-        sections.push('## Similar Notes', '', this.renderPairs(model.similarPairs, true), '');
+        sections.push(t('brief_h_similar_notes'), '', this.renderPairs(model.similarPairs, true), '');
       }
       if (model.relatedPairs.length > 0) {
-        sections.push('## Related Notes', '', this.renderPairs(model.relatedPairs, false), '');
+        sections.push(t('brief_h_related_notes'), '', this.renderPairs(model.relatedPairs, false), '');
       }
       if (model.similarPairs.length === 0 && model.relatedPairs.length === 0) {
-        sections.push('## Similar Notes', '', '_No note pairs detected above the minimum threshold._', '');
+        sections.push(t('brief_h_similar_notes'), '', t('brief_no_pairs'), '');
       }
     }
 
     if (settings.includeKnowledgeHealth) {
-      sections.push('## Knowledge Health', '', this.renderHealth(model), '');
+      sections.push(t('brief_h_knowledge_health'), '', this.renderHealth(model), '');
     }
 
     if (settings.includeOpenQuestions) {
-      sections.push('## Open Questions', '', this.renderList(model.openQuestions), '');
+      sections.push(t('brief_h_open_questions'), '', this.renderList(model.openQuestions), '');
     }
 
     if (settings.includeSuggestedPrompts) {
-      sections.push('## Suggested Prompts', '', this.renderList(model.suggestedPrompts), '');
+      sections.push(t('brief_h_suggested_prompts'), '', this.renderList(model.suggestedPrompts), '');
     }
 
     return sections.join('\n');
   }
 
   private renderKeyTopics(model: BriefModel): string {
-    return model.keyTopics.map((t, i) => `${i + 1}. **${t.name}**`).join('\n');
+    return model.keyTopics.map((tp, i) => `${i + 1}. **${tp.name}**`).join('\n');
   }
 
   private renderKnowledgeMap(model: BriefModel, enableMermaid: boolean): string {
@@ -89,19 +90,23 @@ export class BriefRenderer {
     return lines.join('\n');
   }
 
+  private renderDocumentStructure(clusters: TopicCluster[]): string {
+    return clusters.map(c => `- ${c.notes[0]}`).join('\n');
+  }
+
   private renderTopicClusters(clusters: TopicCluster[]): string {
     const lines: string[] = [];
 
     for (const cluster of clusters) {
       lines.push(`### ${cluster.name}`, '');
-      lines.push(`**Notes:** ${cluster.notes.length}`);
+      lines.push(t('brief_cluster_notes', cluster.notes.length));
 
       if (cluster.themes.length > 0) {
-        lines.push('', `**Main Themes:** ${cluster.themes.join(', ')}`);
+        lines.push('', `${t('brief_cluster_themes')} ${cluster.themes.join(', ')}`);
       }
 
       if (cluster.representativeNotes.length > 0) {
-        lines.push('', '**Representative Notes:**');
+        lines.push('', t('brief_cluster_rep'));
         for (const note of cluster.representativeNotes) {
           lines.push(`- ${note}`);
         }
@@ -114,7 +119,7 @@ export class BriefRenderer {
   }
 
   private renderRelationshipMap(pairs: RelationshipPair[]): string {
-    if (pairs.length === 0) return '_No strong relationships detected._';
+    if (pairs.length === 0) return t('brief_no_relationships');
     return pairs.slice(0, 10).map(p =>
       `**${p.noteA}** ↔ **${p.noteB}**  \nScore: ${(p.score * 100).toFixed(0)}%`
     ).join('\n\n');
@@ -125,7 +130,7 @@ export class BriefRenderer {
       const label = showLevel ? ` (${p.level})` : '';
       const lines = [`- **${p.noteA}** ↔ **${p.noteB}** — ${p.score}%${label}`];
       if (p.sharedFeatures.length > 0) {
-        lines.push(`  - Shared: ${p.sharedFeatures.join(', ')}`);
+        lines.push(`  - ${t('brief_shared')} ${p.sharedFeatures.join(', ')}`);
       }
       return lines.join('\n');
     }).join('\n');
@@ -135,7 +140,7 @@ export class BriefRenderer {
     const h = model.health;
     const lines: string[] = [];
 
-    lines.push(`**Rating: ${h.healthRating}**`, '');
+    lines.push(t('brief_health_rating', h.healthRating), '');
 
     if (model.healthInsights.length > 0) {
       for (const insight of model.healthInsights) {
@@ -145,41 +150,33 @@ export class BriefRenderer {
     }
 
     if (h.totalLinks === 0) {
-      lines.push(
-        '> **Note:** Relationships shown in this brief are inferred from tags, headings, and content similarity.',
-        '> No explicit Obsidian links were detected.',
-        ''
-      );
+      lines.push(t('brief_health_inferred'), t('brief_health_no_links'), '');
     }
 
     lines.push(
-      '| Metric | Value |',
-      '|---|---|',
-      `| Total Notes | ${h.totalNotes} |`,
-      `| Total Links | ${h.totalLinks} |`,
-      `| Orphan Notes | ${h.orphanNotes} |`,
-      `| Duplicate Candidates | ${h.duplicateCandidates} |`,
-      `| Connectivity Score | ${h.connectivityScore}/100 |`,
-      `| Topic Coverage Score | ${h.topicCoverageScore}/100 — ${this.topicCoverageLabel(h.topicCoverageScore)} |`,
+      t('brief_health_col_header'),
+      t('brief_health_col_sep'),
+      t('brief_health_row_notes', h.totalNotes),
+      t('brief_health_row_links', h.totalLinks),
+      t('brief_health_row_orphans', h.orphanNotes),
+      t('brief_health_row_dupes', h.duplicateCandidates),
+      t('brief_health_row_conn', h.connectivityScore),
+      t('brief_health_row_coverage', h.topicCoverageScore, this.topicCoverageLabel(h.topicCoverageScore)),
     );
 
     return lines.join('\n');
   }
 
-  private renderDocumentStructure(clusters: TopicCluster[]): string {
-    return clusters.map(c => `- ${c.notes[0]}`).join('\n');
-  }
-
   private topicCoverageLabel(score: number): string {
-    if (score >= 85) return 'High Coverage';
-    if (score >= 70) return 'Good Coverage';
-    if (score >= 50) return 'Moderate Coverage';
-    if (score >= 30) return 'Basic Coverage';
-    return 'Low Coverage';
+    if (score >= 85) return t('brief_coverage_high');
+    if (score >= 70) return t('brief_coverage_good');
+    if (score >= 50) return t('brief_coverage_moderate');
+    if (score >= 30) return t('brief_coverage_basic');
+    return t('brief_coverage_low');
   }
 
   private renderList(items: string[]): string {
-    if (items.length === 0) return '_None_';
+    if (items.length === 0) return t('brief_none');
     return items.map(i => `- ${i}`).join('\n');
   }
 }

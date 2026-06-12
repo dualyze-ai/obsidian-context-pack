@@ -293,4 +293,112 @@ Prefer consistency with project documentation over generic examples.`,
   setting_ai_brief_similarity_desc:  'Minimum similarity score to include a pair in the Similar Notes section.',
 
   folder_picker_title_brief: 'Choose a folder for AI Brief',
+
+  // ── AI Brief output content ──────────────────────────────────────────────
+  brief_generated:           (date: string, n: number) => `_Generated: ${date} | ${n} notes_`,
+  brief_h_executive_insight: '## Executive Insight',
+  brief_h_executive_summary: '## Executive Summary',
+  brief_h_key_topics:        '## Key Topics',
+  brief_h_knowledge_map:     '## Knowledge Map',
+  brief_h_document_structure:'## Document Structure',
+  brief_h_topic_clusters:    '## Topic Clusters',
+  brief_h_relationship_map:  '## Relationship Map',
+  brief_h_similar_notes:     '## Similar Notes',
+  brief_h_related_notes:     '## Related Notes',
+  brief_h_knowledge_health:  '## Knowledge Health',
+  brief_h_open_questions:    '## Open Questions',
+  brief_h_suggested_prompts: '## Suggested Prompts',
+
+  brief_cluster_notes:       (n: number) => `**Notes:** ${n}`,
+  brief_cluster_themes:      '**Main Themes:**',
+  brief_cluster_rep:         '**Representative Notes:**',
+
+  brief_no_relationships:    '_No strong relationships detected._',
+  brief_no_pairs:            '_No note pairs detected above the minimum threshold._',
+  brief_shared:              'Shared:',
+  brief_none:                '_None_',
+  brief_list_sep:            ', ',
+  brief_list_and:            ' and ',
+
+  brief_health_rating:       (r: string) => `**Rating: ${r}**`,
+  brief_health_inferred:     '> **Note:** Relationships shown in this brief are inferred from tags, headings, and content similarity.',
+  brief_health_no_links:     '> No explicit Obsidian links were detected.',
+  brief_health_col_header:   '| Metric | Value |',
+  brief_health_col_sep:      '|---|---|',
+  brief_health_row_notes:    (n: number) => `| Total Notes | ${n} |`,
+  brief_health_row_links:    (n: number) => `| Total Links | ${n} |`,
+  brief_health_row_orphans:  (n: number) => `| Orphan Notes | ${n} |`,
+  brief_health_row_dupes:    (n: number) => `| Duplicate Candidates | ${n} |`,
+  brief_health_row_conn:     (n: number) => `| Connectivity Score | ${n}/100 |`,
+  brief_health_row_coverage: (n: number, label: string) => `| Topic Coverage Score | ${n}/100 — ${label} |`,
+
+  brief_coverage_high:       'High Coverage',
+  brief_coverage_good:       'Good Coverage',
+  brief_coverage_moderate:   'Moderate Coverage',
+  brief_coverage_basic:      'Basic Coverage',
+  brief_coverage_low:        'Low Coverage',
+
+  brief_exec_kb_header:      'This knowledge base contains:',
+  brief_exec_doc_header:     'This document contains:',
+  brief_exec_row_notes:      (n: number) => `- ${n} notes`,
+  brief_exec_row_links:      (n: number) => `- ${n} links`,
+  brief_exec_row_tags:       (n: number) => `- ${n} tags`,
+  brief_exec_row_clusters:   (n: number) => `- ${n} major topic cluster${n === 1 ? '' : 's'}`,
+  brief_exec_row_sections:   (n: number) => `- ${n} section${n === 1 ? '' : 's'}`,
+
+  brief_insight_kb_intro:    (notes: number, clusters: number) =>
+    `This knowledge base contains ${notes} notes organized into ${clusters} topic cluster${clusters !== 1 ? 's' : ''}.`,
+  brief_insight_largest:     (name: string, pct: number) =>
+    `"${name}" is the largest cluster, accounting for ${pct}% of all notes.`,
+  brief_insight_single:      (notes: number) =>
+    `This knowledge base contains ${notes} notes in a single topic area.`,
+  brief_insight_doc_intro:   (n: number, list: string) =>
+    `This document contains ${n} section${n !== 1 ? 's' : ''}: ${list}.`,
+  brief_insight_sec_conn:    'The sections are linked to each other, forming a cohesive reference structure.',
+  brief_insight_sec_alone:   'Sections are relatively standalone. Adding links between them would improve navigability.',
+  brief_insight_hub:         (name: string) => `"${name}" forms the primary knowledge hub.`,
+  brief_insight_hub_themed:  (name: string, themes: string) =>
+    `"${name}" forms the primary knowledge hub, with themes including ${themes}.`,
+  brief_insight_second:      (name: string, n: number) =>
+    ` "${name}" is the next developed area with ${n} notes.`,
+  brief_insight_conn_high:   'The collection is well connected, with most notes linked to related content.',
+  brief_insight_conn_mid:    'Most notes are connected within their cluster, though cross-cluster links are limited.',
+  brief_insight_conn_low:    'Connectivity is low. Adding more links between notes would significantly improve navigability.',
+  brief_insight_add_overview:(names: string) => `Consider adding overview or comparison notes connecting ${names}.`,
+
+  brief_hi_doc:              (n: number, names: string) =>
+    `This document is structured into ${n} section${n !== 1 ? 's' : ''}: ${names}.`,
+  brief_hi_clusters:         (n: number, names: string) =>
+    `The vault is organized into ${n} cluster${n !== 1 ? 's' : ''}: ${names}.`,
+  brief_hi_conn_high:        'Notes are well connected within their topic areas.',
+  brief_hi_conn_mid:         'Most notes are connected within their regional clusters. Cross-cluster connections are limited.',
+  brief_hi_conn_low:         'Most notes have few connections. Adding links would improve navigability.',
+  brief_hi_all_reach:        'All notes are reachable via at least one link.',
+  brief_hi_orphans:          (n: number) => `${n} note${n > 1 ? 's are' : ' is'} not linked from any other note.`,
+  brief_hi_overview:         (names: string) =>
+    `Consider creating overview notes linking ${names} to improve cross-cluster navigation.`,
+
+  brief_prompt_compare:      (a: string, b: string) => `Compare and contrast "${a}" and "${b}".`,
+  brief_prompt_summarize:    (cluster: string) => `Summarize the key themes in ${cluster}.`,
+  brief_prompt_overview:     (topic: string) => `Create a structured overview of "${topic}".`,
+  brief_prompt_connections:  (a: string, b: string) => `What are the connections between ${a} and ${b}?`,
+  brief_prompt_gaps:         'Identify the most important knowledge gaps in this collection.',
+  brief_prompt_central:      'What topics are most central to this knowledge base?',
+  brief_prompt_improve:      'Suggest how to improve the structure and connectivity of these notes.',
+  brief_prompt_roadmap:      'Create a learning roadmap based on the topic clusters.',
+
+  oq_orphan_notes:           (n: number) => `${n} note${n > 1 ? 's are' : ' is'} isolated from the main knowledge graph.`,
+  oq_small_clusters:         (n: number) => `${n} cluster${n > 1 ? 's contain' : ' contains'} only a single note and may need more supporting material.`,
+  oq_primary_cluster:        'Which topic cluster should be treated as the primary focus of this knowledge base?',
+  oq_dominant_cluster:       (name: string) => `The "${name}" cluster contains over half of all notes. Consider breaking it into sub-topic groupings.`,
+  oq_peer_isolated:          (n: number) => `${n} notes are only connected through hub or index notes, lacking direct peer connections.`,
+  oq_sparse_clusters:        (names: string, plural: boolean) => `Cluster${plural ? 's' : ''} ${names} have few internal connections. Consider linking related notes within the cluster.`,
+  oq_no_cross_links:         'No direct cross-cluster links exist between non-hub notes. Consider adding connections between related topics across clusters.',
+  oq_under_documented:       (n: number) => `${n} frequently referenced concept${n > 1 ? 's have' : ' has'} limited documentation.`,
+  oq_duplicate_candidates:   (n: number) => `${n} pair${n > 1 ? 's' : ''} of highly similar notes may be candidates for merging.`,
+
+  brief_level_very_similar:  'Very Similar',
+  brief_level_strong:        'Strong Candidate',
+  brief_level_review:        'Review Candidate',
+  brief_level_related:       'Potentially Related',
 };
