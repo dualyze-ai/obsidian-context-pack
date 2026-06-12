@@ -1,6 +1,7 @@
 import type { Graph } from './link-analyzer';
 import type { TopicCluster } from '../models/topic-cluster';
 import type { NoteModel } from '../models/note-model';
+import { t } from '../i18n';
 
 function isMetadataTag(tag: string): boolean {
   return tag.includes(':') || /^\d/.test(tag);
@@ -85,7 +86,7 @@ export class ClusterAnalyzer {
     }
 
     const untagged = notes.filter(n => !assigned.has(n.title)).map(n => n.title);
-    if (untagged.length > 0) groups.set('Other', untagged);
+    if (untagged.length > 0) groups.set(t('cluster_other'), untagged);
 
     const maxSize = Math.max(...Array.from(groups.values()).map(g => g.length));
     if (groups.size <= 1 || maxSize / total >= 0.70) return new Map();
