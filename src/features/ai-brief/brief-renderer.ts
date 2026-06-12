@@ -3,6 +3,11 @@ import type { TopicCluster } from '../../models/topic-cluster';
 import type { AIBriefSettings } from '../../settings';
 import { t } from '../../i18n';
 
+const CLUSTER_COLORS = [
+  '#A8D8EA', '#AAE3A1', '#FFD3B6', '#D6CDEA',
+  '#FFEAA7', '#B8E6B8', '#F6C1C1', '#CFE8F5',
+];
+
 export class BriefRenderer {
   render(model: BriefModel, settings: AIBriefSettings): string {
     const sections: string[] = ['# AI Brief', ''];
@@ -66,17 +71,28 @@ export class BriefRenderer {
     const lines: string[] = [];
 
     if (enableMermaid) {
+      const clusterList = model.clusters.slice(0, 8);
       lines.push('```mermaid');
-      lines.push('%%{init: {"mindmap": {"useMaxWidth": true}}}%%');
-      lines.push('mindmap');
-      lines.push('  root((Knowledge Map))');
-      for (const cluster of model.clusters.slice(0, 8)) {
-        const safeName = cluster.name.replace(/[()[\]{}]/g, '');
-        lines.push(`    ${safeName}`);
-        for (const note of cluster.notes.slice(0, 4)) {
-          lines.push(`      ${note.replace(/[()[\]{}]/g, '')}`);
+      lines.push('graph LR');
+      lines.push('  ROOT(["Knowledge Map"])');
+
+      for (let i = 0; i < clusterList.length; i++) {
+        const cluster = clusterList[i];
+        const cId = `C${i}`;
+        const safeName = cluster.name.replace(/"/g, '');
+        lines.push(`  ROOT --> ${cId}["${safeName}"]`);
+        for (let j = 0; j < Math.min(cluster.notes.length, 4); j++) {
+          const safeNote = cluster.notes[j].replace(/"/g, '');
+          lines.push(`  ${cId} --> N${i}x${j}["${safeNote}"]`);
         }
       }
+
+      for (let i = 0; i < clusterList.length; i++) {
+        const color = CLUSTER_COLORS[i % CLUSTER_COLORS.length];
+        lines.push(`  style C${i} fill:${color},stroke:${color},color:#333`);
+      }
+      lines.push('  style ROOT fill:#f0f0f0,stroke:#999,color:#333');
+
       lines.push('```');
     } else {
       for (const cluster of model.clusters) {
