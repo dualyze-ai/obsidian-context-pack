@@ -292,7 +292,6 @@ Step-by-step guides for:
 - Claude Code
 - NotebookLM
 
-### AI Brief Generator
 ### [AI Brief Generator](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-generator.md)
 
 
