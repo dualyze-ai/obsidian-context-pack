@@ -143,7 +143,7 @@ Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do no
 
   ai_addition_chatgpt:    `Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.
 
-Important: Do not evaluate this file as an exported pack or generated document. Use the content only as source knowledge. When answering, focus on the subject matter, not on the structure or quality of this file.`,
+Important: Use this document as source knowledge. Focus on the subject matter rather than the document itself.`,
   ai_addition_claude:     'Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.',
   ai_addition_gemini:     'Please integrate information from multiple notes and organize your response by common points, differences, chronology, and related topics.',
   ai_moc_modal_title:        'Create AI MOC',
