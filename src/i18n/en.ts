@@ -294,6 +294,7 @@ Prefer consistency with project documentation over generic examples.`,
   notice_brief_moc_done:           (path: string) => `AI Brief MOC saved: ${path}`,
   notice_brief_not_detected:       'This file does not appear to be an AI Brief.',
   notice_brief_no_structure:       'No AI Brief structure was found.',
+  notice_ai_brief_not_packable:    'AI Brief is an analysis document. Generate an AI MOC first, then create a Context Pack from the AI MOC.',
 
   setting_ai_brief_section:          'AI Brief Generator',
   setting_ai_brief_mermaid:          'Enable Mermaid diagrams',
