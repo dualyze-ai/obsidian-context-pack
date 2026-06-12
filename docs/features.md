@@ -35,6 +35,106 @@ Track which notes were sent to ChatGPT Projects, Claude Projects, Gemini, or Not
 → [Full documentation](project-knowledge-packs.md)
 
 ---
+# AI Brief Generator
+
+AI Brief Generator analyzes your vault and creates a high-level diagnostic report.
+
+Instead of manually exploring dozens or hundreds of notes, AI Brief helps you quickly understand:
+
+- Topic Clusters
+- Knowledge Maps
+- Relationship Maps
+- Knowledge Health
+- Development Candidates
+- Suggested AI Prompts
+
+AI Brief works with many types of knowledge:
+
+- Personal Knowledge Bases
+- Reading Notes
+- Travel Collections
+- Research Notes
+- Technical Specifications
+- Project Documentation
+
+---
+
+## Generated Sections
+
+### Executive Insight
+
+High-level summary of the vault structure and major themes.
+
+### Executive Summary
+
+Overview statistics:
+
+- Notes
+- Links
+- Tags
+- Topic Clusters
+
+### Knowledge Map
+
+Visual overview of topic clusters.
+
+### Topic Clusters
+
+Cluster breakdown with representative notes.
+
+### Relationship Map
+
+Strong relationships discovered between notes.
+
+### Related Notes
+
+Similar notes based on tags, headings, links, and content.
+
+### Knowledge Health
+
+Connectivity analysis and improvement suggestions.
+
+### Open Questions
+
+Potential knowledge gaps and development opportunities.
+
+### Suggested Prompts
+
+Ready-to-use prompts for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.
+
+---
+
+## Supported Modes
+
+### Knowledge Base Mode
+
+For personal knowledge bases, reading notes, travel notes, and research collections.
+
+### Document Structure Mode
+
+For specifications, project documentation, architecture notes, and technical documents.
+
+AI Brief automatically detects the structure and generates diagnostics appropriate for the content.
+
+---
+
+## Typical Workflow
+
+```text
+Folder
+    ↓
+Generate AI Brief
+    ↓
+Understand the structure
+    ↓
+Generate AI MOC
+    ↓
+Create Context Pack
+    ↓
+Use with AI
+```
+
+---
 
 # Context Pack
 
