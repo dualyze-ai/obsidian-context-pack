@@ -141,27 +141,15 @@ If information exists in this Context Pack, please prioritize it.
 If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
 Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do not offer suggestions for improving this document.`,
 
-  ai_addition_chatgpt:    `Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.
-
-## Usage Guidance
+  usage_guidance: `## Usage Guidance
 
 Use the information in this document as source knowledge.
 
 When answering questions, prioritize the subject matter and the information contained in the notes.`,
-  ai_addition_claude:     `Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.
 
-## Usage Guidance
-
-Use the information in this document as source knowledge.
-
-When answering questions, prioritize the subject matter and the information contained in the notes.`,
-  ai_addition_gemini:     `Please integrate information from multiple notes and organize your response by common points, differences, chronology, and related topics.
-
-## Usage Guidance
-
-Use the information in this document as source knowledge.
-
-When answering questions, prioritize the subject matter and the information contained in the notes.`,
+  ai_addition_chatgpt:    'Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.',
+  ai_addition_claude:     'Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.',
+  ai_addition_gemini:     'Please integrate information from multiple notes and organize your response by common points, differences, chronology, and related topics.',
   ai_moc_modal_title:        'Create AI MOC',
   ai_moc_note_placeholder:   'Select a note…',
   ai_moc_scope_direct:       'Direct Links',
@@ -273,13 +261,7 @@ Prefer consistency with project documentation over generic examples.`,
 - Follow coding conventions and architecture guidelines
 - Do not make new designs based on inference
 - Respect consistency with existing implementations
-- Ask when requirements are unclear
-
-## Usage Guidance
-
-Use the information in this document as source knowledge.
-
-When answering questions, prioritize the subject matter and the information contained in the notes.`,
+- Ask when requirements are unclear`,
 
   setting_freshness_section:          'Freshness Auto Check',
   setting_freshness_auto_check:       'Check pack freshness on startup',
