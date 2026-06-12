@@ -323,6 +323,7 @@ Prefer consistency with project documentation over generic examples.`,
 
   brief_health_inferred:     '> **Note:** Relationships shown in this brief are inferred from tags, headings, and content similarity.',
   brief_health_no_links:     '> No explicit Obsidian links were detected.',
+  brief_health_conn_note:    '> **Note:** No orphan notes detected, but the connectivity score is moderate because cross-cluster links are sparse.',
   brief_health_col_header:   '| Metric | Value |',
   brief_health_col_sep:      '|---|---|',
   brief_health_row_notes:    (n: number) => `| Total Notes | ${n} |`,
