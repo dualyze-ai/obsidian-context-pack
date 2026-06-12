@@ -141,6 +141,11 @@ If information exists in this Context Pack, please prioritize it.
 If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
 Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do not offer suggestions for improving this document.`,
 
+  default_knowledge_base_instructions: `The following document contains source knowledge about "{source}" ({count} notes).
+
+Use the information in this document to answer questions about the subject matter.
+Treat the content as factual source knowledge, not as a generated document to be evaluated.`,
+
   usage_guidance: `## Usage Guidance
 
 Use the information in this document as source knowledge.
