@@ -26,6 +26,8 @@ AI Brief Generator analyzes your vault and automatically generates:
 - Development Candidates
 - Suggested AI Prompts
 
+Understand your knowledge before exporting it.
+
 AI Brief works with:
 
 - Personal Knowledge Bases
@@ -38,7 +40,7 @@ AI Brief works with:
 Analyze your knowledge before exporting it.
 
 <div align="center">
-<img src="docs/ai-brief-paintings-overview.png" width="100%">
+<img src="docs/ai-brief-paintings-overview.png" width="90%">
 </div>
 
 *Example AI Brief generated from a 19-note Art History vault.*
@@ -293,7 +295,6 @@ Step-by-step guides for:
 - NotebookLM
 
 ### [AI Brief Generator](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-generator.md)
-
 
 Understand your vault before exporting it.
 
