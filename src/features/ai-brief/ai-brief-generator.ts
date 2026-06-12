@@ -11,6 +11,7 @@ import type { NoteModel } from '../../models/note-model';
 import type { TopicCluster } from '../../models/topic-cluster';
 import type { KnowledgeHealth } from '../../models/health-model';
 import type { AIBriefSettings } from '../../settings';
+import { t } from '../../i18n';
 
 const RELATED_THRESHOLD = 30;
 
@@ -50,7 +51,7 @@ export class AIBriefGenerator {
         noteA: p.a.title,
         noteB: p.b.title,
         score: p.score,
-        level: p.score >= 90 ? 'Very Similar' : p.score >= 80 ? 'Strong Candidate' : 'Review Candidate',
+        level: p.score >= 90 ? t('brief_level_very_similar') : p.score >= 80 ? t('brief_level_strong') : t('brief_level_review'),
         sharedFeatures: this.getSharedFeatures(p.a, p.b),
       }));
 
@@ -61,7 +62,7 @@ export class AIBriefGenerator {
         noteA: p.a.title,
         noteB: p.b.title,
         score: p.score,
-        level: 'Potentially Related',
+        level: t('brief_level_related'),
         sharedFeatures: this.getSharedFeatures(p.a, p.b),
       }));
 
@@ -75,19 +76,13 @@ export class AIBriefGenerator {
     const isDocumentMode = clusters.length > 0 && clusters.every(c => c.notes.length === 1);
 
     const executiveSummary = isDocumentMode
-      ? [
-          'This document contains:',
-          '',
-          `- ${clusters.length} section${clusters.length !== 1 ? 's' : ''}`,
-          `- ${tagCount} tags`,
-        ].join('\n')
+      ? [t('brief_exec_doc_header'), '', t('brief_exec_row_sections', clusters.length), t('brief_exec_row_tags', tagCount)].join('\n')
       : [
-          'This knowledge base contains:',
-          '',
-          `- ${notes.length} notes`,
-          `- ${totalLinks} links`,
-          `- ${tagCount} tags`,
-          `- ${clusters.length} major topic clusters`,
+          t('brief_exec_kb_header'), '',
+          t('brief_exec_row_notes', notes.length),
+          t('brief_exec_row_links', totalLinks),
+          t('brief_exec_row_tags', tagCount),
+          t('brief_exec_row_clusters', clusters.length),
         ].join('\n');
 
     const executiveInsight = this.buildExecutiveInsight(notes, clusters, keyTopics, health);
@@ -173,15 +168,9 @@ export class AIBriefGenerator {
 
     if (isDocumentMode) {
       const sectionNames = clusters.map(c => c.notes[0]);
-      const listed = sectionNames.length > 1
-        ? sectionNames.slice(0, -1).join(', ') + ', and ' + sectionNames[sectionNames.length - 1]
-        : sectionNames[0];
-      const parts = [`This document contains ${clusters.length} section${clusters.length !== 1 ? 's' : ''}: ${listed}.`];
-      if (health.connectivityScore >= 30) {
-        parts.push('The sections are linked to each other, forming a cohesive reference structure.');
-      } else {
-        parts.push('Sections are relatively standalone. Adding links between them would improve navigability.');
-      }
+      const listed = this.joinList(sectionNames);
+      const parts = [t('brief_insight_doc_intro', clusters.length, listed)];
+      parts.push(health.connectivityScore >= 30 ? t('brief_insight_sec_conn') : t('brief_insight_sec_alone'));
       return parts.join('\n\n');
     }
 
@@ -191,40 +180,33 @@ export class AIBriefGenerator {
 
     if (dominant) {
       const pct = Math.round(dominant.notes.length / notes.length * 100);
-      parts.push(
-        `This knowledge base contains ${notes.length} notes organized into ${clusters.length} topic cluster${clusters.length !== 1 ? 's' : ''}. ` +
-        `"${dominant.name}" is the largest cluster, accounting for ${pct}% of all notes.`
-      );
+      parts.push(t('brief_insight_kb_intro', notes.length, clusters.length) + ' ' + t('brief_insight_largest', dominant.name, pct));
     } else {
-      parts.push(`This knowledge base contains ${notes.length} notes in a single topic area.`);
+      parts.push(t('brief_insight_single', notes.length));
     }
 
     if (dominant) {
       const themes = dominant.themes.slice(0, 2);
-      let hubLine = `"${dominant.name}" forms the primary knowledge hub`;
-      if (themes.length > 0) hubLine += `, with themes including ${themes.join(' and ')}`;
-      hubLine += '.';
+      const themeStr = this.joinList(themes);
+      let hubLine = themes.length > 0
+        ? t('brief_insight_hub_themed', dominant.name, themeStr)
+        : t('brief_insight_hub', dominant.name);
       if (nonTrivial.length > 1) {
-        const second = nonTrivial[1];
-        hubLine += ` "${second.name}" is the next developed area with ${second.notes.length} notes.`;
+        hubLine += t('brief_insight_second', nonTrivial[1].name, nonTrivial[1].notes.length);
       }
       parts.push(hubLine);
     }
 
     if (health.connectivityScore >= 60) {
-      parts.push('The collection is well connected, with most notes linked to related content.');
+      parts.push(t('brief_insight_conn_high'));
     } else if (health.connectivityScore >= 30) {
-      parts.push('Most notes are connected within their cluster, though cross-cluster links are limited.');
+      parts.push(t('brief_insight_conn_mid'));
     } else {
-      parts.push('Connectivity is low. Adding more links between notes would significantly improve navigability.');
+      parts.push(t('brief_insight_conn_low'));
     }
 
     if (nonTrivial.length > 1) {
-      const names = nonTrivial.slice(0, 4).map(c => c.name);
-      const joined = names.length > 1
-        ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1]
-        : names[0];
-      parts.push(`Consider adding overview or comparison notes connecting ${joined}.`);
+      parts.push(t('brief_insight_add_overview', this.joinList(nonTrivial.slice(0, 4).map(c => c.name))));
     }
 
     return parts.join('\n\n');
@@ -236,33 +218,27 @@ export class AIBriefGenerator {
     const nonTrivial = clusters.filter(c => c.notes.length > 1);
 
     if (isDocumentMode) {
-      const names = clusters.map(c => c.notes[0]).join(', ');
-      insights.push(`This document is structured into ${clusters.length} section${clusters.length !== 1 ? 's' : ''}: ${names}.`);
+      insights.push(t('brief_hi_doc', clusters.length, clusters.map(c => c.notes[0]).join(t('brief_list_sep'))));
     } else if (nonTrivial.length > 0) {
-      const names = nonTrivial.map(c => c.name).join(', ');
-      insights.push(`The vault is organized into ${nonTrivial.length} cluster${nonTrivial.length > 1 ? 's' : ''}: ${names}.`);
+      insights.push(t('brief_hi_clusters', nonTrivial.length, nonTrivial.map(c => c.name).join(t('brief_list_sep'))));
     }
 
     if (health.connectivityScore >= 60) {
-      insights.push('Notes are well connected within their topic areas.');
+      insights.push(t('brief_hi_conn_high'));
     } else if (health.connectivityScore >= 30) {
-      insights.push('Most notes are connected within their regional clusters. Cross-cluster connections are limited.');
+      insights.push(t('brief_hi_conn_mid'));
     } else {
-      insights.push('Most notes have few connections. Adding links would improve navigability.');
+      insights.push(t('brief_hi_conn_low'));
     }
 
     if (health.orphanNotes === 0) {
-      insights.push('All notes are reachable via at least one link.');
+      insights.push(t('brief_hi_all_reach'));
     } else {
-      insights.push(`${health.orphanNotes} note${health.orphanNotes > 1 ? 's are' : ' is'} not linked from any other note.`);
+      insights.push(t('brief_hi_orphans', health.orphanNotes));
     }
 
     if (nonTrivial.length > 1) {
-      const names = nonTrivial.slice(0, 4).map(c => c.name);
-      const joined = names.length > 1
-        ? names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1]
-        : names[0];
-      insights.push(`Consider creating overview notes linking ${joined} to improve cross-cluster navigation.`);
+      insights.push(t('brief_hi_overview', this.joinList(nonTrivial.slice(0, 4).map(c => c.name))));
     }
 
     return insights;
@@ -289,22 +265,22 @@ export class AIBriefGenerator {
     // Prefer same-cluster pair for comparison to avoid cross-domain juxtaposition
     const samePair = this.findSameClusterPair(keyTopics, substantialClusters);
     if (samePair) {
-      dynamic.push(`Compare and contrast "${samePair[0]}" and "${samePair[1]}".`);
+      dynamic.push(t('brief_prompt_compare', samePair[0], samePair[1]));
     } else if (top.length >= 2) {
-      dynamic.push(`Compare and contrast "${top[0]}" and "${top[1]}".`);
+      dynamic.push(t('brief_prompt_compare', top[0], top[1]));
     }
 
-    if (clusterNames[0]) dynamic.push(`Summarize the key themes in ${clusterNames[0]}.`);
-    if (top[0])          dynamic.push(`Create a structured overview of "${top[0]}".`);
+    if (clusterNames[0]) dynamic.push(t('brief_prompt_summarize', clusterNames[0]));
+    if (top[0])          dynamic.push(t('brief_prompt_overview', top[0]));
     if (clusterNames.length >= 2) {
-      dynamic.push(`What are the connections between ${clusterNames[0]} and ${clusterNames[1]}?`);
+      dynamic.push(t('brief_prompt_connections', clusterNames[0], clusterNames[1]));
     }
 
     const generic = [
-      'Identify the most important knowledge gaps in this collection.',
-      'What topics are most central to this knowledge base?',
-      'Suggest how to improve the structure and connectivity of these notes.',
-      'Create a learning roadmap based on the topic clusters.',
+      t('brief_prompt_gaps'),
+      t('brief_prompt_central'),
+      t('brief_prompt_improve'),
+      t('brief_prompt_roadmap'),
     ];
 
     return [...dynamic, ...generic];
@@ -316,10 +292,17 @@ export class AIBriefGenerator {
   ): [string, string] | null {
     for (const cluster of clusters) {
       const clusterSet = new Set(cluster.notes);
-      const matches = keyTopics.filter(t => clusterSet.has(t.name));
+      const matches = keyTopics.filter(tp => clusterSet.has(tp.name));
       if (matches.length >= 2) return [matches[0].name, matches[1].name];
     }
     return null;
+  }
+
+  private joinList(items: string[]): string {
+    if (items.length === 0) return '';
+    if (items.length === 1) return items[0];
+    if (items.length === 2) return items[0] + t('brief_list_and') + items[1];
+    return items.slice(0, -1).join(t('brief_list_sep')) + t('brief_list_and') + items[items.length - 1];
   }
 
   private computeRelationships(notes: NoteModel[]): RelationshipPair[] {

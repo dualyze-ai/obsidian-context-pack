@@ -1,6 +1,7 @@
 import type { NoteModel } from '../models/note-model';
 import type { TopicCluster } from '../models/topic-cluster';
 import type { KnowledgeHealth } from '../models/health-model';
+import { t } from '../i18n';
 
 export class OpenQuestionGenerator {
   generate(notes: NoteModel[], clusters: TopicCluster[], health: KnowledgeHealth): string[] {
@@ -10,29 +11,23 @@ export class OpenQuestionGenerator {
 
     // Isolated notes (no links at all)
     if (health.orphanNotes > 0) {
-      questions.push(
-        `${health.orphanNotes} note${health.orphanNotes > 1 ? 's are' : ' is'} isolated from the main knowledge graph.`
-      );
+      questions.push(t('oq_orphan_notes', health.orphanNotes));
     }
 
     // Single-note clusters
     const smallClusters = clusters.filter(c => c.notes.length === 1);
     if (smallClusters.length > 0) {
-      questions.push(
-        `${smallClusters.length} cluster${smallClusters.length > 1 ? 's contain' : ' contains'} only a single note and may need more supporting material.`
-      );
+      questions.push(t('oq_small_clusters', smallClusters.length));
     }
 
     // Which cluster should be primary?
     if (clusters.length > 1) {
-      questions.push('Which topic cluster should be treated as the primary focus of this knowledge base?');
+      questions.push(t('oq_primary_cluster'));
     }
 
     // One cluster dominates
     if (clusters.length > 1 && clusters[0].notes.length / notes.length > 0.5) {
-      questions.push(
-        `The "${clusters[0].name}" cluster contains over half of all notes. Consider breaking it into sub-topic groupings.`
-      );
+      questions.push(t('oq_dominant_cluster', clusters[0].name));
     }
 
     // Notes only connected through hub notes (no direct peer links)
@@ -45,9 +40,7 @@ export class OpenQuestionGenerator {
       return peerLinks.length === 0;
     });
     if (peerIsolated.length / notes.length > 0.3) {
-      questions.push(
-        `${peerIsolated.length} notes are only connected through hub or index notes, lacking direct peer connections.`
-      );
+      questions.push(t('oq_peer_isolated', peerIsolated.length));
     }
 
     // Clusters with sparse internal connections
@@ -63,9 +56,7 @@ export class OpenQuestionGenerator {
     });
     if (sparseClusters.length > 0) {
       const names = sparseClusters.map(c => `"${c.name}"`).join(', ');
-      questions.push(
-        `Cluster${sparseClusters.length > 1 ? 's' : ''} ${names} have few internal connections. Consider linking related notes within the cluster.`
-      );
+      questions.push(t('oq_sparse_clusters', names, sparseClusters.length > 1));
     }
 
     // Cross-cluster connections missing (excluding hub notes)
@@ -84,23 +75,19 @@ export class OpenQuestionGenerator {
         }
       }
       if (nonHubCrossLinks === 0) {
-        questions.push('No direct cross-cluster links exist between non-hub notes. Consider adding connections between related topics across clusters.');
+        questions.push(t('oq_no_cross_links'));
       }
     }
 
     // Highly referenced but under-documented
     const underDocumented = notes.filter(n => n.backlinks.length >= 3 && n.wordCount < 100);
     if (underDocumented.length > 0) {
-      questions.push(
-        `${underDocumented.length} frequently referenced concept${underDocumented.length > 1 ? 's have' : ' has'} limited documentation.`
-      );
+      questions.push(t('oq_under_documented', underDocumented.length));
     }
 
     // Duplicate candidates
     if (health.duplicateCandidates > 0) {
-      questions.push(
-        `${health.duplicateCandidates} pair${health.duplicateCandidates > 1 ? 's' : ''} of highly similar notes may be candidates for merging.`
-      );
+      questions.push(t('oq_duplicate_candidates', health.duplicateCandidates));
     }
 
     return questions;
