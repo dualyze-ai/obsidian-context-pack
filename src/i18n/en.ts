@@ -400,7 +400,7 @@ Prefer consistency with project documentation over generic examples.`,
   oq_peer_isolated:          (n: number) => `${n} notes are only connected through hub or index notes, lacking direct peer connections.`,
   oq_sparse_clusters:        (names: string, plural: boolean) => `Cluster${plural ? 's' : ''} ${names} have few internal connections. Consider linking related notes within the cluster.`,
   oq_no_cross_links:         'No direct cross-cluster links exist between non-hub notes. Consider adding connections between related topics across clusters.',
-  oq_under_documented:       (n: number, names: string) => `${n} frequently referenced note${n > 1 ? 's have' : ' has'} limited content: ${names}.`,
+  oq_under_documented:       (n: number, names: string) => `Expansion candidates (${n} note${n > 1 ? 's' : ''}): ${names} — frequently referenced and would benefit from more detailed content.`,
   oq_duplicate_candidates:   (n: number) => `${n} pair${n > 1 ? 's' : ''} of highly similar notes may be candidates for merging.`,
 
   brief_level_very_similar:  'Very Similar',
