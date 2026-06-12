@@ -404,69 +404,18 @@ function buildOverviewSection(lines: string[], stats: BriefStats | undefined, is
   }
 }
 
-function buildStartHereSection(
-  lines: string[],
-  clusters: TopicCluster[],
-  relationships: Relationship[],
-  isJa: boolean,
-): void {
+// Navigation Paths: one subsection per cluster, all notes as a flat list.
+// Grounded entirely in AI Brief data — no inferred Beginner/Advanced classification.
+function buildNavigationPathsSection(lines: string[], clusters: TopicCluster[], isJa: boolean): void {
   if (clusters.length === 0) return;
 
-  // Sort by size descending
-  const sorted = [...clusters].sort((a, b) => {
-    const ac = a.noteCount ?? (a.representativeNotes.length + a.additionalNotes.length);
-    const bc = b.noteCount ?? (b.representativeNotes.length + b.additionalNotes.length);
-    return bc - ac;
-  });
-
-  const largestCluster = sorted[0];
-  const beginnerNotes = [
-    ...largestCluster.representativeNotes,
-    ...largestCluster.additionalNotes,
-  ].slice(0, 4);
-
-  // Advanced: unique notes from top relationships; fallback to 2nd cluster
-  const advancedNotes: string[] = [];
-  if (relationships.length > 0) {
-    const seen = new Set<string>();
-    for (const rel of relationships) {
-      if (!seen.has(rel.left)) { seen.add(rel.left); advancedNotes.push(rel.left); }
-      if (!seen.has(rel.right)) { seen.add(rel.right); advancedNotes.push(rel.right); }
-      if (advancedNotes.length >= 4) break;
-    }
-  } else if (sorted.length > 1) {
-    const second = sorted[1];
-    advancedNotes.push(
-      ...[...second.representativeNotes, ...second.additionalNotes].slice(0, 4),
-    );
-  }
-
-  if (beginnerNotes.length === 0 && advancedNotes.length === 0) return;
-
-  if (isJa) {
-    lines.push('## スタートガイド', '');
-    if (beginnerNotes.length > 0) {
-      lines.push('### 入門パス', '');
-      for (const n of beginnerNotes) lines.push(`- [[${n}]]`);
-      lines.push('');
-    }
-    if (advancedNotes.length > 0) {
-      lines.push('### 発展パス', '');
-      for (const n of advancedNotes) lines.push(`- [[${n}]]`);
-      lines.push('');
-    }
-  } else {
-    lines.push('## Start Here', '');
-    if (beginnerNotes.length > 0) {
-      lines.push('### Beginner Path', '');
-      for (const n of beginnerNotes) lines.push(`- [[${n}]]`);
-      lines.push('');
-    }
-    if (advancedNotes.length > 0) {
-      lines.push('### Advanced Path', '');
-      for (const n of advancedNotes) lines.push(`- [[${n}]]`);
-      lines.push('');
-    }
+  lines.push(isJa ? '## ナビゲーションパス' : '## Navigation Paths', '');
+  for (const cluster of clusters) {
+    const allNotes = [...cluster.representativeNotes, ...cluster.additionalNotes];
+    if (allNotes.length === 0) continue;
+    lines.push(`### ${cluster.name}`, '');
+    for (const note of allNotes) lines.push(`- [[${note}]]`);
+    lines.push('');
   }
 }
 
@@ -480,7 +429,7 @@ function buildDocumentStructureSections(
     lines.push('## 概要', '', 'このMOCはAI BriefのDocument Structure Modeから生成されました。', '', 'ドキュメントのナビゲーション層として活用してください。', '');
     lines.push('## ドキュメント構造', '');
     for (const section of data.documentSections) lines.push(`- [[${section}]]`);
-    lines.push('', '## スタートガイド', '');
+    lines.push('', '## ナビゲーションパス', '');
     lines.push('- 利用可能であれば概要セクションを出発点にしてください。');
     lines.push('- 技術的な詳細と関連するセクションをリンクしてください。');
     lines.push('- 実装前に未解決の課題を確認してください。');
@@ -489,7 +438,7 @@ function buildDocumentStructureSections(
     lines.push('## Overview', '', 'This MOC was generated from an AI Brief in Document Structure Mode.', '', 'Use it as a navigation layer for the analyzed document.', '');
     lines.push('## Document Structure', '');
     for (const section of data.documentSections) lines.push(`- [[${section}]]`);
-    lines.push('', '## Start Here', '');
+    lines.push('', '## Navigation Paths', '');
     lines.push('- Use overview as the entry point.');
     lines.push('- Link technical details to related screen and data sections.');
     lines.push('- Review open questions before implementation.');
@@ -538,8 +487,8 @@ function buildKnowledgeBaseSections(
     lines.push('');
   }
 
-  // ④ Start Here (replaces Suggested Navigation)
-  buildStartHereSection(lines, data.clusters, data.relationships, isJa);
+  // Navigation Paths: cluster-based, no inferred classification
+  buildNavigationPathsSection(lines, data.clusters, isJa);
 
   lines.push(isJa ? '## 元のAI Brief' : '## Source AI Brief', '', `- [[${sourceName}]]`);
 }
