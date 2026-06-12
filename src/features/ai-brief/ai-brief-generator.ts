@@ -244,7 +244,7 @@ export class AIBriefGenerator {
 
     if (dominant) {
       const pct = Math.round(dominant.notes.length / notes.length * 100);
-      parts.push(t('brief_insight_kb_intro', notes.length, clusters.length) + ' ' + t('brief_insight_largest', dominant.name, pct));
+      parts.push(t('brief_insight_kb_intro', notes.length, nonTrivial.length) + ' ' + t('brief_insight_largest', dominant.name, pct));
     } else {
       parts.push(t('brief_insight_single', notes.length));
     }
@@ -284,7 +284,13 @@ export class AIBriefGenerator {
     if (isDocumentMode) {
       insights.push(t('brief_hi_doc', clusters.length, clusters.map(c => c.notes[0]).join(t('brief_list_sep'))));
     } else if (nonTrivial.length > 0) {
-      insights.push(t('brief_hi_clusters', nonTrivial.length, nonTrivial.map(c => c.name).join(t('brief_list_sep'))));
+      const indexClusters = clusters.filter(c => c.notes.length === 1);
+      if (indexClusters.length > 0) {
+        const indexNames = indexClusters.map(c => c.name).join(t('brief_list_sep'));
+        insights.push(t('brief_hi_clusters_with_index', nonTrivial.length, nonTrivial.map(c => c.name).join(t('brief_list_sep')), indexNames));
+      } else {
+        insights.push(t('brief_hi_clusters', nonTrivial.length, nonTrivial.map(c => c.name).join(t('brief_list_sep'))));
+      }
     }
 
     if (health.connectivityScore >= 60) {
