@@ -13,7 +13,7 @@ import type { KnowledgeHealth } from '../../models/health-model';
 import type { AIBriefSettings } from '../../settings';
 import { t } from '../../i18n';
 
-const RELATED_THRESHOLD = 55;
+const RELATED_THRESHOLD = 40;
 
 const GENERIC_HEADINGS_BRIEF = new Set([
   'overview', 'summary', 'introduction', 'conclusion', 'notes',
@@ -180,20 +180,33 @@ export class AIBriefGenerator {
         .map(r => r.title);
     }
 
-    // Absorb single-note clusters into "その他" unless every cluster is single-note (Document Structure mode)
+    // Absorb single-note clusters unless every cluster is single-note (Document Structure mode)
+    // Exception: index/overview notes keep their own cluster with the note title as name
+    const INDEX_PATTERN = /index|一覧|目次|readme|contents/i;
     const isDocMode = clusters.every(c => c.notes.length === 1);
     if (!isDocMode) {
       const singles = clusters.filter(c => c.notes.length === 1);
       if (singles.length > 0) {
         const otherName = t('cluster_other');
         let other = clusters.find(c => c.name === otherName);
-        if (!other) {
-          other = { id: 'other-merged', name: otherName, notes: [], score: 0, themes: [], representativeNotes: [] };
-          clusters.push(other);
+        const absorbed: Set<string> = new Set();
+
+        for (const s of singles) {
+          if (INDEX_PATTERN.test(s.notes[0])) {
+            s.name = s.notes[0];
+          } else {
+            if (!other) {
+              other = { id: 'other-merged', name: otherName, notes: [], score: 0, themes: [], representativeNotes: [] };
+              clusters.push(other);
+            }
+            other.notes.push(s.notes[0]);
+            absorbed.add(s.id);
+          }
         }
-        const singleIds = new Set(singles.map(c => c.id));
-        for (const s of singles) other.notes.push(s.notes[0]);
-        clusters.splice(0, clusters.length, ...clusters.filter(c => !singleIds.has(c.id)));
+
+        if (absorbed.size > 0) {
+          clusters.splice(0, clusters.length, ...clusters.filter(c => !absorbed.has(c.id)));
+        }
       }
     }
   }
