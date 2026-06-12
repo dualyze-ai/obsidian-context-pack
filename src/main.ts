@@ -725,7 +725,7 @@ export default class ContextPackPlugin extends Plugin {
       .catch(err => this.handlePackError(notice, err));
   }
 
-  private applyStarterPrompt(content: string, source: string, noteCount: number, selectorState: OutputSelectorState, mode = 'none'): string {
+  private applyStarterPrompt(content: string, source: string, noteCount: number, selectorState: OutputSelectorState, mode = 'none', hasAiBrief = false): string {
     const target = getOutputTargetFromState(selectorState);
     const profileMap = buildProfileMap(this.settings.promptProfiles);
     const customProfile = profileMap[`${target}-default`];
@@ -749,6 +749,8 @@ export default class ContextPackPlugin extends Plugin {
     const modeText = this.getModePrompt(mode);
     if (modeText) prompt = `${prompt}\n\n${modeText}`;
 
+    if (hasAiBrief) prompt = `${t('usage_guidance')}\n\n${prompt}`;
+
     return `${prompt}\n\n---\n\n${content}`;
   }
 
@@ -769,11 +771,16 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private handlePackOutput(content: string, slug: string, noteCount: number, source: string, packMeta?: PackMeta): void {
+    const hasAiBrief = (packMeta?.files ?? []).some(f => {
+      const headings = this.app.metadataCache.getFileCache(f)?.headings?.map(h => h.heading) ?? [];
+      return isAiBriefByHeadings(headings);
+    });
+
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, () => this.saveSettings(), async (choice) => {
         const preset = OUTPUT_PRESETS[choice.target];
         const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt)
-          ? this.applyStarterPrompt(content, source, noteCount, choice.selectorState, choice.mode)
+          ? this.applyStarterPrompt(content, source, noteCount, choice.selectorState, choice.mode, hasAiBrief)
           : content;
         if (choice.target === 'notebooklm-text') {
           await this.saveContextPack(finalContent, slug, noteCount);
@@ -796,7 +803,7 @@ export default class ContextPackPlugin extends Plugin {
       const preset = OUTPUT_PRESETS[target];
       const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
       const finalContent = doPrompt
-        ? this.applyStarterPrompt(content, source, noteCount, selectorState, this.settings.defaultMode)
+        ? this.applyStarterPrompt(content, source, noteCount, selectorState, this.settings.defaultMode, hasAiBrief)
         : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
         void this.saveContextPack(finalContent, slug, noteCount);
