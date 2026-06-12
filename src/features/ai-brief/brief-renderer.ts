@@ -144,6 +144,14 @@ export class BriefRenderer {
       lines.push('');
     }
 
+    if (h.totalLinks === 0) {
+      lines.push(
+        '> **Note:** Relationships shown in this brief are inferred from tags, headings, and content similarity.',
+        '> No explicit Obsidian links were detected.',
+        ''
+      );
+    }
+
     lines.push(
       '| Metric | Value |',
       '|---|---|',
