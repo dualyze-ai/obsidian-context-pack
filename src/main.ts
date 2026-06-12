@@ -208,7 +208,13 @@ export default class ContextPackPlugin extends Plugin {
       checkCallback: (checking) => {
         const file = this.app.workspace.getActiveFile();
         if (!file) return false;
-        if (!checking) void this.packFromMoc(file);
+        if (!checking) {
+          if (this.isAiBriefFile(file)) {
+            new Notice(t('notice_ai_brief_not_packable'));
+            return;
+          }
+          void this.packFromMoc(file);
+        }
         return true;
       },
     });
@@ -238,23 +244,23 @@ export default class ContextPackPlugin extends Plugin {
             .setTitle(t('menu_export_note'))
             .setIcon('download')
             .onClick(() => void exportSingleNote(this.app, file, this.formatOptions())));
-          menu.addItem(item => item
-            .setTitle(t('menu_create_ai_moc'))
-            .setIcon('map')
-            .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file, this.settings.outputFolder).open()));
-          const cache = this.app.metadataCache.getFileCache(file);
-          const headings = (cache?.headings ?? []).map(h => h.heading);
-          if (isAiBriefByHeadings(headings)) {
+          if (this.isAiBriefFile(file)) {
             menu.addItem(item => item
               .setTitle(t('menu_generate_ai_moc_from_brief'))
               .setIcon('layout-list')
               .onClick(() => void this.generateAiMocFromBrief(file)));
-          }
-          if ((cache?.links?.length ?? 0) > 0) {
+          } else {
             menu.addItem(item => item
-              .setTitle(t('menu_pack_moc'))
-              .setIcon('list')
-              .onClick(() => void this.packFromMoc(file)));
+              .setTitle(t('menu_create_ai_moc'))
+              .setIcon('map')
+              .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file, this.settings.outputFolder).open()));
+            const cache = this.app.metadataCache.getFileCache(file);
+            if ((cache?.links?.length ?? 0) > 0) {
+              menu.addItem(item => item
+                .setTitle(t('menu_pack_moc'))
+                .setIcon('list')
+                .onClick(() => void this.packFromMoc(file)));
+            }
           }
         }
       })
@@ -668,6 +674,11 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private async packFromMoc(moc: TFile) {
+    if (this.isAiBriefFile(moc)) {
+      new Notice(t('notice_ai_brief_not_packable'));
+      return;
+    }
+
     const cache = this.app.metadataCache.getFileCache(moc);
     const links = cache?.links?.map(l => l.link) ?? [];
 
@@ -790,6 +801,14 @@ export default class ContextPackPlugin extends Plugin {
   private getModePrompt(mode: string): string {
     const def = MODES.find(m => m.id === mode);
     return def?.promptKey ? t(def.promptKey) : '';
+  }
+
+  private isAiBriefFile(file: TFile): boolean {
+    const cache = this.app.metadataCache.getFileCache(file);
+    const fm = cache?.frontmatter;
+    if (fm?.['generatedBy'] === 'ai-brief-generator') return true;
+    const headings = (cache?.headings ?? []).map(h => h.heading);
+    return isAiBriefByHeadings(headings);
   }
 
   private getAiAdditionForTarget(target: OutputTarget): string {
