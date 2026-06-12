@@ -99,6 +99,8 @@ export class ClusterAnalyzer {
         name: label,
         notes: groupNotes,
         score: this.scoreCluster(groupNotes, graph),
+        themes: [],
+        representativeNotes: [],
       });
     }
 
@@ -126,6 +128,8 @@ export class ClusterAnalyzer {
       name: this.nameByLinks(component, noteMap),
       notes: component,
       score: this.scoreCluster(component, graph),
+      themes: [],
+      representativeNotes: [],
     }));
   }
 

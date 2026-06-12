@@ -30,4 +30,6 @@ export interface BriefModel {
   openQuestions: string[];
   suggestedPrompts: string[];
   executiveSummary: string;
+  executiveInsight: string;
+  healthInsights: string[];
 }
