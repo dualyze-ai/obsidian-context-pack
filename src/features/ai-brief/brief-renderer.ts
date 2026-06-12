@@ -147,10 +147,18 @@ export class BriefRenderer {
       `| Orphan Notes | ${h.orphanNotes} |`,
       `| Duplicate Candidates | ${h.duplicateCandidates} |`,
       `| Connectivity Score | ${h.connectivityScore}/100 |`,
-      `| Topic Coverage Score | ${h.topicCoverageScore}/100 |`,
+      `| Topic Coverage Score | ${h.topicCoverageScore}/100 — ${this.topicCoverageLabel(h.topicCoverageScore)} |`,
     );
 
     return lines.join('\n');
+  }
+
+  private topicCoverageLabel(score: number): string {
+    if (score >= 85) return 'High Coverage';
+    if (score >= 70) return 'Good Coverage';
+    if (score >= 50) return 'Moderate Coverage';
+    if (score >= 30) return 'Basic Coverage';
+    return 'Low Coverage';
   }
 
   private renderList(items: string[]): string {
