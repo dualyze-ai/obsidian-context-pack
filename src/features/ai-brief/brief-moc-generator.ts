@@ -328,13 +328,66 @@ export function parseBriefContent(content: string): BriefMocData | null {
   };
 }
 
-function titleFromSourceName(sourceName: string): string {
+export function titleFromSourceName(sourceName: string): string {
   const base = sourceName.replace(/[-_]AI[-_]Brief$/i, '').trim();
   if (!base) return sourceName;
   return base
     .split(/[-_\s]+/)
     .map(w => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
+}
+
+export function buildKnowledgeOverview(data: BriefMocData, topic: string): string {
+  const isJa = data.language === 'ja';
+  const lines: string[] = [];
+
+  if (isJa) {
+    lines.push('## ナレッジ概要', '');
+    lines.push(`このパックには「${topic}」に関するソース知識が含まれています。`, '');
+
+    if (data.clusters.length > 0) {
+      lines.push('主要トピック：', '');
+      for (const cluster of data.clusters) lines.push(`- ${cluster.name}`);
+      lines.push('');
+
+      const keyNotes: string[] = [];
+      const seen = new Set<string>();
+      for (const cluster of data.clusters) {
+        for (const note of cluster.representativeNotes) {
+          if (!seen.has(note)) { seen.add(note); keyNotes.push(note); }
+        }
+      }
+      if (keyNotes.length > 0) {
+        lines.push('主要ノート：', '');
+        for (const note of keyNotes) lines.push(`- ${note}`);
+        lines.push('');
+      }
+    }
+  } else {
+    lines.push('## Knowledge Overview', '');
+    lines.push(`This pack contains source knowledge about ${topic}.`, '');
+
+    if (data.clusters.length > 0) {
+      lines.push('Main topics:', '');
+      for (const cluster of data.clusters) lines.push(`- ${cluster.name}`);
+      lines.push('');
+
+      const keyNotes: string[] = [];
+      const seen = new Set<string>();
+      for (const cluster of data.clusters) {
+        for (const note of cluster.representativeNotes) {
+          if (!seen.has(note)) { seen.add(note); keyNotes.push(note); }
+        }
+      }
+      if (keyNotes.length > 0) {
+        lines.push('Key notes:', '');
+        for (const note of keyNotes) lines.push(`- ${note}`);
+        lines.push('');
+      }
+    }
+  }
+
+  return lines.join('\n');
 }
 
 export function buildBriefMocContent(data: BriefMocData, sourceName: string): string {
