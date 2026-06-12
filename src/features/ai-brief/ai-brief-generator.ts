@@ -68,8 +68,18 @@ export class AIBriefGenerator {
         sharedFeatures: this.getSharedFeatures(p.a, p.b),
       }));
 
+    const noteToCluster = new Map<string, string>();
+    for (const cluster of clusters) {
+      for (const note of cluster.notes) noteToCluster.set(note, cluster.id);
+    }
+
     const relatedPairs: SimilarPair[] = allPairsAboveRelated
-      .filter(p => p.score >= RELATED_THRESHOLD && p.score < settings.similarityThreshold)
+      .filter(p => {
+        if (p.score >= settings.similarityThreshold) return false;
+        const ca = noteToCluster.get(p.a.title);
+        const cb = noteToCluster.get(p.b.title);
+        return ca !== undefined && cb !== undefined && ca === cb;
+      })
       .slice(0, 15)
       .map(p => ({
         noteA: p.a.title,
@@ -170,10 +180,20 @@ export class AIBriefGenerator {
         .map(r => r.title);
     }
 
-    // Single-note clusters: use the note title rather than the folder name
-    for (const cluster of clusters) {
-      if (cluster.notes.length === 1) {
-        cluster.name = cluster.notes[0];
+    // Absorb single-note clusters into "その他" unless every cluster is single-note (Document Structure mode)
+    const isDocMode = clusters.every(c => c.notes.length === 1);
+    if (!isDocMode) {
+      const singles = clusters.filter(c => c.notes.length === 1);
+      if (singles.length > 0) {
+        const otherName = t('cluster_other');
+        let other = clusters.find(c => c.name === otherName);
+        if (!other) {
+          other = { id: 'other-merged', name: otherName, notes: [], score: 0, themes: [], representativeNotes: [] };
+          clusters.push(other);
+        }
+        const singleIds = new Set(singles.map(c => c.id));
+        for (const s of singles) other.notes.push(s.notes[0]);
+        clusters.splice(0, clusters.length, ...clusters.filter(c => !singleIds.has(c.id)));
       }
     }
   }
