@@ -1,5 +1,18 @@
 # Changelog
 
+### v3.1.0
+
+**AI Brief Generator**
+
+- Vault diagnostics
+- Topic clustering
+- Knowledge maps
+- Relationship analysis
+- Knowledge health reports
+- Development candidate detection
+- Suggested AI prompts
+- Document Structure Mode
+
 ### v3.0.3
 - **Fix** — remove "Obsidian" from manifest description (Obsidian plugin submission rule)
 

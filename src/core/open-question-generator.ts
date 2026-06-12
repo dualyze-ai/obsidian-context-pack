@@ -14,10 +14,14 @@ export class OpenQuestionGenerator {
       questions.push(t('oq_orphan_notes', health.orphanNotes));
     }
 
-    // Single-note clusters
-    const smallClusters = clusters.filter(c => c.notes.length === 1);
-    if (smallClusters.length > 0) {
-      questions.push(t('oq_small_clusters', smallClusters.length));
+    // Single-note clusters (meaningless in document structure mode; index clusters are expected)
+    const INDEX_PATTERN = /index|一覧|目次|readme|contents/i;
+    const isDocumentMode = clusters.every(c => c.notes.length === 1);
+    if (!isDocumentMode) {
+      const smallClusters = clusters.filter(c => c.notes.length === 1 && !INDEX_PATTERN.test(c.notes[0]));
+      if (smallClusters.length > 0) {
+        questions.push(t('oq_small_clusters', smallClusters.length));
+      }
     }
 
     // Which cluster should be primary?
