@@ -12,7 +12,7 @@ import { t } from './i18n';
 import { AIBriefGenerator } from './features/ai-brief/ai-brief-generator';
 import { BriefRenderer } from './features/ai-brief/brief-renderer';
 import { BriefExporter } from './features/ai-brief/brief-exporter';
-import { isAiBriefByHeadings, parseBriefContent, buildBriefMocContent } from './features/ai-brief/brief-moc-generator';
+import { isAiBriefByHeadings, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
@@ -677,32 +677,65 @@ export default class ContextPackPlugin extends Plugin {
     }
 
     const seen = new Set<string>();
-    const files: TFile[] = [];
+    const allLinkedFiles: TFile[] = [];
     for (const link of links) {
       const linked = this.app.metadataCache.getFirstLinkpathDest(link, moc.path);
       if (linked instanceof TFile && linked.extension === 'md' && !seen.has(linked.path)) {
         seen.add(linked.path);
-        files.push(linked);
+        allLinkedFiles.push(linked);
       }
     }
 
-    if (files.length === 0) {
+    if (allLinkedFiles.length === 0) {
+      new Notice(t('notice_no_files'));
+      return;
+    }
+
+    // Detect AI Brief-derived MOC via frontmatter
+    const isAiBriefMoc = cache?.frontmatter?.['sourceType'] === 'ai-brief';
+    let packFiles = allLinkedFiles;
+    let knowledgeOverview: string | undefined;
+
+    if (isAiBriefMoc) {
+      const aiBriefFiles: TFile[] = [];
+      packFiles = allLinkedFiles.filter(f => {
+        const headings = this.app.metadataCache.getFileCache(f)?.headings?.map(h => h.heading) ?? [];
+        if (isAiBriefByHeadings(headings)) { aiBriefFiles.push(f); return false; }
+        return true;
+      });
+
+      if (aiBriefFiles.length > 0) {
+        const briefContent = await this.app.vault.read(aiBriefFiles[0]);
+        const briefData = parseBriefContent(briefContent);
+        if (briefData) {
+          const sourceName = (cache?.frontmatter?.['source'] as string | undefined) ?? moc.basename;
+          knowledgeOverview = buildKnowledgeOverview(briefData, titleFromSourceName(sourceName));
+        }
+      }
+    }
+
+    if (packFiles.length === 0) {
       new Notice(t('notice_no_files'));
       return;
     }
 
     const { notice, controller, setProgress } = this.startProgress(t('notice_packing'));
     try {
-      const content = await buildContextPack(files, this.app, this.formatOptions(), {
+      let content = await buildContextPack(packFiles, this.app, this.formatOptions(), {
         title: moc.basename,
         source: `moc:${moc.basename}`,
       }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
+
+      if (knowledgeOverview) {
+        content = `${knowledgeOverview}\n${content}`;
+      }
+
       notice.hide();
-      this.handlePackOutput(content, `moc-${moc.basename}`, files.length, moc.basename, {
+      this.handlePackOutput(content, `moc-${moc.basename}`, packFiles.length, moc.basename, {
         source: { type: 'moc', query: moc.path },
-        files,
+        files: packFiles,
         name: moc.basename,
-      });
+      }, isAiBriefMoc ? true : undefined);
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -770,8 +803,8 @@ export default class ContextPackPlugin extends Plugin {
     return key ? t(key) : '';
   }
 
-  private handlePackOutput(content: string, slug: string, noteCount: number, source: string, packMeta?: PackMeta): void {
-    const hasAiBrief = (packMeta?.files ?? []).some(f => {
+  private handlePackOutput(content: string, slug: string, noteCount: number, source: string, packMeta?: PackMeta, explicitHasAiBrief?: boolean): void {
+    const hasAiBrief = explicitHasAiBrief ?? (packMeta?.files ?? []).some(f => {
       const headings = this.app.metadataCache.getFileCache(f)?.headings?.map(h => h.heading) ?? [];
       return isAiBriefByHeadings(headings);
     });
