@@ -141,7 +141,9 @@ If information exists in this Context Pack, please prioritize it.
 If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
 Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do not offer suggestions for improving this document.`,
 
-  ai_addition_chatgpt:    'Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.',
+  ai_addition_chatgpt:    `Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.
+
+Important: Do not evaluate this file as an exported pack or generated document. Use the content only as source knowledge. When answering, focus on the subject matter, not on the structure or quality of this file.`,
   ai_addition_claude:     'Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.',
   ai_addition_gemini:     'Please integrate information from multiple notes and organize your response by common points, differences, chronology, and related topics.',
   ai_moc_modal_title:        'Create AI MOC',
