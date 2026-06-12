@@ -13,7 +13,7 @@ import type { KnowledgeHealth } from '../../models/health-model';
 import type { AIBriefSettings } from '../../settings';
 import { t } from '../../i18n';
 
-const RELATED_THRESHOLD = 40;
+const RELATED_THRESHOLD = 50;
 
 const GENERIC_HEADINGS_BRIEF = new Set([
   'overview', 'summary', 'introduction', 'conclusion', 'notes',
@@ -21,12 +21,18 @@ const GENERIC_HEADINGS_BRIEF = new Set([
   'details', 'examples', 'tips', 'related', 'links',
   'takeaways', 'action items', 'learnings', 'how to apply',
   'quotes', 'key quotes', 'memorable quotes', 'impressions', 'review', 'thoughts',
+  'ingredients', 'instructions', 'directions', 'method', 'preparation', 'serving',
   '概要', '要約', 'まとめ', 'はじめに', '重要なポイント',
   'ポイント', 'メモ', '参考', '参考文献', 'リンク', '関連',
   '詳細', '説明', '注意', 'ヒント',
   '印象的な言葉', '学び', '学び・活かし方', '活かし方', '感想', '引用',
   '読書メモ', 'レビュー', 'アクションアイテム', '気づき',
+  '材料', '調味料', '作り方', '手順', '盛り付け', '準備', '下準備',
 ]);
+
+function normalizeHeadingBrief(h: string): string {
+  return h.replace(/[（(][^）)]*[）)]/g, '').trim().toLowerCase();
+}
 
 export class AIBriefGenerator {
   private noteParser: NoteParser;
@@ -310,9 +316,9 @@ export class AIBriefGenerator {
   private getSharedFeatures(a: NoteModel, b: NoteModel): string[] {
     const sharedTags = a.tags.filter(t => b.tags.includes(t) && !this.isMetadataTag(t));
     const sharedHeadings = a.headings.filter(h => {
-      const lower = h.toLowerCase();
-      if (GENERIC_HEADINGS_BRIEF.has(lower)) return false;
-      return b.headings.some(bh => bh.toLowerCase() === lower);
+      const norm = normalizeHeadingBrief(h);
+      if (!norm || GENERIC_HEADINGS_BRIEF.has(norm)) return false;
+      return b.headings.some(bh => normalizeHeadingBrief(bh) === norm);
     });
     return [...sharedTags.slice(0, 3), ...sharedHeadings.slice(0, 2)];
   }
