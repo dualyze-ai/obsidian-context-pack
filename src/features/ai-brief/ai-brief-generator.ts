@@ -13,7 +13,7 @@ import type { KnowledgeHealth } from '../../models/health-model';
 import type { AIBriefSettings } from '../../settings';
 import { t } from '../../i18n';
 
-const RELATED_THRESHOLD = 30;
+const RELATED_THRESHOLD = 55;
 
 const GENERIC_HEADINGS_BRIEF = new Set([
   'overview', 'summary', 'introduction', 'conclusion', 'notes',
@@ -168,6 +168,13 @@ export class AIBriefGenerator {
         .sort((a, b) => b.w - a.w)
         .slice(0, 3)
         .map(r => r.title);
+    }
+
+    // Single-note clusters: use the note title rather than the folder name
+    for (const cluster of clusters) {
+      if (cluster.notes.length === 1) {
+        cluster.name = cluster.notes[0];
+      }
     }
   }
 
