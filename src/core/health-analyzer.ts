@@ -40,7 +40,8 @@ export class HealthAnalyzer {
     const avg = totalNotes / clusters.length;
     const sizes = clusters.map(c => c.notes.length);
     const variance = sizes.reduce((sum, s) => sum + Math.pow(s - avg, 2), 0) / clusters.length;
-    const cv = avg > 0 ? Math.sqrt(variance) / avg : 1;
-    return Math.round(Math.max(0, Math.min(100, (1 - cv) * 100)));
+    const cv = avg > 0 ? Math.sqrt(variance) / avg : 0;
+    // 100/(1+cv): returns 100 at perfect balance, ~50 at cv=1, and never reaches 0
+    return Math.round(Math.min(100, 100 / (1 + cv)));
   }
 }

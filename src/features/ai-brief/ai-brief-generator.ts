@@ -105,6 +105,10 @@ export class AIBriefGenerator {
     };
   }
 
+  private isMetadataTag(tag: string): boolean {
+    return tag.includes(':') || /^\d/.test(tag);
+  }
+
   private enrichClusters(clusters: TopicCluster[], notes: NoteModel[]): void {
     const noteMap = new Map<string, NoteModel>(notes.map(n => [n.title, n]));
 
@@ -114,6 +118,7 @@ export class AIBriefGenerator {
         const note = noteMap.get(title);
         if (!note) continue;
         for (const tag of note.tags) {
+          if (this.isMetadataTag(tag)) continue;
           if (tag.toLowerCase() !== cluster.name.toLowerCase()) {
             tagFreq.set(tag, (tagFreq.get(tag) ?? 0) + 1);
           }
@@ -218,7 +223,7 @@ export class AIBriefGenerator {
   }
 
   private getSharedFeatures(a: NoteModel, b: NoteModel): string[] {
-    const sharedTags = a.tags.filter(t => b.tags.includes(t));
+    const sharedTags = a.tags.filter(t => b.tags.includes(t) && !this.isMetadataTag(t));
     const sharedHeadings = a.headings.filter(h =>
       b.headings.some(bh => bh.toLowerCase() === h.toLowerCase())
     );
