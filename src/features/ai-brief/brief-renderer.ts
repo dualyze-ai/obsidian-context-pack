@@ -1,4 +1,5 @@
 import type { BriefModel, RelationshipPair, SimilarPair } from '../../models/brief-model';
+import type { TopicCluster } from '../../models/topic-cluster';
 import type { AIBriefSettings } from '../../settings';
 
 export class BriefRenderer {
@@ -7,6 +8,7 @@ export class BriefRenderer {
     sections.push(`_Generated: ${model.generatedAt} | ${model.noteCount} notes_`, '');
 
     if (settings.includeExecutiveSummary) {
+      sections.push('## Executive Insight', '', model.executiveInsight, '');
       sections.push('## Executive Summary', '', model.executiveSummary, '');
     }
 
@@ -16,6 +18,7 @@ export class BriefRenderer {
 
     if (settings.includeKnowledgeMap && model.clusters.length > 0) {
       sections.push('## Knowledge Map', '', this.renderKnowledgeMap(model, settings.enableMermaid), '');
+      sections.push('## Topic Clusters', '', this.renderTopicClusters(model.clusters), '');
     }
 
     if (settings.includeRelationshipMap) {
@@ -81,6 +84,30 @@ export class BriefRenderer {
     return lines.join('\n');
   }
 
+  private renderTopicClusters(clusters: TopicCluster[]): string {
+    const lines: string[] = [];
+
+    for (const cluster of clusters) {
+      lines.push(`### ${cluster.name}`, '');
+      lines.push(`**Notes:** ${cluster.notes.length}`);
+
+      if (cluster.themes.length > 0) {
+        lines.push('', `**Main Themes:** ${cluster.themes.join(', ')}`);
+      }
+
+      if (cluster.representativeNotes.length > 0) {
+        lines.push('', '**Representative Notes:**');
+        for (const note of cluster.representativeNotes) {
+          lines.push(`- ${note}`);
+        }
+      }
+
+      lines.push('');
+    }
+
+    return lines.join('\n');
+  }
+
   private renderRelationshipMap(pairs: RelationshipPair[]): string {
     if (pairs.length === 0) return '_No strong relationships detected._';
     return pairs.slice(0, 10).map(p =>
@@ -101,9 +128,18 @@ export class BriefRenderer {
 
   private renderHealth(model: BriefModel): string {
     const h = model.health;
-    return [
-      `**Rating: ${h.healthRating}**`,
-      '',
+    const lines: string[] = [];
+
+    lines.push(`**Rating: ${h.healthRating}**`, '');
+
+    if (model.healthInsights.length > 0) {
+      for (const insight of model.healthInsights) {
+        lines.push(`- ${insight}`);
+      }
+      lines.push('');
+    }
+
+    lines.push(
       '| Metric | Value |',
       '|---|---|',
       `| Total Notes | ${h.totalNotes} |`,
@@ -112,7 +148,9 @@ export class BriefRenderer {
       `| Duplicate Candidates | ${h.duplicateCandidates} |`,
       `| Connectivity Score | ${h.connectivityScore}/100 |`,
       `| Topic Coverage Score | ${h.topicCoverageScore}/100 |`,
-    ].join('\n');
+    );
+
+    return lines.join('\n');
   }
 
   private renderList(items: string[]): string {
