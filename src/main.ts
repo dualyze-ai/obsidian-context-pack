@@ -676,10 +676,12 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
+    const seen = new Set<string>();
     const files: TFile[] = [];
     for (const link of links) {
       const linked = this.app.metadataCache.getFirstLinkpathDest(link, moc.path);
-      if (linked instanceof TFile && linked.extension === 'md') {
+      if (linked instanceof TFile && linked.extension === 'md' && !seen.has(linked.path)) {
+        seen.add(linked.path);
         files.push(linked);
       }
     }

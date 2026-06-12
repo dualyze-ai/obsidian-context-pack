@@ -15,6 +15,7 @@ export function formatForNotebookLM(raw: string, options: FormatOptions): string
 
   let result = body;
   result = stripEmbeds(result);
+  result = transformMermaidBlocks(result);
   result = resolveWikiLinks(result);
   result = stripObsidianComments(result);
   result = stripInlineTags(result);
@@ -89,4 +90,44 @@ function stripInlineTags(text: string): string {
 
 function collapseBlankLines(text: string): string {
   return text.replace(/\n{3,}/g, '\n\n');
+}
+
+// Replace Mermaid code blocks with text summaries suitable for AI consumption.
+// Knowledge Map Mermaid (ROOT → cluster → note structure) → "## Knowledge Map Summary" list.
+// Other Mermaid diagrams → stripped (empty string).
+function transformMermaidBlocks(text: string): string {
+  return text.replace(/```mermaid\n([\s\S]*?)```/g, (_, mermaidBody: string) => {
+    return buildKnowledgeMapSummary(mermaidBody) ?? '';
+  });
+}
+
+function buildKnowledgeMapSummary(mermaid: string): string | null {
+  if (!mermaid.includes('ROOT')) return null;
+
+  const clusterNodeIds = new Map<string, string>(); // nodeId -> cluster name
+  const clusterMap = new Map<string, string[]>();    // cluster name -> note names
+
+  for (const line of mermaid.split('\n')) {
+    const clusterDef = line.match(/ROOT\s*-->\s*(C\d+)\["([^"]+)"\]/);
+    if (clusterDef) {
+      const [, nodeId, name] = clusterDef;
+      clusterNodeIds.set(nodeId, name);
+      if (!clusterMap.has(name)) clusterMap.set(name, []);
+      continue;
+    }
+    const noteDef = line.match(/(C\d+)\s*-->\s*\w+\["([^"]+)"\]/);
+    if (noteDef) {
+      const [, nodeId, noteName] = noteDef;
+      const clusterName = clusterNodeIds.get(nodeId);
+      if (clusterName) clusterMap.get(clusterName)?.push(noteName);
+    }
+  }
+
+  if (clusterMap.size === 0) return null;
+
+  const lines = ['## Knowledge Map Summary', ''];
+  for (const [name, notes] of clusterMap) {
+    lines.push(`- ${name}: ${notes.join(', ')}`);
+  }
+  return lines.join('\n');
 }
