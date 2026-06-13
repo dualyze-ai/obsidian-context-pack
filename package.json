@@ -1,7 +1,7 @@
 {
   "name": "obsidian-context-pack",
   "version": "3.2.2",
-  "description": "Build clean Context Packs from your Obsidian vault for NotebookLM.",
+  "description": "Analyze your vault with AI Brief, organize with AI MOC, and export AI-ready Context Packs for ChatGPT, Claude, Gemini, NotebookLM, and more.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
