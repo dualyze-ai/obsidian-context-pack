@@ -8,10 +8,7 @@
 
 *Analyze notes, generate AI MOCs, export Context Packs, and ask grounded questions with AI.*
 
-📖 **New: Step-by-step Tutorial**
-
-- English: [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
-- 日本語: [絵画ノートをAIと一緒に深める](docs/tutorials/tutorial-ja-paintings.md)
+📖 **Step-by-step Tutorial**: [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
 
 ## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
@@ -389,8 +386,8 @@ Release history and feature updates.
 
 ### Tutorials
 
-- [English Art History Tutorial](docs/tutorials/tutorial-en-paintings.md)
-- [日本語チュートリアル（絵画サンプル）](docs/tutorials/tutorial-ja-paintings.md)
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+- [Japanese Tutorial (Art Sample)](docs/tutorials/tutorial-ja-paintings.md)
 
 ---
 
