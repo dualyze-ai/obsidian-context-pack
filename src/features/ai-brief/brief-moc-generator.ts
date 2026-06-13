@@ -399,20 +399,22 @@ export function buildKnowledgeOverview(data: BriefMocData, topic: string): strin
   return lines.join('\n');
 }
 
-export function buildBriefMocContent(data: BriefMocData, sourceName: string, enableMermaid = true): string {
+export function buildBriefMocContent(data: BriefMocData, sourceName: string, enableMermaid = true, sourceFolder?: string): string {
   const today = window.moment().format('YYYY-MM-DD');
   const isJa = data.language === 'ja';
   const titleDisplay = titleFromSourceName(sourceName);
 
-  const frontmatter = [
+  const fmLines = [
     '---',
     `generated: ${today}`,
     'generatedBy: ai-context-pack',
     `source: ${sourceName}`,
     'sourceType: ai-brief',
     `mode: ${data.mode}`,
-    '---',
-  ].join('\n');
+  ];
+  if (sourceFolder) fmLines.push(`sourceFolder: ${sourceFolder}`);
+  fmLines.push('---');
+  const frontmatter = fmLines.join('\n');
 
   const lines: string[] = [
     frontmatter,

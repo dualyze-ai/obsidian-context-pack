@@ -24,6 +24,19 @@ interface PackMeta {
   name: string;
 }
 
+function commonFolderOfFiles(files: TFile[]): string {
+  if (files.length === 0) return '';
+  const parts = files[0].path.split('/');
+  let common = parts.slice(0, -1);
+  for (const f of files.slice(1)) {
+    const fp = f.path.split('/').slice(0, -1);
+    let i = 0;
+    while (i < common.length && i < fp.length && common[i] === fp[i]) i++;
+    common = common.slice(0, i);
+  }
+  return common.join('/');
+}
+
 function toFreshnessTarget(target: OutputTarget): PackRecord['target'] | null {
   if (target === 'chatgpt') return 'chatgpt';
   if (target === 'claude') return 'claude';
@@ -687,11 +700,25 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
+    // Detect AI Brief-derived MOC and source folder before link resolution
+    const isAiBriefMoc = cache?.frontmatter?.['sourceType'] === 'ai-brief';
+    const sourceFolder = isAiBriefMoc ? (cache?.frontmatter?.['sourceFolder'] as string | undefined) : undefined;
+
     const seen = new Set<string>();
     const allLinkedFiles: TFile[] = [];
     for (const link of links) {
-      const linked = this.app.metadataCache.getFirstLinkpathDest(link, moc.path);
-      if (linked instanceof TFile && linked.extension === 'md' && !seen.has(linked.path)) {
+      let linked: TFile | null = null;
+      if (sourceFolder) {
+        const lower = link.toLowerCase();
+        linked = this.app.vault.getMarkdownFiles().find(
+          f => f.path.startsWith(sourceFolder + '/') && f.basename.toLowerCase() === lower
+        ) ?? null;
+      }
+      if (!linked) {
+        const resolved = this.app.metadataCache.getFirstLinkpathDest(link, moc.path);
+        linked = resolved instanceof TFile ? resolved : null;
+      }
+      if (linked && linked.extension === 'md' && !seen.has(linked.path)) {
         seen.add(linked.path);
         allLinkedFiles.push(linked);
       }
@@ -701,9 +728,6 @@ export default class ContextPackPlugin extends Plugin {
       new Notice(t('notice_no_files'));
       return;
     }
-
-    // Detect AI Brief-derived MOC via frontmatter
-    const isAiBriefMoc = cache?.frontmatter?.['sourceType'] === 'ai-brief';
     let packFiles = allLinkedFiles;
     let knowledgeOverview: string | undefined;
     let packTitle: string | undefined;
@@ -944,7 +968,8 @@ export default class ContextPackPlugin extends Plugin {
       const model = await generator.generate(files, title, briefSettings);
       const content = renderer.render(model, briefSettings);
       const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
-      const savedFile = await exporter.save(content, title, outputFolder);
+      const sourceFolder = commonFolderOfFiles(files);
+      const savedFile = await exporter.save(content, title, outputFolder, sourceFolder || undefined);
 
       notice.hide();
       new Notice(t('notice_brief_done', savedFile.path), 8000);
@@ -996,7 +1021,9 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
-    const mocContent = buildBriefMocContent(data, file.basename, this.getBriefSettings().enableMermaid);
+    const briefCache = this.app.metadataCache.getFileCache(file);
+    const sourceFolder = briefCache?.frontmatter?.['sourceFolder'] as string | undefined;
+    const mocContent = buildBriefMocContent(data, file.basename, this.getBriefSettings().enableMermaid, sourceFolder);
     const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
     const mocFilename = `${file.basename} MOC.md`;
     const mocPath = folder ? `${folder}/${mocFilename}` : mocFilename;
