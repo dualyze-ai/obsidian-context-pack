@@ -8,10 +8,6 @@
 
 *Analyze notes, generate AI MOCs, export Context Packs, and ask grounded questions with AI.*
 
-## Analyze → Organize → Export → Ask
-
----
-
 ## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
 AI Context Pack now helps you move from scattered notes to reusable AI knowledge in a clearer workflow:
