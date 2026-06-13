@@ -92,7 +92,7 @@ AI Brief generates a visual Knowledge Map that shows topic clusters and represen
 <img src="docs/ai-brief-knowledge-map.png" width="90%">
 </div>
 
-*Knowledge Map generated from a 20-note Art History sample vault.*
+*Knowledge Map generated from a 20-note Art History vault (excerpt).*
 
 ---
 
@@ -128,7 +128,7 @@ Upload the exported Context Pack and ask natural-language questions.
 <img src="docs/chatgpt-example-answer.png" width="90%">
 </div>
 
-*Example: asking ChatGPT what Van Gogh and Picasso have in common, grounded in the exported notes.*
+*ChatGPT answering a question using only the exported Context Pack.*
 
 ---
 
