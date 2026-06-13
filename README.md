@@ -1,51 +1,97 @@
 # AI Context Pack
 
-> Analyze your vault. Generate AI Briefs. Export AI-ready knowledge.
+> Analyze your vault. Organize your knowledge. Export AI-ready context.
 
 <div align="center">
-<img src="docs/demo.gif" width="100%">
+<img src="docs/demo-workflow.gif" width="100%">
 </div>
 
-## From notes to knowledge
+*Analyze notes, generate AI MOCs, export Context Packs, and ask grounded questions with AI.*
 
-1. Collect notes
-2. Build knowledge maps (AI MOC)
-3. Package context
-4. Use with ChatGPT Projects, Claude Projects, Gemini, and NotebookLM
-5. Keep your knowledge fresh
+## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
-## ✨ New in v3.1: AI Brief Generator
+AI Context Pack now helps you move from scattered notes to reusable AI knowledge in a clearer workflow:
 
-AI Brief Generator analyzes your vault and automatically generates:
+```text
+Folder
+↓
+Generate AI Brief
+↓
+Visualize Knowledge Map
+↓
+Generate AI MOC from AI Brief
+↓
+Create Context Pack
+↓
+Ask questions in ChatGPT / Claude / Gemini / NotebookLM / Claude Code
+```
 
-- Executive Insights
-- Topic Clusters
-- Knowledge Maps
-- Relationship Maps
-- Knowledge Health Diagnostics
-- Development Candidates
-- Suggested AI Prompts
+### 1. Analyze your vault with AI Brief
 
-Understand your knowledge before exporting it.
+Generate an AI Brief to understand your notes before exporting them.
 
-AI Brief works with:
+AI Brief identifies:
 
-- Personal Knowledge Bases
-- Reading Notes
-- Travel Notes
-- Research Collections
-- Technical Specifications
-- Project Documentation
-
-Analyze your knowledge before exporting it.
+- Executive insights
+- Topic clusters
+- Knowledge maps
+- Relationship maps
+- Knowledge health
+- Suggested AI prompts
 
 <div align="center">
-<img src="docs/ai-brief-paintings-overview.png" width="90%">
+<img src="docs/ai-brief-overview.png" width="90%">
 </div>
 
-*Example AI Brief generated from a 19-note Art History vault.*
+*AI Brief summarizes the structure, coverage, and major themes of a selected folder.*
 
-Analyze your knowledge before exporting it.
+---
+
+### 2. Visualize knowledge structure
+
+AI Brief generates a visual Knowledge Map that shows topic clusters and representative notes.
+
+<div align="center">
+<img src="docs/ai-brief-knowledge-map.png" width="90%">
+</div>
+
+*Knowledge Map generated from a 20-note Art History vault (excerpt).*
+
+---
+
+### 3. Organize insights into an AI MOC
+
+Generate an AI MOC from the AI Brief to transform analysis into a navigable knowledge structure.
+
+<div align="center">
+<img src="docs/ai-moc-overview.png" width="90%">
+</div>
+
+*AI MOC turns discovered clusters into a structured navigation layer.*
+
+---
+
+### 4. Export an AI-ready Context Pack
+
+Create a clean Context Pack from the AI MOC.
+
+<div align="center">
+<img src="docs/context-pack-overview.png" width="90%">
+</div>
+
+*Context Packs are optimized for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.*
+
+---
+
+### 5. Ask questions with your AI assistant
+
+Upload the exported Context Pack and ask natural-language questions.
+
+<div align="center">
+<img src="docs/chatgpt-example-answer.png" width="90%">
+</div>
+
+*ChatGPT answering a question using only the exported Context Pack.*
 
 ---
 
@@ -81,11 +127,13 @@ AI Context Pack transforms your vault into clean, structured context optimized f
 ```text
 Obsidian Vault
         ↓
-     AI Brief
+   Generate AI Brief
         ↓
-      AI MOC
+   Visualize Knowledge Map
         ↓
-   Context Pack
+   Generate AI MOC
+        ↓
+   Create Context Pack
         ↓
 ChatGPT / Claude
 Gemini / NotebookLM
@@ -294,6 +342,16 @@ Step-by-step guides for:
 - Claude Code
 - NotebookLM
 
+### [AI Brief Workflow](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-workflow.md)
+
+Analyze → Organize → Export → Ask workflow:
+
+- Generate AI Brief
+- Visualize Knowledge Map
+- Generate AI MOC from AI Brief
+- Create Context Pack
+- Ask questions with AI
+
 ### [AI Brief Generator](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-generator.md)
 
 Understand your vault before exporting it.
@@ -303,8 +361,6 @@ Understand your vault before exporting it.
 - Relationship Analysis
 - Knowledge Health
 - Suggested AI Prompts
-
-
 
 ### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
@@ -340,7 +396,6 @@ Current focus:
 - Larger vault support
 
 ---
-
 
 ## Contributing
 

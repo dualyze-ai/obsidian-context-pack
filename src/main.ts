@@ -7,10 +7,12 @@ import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
 import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState } from './types';
 import { AiMocModal } from './ai-moc-modal';
+import { ConfirmModal } from './ai-moc';
 import { t } from './i18n';
 import { AIBriefGenerator } from './features/ai-brief/ai-brief-generator';
 import { BriefRenderer } from './features/ai-brief/brief-renderer';
 import { BriefExporter } from './features/ai-brief/brief-exporter';
+import { isAiBriefByHeadings, isAiBriefContent, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
@@ -187,12 +189,32 @@ export default class ContextPackPlugin extends Plugin {
     });
 
     this.addCommand({
+      id: 'generate-ai-moc-from-brief',
+      name: t('cmd_generate_ai_moc_from_brief'),
+      checkCallback: (checking) => {
+        const file = this.app.workspace.getActiveFile();
+        if (!file) return false;
+        const cache = this.app.metadataCache.getFileCache(file);
+        const headings = (cache?.headings ?? []).map(h => h.heading);
+        if (!isAiBriefByHeadings(headings)) return false;
+        if (!checking) void this.generateAiMocFromBrief(file);
+        return true;
+      },
+    });
+
+    this.addCommand({
       id: 'pack-moc',
       name: t('cmd_pack_moc'),
       checkCallback: (checking) => {
         const file = this.app.workspace.getActiveFile();
         if (!file) return false;
-        if (!checking) void this.packFromMoc(file);
+        if (!checking) {
+          if (this.isAiBriefFile(file)) {
+            new Notice(t('notice_ai_brief_not_packable'));
+            return;
+          }
+          void this.packFromMoc(file);
+        }
         return true;
       },
     });
@@ -222,16 +244,23 @@ export default class ContextPackPlugin extends Plugin {
             .setTitle(t('menu_export_note'))
             .setIcon('download')
             .onClick(() => void exportSingleNote(this.app, file, this.formatOptions())));
-          menu.addItem(item => item
-            .setTitle(t('menu_create_ai_moc'))
-            .setIcon('map')
-            .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file, this.settings.outputFolder).open()));
-          const cache = this.app.metadataCache.getFileCache(file);
-          if ((cache?.links?.length ?? 0) > 0) {
+          if (this.isAiBriefFile(file)) {
             menu.addItem(item => item
-              .setTitle(t('menu_pack_moc'))
-              .setIcon('list')
-              .onClick(() => void this.packFromMoc(file)));
+              .setTitle(t('menu_generate_ai_moc_from_brief'))
+              .setIcon('layout-list')
+              .onClick(() => void this.generateAiMocFromBrief(file)));
+          } else {
+            menu.addItem(item => item
+              .setTitle(t('menu_create_ai_moc'))
+              .setIcon('map')
+              .onClick(() => new AiMocModal(this.app, (files, source) => this.packFromFileList(files, source), file, this.settings.outputFolder).open()));
+            const cache = this.app.metadataCache.getFileCache(file);
+            if ((cache?.links?.length ?? 0) > 0) {
+              menu.addItem(item => item
+                .setTitle(t('menu_pack_moc'))
+                .setIcon('list')
+                .onClick(() => void this.packFromMoc(file)));
+            }
           }
         }
       })
@@ -645,6 +674,11 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private async packFromMoc(moc: TFile) {
+    if (this.isAiBriefFile(moc)) {
+      new Notice(t('notice_ai_brief_not_packable'));
+      return;
+    }
+
     const cache = this.app.metadataCache.getFileCache(moc);
     const links = cache?.links?.map(l => l.link) ?? [];
 
@@ -653,31 +687,97 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
-    const files: TFile[] = [];
+    const seen = new Set<string>();
+    const allLinkedFiles: TFile[] = [];
     for (const link of links) {
       const linked = this.app.metadataCache.getFirstLinkpathDest(link, moc.path);
-      if (linked instanceof TFile && linked.extension === 'md') {
-        files.push(linked);
+      if (linked instanceof TFile && linked.extension === 'md' && !seen.has(linked.path)) {
+        seen.add(linked.path);
+        allLinkedFiles.push(linked);
       }
     }
 
-    if (files.length === 0) {
+    if (allLinkedFiles.length === 0) {
+      new Notice(t('notice_no_files'));
+      return;
+    }
+
+    // Detect AI Brief-derived MOC via frontmatter
+    const isAiBriefMoc = cache?.frontmatter?.['sourceType'] === 'ai-brief';
+    let packFiles = allLinkedFiles;
+    let knowledgeOverview: string | undefined;
+    let packTitle: string | undefined;
+    let packDescription: string | undefined;
+    let displaySource: string = moc.basename;
+
+    if (isAiBriefMoc) {
+      // Primary: resolve AI Brief file directly from MOC's `source` frontmatter
+      const sourceName = cache?.frontmatter?.['source'] as string | undefined;
+      const directBriefFile = sourceName
+        ? this.app.metadataCache.getFirstLinkpathDest(sourceName, moc.path) ?? null
+        : null;
+
+      const aiBriefFiles: TFile[] = [];
+      const packFilesList: TFile[] = [];
+
+      for (const f of allLinkedFiles) {
+        let detected = false;
+        if (directBriefFile && f.path === directBriefFile.path) {
+          detected = true;
+        } else if (this.isAiBriefFile(f)) {
+          detected = true;
+        } else {
+          const rawContent = await this.app.vault.read(f);
+          detected = isAiBriefContent(rawContent);
+        }
+        if (detected) { aiBriefFiles.push(f); } else { packFilesList.push(f); }
+      }
+      packFiles = packFilesList;
+
+      const briefFile = directBriefFile ?? aiBriefFiles[0];
+      if (briefFile) {
+        const briefContent = await this.app.vault.read(briefFile);
+        const briefData = parseBriefContent(briefContent);
+        if (briefData) {
+          const topic = titleFromSourceName(sourceName ?? moc.basename);
+          const isJa = briefData.language === 'ja';
+          knowledgeOverview = buildKnowledgeOverview(briefData, topic);
+          packTitle = topic;
+          packDescription = isJa
+            ? `${topic}に関するノートです。このノートをもとに質問にお答えします。`
+            : `Notes on ${topic}. Use these notes to answer questions.`;
+          displaySource = topic;
+        }
+      }
+    }
+
+    if (packFiles.length === 0) {
       new Notice(t('notice_no_files'));
       return;
     }
 
     const { notice, controller, setProgress } = this.startProgress(t('notice_packing'));
     try {
-      const content = await buildContextPack(files, this.app, this.formatOptions(), {
+      let content = await buildContextPack(packFiles, this.app, this.formatOptions(), {
         title: moc.basename,
         source: `moc:${moc.basename}`,
+        ...(isAiBriefMoc && packTitle ? { titleOverride: packTitle, omitMeta: true, description: packDescription } : {}),
       }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
+
+      if (isAiBriefMoc && knowledgeOverview) {
+        const sep = '\n\n---\n\n';
+        const sepIdx = content.indexOf(sep);
+        if (sepIdx !== -1) {
+          content = content.slice(0, sepIdx) + '\n\n' + knowledgeOverview + sep + content.slice(sepIdx + sep.length);
+        }
+      }
+
       notice.hide();
-      this.handlePackOutput(content, `moc-${moc.basename}`, files.length, moc.basename, {
+      this.handlePackOutput(content, `moc-${moc.basename}`, packFiles.length, displaySource, {
         source: { type: 'moc', query: moc.path },
-        files,
+        files: packFiles,
         name: moc.basename,
-      });
+      }, isAiBriefMoc ? true : undefined);
     } catch (err) {
       this.handlePackError(notice, err);
     }
@@ -700,7 +800,7 @@ export default class ContextPackPlugin extends Plugin {
       .catch(err => this.handlePackError(notice, err));
   }
 
-  private applyStarterPrompt(content: string, source: string, noteCount: number, selectorState: OutputSelectorState, mode = 'none'): string {
+  private applyStarterPrompt(content: string, source: string, noteCount: number, selectorState: OutputSelectorState, mode = 'none', hasAiBrief = false): string {
     const target = getOutputTargetFromState(selectorState);
     const profileMap = buildProfileMap(this.settings.promptProfiles);
     const customProfile = profileMap[`${target}-default`];
@@ -711,7 +811,10 @@ export default class ContextPackPlugin extends Plugin {
         .replace('{source}', source)
         .replace('{count}', String(noteCount));
     } else {
-      const base = (this.settings.starterPrompt.trim() || t('default_common_instructions'))
+      const baseTemplate = hasAiBrief && !this.settings.starterPrompt.trim()
+        ? t('default_knowledge_base_instructions')
+        : (this.settings.starterPrompt.trim() || t('default_common_instructions'));
+      const base = baseTemplate
         .replace('{source}', source)
         .replace('{count}', String(noteCount));
       const pkInstructions = getProjectKnowledgeInstructions(selectorState);
@@ -732,6 +835,16 @@ export default class ContextPackPlugin extends Plugin {
     return def?.promptKey ? t(def.promptKey) : '';
   }
 
+  private isAiBriefFile(file: TFile): boolean {
+    const cache = this.app.metadataCache.getFileCache(file);
+    const fm = cache?.frontmatter;
+    // Files generated by ai-context-pack (AI Brief MOCs, normal MOCs) are never AI Briefs
+    if (fm?.['generatedBy'] === 'ai-context-pack') return false;
+    if (fm?.['generatedBy'] === 'ai-brief-generator') return true;
+    const headings = (cache?.headings ?? []).map(h => h.heading);
+    return isAiBriefByHeadings(headings);
+  }
+
   private getAiAdditionForTarget(target: OutputTarget): string {
     const keyMap: Partial<Record<OutputTarget, string>> = {
       chatgpt: 'ai_addition_chatgpt',
@@ -743,12 +856,17 @@ export default class ContextPackPlugin extends Plugin {
     return key ? t(key) : '';
   }
 
-  private handlePackOutput(content: string, slug: string, noteCount: number, source: string, packMeta?: PackMeta): void {
+  private handlePackOutput(content: string, slug: string, noteCount: number, source: string, packMeta?: PackMeta, explicitHasAiBrief?: boolean): void {
+    const hasAiBrief = explicitHasAiBrief ?? (packMeta?.files ?? []).some(f => {
+      const headings = this.app.metadataCache.getFileCache(f)?.headings?.map(h => h.heading) ?? [];
+      return isAiBriefByHeadings(headings);
+    });
+
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, () => this.saveSettings(), async (choice) => {
         const preset = OUTPUT_PRESETS[choice.target];
         const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt)
-          ? this.applyStarterPrompt(content, source, noteCount, choice.selectorState, choice.mode)
+          ? this.applyStarterPrompt(content, source, noteCount, choice.selectorState, choice.mode, hasAiBrief)
           : content;
         if (choice.target === 'notebooklm-text') {
           await this.saveContextPack(finalContent, slug, noteCount);
@@ -771,7 +889,7 @@ export default class ContextPackPlugin extends Plugin {
       const preset = OUTPUT_PRESETS[target];
       const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
       const finalContent = doPrompt
-        ? this.applyStarterPrompt(content, source, noteCount, selectorState, this.settings.defaultMode)
+        ? this.applyStarterPrompt(content, source, noteCount, selectorState, this.settings.defaultMode, hasAiBrief)
         : content;
       if (target === 'notebooklm-text' || target === 'notebooklm-zip') {
         void this.saveContextPack(finalContent, slug, noteCount);
@@ -863,6 +981,50 @@ export default class ContextPackPlugin extends Plugin {
     }
     if (files.length === 0) { new Notice(t('notice_no_links')); return; }
     await this.runBriefGeneration(files, moc.basename);
+  }
+
+  private async generateAiMocFromBrief(file: TFile): Promise<void> {
+    const content = await this.app.vault.cachedRead(file);
+
+    const data = parseBriefContent(content);
+    if (!data) {
+      new Notice(t('notice_brief_not_detected'));
+      return;
+    }
+    if (data.clusters.length === 0 && data.relationships.length === 0 && data.documentSections.length === 0) {
+      new Notice(t('notice_brief_no_structure'));
+      return;
+    }
+
+    const mocContent = buildBriefMocContent(data, file.basename, this.getBriefSettings().enableMermaid);
+    const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+    const mocFilename = `${file.basename} MOC.md`;
+    const mocPath = folder ? `${folder}/${mocFilename}` : mocFilename;
+
+    const existing = this.app.vault.getAbstractFileByPath(mocPath);
+    let mocFile: TFile;
+
+    if (existing instanceof TFile) {
+      const existingCache = this.app.metadataCache.getFileCache(existing);
+      const generatedBy: unknown = existingCache?.frontmatter?.['generatedBy'];
+      if (generatedBy === 'ai-context-pack') {
+        await this.app.vault.modify(existing, mocContent);
+        mocFile = existing;
+      } else {
+        const confirmed = await new ConfirmModal(
+          this.app,
+          t('ai_moc_overwrite_message', file.basename),
+        ).confirm();
+        if (!confirmed) return;
+        await this.app.vault.modify(existing, mocContent);
+        mocFile = existing;
+      }
+    } else {
+      mocFile = await this.app.vault.create(mocPath, mocContent);
+    }
+
+    await this.app.workspace.getLeaf().openFile(mocFile);
+    new Notice(t('notice_brief_moc_done', mocFile.path), 8000);
   }
 
   private getFolders(): string[] {

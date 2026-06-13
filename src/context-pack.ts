@@ -5,17 +5,19 @@ export async function buildContextPack(
   files: TFile[],
   app: App,
   options: FormatOptions,
-  meta: { title: string; source: string },
+  meta: { title: string; source: string; titleOverride?: string; description?: string; omitMeta?: boolean },
   onProgress?: (current: number, total: number) => void,
   signal?: AbortSignal
 ): Promise<string> {
   const today = window.moment().format('YYYY-MM-DD');
-  const sections: string[] = [
-    `# Context Pack: ${meta.title}`,
-    `Generated: ${today}`,
-    `Source: ${meta.source}`,
-    `Notes: ${files.length}`,
-  ];
+  const headerTitle = meta.titleOverride ?? `Context Pack: ${meta.title}`;
+  const sections: string[] = [`# ${headerTitle}`];
+  if (!meta.omitMeta) {
+    sections.push(`Generated: ${today}`, `Source: ${meta.source}`, `Notes: ${files.length}`);
+  }
+  if (meta.description) {
+    sections.push(meta.description);
+  }
 
   for (let i = 0; i < files.length; i++) {
     if (signal?.aborted) throw new DOMException('Cancelled', 'AbortError');

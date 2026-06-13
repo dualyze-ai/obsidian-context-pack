@@ -141,6 +141,17 @@ If information exists in this Context Pack, please prioritize it.
 If the Context Pack does not contain a basis, indicate whether the response is based on inference, general knowledge, or external knowledge.
 Do not mention Obsidian, Context Pack, NotebookLM, or similar systems, and do not offer suggestions for improving this document.`,
 
+  default_knowledge_base_instructions: `The following document contains source knowledge about "{source}" ({count} notes).
+
+Use the information in this document to answer questions about the subject matter.
+Treat the content as factual source knowledge, not as a generated document to be evaluated.`,
+
+  usage_guidance: `## Usage Guidance
+
+Use the information in this document as source knowledge.
+
+When answering questions, prioritize the subject matter and the information contained in the notes.`,
+
   ai_addition_chatgpt:    'Please prioritize structured responses: use headings, bullet points, conclusions first, and explanations accessible to beginners.',
   ai_addition_claude:     'Please focus on relationships between information, contradictions, gaps, preconditions, and implicit knowledge across the entire Context Pack.',
   ai_addition_gemini:     'Please integrate information from multiple notes and organize your response by common points, differences, chronology, and related topics.',
@@ -277,12 +288,18 @@ Prefer consistency with project documentation over generic examples.`,
   freshness_reexport_btn: 'Re-export',
   freshness_delete_title: 'Delete this pack',
 
-  cmd_generate_brief_folder: 'Generate AI Brief from folder',
-  cmd_generate_brief_tag:    'Generate AI Brief from tag',
-  cmd_generate_brief_moc:    'Generate AI Brief from MOC',
-  menu_generate_brief:       'Generate AI Brief from this folder',
-  notice_generating_brief:   'Generating AI Brief…',
-  notice_brief_done:         (path: string) => `AI Brief saved: ${path}`,
+  cmd_generate_brief_folder:       'Generate AI Brief from folder',
+  cmd_generate_brief_tag:          'Generate AI Brief from tag',
+  cmd_generate_brief_moc:          'Generate AI Brief from MOC',
+  cmd_generate_ai_moc_from_brief:  'Generate AI MOC from AI Brief',
+  menu_generate_brief:             'Generate AI Brief from this folder',
+  menu_generate_ai_moc_from_brief: 'Generate AI MOC from this AI Brief',
+  notice_generating_brief:         'Generating AI Brief…',
+  notice_brief_done:               (path: string) => `AI Brief saved: ${path}`,
+  notice_brief_moc_done:           (path: string) => `AI Brief MOC saved: ${path}`,
+  notice_brief_not_detected:       'This file does not appear to be an AI Brief.',
+  notice_brief_no_structure:       'No AI Brief structure was found.',
+  notice_ai_brief_not_packable:    'AI Brief is an analysis document. Generate an AI MOC first, then create a Context Pack from the AI MOC.',
 
   setting_ai_brief_section:          'AI Brief Generator',
   setting_ai_brief_mermaid:          'Enable Mermaid diagrams',
