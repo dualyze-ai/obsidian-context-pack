@@ -6,9 +6,8 @@
 
 - Generate AI MOC from AI Brief
 - Improved Analyze → Organize → Export → Ask workflow
-- Knowledge Map is now part of the primary README workflow
+- Knowledge Map added to primary README workflow
 - AI Brief-specific context menu
-- AI Brief files are treated as analysis artifacts, not direct Context Pack sources
 - Better separation between analysis artifacts and exported knowledge
 - Updated README screenshots and Art History example workflow
 

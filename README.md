@@ -2,48 +2,15 @@
 
 > Analyze your vault. Organize your knowledge. Export AI-ready context.
 
-## Analyze → Organize → Export
-
-```text
-Folder
-↓
-Generate AI Brief
-↓
-Generate AI MOC from AI Brief
-↓
-Create Context Pack
-↓
-Use with ChatGPT / Claude / Gemini / NotebookLM / Claude Code
-```
-
-AI Context Pack helps transform scattered notes into reusable AI knowledge.
-
-### Analyze
-Generate AI Briefs to discover:
-- Topic Clusters
-- Knowledge Maps
-- Relationship Maps
-- Knowledge Health
-
-### Organize
-Generate AI MOCs from AI Briefs and turn insights into navigable knowledge structures.
-
-### Export
-Create clean Context Packs optimized for AI assistants.
-
----
-
 <div align="center">
-<img src="docs/demo.gif" width="100%">
+<img src="docs/demo-workflow.gif" width="100%">
 </div>
 
-## From notes to knowledge
+*Analyze notes, generate AI MOCs, export Context Packs, and ask grounded questions with AI.*
 
-1. Collect notes
-2. Build knowledge maps (AI MOC)
-3. Package context
-4. Use with ChatGPT Projects, Claude Projects, Gemini, and NotebookLM
-5. Keep your knowledge fresh
+## Analyze → Organize → Export → Ask
+
+---
 
 ## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
@@ -433,7 +400,6 @@ Current focus:
 - Larger vault support
 
 ---
-
 
 ## Contributing
 
