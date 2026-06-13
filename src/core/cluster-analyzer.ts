@@ -99,7 +99,6 @@ export class ClusterAnalyzer {
     graph: Graph,
     notes: NoteModel[]
   ): TopicCluster[] {
-    const noteMap = new Map<string, NoteModel>(notes.map(n => [n.title, n]));
     const clusters: TopicCluster[] = [];
     let i = 0;
 
