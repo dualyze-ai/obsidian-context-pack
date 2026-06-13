@@ -1,6 +1,6 @@
 {
   "name": "obsidian-context-pack",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Build clean Context Packs from your Obsidian vault for NotebookLM.",
   "main": "main.js",
   "scripts": {
