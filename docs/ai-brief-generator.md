@@ -1,5 +1,29 @@
 # AI Brief Generator
 
+## AI Brief Workflow
+
+```text
+Folder
+↓
+Generate AI Brief
+↓
+Review Insights
+↓
+Generate AI MOC
+↓
+Create Context Pack
+↓
+Use with AI
+```
+
+AI Brief is an analysis step, not the final export.
+
+Analyze first.
+Organize second.
+Export third.
+
+---
+
 AI Brief Generator analyzes your vault and creates a high-level diagnostic report.
 
 Instead of manually exploring dozens or hundreds of notes, AI Brief helps you understand:

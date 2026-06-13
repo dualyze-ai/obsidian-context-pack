@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.2.0
+
+### AI Brief Workflow
+
+- Generate AI MOC from AI Brief
+- Improved Analyze → Organize → Export workflow
+- AI Brief-specific context menu
+- AI Brief files are treated as analysis artifacts, not direct Context Pack sources
+- Better separation between analysis artifacts and exported knowledge
+- Updated README screenshots and Art History example workflow
+
 ### v3.1.0
 
 **AI Brief Generator**
