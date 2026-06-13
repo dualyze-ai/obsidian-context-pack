@@ -410,19 +410,8 @@ Optional:
 
 ## 📖 Tutorials
 
-Learn the complete workflow through a real-world example.
-
-### English
-
 - [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
-
-Follow Alice as she transforms a collection of art history notes into an AI-ready knowledge base using AI Brief, AI MOC, and Context Packs.
-
-### 日本語
-
-- [絵画ノートをAIと一緒に深める](docs/tutorials/tutorial-ja-paintings.md)
-
-AI Brief、Knowledge Map、AI MOC、Context Packを使った実践チュートリアルです。
+- [Japanese Tutorial (Art Sample)](docs/tutorials/tutorial-ja-paintings.md)
 
 ---
 
