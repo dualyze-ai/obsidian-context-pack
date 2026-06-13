@@ -35,6 +35,27 @@ Track which notes were sent to ChatGPT Projects, Claude Projects, Gemini, or Not
 → [Full documentation](project-knowledge-packs.md)
 
 ---
+
+# AI Brief → AI MOC
+
+```text
+Folder
+↓
+Generate AI Brief
+↓
+Generate AI MOC from AI Brief
+↓
+Create Context Pack
+```
+
+AI Brief analyzes knowledge.
+
+AI MOC organizes knowledge.
+
+Context Pack exports knowledge.
+
+---
+
 # AI Brief Generator
 
 AI Brief Generator analyzes your vault and creates a high-level diagnostic report.

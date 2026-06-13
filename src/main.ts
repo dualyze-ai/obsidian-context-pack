@@ -742,10 +742,10 @@ export default class ContextPackPlugin extends Plugin {
           const topic = titleFromSourceName(sourceName ?? moc.basename);
           const isJa = briefData.language === 'ja';
           knowledgeOverview = buildKnowledgeOverview(briefData, topic);
-          packTitle = isJa ? `${topic} ナレッジベース` : `${topic} Knowledge Base`;
+          packTitle = topic;
           packDescription = isJa
-            ? `このドキュメントには「${topic}」に関するソース知識が含まれています。`
-            : `This document contains source knowledge about ${topic.toLowerCase()}.`;
+            ? `${topic}に関するノートです。このノートをもとに質問にお答えします。`
+            : `Notes on ${topic}. Use these notes to answer questions.`;
           displaySource = topic;
         }
       }
@@ -761,11 +761,10 @@ export default class ContextPackPlugin extends Plugin {
       let content = await buildContextPack(packFiles, this.app, this.formatOptions(), {
         title: moc.basename,
         source: `moc:${moc.basename}`,
-        ...(isAiBriefMoc && packTitle ? { titleOverride: packTitle, description: packDescription, omitMeta: true } : {}),
+        ...(isAiBriefMoc && packTitle ? { titleOverride: packTitle, omitMeta: true, description: packDescription } : {}),
       }, (cur, total) => setProgress(`${cur} / ${total}`), controller.signal);
 
       if (isAiBriefMoc && knowledgeOverview) {
-        // Inject Knowledge Overview between title/description and first note separator
         const sep = '\n\n---\n\n';
         const sepIdx = content.indexOf(sep);
         if (sepIdx !== -1) {
@@ -827,8 +826,6 @@ export default class ContextPackPlugin extends Plugin {
 
     const modeText = this.getModePrompt(mode);
     if (modeText) prompt = `${prompt}\n\n${modeText}`;
-
-    if (hasAiBrief) prompt = `${t('usage_guidance')}\n\n${prompt}`;
 
     return `${prompt}\n\n---\n\n${content}`;
   }
@@ -999,7 +996,7 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
-    const mocContent = buildBriefMocContent(data, file.basename);
+    const mocContent = buildBriefMocContent(data, file.basename, this.getBriefSettings().enableMermaid);
     const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
     const mocFilename = `${file.basename} MOC.md`;
     const mocPath = folder ? `${folder}/${mocFilename}` : mocFilename;
