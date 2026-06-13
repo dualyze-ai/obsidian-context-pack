@@ -422,7 +422,6 @@ export class SettingsTab extends PluginSettingTab {
       .addSlider(slider => slider
         .setLimits(5, 20, 1)
         .setValue(this.plugin.settings.aiBriefSettings.maxTopics)
-        .setDynamicTooltip()
         .onChange(async value => {
           this.plugin.settings.aiBriefSettings.maxTopics = value;
           await this.plugin.saveSettings();
@@ -434,7 +433,6 @@ export class SettingsTab extends PluginSettingTab {
       .addSlider(slider => slider
         .setLimits(50, 95, 5)
         .setValue(this.plugin.settings.aiBriefSettings.similarityThreshold)
-        .setDynamicTooltip()
         .onChange(async value => {
           this.plugin.settings.aiBriefSettings.similarityThreshold = value;
           await this.plugin.saveSettings();
