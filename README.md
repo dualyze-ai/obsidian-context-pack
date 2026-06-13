@@ -17,7 +17,8 @@ Learn how to:
 - Create a Context Pack
 - Ask grounded questions in ChatGPT
 
-→ [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+→ Read the complete tutorial:
+[How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
 
 ## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
