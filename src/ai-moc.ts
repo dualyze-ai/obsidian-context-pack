@@ -120,7 +120,7 @@ function buildMocContent(result: AiMocResult, config: AiMocConfig): string {
   return `${frontmatter}\n\n${sections.join('\n')}`;
 }
 
-class ConfirmModal extends Modal {
+export class ConfirmModal extends Modal {
   private resolve: ((value: boolean) => void) | null = null;
   private answered = false;
 
