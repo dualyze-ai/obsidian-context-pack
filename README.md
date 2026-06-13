@@ -186,6 +186,10 @@ Organize by:
 
 All Obsidian-specific syntax is cleaned automatically.
 
+### See the Complete Workflow
+
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+
 ### AI MOC
 
 Generate a Map of Content from any note.
@@ -202,6 +206,12 @@ Root Note
 ```
 
 No manual index maintenance required.
+
+### Learn by Example
+
+See how AI Brief becomes an AI MOC:
+
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
 
 ### Output Targets
 
@@ -362,9 +372,20 @@ Understand your vault before exporting it.
 - Knowledge Health
 - Suggested AI Prompts
 
+### Example
+
+See the complete tutorial:
+
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+
 ### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
 Release history and feature updates.
+
+### Tutorials
+
+- [English Art History Tutorial](docs/tutorials/tutorial-en-paintings.md)
+- [日本語チュートリアル（絵画サンプル）](docs/tutorials/tutorial-ja-paintings.md)
 
 ---
 
@@ -382,6 +403,24 @@ or as part of a broader AI research workflow:
 
 Optional:
 → [Learn more about DualyzeAI](https://dualyzeai.com)
+
+---
+
+## 📖 Tutorials
+
+Learn the complete workflow through a real-world example.
+
+### English
+
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+
+Follow Alice as she transforms a collection of art history notes into an AI-ready knowledge base using AI Brief, AI MOC, and Context Packs.
+
+### 日本語
+
+- [絵画ノートをAIと一緒に深める](docs/tutorials/tutorial-ja-paintings.md)
+
+AI Brief、Knowledge Map、AI MOC、Context Packを使った実践チュートリアルです。
 
 ---
 
