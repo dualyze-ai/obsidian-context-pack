@@ -63,72 +63,53 @@ Create Context Pack
 Ask questions in ChatGPT / Claude / Gemini / NotebookLM / Claude Code
 ```
 
-### 1. Analyze your vault with AI Brief
-
-Generate an AI Brief to understand your notes before exporting them.
-
-AI Brief identifies:
-
-- Executive insights
-- Topic clusters
-- Knowledge maps
-- Relationship maps
-- Knowledge health
-- Suggested AI prompts
+### Generate AI Brief
 
 <div align="center">
 <img src="docs/ai-brief-overview.png" width="90%">
 </div>
 
-*AI Brief summarizes the structure, coverage, and major themes of a selected folder.*
+*Analyze your notes and discover major topics, relationships, and knowledge gaps.*
 
 ---
 
-### 2. Visualize knowledge structure
-
-AI Brief generates a visual Knowledge Map that shows topic clusters and representative notes.
+### Visualize Knowledge Map
 
 <div align="center">
 <img src="docs/ai-brief-knowledge-map.png" width="90%">
 </div>
 
-*Knowledge Map generated from a 20-note Art History vault (excerpt).*
+*Explore topic clusters and representative notes automatically (excerpt).*
 
 ---
 
-### 3. Organize insights into an AI MOC
-
-Generate an AI MOC from the AI Brief to transform analysis into a navigable knowledge structure.
+### Generate AI MOC
 
 <div align="center">
 <img src="docs/ai-moc-overview.png" width="90%">
 </div>
 
-*AI MOC turns discovered clusters into a structured navigation layer.*
+*Transform analysis into a navigable knowledge structure.*
 
 ---
 
-### 4. Export an AI-ready Context Pack
-
-Create a clean Context Pack from the AI MOC.
+### Create Context Pack
 
 <div align="center">
 <img src="docs/context-pack-overview.png" width="90%">
 </div>
 
-*Context Packs are optimized for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.*
+*Export AI-ready context optimized for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.*
 
 ---
 
-### 5. Ask questions with your AI assistant
-
-Upload the exported Context Pack and ask natural-language questions.
+### Ask Questions
 
 <div align="center">
 <img src="docs/chatgpt-example-answer.png" width="90%">
 </div>
 
-*ChatGPT answering a question using only the exported Context Pack.*
+*Ask natural-language questions grounded in your exported notes.*
 
 ---
 
