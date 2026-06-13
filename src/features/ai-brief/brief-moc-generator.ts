@@ -353,8 +353,7 @@ export function buildKnowledgeOverview(data: BriefMocData, topic: string): strin
   const lines: string[] = [];
 
   if (isJa) {
-    lines.push('## ナレッジ概要', '');
-    lines.push(`このパックには「${topic}」に関するソース知識が含まれています。`, '');
+    lines.push('## 収録内容', '');
 
     if (data.clusters.length > 0) {
       lines.push('主要トピック：', '');
@@ -375,8 +374,7 @@ export function buildKnowledgeOverview(data: BriefMocData, topic: string): strin
       }
     }
   } else {
-    lines.push('## Knowledge Overview', '');
-    lines.push(`This pack contains source knowledge about ${topic}.`, '');
+    lines.push('## Contents', '');
 
     if (data.clusters.length > 0) {
       lines.push('Main topics:', '');
@@ -401,7 +399,7 @@ export function buildKnowledgeOverview(data: BriefMocData, topic: string): strin
   return lines.join('\n');
 }
 
-export function buildBriefMocContent(data: BriefMocData, sourceName: string): string {
+export function buildBriefMocContent(data: BriefMocData, sourceName: string, enableMermaid = true): string {
   const today = window.moment().format('YYYY-MM-DD');
   const isJa = data.language === 'ja';
   const titleDisplay = titleFromSourceName(sourceName);
@@ -428,7 +426,7 @@ export function buildBriefMocContent(data: BriefMocData, sourceName: string): st
   if (data.mode === 'document-structure') {
     buildDocumentStructureSections(lines, data, sourceName, isJa);
   } else {
-    buildKnowledgeBaseSections(lines, data, sourceName, isJa);
+    buildKnowledgeBaseSections(lines, data, sourceName, isJa, enableMermaid);
   }
 
   return lines.join('\n');
@@ -515,12 +513,13 @@ function buildKnowledgeBaseSections(
   data: BriefMocData,
   sourceName: string,
   isJa: boolean,
+  enableMermaid = true,
 ): void {
   // ① Overview with stats
   buildOverviewSection(lines, data.stats, isJa);
 
-  // ③ Knowledge Map (Mermaid)
-  if (data.mermaidDiagram) {
+  // Knowledge Map (Mermaid) — only if setting is enabled
+  if (enableMermaid && data.mermaidDiagram) {
     lines.push(isJa ? '## ナレッジマップ' : '## Knowledge Map', '', data.mermaidDiagram, '');
   }
 
