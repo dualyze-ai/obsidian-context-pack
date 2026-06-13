@@ -45,7 +45,7 @@ Create clean Context Packs optimized for AI assistants.
 4. Use with ChatGPT Projects, Claude Projects, Gemini, and NotebookLM
 5. Keep your knowledge fresh
 
-## ✨ New in v3.2: Analyze → Organize → Export
+## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
 AI Context Pack now helps you move from scattered notes to reusable AI knowledge in a clearer workflow:
 
@@ -53,6 +53,8 @@ AI Context Pack now helps you move from scattered notes to reusable AI knowledge
 Folder
 ↓
 Generate AI Brief
+↓
+Visualize Knowledge Map
 ↓
 Generate AI MOC from AI Brief
 ↓
@@ -82,9 +84,9 @@ AI Brief identifies:
 
 ---
 
-### 2. Visualize topic relationships
+### 2. Visualize knowledge structure
 
-AI Brief also generates a visual knowledge map that shows how topics and representative notes are connected.
+AI Brief generates a visual Knowledge Map that shows topic clusters and representative notes.
 
 <div align="center">
 <img src="docs/ai-brief-knowledge-map.png" width="90%">
@@ -163,6 +165,8 @@ AI Context Pack transforms your vault into clean, structured context optimized f
 Obsidian Vault
         ↓
    Generate AI Brief
+        ↓
+   Visualize Knowledge Map
         ↓
    Generate AI MOC
         ↓
@@ -377,9 +381,10 @@ Step-by-step guides for:
 
 ### [AI Brief Workflow](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-workflow.md)
 
-Analyze → Organize → Export workflow:
+Analyze → Organize → Export → Ask workflow:
 
 - Generate AI Brief
+- Visualize Knowledge Map
 - Generate AI MOC from AI Brief
 - Create Context Pack
 - Ask questions with AI
