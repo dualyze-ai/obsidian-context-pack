@@ -8,7 +8,16 @@
 
 *Analyze notes, generate AI MOCs, export Context Packs, and ask grounded questions with AI.*
 
-📖 **Step-by-step Tutorial**: [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+📖 **Step-by-step Tutorial**
+
+Learn how to:
+
+- Analyze notes with AI Brief
+- Generate an AI MOC
+- Create a Context Pack
+- Ask grounded questions in ChatGPT
+
+→ [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
 
 ## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
