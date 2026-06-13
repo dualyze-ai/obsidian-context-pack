@@ -18,7 +18,7 @@ Learn how to:
 - Ask grounded questions in ChatGPT
 
 → Read the complete tutorial:
-[How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+[How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
 
 ## ✨ New in v3.2: Analyze → Organize → Export → Ask
 
@@ -200,7 +200,7 @@ All Obsidian-specific syntax is cleaned automatically.
 
 ### See the Complete Workflow
 
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
 
 ### AI MOC
 
@@ -223,7 +223,7 @@ No manual index maintenance required.
 
 See how AI Brief becomes an AI MOC:
 
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
 
 ### Output Targets
 
@@ -388,7 +388,7 @@ Understand your vault before exporting it.
 
 See the complete tutorial:
 
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
 
 ### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
@@ -396,8 +396,8 @@ Release history and feature updates.
 
 ### Tutorials
 
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
-- [Japanese Tutorial (Art Sample)](docs/tutorials/tutorial-ja-paintings.md)
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
+- [Japanese Tutorial (Art Sample)](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-ja-paintings.md)
 
 ---
 
@@ -420,8 +420,8 @@ Optional:
 
 ## 📖 Tutorials
 
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](docs/tutorials/tutorial-en-paintings.md)
-- [Japanese Tutorial (Art Sample)](docs/tutorials/tutorial-ja-paintings.md)
+- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
+- [Japanese Tutorial (Art Sample)](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-ja-paintings.md)
 
 ---
 
