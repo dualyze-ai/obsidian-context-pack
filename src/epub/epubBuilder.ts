@@ -33,8 +33,8 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     generatedDate,
   });
 
-  // Knowledge Overview (shown when clusters are available or always)
-  const hasOverview = clusters !== undefined && clusters.length > 0;
+  // Overview is always included in manifest/spine/nav
+  const hasOverview = true;
   const overviewXhtml = buildOverviewXhtml({
     title: options.title,
     language: lang,
