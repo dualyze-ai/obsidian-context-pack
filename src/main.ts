@@ -898,18 +898,6 @@ export default class ContextPackPlugin extends Plugin {
 
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, () => this.saveSettings(), async (choice) => {
-        if (choice.target === 'epub') {
-          await this.exportAsEpub(packMeta?.files ?? [], source, choice.epubOptions ?? {
-            bookTitle: source,
-            includeBrief: true,
-            includeToc: true,
-            includeSourceNotes: true,
-            stripFrontmatter: true,
-            convertObsidianLinks: true,
-            sortStrategy: 'ai-brief',
-          });
-          return;
-        }
         const preset = OUTPUT_PRESETS[choice.target];
         const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt)
           ? this.applyStarterPrompt(content, source, noteCount, choice.selectorState, choice.mode, hasAiBrief)
@@ -928,14 +916,10 @@ export default class ContextPackPlugin extends Plugin {
           await this.savePackRecord(packMeta, choice.target, choice.selectorState);
           this.refreshFreshnessViewIfOpen();
         }
-      }, source).open();
+      }).open();
     } else {
       const selectorState = this.settings.outputSelectorState;
       const target = getOutputTargetFromState(selectorState);
-      if (target === 'epub') {
-        new Notice(t('modal_select_target'));
-        return;
-      }
       const preset = OUTPUT_PRESETS[target];
       const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
       const finalContent = doPrompt

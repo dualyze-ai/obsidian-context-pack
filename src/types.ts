@@ -5,12 +5,11 @@ export type OutputTarget =
   | 'claude'
   | 'gemini'
   | 'claude-code'
-  | 'epub'
   | 'custom';
 
 export type OutputKind = 'chat' | 'agent';
 
-export type OutputTab = 'chatgpt' | 'claude' | 'gemini' | 'agents' | 'epub';
+export type OutputTab = 'chatgpt' | 'claude' | 'gemini' | 'agents';
 
 export type EpubSortStrategy = 'current' | 'title' | 'filename' | 'ai-brief';
 
@@ -52,7 +51,6 @@ export function getOutputTargetFromState(state: OutputSelectorState): OutputTarg
     case 'claude':  return 'claude';
     case 'gemini':  return 'gemini';
     case 'agents':  return state.agentMode === 'claudecode' ? 'claude-code' : 'notebooklm-text';
-    case 'epub':    return 'epub';
   }
 }
 
@@ -182,19 +180,6 @@ export const OUTPUT_PRESETS: Record<OutputTarget, OutputPreset> = {
     available: true,
     supportsStarterPrompt: true,
     outputKind: 'agent',
-  },
-  'epub': {
-    target: 'epub',
-    label: 'EPUB',
-    description: 'Export as EPUB e-book (Kindle, Apple Books, Calibre)',
-    format: 'text',
-    copyToClipboard: false,
-    saveToFile: false,
-    maxTokens: 0,
-    contextLimit: 0,
-    available: true,
-    supportsStarterPrompt: false,
-    outputKind: 'chat',
   },
   'custom': {
     target: 'custom',
