@@ -35,13 +35,13 @@ Generate AI MOC from AI Brief
 ↓
 Create Context Pack
 ↓
-Ask questions in ChatGPT / Claude / Gemini / NotebookLM / Claude Code
+Ask AI
 
 OR
 
 Create Knowledge Book (EPUB)
 ↓
-Read in Kindle / Apple Books / Kobo
+Read Anywhere
 ```
 
 ### 1. Analyze your vault with AI Brief
@@ -114,31 +114,12 @@ AI Context Pack uses the AI Brief structure to create:
 - Topic clusters
 - Source notes
 
-```text
-Folder
-↓
-Generate AI Brief
-↓
-Create Knowledge Book (EPUB)
-↓
-Read in Kindle / Apple Books / Kobo
-```
+Read your knowledge in:
 
-Supported readers:
-
-- Kindle (via Send to Kindle)
+- Kindle
 - Apple Books
 - Kobo
-- Google Play Books
-- Most EPUB readers
-
-Unlike traditional Markdown-to-EPUB exporters, AI Context Pack preserves the knowledge structure discovered by AI Brief and converts it into a navigable book.
-
-<div align="center">
-<img src="docs/knowledge-book-overview.png" width="90%">
-</div>
-
-*Knowledge Book generated from an AI Brief.*
+- Other EPUB readers
 
 ---
 
