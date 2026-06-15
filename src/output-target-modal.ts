@@ -2,7 +2,7 @@ import { App, Modal, Setting } from 'obsidian';
 import {
   OUTPUT_PRESETS, MODES,
   getOutputTargetFromState,
-  type OutputTarget, type OutputSelectorState, type OutputTab, type EpubExportOptions, type EpubSortStrategy,
+  type OutputTarget, type OutputSelectorState, type OutputTab,
 } from './types';
 import { estimateTokens, getTokenWarning } from './token-counter';
 import { getProjectKnowledgeInstructions } from './exporter';
@@ -17,7 +17,6 @@ export interface OutputChoice {
   includeStarterPrompt: boolean;
   openAiUrl: boolean;
   mode: string;
-  epubOptions?: EpubExportOptions;
 }
 
 export class OutputTargetModal extends Modal {
@@ -28,13 +27,11 @@ export class OutputTargetModal extends Modal {
   private doOpenUrl: boolean;
   private mode: string;
   private tokenCount: number;
-  private epubState: EpubExportOptions;
   private previewEl!: HTMLElement;
   private methodEl!: HTMLElement;
   private radioEl!: HTMLElement;
   private modeContainerEl!: HTMLElement;
   private modeSelectEl!: HTMLSelectElement;
-  private epubOptionsEl!: HTMLElement;
   private submitBtnEl!: HTMLButtonElement;
 
   constructor(
@@ -43,7 +40,6 @@ export class OutputTargetModal extends Modal {
     private settings: PluginSettings,
     private saveSettings: () => Promise<void>,
     private onSubmit: (choice: OutputChoice) => Promise<void>,
-    private source = ''
   ) {
     super(app);
     this.state = { ...settings.outputSelectorState };
@@ -54,23 +50,10 @@ export class OutputTargetModal extends Modal {
     this.doPrompt = !this.isNotebookLM() && settings.includeStarterPrompt;
     this.doOpenUrl = !this.isNotebookLM() && settings.openAiUrl && !!preset.aiUrl;
     this.mode = settings.defaultMode ?? 'none';
-    this.epubState = {
-      bookTitle: source,
-      includeBrief: true,
-      includeToc: true,
-      includeSourceNotes: true,
-      stripFrontmatter: true,
-      convertObsidianLinks: true,
-      sortStrategy: 'ai-brief',
-    };
   }
 
   private isNotebookLM(): boolean {
     return this.state.activeTab === 'agents' && this.state.agentMode === 'notebooklm';
-  }
-
-  private isEpub(): boolean {
-    return this.state.activeTab === 'epub';
   }
 
   onOpen() {
@@ -90,17 +73,15 @@ export class OutputTargetModal extends Modal {
 
     this.previewEl = contentEl.createEl('div', { cls: 'cp-output-preview' });
     this.methodEl  = contentEl.createEl('div', { cls: 'cp-output-method' });
-    this.epubOptionsEl = contentEl.createEl('div', { cls: 'cp-epub-options' });
 
     this.updatePreview();
-    this.renderEpubOptions();
 
     const footerEl = contentEl.createEl('div', { cls: 'cp-output-footer' });
     footerEl.createEl('button', { text: t('btn_cancel'), cls: 'cp-output-cancel' })
       .addEventListener('click', () => this.close());
 
     this.submitBtnEl = footerEl.createEl('button', {
-      text: this.isEpub() ? t('epub_btn_create') : t('modal_btn_export'),
+      text: t('modal_btn_export'),
       cls: 'cp-output-submit mod-cta',
     });
     this.submitBtnEl.addEventListener('click', () => { void this.handleSubmit(); });
@@ -122,7 +103,6 @@ export class OutputTargetModal extends Modal {
         includeStarterPrompt: this.doPrompt,
         openAiUrl: this.doOpenUrl,
         mode: this.mode,
-        epubOptions: this.isEpub() ? { ...this.epubState } : undefined,
       });
     } finally {
       this.close();
@@ -135,7 +115,6 @@ export class OutputTargetModal extends Modal {
       { id: 'claude',  labelKey: 'tab.claude'  },
       { id: 'gemini',  labelKey: 'tab.gemini'  },
       { id: 'agents',  labelKey: 'tab.agents'  },
-      { id: 'epub',    labelKey: 'tab.epub'    },
     ];
     for (const tab of tabs) {
       const btn = container.createEl('button', {
@@ -153,7 +132,6 @@ export class OutputTargetModal extends Modal {
 
   private renderRadios() {
     this.radioEl.empty();
-    if (this.isEpub()) return;
 
     type RadioOpt = { value: string; labelKey: string };
     let options: RadioOpt[];
@@ -205,7 +183,7 @@ export class OutputTargetModal extends Modal {
 
   private renderModeSetting() {
     this.modeContainerEl.empty();
-    if (this.isEpub() || this.isNotebookLM()) return;
+    if (this.isNotebookLM()) return;
 
     new Setting(this.modeContainerEl)
       .setClass('cp-output-mode-setting')
@@ -223,78 +201,23 @@ export class OutputTargetModal extends Modal {
       });
   }
 
-  private renderEpubOptions() {
-    this.epubOptionsEl.empty();
-    if (!this.isEpub()) return;
-
-    const titleSetting = new Setting(this.epubOptionsEl)
-      .setName(t('epub_book_title'))
-      .addText(text => {
-        text.setValue(this.epubState.bookTitle);
-        text.onChange(v => { this.epubState.bookTitle = v; });
-        text.inputEl.style.width = '100%';
-      });
-    titleSetting.settingEl.style.border = 'none';
-
-    const checkboxDefs: { key: keyof EpubExportOptions; labelKey: string }[] = [
-      { key: 'includeBrief',         labelKey: 'epub_include_brief' },
-      { key: 'includeToc',           labelKey: 'epub_include_toc' },
-      { key: 'includeSourceNotes',   labelKey: 'epub_include_notes' },
-      { key: 'convertObsidianLinks', labelKey: 'epub_convert_links' },
-      { key: 'stripFrontmatter',     labelKey: 'epub_strip_frontmatter' },
-    ];
-
-    for (const def of checkboxDefs) {
-      this.renderCheckbox(
-        this.epubOptionsEl,
-        t(def.labelKey),
-        this.epubState[def.key] as boolean,
-        v => { (this.epubState[def.key] as boolean) = v; }
-      );
-    }
-
-    const sortOptions: { value: EpubSortStrategy; labelKey: string }[] = [
-      { value: 'ai-brief',  labelKey: 'epub_sort_ai_brief'  },
-      { value: 'current',   labelKey: 'epub_sort_current'   },
-      { value: 'title',     labelKey: 'epub_sort_title'     },
-      { value: 'filename',  labelKey: 'epub_sort_filename'  },
-    ];
-    new Setting(this.epubOptionsEl)
-      .setName(t('epub_sort_strategy'))
-      .addDropdown(drop => {
-        for (const opt of sortOptions) drop.addOption(opt.value, t(opt.labelKey));
-        drop.setValue(this.epubState.sortStrategy);
-        drop.onChange(v => { this.epubState.sortStrategy = v as EpubSortStrategy; });
-      });
-  }
-
   private onStateChange() {
-    const isEpub = this.isEpub();
-    if (!isEpub) {
-      const isNlm = this.isNotebookLM();
-      const preset = OUTPUT_PRESETS[getOutputTargetFromState(this.state)];
-      this.doCopy    = preset.copyToClipboard;
-      this.doFile    = preset.saveToFile;
-      this.doPrompt  = !isNlm && this.settings.includeStarterPrompt;
-      this.doOpenUrl = !isNlm && this.settings.openAiUrl && !!preset.aiUrl;
-    }
+    const isNlm = this.isNotebookLM();
+    const preset = OUTPUT_PRESETS[getOutputTargetFromState(this.state)];
+    this.doCopy    = preset.copyToClipboard;
+    this.doFile    = preset.saveToFile;
+    this.doPrompt  = !isNlm && this.settings.includeStarterPrompt;
+    this.doOpenUrl = !isNlm && this.settings.openAiUrl && !!preset.aiUrl;
     this.renderRadios();
     this.renderModeSetting();
     this.updatePreview();
-    this.renderEpubOptions();
-    if (this.submitBtnEl) {
-      this.submitBtnEl.setText(isEpub ? t('epub_btn_create') : t('modal_btn_export'));
-    }
   }
 
   private updatePreview() {
     const preset = OUTPUT_PRESETS[getOutputTargetFromState(this.state)];
     const isNlm = this.isNotebookLM();
-    const isEpub = this.isEpub();
     this.previewEl.empty();
     this.methodEl.empty();
-
-    if (isEpub) return;
 
     if (this.settings.showTokenCount) {
       const pk = getProjectKnowledgeInstructions(this.state);
