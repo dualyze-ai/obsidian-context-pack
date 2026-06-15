@@ -12,7 +12,7 @@ import { t } from './i18n';
 import { AIBriefGenerator } from './features/ai-brief/ai-brief-generator';
 import { BriefRenderer } from './features/ai-brief/brief-renderer';
 import { BriefExporter } from './features/ai-brief/brief-exporter';
-import { isAiBriefByHeadings, isAiBriefContent, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName, type BriefMocData } from './features/ai-brief/brief-moc-generator';
+import { isAiBriefByHeadings, isAiBriefContent, detectIsAiBrief, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName, type BriefMocData } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
@@ -871,12 +871,8 @@ export default class ContextPackPlugin extends Plugin {
 
   private isAiBriefFile(file: TFile): boolean {
     const cache = this.app.metadataCache.getFileCache(file);
-    const fm = cache?.frontmatter;
-    if (fm?.['generatedBy'] === 'ai-brief-generator') return true;
-    if (fm?.['sourceType'] === 'ai-brief') return true;
-    if (fm?.['generatedBy'] === 'ai-context-pack') return false;
     const headings = (cache?.headings ?? []).map(h => h.heading);
-    return isAiBriefByHeadings(headings);
+    return detectIsAiBrief(cache?.frontmatter, headings);
   }
 
   private getAiAdditionForTarget(target: OutputTarget): string {
