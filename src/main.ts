@@ -269,6 +269,14 @@ export default class ContextPackPlugin extends Plugin {
               .setTitle(t('menu_generate_ai_moc_from_brief'))
               .setIcon('layout-list')
               .onClick(() => void this.generateAiMocFromBrief(file)));
+            menu.addItem(item => item
+              .setTitle(t('menu_pack_from_brief'))
+              .setIcon('package')
+              .onClick(() => void this.packFromMoc(file)));
+            menu.addItem(item => item
+              .setTitle(t('menu_epub_from_brief'))
+              .setIcon('book')
+              .onClick(() => void this.createEpubFromBrief(file)));
           } else {
             menu.addItem(item => item
               .setTitle(t('menu_create_ai_moc'))
@@ -694,11 +702,6 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private async packFromMoc(moc: TFile) {
-    if (this.isAiBriefFile(moc)) {
-      new Notice(t('notice_ai_brief_not_packable'));
-      return;
-    }
-
     const cache = this.app.metadataCache.getFileCache(moc);
     const links = cache?.links?.map(l => l.link) ?? [];
 
@@ -1082,6 +1085,39 @@ export default class ContextPackPlugin extends Plugin {
       console.error('[AI Context Pack] EPUB export failed:', err);
       new Notice(t('notice_error'));
     }
+  }
+
+  private async createEpubFromBrief(briefFile: TFile): Promise<void> {
+    const cache = this.app.metadataCache.getFileCache(briefFile);
+    const links = cache?.links?.map(l => l.link) ?? [];
+    if (links.length === 0) {
+      new Notice(t('notice_no_links'));
+      return;
+    }
+
+    const sourceFiles: TFile[] = [];
+    for (const link of links) {
+      const resolved = this.app.metadataCache.getFirstLinkpathDest(link, briefFile.path);
+      if (resolved instanceof TFile && resolved.extension === 'md' && !this.isAiBriefFile(resolved)) {
+        sourceFiles.push(resolved);
+      }
+    }
+
+    if (sourceFiles.length === 0) {
+      new Notice(t('epub_notice_no_notes'));
+      return;
+    }
+
+    const source = briefFile.basename.replace(/\s*AI Brief(?:\s*MOC)?$/i, '').trim();
+    await this.exportAsEpub([briefFile, ...sourceFiles], source, {
+      bookTitle: source,
+      includeBrief: true,
+      includeToc: true,
+      includeSourceNotes: true,
+      stripFrontmatter: true,
+      convertObsidianLinks: true,
+      sortStrategy: 'ai-brief',
+    });
   }
 
   private sortFilesForEpub(files: TFile[], strategy: EpubSortStrategy, briefData?: BriefMocData): TFile[] {
