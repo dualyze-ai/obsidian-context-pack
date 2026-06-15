@@ -17,9 +17,9 @@ export function buildContentOpf(params: {
   modifiedDate: string;
   hasBrief: boolean;
   hasOverview: boolean;
-  chapterIds: string[];
+  contentItems: { id: string; href: string }[];
 }): string {
-  const { title, language, uuid, modifiedDate, hasBrief, hasOverview, chapterIds } = params;
+  const { title, language, uuid, modifiedDate, hasBrief, hasOverview, contentItems } = params;
 
   const manifestItems: string[] = [
     `<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>`,
@@ -32,16 +32,16 @@ export function buildContentOpf(params: {
   if (hasBrief) {
     manifestItems.push(`<item id="brief" href="brief.xhtml" media-type="application/xhtml+xml"/>`);
   }
-  for (const id of chapterIds) {
-    manifestItems.push(`<item id="${id}" href="${id}.xhtml" media-type="application/xhtml+xml"/>`);
+  for (const item of contentItems) {
+    manifestItems.push(`<item id="${item.id}" href="${item.href}" media-type="application/xhtml+xml"/>`);
   }
 
-  // Spine: cover → overview → brief → nav → chapters
+  // Spine: cover → overview → brief → nav → content (cluster pages interleaved with chapters)
   const spineItems: string[] = [`<itemref idref="cover"/>`];
   if (hasOverview) spineItems.push(`<itemref idref="overview"/>`);
   if (hasBrief) spineItems.push(`<itemref idref="brief"/>`);
   spineItems.push(`<itemref idref="nav"/>`);
-  for (const id of chapterIds) spineItems.push(`<itemref idref="${id}"/>`);
+  for (const item of contentItems) spineItems.push(`<itemref idref="${item.id}"/>`);
 
   return `<?xml version="1.0" encoding="utf-8"?>
 <package version="3.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid">
@@ -198,8 +198,11 @@ export function buildNavXhtml(params: {
 
     for (const cluster of clusters) {
       if (cluster.chapterIndices.length === 0) continue;
+      const clusterEntry = cluster.clusterId
+        ? `<a href="${cluster.clusterId}.xhtml">${escapeXml(cluster.name)}</a>`
+        : `<span>${escapeXml(cluster.name)}</span>`;
       lines.push(`    <li>`);
-      lines.push(`      <span>${escapeXml(cluster.name)}</span>`);
+      lines.push(`      ${clusterEntry}`);
       lines.push(`      <ol>`);
       for (const idx of cluster.chapterIndices) {
         const ch = chapters[idx];
@@ -235,6 +238,34 @@ export function buildNavXhtml(params: {
 ${lines.join('\n')}
     </ol>
   </nav>
+</body>
+</html>`;
+}
+
+export function buildClusterXhtml(params: {
+  name: string;
+  language: string;
+  chapters: { id: string; title: string }[];
+}): string {
+  const { name, language, chapters } = params;
+  const isJa = language === 'ja';
+  const sectionLabel = isJa ? 'このセクションのノート' : 'Notes in this section';
+  const items = chapters
+    .map(ch => `    <li><a href="${ch.id}.xhtml">${escapeXml(ch.title)}</a></li>`)
+    .join('\n');
+  return `<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="${language}">
+<head>
+  <title>${escapeXml(name)}</title>
+  <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+  <h1>${escapeXml(name)}</h1>
+  <h2>${sectionLabel}</h2>
+  <ol>
+${items}
+  </ol>
 </body>
 </html>`;
 }
