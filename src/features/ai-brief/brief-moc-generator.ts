@@ -57,6 +57,17 @@ export function isAiBriefByHeadings(headings: string[]): boolean {
   return headings.filter(h => AI_BRIEF_HEADING_NAMES.has(h)).length >= 2;
 }
 
+// Determine whether a file is an AI Brief based on frontmatter + headings.
+// AI Brief MOC files are excluded because they carry generatedBy: ai-context-pack.
+export function detectIsAiBrief(
+  frontmatter: Record<string, unknown> | null | undefined,
+  headings: string[]
+): boolean {
+  if (frontmatter?.['generatedBy'] === 'ai-brief-generator') return true;
+  if (frontmatter?.['generatedBy'] === 'ai-context-pack') return false;
+  return isAiBriefByHeadings(headings);
+}
+
 // Check using raw file content
 export function isAiBrief(content: string): boolean {
   const allHeadings = [...BRIEF_HEADINGS_EN, ...BRIEF_HEADINGS_JA];
