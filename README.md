@@ -121,6 +121,10 @@ Read your knowledge in:
 - Kobo
 - Other EPUB readers
 
+<div align="center">
+<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/knowledge-book-overview.png" width="90%">
+</div>
+
 ---
 
 ### 6. Ask questions with your AI assistant
