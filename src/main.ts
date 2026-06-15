@@ -1070,7 +1070,7 @@ export default class ContextPackPlugin extends Plugin {
 
     try {
       const data = buildEpub(input);
-      const filename = sanitizeFilename(bookTitle) + '.epub';
+      const filename = sanitizeFilename(opts.filename ?? bookTitle).toLowerCase() + '.epub';
       const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
       const path = outputFolder ? `${outputFolder}/${filename}` : filename;
       const ab = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer;
@@ -1135,6 +1135,7 @@ export default class ContextPackPlugin extends Plugin {
     const source = briefFile.basename.replace(/\s*AI Brief(?:\s*MOC)?$/i, '').trim();
     await this.exportAsEpub([briefFile, ...sourceFiles], source, {
       bookTitle: source,
+      filename: briefFile.basename,
       includeBrief: true,
       includeToc: true,
       includeSourceNotes: true,

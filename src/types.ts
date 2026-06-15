@@ -16,6 +16,7 @@ export type EpubSortStrategy = 'current' | 'title' | 'filename' | 'ai-brief';
 
 export interface EpubExportOptions {
   bookTitle: string;
+  filename?: string;
   includeBrief: boolean;
   includeToc: boolean;
   includeSourceNotes: boolean;
