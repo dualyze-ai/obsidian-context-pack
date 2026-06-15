@@ -5,7 +5,7 @@ import { buildContextPack } from './context-pack';
 import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
 import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
-import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState } from './types';
+import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState, type EpubExportOptions } from './types';
 import { AiMocModal } from './ai-moc-modal';
 import { ConfirmModal } from './ai-moc';
 import { t } from './i18n';
@@ -17,6 +17,9 @@ import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
 import type { PackRecord } from './freshness/types';
+import { buildEpub } from './epub/epubBuilder';
+import { sanitizeFilename } from './epub/epubSanitizer';
+import type { EpubBookInput, EpubChapter } from './epub/epubTypes';
 
 interface PackMeta {
   source: PackRecord['source'];
@@ -888,6 +891,17 @@ export default class ContextPackPlugin extends Plugin {
 
     if (this.settings.showOutputModal) {
       new OutputTargetModal(this.app, content, this.settings, () => this.saveSettings(), async (choice) => {
+        if (choice.target === 'epub') {
+          await this.exportAsEpub(packMeta?.files ?? [], source, choice.epubOptions ?? {
+            bookTitle: source,
+            includeBrief: true,
+            includeToc: true,
+            includeSourceNotes: true,
+            stripFrontmatter: true,
+            convertObsidianLinks: true,
+          });
+          return;
+        }
         const preset = OUTPUT_PRESETS[choice.target];
         const finalContent = (choice.includeStarterPrompt && preset.supportsStarterPrompt)
           ? this.applyStarterPrompt(content, source, noteCount, choice.selectorState, choice.mode, hasAiBrief)
@@ -906,10 +920,14 @@ export default class ContextPackPlugin extends Plugin {
           await this.savePackRecord(packMeta, choice.target, choice.selectorState);
           this.refreshFreshnessViewIfOpen();
         }
-      }).open();
+      }, source).open();
     } else {
       const selectorState = this.settings.outputSelectorState;
       const target = getOutputTargetFromState(selectorState);
+      if (target === 'epub') {
+        new Notice(t('modal_select_target'));
+        return;
+      }
       const preset = OUTPUT_PRESETS[target];
       const doPrompt = this.settings.includeStarterPrompt && preset.supportsStarterPrompt;
       const finalContent = doPrompt
@@ -947,6 +965,67 @@ export default class ContextPackPlugin extends Plugin {
       new Notice(`${t('notice_pack_done', noteCount)}\n📄 ${path}`, 8000);
     } catch (err) {
       console.error('[AI Context Pack] Failed to save pack:', err);
+      new Notice(t('notice_error'));
+    }
+  }
+
+  private async exportAsEpub(files: TFile[], source: string, opts: EpubExportOptions): Promise<void> {
+    const briefFile = opts.includeBrief ? files.find(f => this.isAiBriefFile(f)) : undefined;
+    const sourceFiles = opts.includeSourceNotes ? files.filter(f => !this.isAiBriefFile(f)) : [];
+
+    let briefMarkdown: string | undefined;
+    if (briefFile) {
+      briefMarkdown = await this.app.vault.read(briefFile);
+    }
+
+    if (!briefMarkdown && sourceFiles.length === 0) {
+      new Notice(t('epub_notice_no_notes'));
+      return;
+    }
+
+    const chapters: EpubChapter[] = [];
+    for (const file of sourceFiles) {
+      const md = await this.app.vault.read(file);
+      chapters.push({
+        id: sanitizeFilename(file.basename),
+        title: file.basename,
+        markdown: md,
+        sourcePath: file.path,
+      });
+    }
+
+    const lang = (window.moment?.locale() === 'ja') ? 'ja' : 'en';
+    const bookTitle = opts.bookTitle || source;
+
+    const input: EpubBookInput = {
+      options: {
+        title: bookTitle,
+        language: lang,
+        includeBrief: opts.includeBrief,
+        includeToc: opts.includeToc,
+        includeSourceNotes: opts.includeSourceNotes,
+        stripFrontmatter: opts.stripFrontmatter,
+        convertObsidianLinks: opts.convertObsidianLinks,
+      },
+      briefMarkdown,
+      chapters,
+    };
+
+    try {
+      const data = buildEpub(input);
+      const filename = sanitizeFilename(bookTitle) + '.epub';
+      const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+      const path = outputFolder ? `${outputFolder}/${filename}` : filename;
+      const ab = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer;
+      const existing = this.app.vault.getAbstractFileByPath(path);
+      if (existing instanceof TFile) {
+        await this.app.vault.modifyBinary(existing, ab);
+      } else {
+        await this.app.vault.createBinary(path, ab);
+      }
+      new Notice(t('epub_notice_exported', filename), 8000);
+    } catch (err) {
+      console.error('[AI Context Pack] EPUB export failed:', err);
       new Notice(t('notice_error'));
     }
   }
