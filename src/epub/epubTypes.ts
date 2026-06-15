@@ -16,8 +16,14 @@ export interface EpubChapter {
   sourcePath?: string;
 }
 
+export interface EpubCluster {
+  name: string;
+  chapterIndices: number[];
+}
+
 export interface EpubBookInput {
   options: EpubBookOptions;
   briefMarkdown?: string;
   chapters: EpubChapter[];
+  clusters?: EpubCluster[];
 }

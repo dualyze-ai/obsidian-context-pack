@@ -13,6 +13,10 @@ export function sanitizeFilename(title: string): string {
   return title.replace(/[/\\:*?"<>|]/g, '-').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'untitled';
 }
 
+export function stripLeadingH1(markdown: string): string {
+  return markdown.replace(/^#\s+[^\n]*\n?/, '');
+}
+
 export function escapeXml(text: string): string {
   return text
     .replace(/&/g, '&amp;')
