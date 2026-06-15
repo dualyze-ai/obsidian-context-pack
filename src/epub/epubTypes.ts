@@ -20,6 +20,7 @@ export interface EpubCluster {
   name: string;
   chapterIndices: number[];
   representativeNotes?: string[];
+  clusterId?: string;
 }
 
 export interface EpubBookInput {

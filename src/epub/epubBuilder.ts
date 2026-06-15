@@ -4,7 +4,7 @@ import { stripFrontmatter, convertObsidianLinks, stripTitleH1 } from './epubSani
 import { markdownToXhtml } from './markdownToXhtml';
 import {
   buildContainerXml, buildContentOpf, buildCoverXhtml, buildOverviewXhtml,
-  buildNavXhtml, buildChapterXhtml, EPUB_CSS,
+  buildNavXhtml, buildClusterXhtml, buildChapterXhtml, EPUB_CSS,
 } from './epubTemplates';
 
 export function buildEpub(input: EpubBookInput): Uint8Array {
@@ -63,12 +63,57 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     };
   });
 
-  const chapterIds = processedChapters.map(c => c.id);
   const chapterList = processedChapters.map(c => ({ id: c.id, title: c.title }));
 
+  // Filter clusters that actually have chapters, then generate a cluster landing page for each
   const epubClusters: EpubCluster[] | undefined = clusters && clusters.length > 0
     ? clusters.filter(c => c.chapterIndices.length > 0)
     : undefined;
+
+  type ClusterPage = { id: string; href: string; xhtml: string };
+  const clusterPages: ClusterPage[] = [];
+
+  if (epubClusters) {
+    epubClusters.forEach((cluster, i) => {
+      const id = `cluster-${String(i + 1).padStart(3, '0')}`;
+      cluster.clusterId = id;
+      const clusterChapters = cluster.chapterIndices
+        .map(idx => processedChapters[idx])
+        .filter((ch): ch is typeof processedChapters[0] => !!ch);
+      const xhtml = buildClusterXhtml({
+        name: cluster.name,
+        language: lang,
+        chapters: clusterChapters.map(ch => ({ id: ch.id, title: ch.title })),
+      });
+      clusterPages.push({ id, href: `${id}.xhtml`, xhtml });
+    });
+  }
+
+  // Build spine-order content items: cluster page → its chapters, then unclustered chapters
+  const contentItems: { id: string; href: string }[] = [];
+  if (epubClusters) {
+    const assignedChapterIds = new Set<string>();
+    for (const cluster of epubClusters) {
+      const page = clusterPages.find(p => p.id === cluster.clusterId);
+      if (page) contentItems.push({ id: page.id, href: page.href });
+      for (const idx of cluster.chapterIndices) {
+        const ch = processedChapters[idx];
+        if (ch && !assignedChapterIds.has(ch.id)) {
+          assignedChapterIds.add(ch.id);
+          contentItems.push({ id: ch.id, href: `${ch.id}.xhtml` });
+        }
+      }
+    }
+    for (const ch of processedChapters) {
+      if (!assignedChapterIds.has(ch.id)) {
+        contentItems.push({ id: ch.id, href: `${ch.id}.xhtml` });
+      }
+    }
+  } else {
+    for (const ch of processedChapters) {
+      contentItems.push({ id: ch.id, href: `${ch.id}.xhtml` });
+    }
+  }
 
   const navXhtml = buildNavXhtml({
     title: options.title,
@@ -86,7 +131,7 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     modifiedDate,
     hasBrief,
     hasOverview,
-    chapterIds,
+    contentItems,
   });
 
   type ZipEntry = Uint8Array | [Uint8Array, { level: number }];
@@ -102,6 +147,10 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
 
   if (hasBrief) {
     files['OEBPS/brief.xhtml'] = strToU8(briefXhtml) as Uint8Array;
+  }
+
+  for (const page of clusterPages) {
+    files[`OEBPS/${page.href}`] = strToU8(page.xhtml) as Uint8Array;
   }
 
   for (const ch of processedChapters) {
