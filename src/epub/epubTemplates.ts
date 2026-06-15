@@ -190,7 +190,7 @@ export function buildNavXhtml(params: {
   chapters: { id: string; title: string }[];
   clusters?: EpubCluster[];
 }): string {
-  const { title, language, hasBrief, hasOverview, chapters, clusters } = params;
+  const { language, hasBrief, hasOverview, chapters, clusters } = params;
   const isJa = language === 'ja';
   const tocLabel = isJa ? '目次' : 'Table of Contents';
   const prefaceLabel = isJa ? 'まえがき' : 'Preface';
