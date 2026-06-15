@@ -32,13 +32,14 @@ export class OutputTargetModal extends Modal {
   private radioEl!: HTMLElement;
   private modeContainerEl!: HTMLElement;
   private modeSelectEl!: HTMLSelectElement;
+  private submitBtnEl!: HTMLButtonElement;
 
   constructor(
     app: App,
     private content: string,
     private settings: PluginSettings,
     private saveSettings: () => Promise<void>,
-    private onSubmit: (choice: OutputChoice) => Promise<void>
+    private onSubmit: (choice: OutputChoice) => Promise<void>,
   ) {
     super(app);
     this.state = { ...settings.outputSelectorState };
@@ -72,14 +73,18 @@ export class OutputTargetModal extends Modal {
 
     this.previewEl = contentEl.createEl('div', { cls: 'cp-output-preview' });
     this.methodEl  = contentEl.createEl('div', { cls: 'cp-output-method' });
+
     this.updatePreview();
 
     const footerEl = contentEl.createEl('div', { cls: 'cp-output-footer' });
     footerEl.createEl('button', { text: t('btn_cancel'), cls: 'cp-output-cancel' })
       .addEventListener('click', () => this.close());
 
-    footerEl.createEl('button', { text: t('modal_btn_export'), cls: 'cp-output-submit mod-cta' })
-      .addEventListener('click', () => { void this.handleSubmit(); });
+    this.submitBtnEl = footerEl.createEl('button', {
+      text: t('modal_btn_export'),
+      cls: 'cp-output-submit mod-cta',
+    });
+    this.submitBtnEl.addEventListener('click', () => { void this.handleSubmit(); });
   }
 
   onClose() {
