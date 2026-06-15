@@ -14,7 +14,7 @@ export function sanitizeFilename(title: string): string {
 }
 
 export function stripTitleH1(markdown: string, title: string): string {
-  const lines = markdown.replace(/^﻿/, '').split(/\r?\n/);
+  const lines = markdown.replace(/^\uFEFF/, '').split(/\r?\n/);
 
   while (lines.length > 0 && lines[0].trim() === '') {
     lines.shift();

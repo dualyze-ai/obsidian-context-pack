@@ -157,5 +157,5 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     files[`OEBPS/${ch.id}.xhtml`] = strToU8(ch.xhtml) as Uint8Array;
   }
 
-  return zipSync(files as Parameters<typeof zipSync>[0]);
+  return zipSync(files as Parameters<typeof zipSync>[0]) as Uint8Array;
 }
