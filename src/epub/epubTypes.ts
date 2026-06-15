@@ -19,6 +19,7 @@ export interface EpubChapter {
 export interface EpubCluster {
   name: string;
   chapterIndices: number[];
+  representativeNotes?: string[];
 }
 
 export interface EpubBookInput {
