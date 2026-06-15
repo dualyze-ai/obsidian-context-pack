@@ -6,7 +6,7 @@
 <img src="docs/demo-workflow.gif" width="100%">
 </div>
 
-*Analyze notes, generate AI MOCs, export Context Packs, and ask grounded questions with AI.*
+*Analyze notes, generate AI MOCs, export Context Packs, create Knowledge Books, and ask grounded questions with AI.*
 
 📖 **Step-by-step Tutorial**
 
@@ -20,7 +20,7 @@ Learn how to:
 → Read the complete tutorial:
 [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
 
-## ✨ New in v3.2: Analyze → Organize → Export → Ask
+## ✨ New in v3.3: Analyze → Organize → Export → Ask → Read
 
 AI Context Pack now helps you move from scattered notes to reusable AI knowledge in a clearer workflow:
 
@@ -36,6 +36,12 @@ Generate AI MOC from AI Brief
 Create Context Pack
 ↓
 Ask questions in ChatGPT / Claude / Gemini / NotebookLM / Claude Code
+
+OR
+
+Create Knowledge Book (EPUB)
+↓
+Read in Kindle / Apple Books / Kobo
 ```
 
 ### 1. Analyze your vault with AI Brief
@@ -95,7 +101,48 @@ Create a clean Context Pack from the AI MOC.
 
 ---
 
-### 5. Ask questions with your AI assistant
+### 5. Create a Knowledge Book (EPUB)
+
+Turn an AI Brief into a structured EPUB knowledge book.
+
+AI Context Pack uses the AI Brief structure to create:
+
+- Cover page
+- Overview
+- Preface
+- Hierarchical table of contents
+- Topic clusters
+- Source notes
+
+```text
+Folder
+↓
+Generate AI Brief
+↓
+Create Knowledge Book (EPUB)
+↓
+Read in Kindle / Apple Books / Kobo
+```
+
+Supported readers:
+
+- Kindle (via Send to Kindle)
+- Apple Books
+- Kobo
+- Google Play Books
+- Most EPUB readers
+
+Unlike traditional Markdown-to-EPUB exporters, AI Context Pack preserves the knowledge structure discovered by AI Brief and converts it into a navigable book.
+
+<div align="center">
+<img src="docs/knowledge-book-overview.png" width="90%">
+</div>
+
+*Knowledge Book generated from an AI Brief.*
+
+---
+
+### 6. Ask questions with your AI assistant
 
 Upload the exported Context Pack and ask natural-language questions.
 
@@ -150,6 +197,12 @@ Obsidian Vault
 ChatGPT / Claude
 Gemini / NotebookLM
 Claude Code
+
+        OR
+
+   Create Knowledge Book
+        ↓
+Kindle / Apple Books / Kobo
 ```
 
 ## Project Knowledge Packs
@@ -225,6 +278,19 @@ See how AI Brief becomes an AI MOC:
 
 - [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
 
+### Knowledge Books (EPUB)
+
+Create structured EPUB books from AI Briefs.
+
+Features:
+
+- Cover generation
+- Overview pages
+- AI Brief integration
+- Hierarchical table of contents
+- Topic cluster navigation
+- Kindle-compatible EPUB output
+
 ### Output Targets
 
 Choose where the pack will be used:
@@ -239,6 +305,13 @@ Choose where the pack will be used:
 - NotebookLM
 
 AI-specific instructions are added automatically.
+
+## Human Reading Targets
+
+- EPUB Knowledge Book
+- Kindle
+- Apple Books
+- Kobo
 
 ### Purpose-Aware Modes
 
@@ -345,6 +418,7 @@ Complete feature reference:
 
 - Project Knowledge Packs
 - Context Pack
+- Knowledge Books (EPUB)
 - Output Targets
 - AI MOC
 - Mode Selector
@@ -366,7 +440,7 @@ Step-by-step guides for:
 
 ### [AI Brief Workflow](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-workflow.md)
 
-Analyze → Organize → Export → Ask workflow:
+Analyze → Organize → Export → Ask → Read workflow:
 
 - Generate AI Brief
 - Visualize Knowledge Map
@@ -389,6 +463,19 @@ Understand your vault before exporting it.
 See the complete tutorial:
 
 - [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
+
+### Knowledge Books (EPUB)
+
+Create structured EPUB books from AI Briefs.
+
+Features:
+
+- Cover generation
+- Overview pages
+- AI Brief integration
+- Hierarchical table of contents
+- Topic cluster navigation
+- Kindle-compatible EPUB output
 
 ### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
@@ -434,6 +521,10 @@ Current focus:
 - Enhanced AI MOC generation
 - Improved token management
 - Larger vault support
+- Knowledge Book enhancements
+- EPUB improvements
+- Cover image support
+- Mermaid diagram export
 
 ---
 

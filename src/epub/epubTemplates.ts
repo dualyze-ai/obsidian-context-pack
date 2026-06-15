@@ -102,13 +102,26 @@ export function buildOverviewXhtml(params: {
   const readingOrderLabel = isJa ? '推奨読書順序' : 'Recommended Reading Order';
 
   const clusterCount = clusters.length;
-  const introText = clusterCount > 0
-    ? (isJa
-        ? `このブックには${noteCount}件のノートが${clusterCount}つのトピックに整理されています。`
-        : `This book contains ${noteCount} note${noteCount !== 1 ? 's' : ''} organized into ${clusterCount} topic${clusterCount !== 1 ? 's' : ''}.`)
-    : (isJa
+  const introText = (() => {
+    if (clusterCount === 0) {
+      return isJa
         ? `このブックには${noteCount}件のノートが含まれています。`
-        : `This book contains ${noteCount} note${noteCount !== 1 ? 's' : ''}.`);
+        : `This book contains ${noteCount} note${noteCount !== 1 ? 's' : ''}.`;
+    }
+    const names = clusters.map(c => c.name);
+    const noteLabel = isJa ? `${noteCount}件` : `${noteCount} interconnected note${noteCount !== 1 ? 's' : ''}`;
+    if (isJa) {
+      const joined = names.length > 1
+        ? names.slice(0, -1).join('、') + '、そして' + names[names.length - 1]
+        : names[0];
+      return `このブックは${joined}を、${noteLabel}を通じて探求します。`;
+    } else {
+      const joined = names.length > 1
+        ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1]
+        : names[0];
+      return `This book explores ${joined} through a collection of ${noteLabel}.`;
+    }
+  })();
 
   const body: string[] = [];
   body.push(`<p>${escapeXml(introText)}</p>`);
