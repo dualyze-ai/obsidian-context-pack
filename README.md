@@ -122,7 +122,7 @@ Read your knowledge in:
 - Other EPUB readers
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/feature/epub-export/docs/knowledge-book-overview.png" width="90%">
+<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/knowledge-book-overview.png" width="90%">
 </div>
 
 ---
