@@ -1,6 +1,6 @@
 import { zipSync, strToU8 } from 'fflate';
 import type { EpubBookInput, EpubCluster } from './epubTypes';
-import { stripFrontmatter, convertObsidianLinks, stripTitleH1 } from './epubSanitizer';
+import { stripFrontmatter, convertObsidianLinks, stripTitleH1, stripBriefSections } from './epubSanitizer';
 import { markdownToXhtml } from './markdownToXhtml';
 import {
   buildContainerXml, buildContentOpf, buildCoverXhtml, buildOverviewXhtml,
@@ -48,7 +48,7 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     ? buildChapterXhtml({
         title: lang === 'ja' ? 'まえがき' : 'Preface',
         language: lang,
-        bodyContent: markdownToXhtml(processMarkdown(briefMarkdown)),
+        bodyContent: markdownToXhtml(processMarkdown(stripBriefSections(briefMarkdown))),
       })
     : '';
 

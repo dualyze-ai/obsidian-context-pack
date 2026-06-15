@@ -27,6 +27,21 @@ export function stripTitleH1(markdown: string, title: string): string {
   return lines.join('\n').trimStart();
 }
 
+const EPUB_EXCLUDED_BRIEF_SECTIONS = new Set([
+  'Suggested Prompts', '推奨プロンプト',
+  'Knowledge Health', 'ナレッジヘルス',
+  'Open Questions', '未解決の課題',
+]);
+
+export function stripBriefSections(markdown: string): string {
+  const parts = markdown.split(/(?=^## )/m);
+  return parts.filter(part => {
+    const m = part.match(/^## (.+)/);
+    if (!m) return true;
+    return !EPUB_EXCLUDED_BRIEF_SECTIONS.has(m[1].trim());
+  }).join('');
+}
+
 export function escapeXml(text: string): string {
   return text
     .replace(/&/g, '&amp;')
