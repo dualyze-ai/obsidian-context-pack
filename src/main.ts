@@ -27,6 +27,10 @@ interface PackMeta {
   name: string;
 }
 
+function stripWikilink(name: string): string {
+  return name.replace(/^\[\[/, '').replace(/\]\]$/, '').split('|')[0].trim();
+}
+
 function commonFolderOfFiles(files: TFile[]): string {
   if (files.length === 0) return '';
   const parts = files[0].path.split('/');
@@ -1018,7 +1022,8 @@ export default class ContextPackPlugin extends Plugin {
           const seen = new Set<number>();
           const indices: number[] = [];
           for (const name of allNotes) {
-            const idx = titleToIdx.get(name.toLowerCase());
+            const basename = stripWikilink(name);
+            const idx = titleToIdx.get(basename.toLowerCase());
             if (idx !== undefined && !seen.has(idx)) {
               seen.add(idx);
               indices.push(idx);
@@ -1095,7 +1100,7 @@ export default class ContextPackPlugin extends Plugin {
     const seen = new Set<string>();
     for (const cluster of briefData.clusters) {
       for (const name of [...cluster.representativeNotes, ...cluster.additionalNotes]) {
-        const lower = name.toLowerCase();
+        const lower = stripWikilink(name).toLowerCase();
         if (!seen.has(lower)) {
           seen.add(lower);
           orderedNames.push(lower);
