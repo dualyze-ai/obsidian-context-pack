@@ -1088,17 +1088,41 @@ export default class ContextPackPlugin extends Plugin {
   }
 
   private async createEpubFromBrief(briefFile: TFile): Promise<void> {
-    const cache = this.app.metadataCache.getFileCache(briefFile);
-    const links = cache?.links?.map(l => l.link) ?? [];
-    if (links.length === 0) {
+    const briefContent = await this.app.vault.read(briefFile);
+    const briefData = parseBriefContent(briefContent);
+
+    // Collect all note names referenced in AI Brief clusters
+    const noteNames: string[] = [];
+    if (briefData && briefData.clusters.length > 0) {
+      const seen = new Set<string>();
+      for (const cluster of briefData.clusters) {
+        for (const name of [...cluster.representativeNotes, ...cluster.additionalNotes]) {
+          const basename = stripWikilink(name);
+          if (basename && !seen.has(basename.toLowerCase())) {
+            seen.add(basename.toLowerCase());
+            noteNames.push(basename);
+          }
+        }
+      }
+    }
+
+    // Fall back to metadata cache links if parseBriefContent found nothing
+    if (noteNames.length === 0) {
+      const cache = this.app.metadataCache.getFileCache(briefFile);
+      for (const l of cache?.links ?? []) noteNames.push(l.link);
+    }
+
+    if (noteNames.length === 0) {
       new Notice(t('notice_no_links'));
       return;
     }
 
     const sourceFiles: TFile[] = [];
-    for (const link of links) {
-      const resolved = this.app.metadataCache.getFirstLinkpathDest(link, briefFile.path);
-      if (resolved instanceof TFile && resolved.extension === 'md' && !this.isAiBriefFile(resolved)) {
+    const added = new Set<string>();
+    for (const name of noteNames) {
+      const resolved = this.app.metadataCache.getFirstLinkpathDest(name, briefFile.path);
+      if (resolved instanceof TFile && resolved.extension === 'md' && !added.has(resolved.path)) {
+        added.add(resolved.path);
         sourceFiles.push(resolved);
       }
     }
