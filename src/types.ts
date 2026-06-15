@@ -12,6 +12,8 @@ export type OutputKind = 'chat' | 'agent';
 
 export type OutputTab = 'chatgpt' | 'claude' | 'gemini' | 'agents' | 'epub';
 
+export type EpubSortStrategy = 'current' | 'title' | 'filename' | 'ai-brief';
+
 export interface EpubExportOptions {
   bookTitle: string;
   includeBrief: boolean;
@@ -19,6 +21,7 @@ export interface EpubExportOptions {
   includeSourceNotes: boolean;
   stripFrontmatter: boolean;
   convertObsidianLinks: boolean;
+  sortStrategy: EpubSortStrategy;
 }
 
 export type ChatGPTMode = 'chat' | 'projects';
