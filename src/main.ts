@@ -1132,9 +1132,15 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
-    const source = briefFile.basename.replace(/\s*AI Brief(?:\s*MOC)?$/i, '').trim();
+    // Prefer frontmatter 'source' field as human-readable book title
+    const fm = this.app.metadataCache.getFileCache(briefFile)?.frontmatter;
+    const bookTitle = (fm?.['source'] as string | undefined)?.trim()
+      || briefFile.basename.replace(/[\s_-]*AI[\s-]?Brief(?:[\s_-]?MOC)?$/i, '').trim()
+      || briefFile.basename;
+    const source = bookTitle;
+
     await this.exportAsEpub([briefFile, ...sourceFiles], source, {
-      bookTitle: source,
+      bookTitle,
       filename: briefFile.basename,
       includeBrief: true,
       includeToc: true,
