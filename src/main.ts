@@ -19,7 +19,7 @@ import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/che
 import type { PackRecord } from './freshness/types';
 import { buildEpub } from './epub/epubBuilder';
 import { sanitizeFilename } from './epub/epubSanitizer';
-import type { EpubBookInput, EpubChapter } from './epub/epubTypes';
+import type { EpubBookInput, EpubChapter, EpubCluster } from './epub/epubTypes';
 
 interface PackMeta {
   source: PackRecord['source'];
@@ -997,6 +997,31 @@ export default class ContextPackPlugin extends Plugin {
     const lang = (window.moment?.locale() === 'ja') ? 'ja' : 'en';
     const bookTitle = opts.bookTitle || source;
 
+    // Parse AI Brief for cluster groupings in TOC
+    let clusters: EpubCluster[] | undefined;
+    if (briefMarkdown) {
+      const briefData = parseBriefContent(briefMarkdown);
+      if (briefData && briefData.clusters.length > 0) {
+        const titleToIdx = new Map(chapters.map((ch, i) => [ch.title.toLowerCase(), i]));
+        const mapped = briefData.clusters
+          .map(cluster => {
+            const allNotes = [...cluster.representativeNotes, ...cluster.additionalNotes];
+            const seen = new Set<number>();
+            const indices: number[] = [];
+            for (const name of allNotes) {
+              const idx = titleToIdx.get(name.toLowerCase());
+              if (idx !== undefined && !seen.has(idx)) {
+                seen.add(idx);
+                indices.push(idx);
+              }
+            }
+            return { name: cluster.name, chapterIndices: indices };
+          })
+          .filter(c => c.chapterIndices.length > 0);
+        if (mapped.length > 0) clusters = mapped;
+      }
+    }
+
     const input: EpubBookInput = {
       options: {
         title: bookTitle,
@@ -1009,6 +1034,7 @@ export default class ContextPackPlugin extends Plugin {
       },
       briefMarkdown,
       chapters,
+      clusters,
     };
 
     try {
