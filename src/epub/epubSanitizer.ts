@@ -13,8 +13,12 @@ export function sanitizeFilename(title: string): string {
   return title.replace(/[/\\:*?"<>|]/g, '-').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'untitled';
 }
 
-export function stripLeadingH1(markdown: string): string {
-  return markdown.replace(/^#\s+[^\n]*\n?/, '');
+export function stripTitleH1(markdown: string, title: string): string {
+  const lines = markdown.split('\n');
+  if (lines.length > 0 && lines[0].trim() === `# ${title}`) {
+    lines.shift();
+  }
+  return lines.join('\n');
 }
 
 export function escapeXml(text: string): string {

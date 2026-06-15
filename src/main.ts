@@ -1015,7 +1015,11 @@ export default class ContextPackPlugin extends Plugin {
                 indices.push(idx);
               }
             }
-            return { name: cluster.name, chapterIndices: indices };
+            return {
+              name: cluster.name,
+              chapterIndices: indices,
+              representativeNotes: cluster.representativeNotes,
+            };
           })
           .filter(c => c.chapterIndices.length > 0);
         if (mapped.length > 0) clusters = mapped;

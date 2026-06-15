@@ -16,15 +16,19 @@ export function buildContentOpf(params: {
   uuid: string;
   modifiedDate: string;
   hasBrief: boolean;
+  hasOverview: boolean;
   chapterIds: string[];
 }): string {
-  const { title, language, uuid, modifiedDate, hasBrief, chapterIds } = params;
+  const { title, language, uuid, modifiedDate, hasBrief, hasOverview, chapterIds } = params;
 
   const manifestItems: string[] = [
     `<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>`,
     `<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>`,
     `<item id="css" href="styles.css" media-type="text/css"/>`,
   ];
+  if (hasOverview) {
+    manifestItems.push(`<item id="overview" href="overview.xhtml" media-type="application/xhtml+xml"/>`);
+  }
   if (hasBrief) {
     manifestItems.push(`<item id="brief" href="brief.xhtml" media-type="application/xhtml+xml"/>`);
   }
@@ -32,8 +36,9 @@ export function buildContentOpf(params: {
     manifestItems.push(`<item id="${id}" href="${id}.xhtml" media-type="application/xhtml+xml"/>`);
   }
 
-  // Spine: cover → brief → nav → chapters
+  // Spine: cover → overview → brief → nav → chapters
   const spineItems: string[] = [`<itemref idref="cover"/>`];
+  if (hasOverview) spineItems.push(`<itemref idref="overview"/>`);
   if (hasBrief) spineItems.push(`<itemref idref="brief"/>`);
   spineItems.push(`<itemref idref="nav"/>`);
   for (const id of chapterIds) spineItems.push(`<itemref idref="${id}"/>`);
@@ -63,7 +68,8 @@ export function buildCoverXhtml(params: {
   generatedDate: string;
 }): string {
   const { title, language, noteCount, generatedDate } = params;
-  const noteLabel = language === 'ja' ? `${noteCount} ノート` : `${noteCount} note${noteCount !== 1 ? 's' : ''}`;
+  const isJa = language === 'ja';
+  const noteLabel = isJa ? `${noteCount} ノート` : `${noteCount} note${noteCount !== 1 ? 's' : ''}`;
   return `<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="${language}">
@@ -81,27 +87,113 @@ export function buildCoverXhtml(params: {
 </html>`;
 }
 
+export function buildOverviewXhtml(params: {
+  title: string;
+  language: string;
+  noteCount: number;
+  clusters: EpubCluster[];
+}): string {
+  const { title, language, noteCount, clusters } = params;
+  const isJa = language === 'ja';
+
+  const pageTitle = isJa ? '概要' : 'Overview';
+  const mainTopicsLabel = isJa ? '主要トピック' : 'Main Topics';
+  const keyNotesLabel = isJa ? '主要ノート' : 'Key Notes';
+  const readingOrderLabel = isJa ? '推奨読書順序' : 'Recommended Reading Order';
+
+  const clusterCount = clusters.length;
+  const introText = clusterCount > 0
+    ? (isJa
+        ? `このブックには${noteCount}件のノートが${clusterCount}つのトピックに整理されています。`
+        : `This book contains ${noteCount} note${noteCount !== 1 ? 's' : ''} organized into ${clusterCount} topic${clusterCount !== 1 ? 's' : ''}.`)
+    : (isJa
+        ? `このブックには${noteCount}件のノートが含まれています。`
+        : `This book contains ${noteCount} note${noteCount !== 1 ? 's' : ''}.`);
+
+  const body: string[] = [];
+  body.push(`<p>${escapeXml(introText)}</p>`);
+
+  if (clusters.length > 0) {
+    // Main Topics
+    body.push(`<h2>${mainTopicsLabel}</h2>`);
+    body.push('<ul>');
+    for (const c of clusters) {
+      const count = c.chapterIndices.length;
+      const suffix = count > 0
+        ? (isJa ? `（${count}件）` : ` (${count} note${count !== 1 ? 's' : ''})`)
+        : '';
+      body.push(`  <li>${escapeXml(c.name)}${suffix}</li>`);
+    }
+    body.push('</ul>');
+
+    // Key Notes — collect representative notes across all clusters, deduplicated
+    const seen = new Set<string>();
+    const keyNotes: string[] = [];
+    for (const c of clusters) {
+      for (const note of c.representativeNotes ?? []) {
+        if (!seen.has(note)) {
+          seen.add(note);
+          keyNotes.push(note);
+        }
+      }
+    }
+    if (keyNotes.length > 0) {
+      body.push(`<h2>${keyNotesLabel}</h2>`);
+      body.push('<ul>');
+      for (const note of keyNotes.slice(0, 12)) {
+        body.push(`  <li>${escapeXml(note)}</li>`);
+      }
+      body.push('</ul>');
+    }
+
+    // Recommended Reading Order
+    body.push(`<h2>${readingOrderLabel}</h2>`);
+    body.push('<ol>');
+    for (const c of clusters) {
+      body.push(`  <li>${escapeXml(c.name)}</li>`);
+    }
+    body.push('</ol>');
+  }
+
+  return `<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="${language}">
+<head>
+  <title>${escapeXml(pageTitle)}</title>
+  <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+  <h1>${escapeXml(title)}</h1>
+  ${body.join('\n  ')}
+</body>
+</html>`;
+}
+
 export function buildNavXhtml(params: {
   title: string;
   language: string;
   hasBrief: boolean;
+  hasOverview: boolean;
   chapters: { id: string; title: string }[];
   clusters?: EpubCluster[];
 }): string {
-  const { title, language, hasBrief, chapters, clusters } = params;
+  const { title, language, hasBrief, hasOverview, chapters, clusters } = params;
   const isJa = language === 'ja';
   const tocLabel = isJa ? '目次' : 'Table of Contents';
   const prefaceLabel = isJa ? 'まえがき' : 'Preface';
   const coverLabel = isJa ? '表紙' : 'Cover';
+  const overviewLabel = isJa ? '概要' : 'Overview';
 
   const lines: string[] = [];
   lines.push(`    <li><a href="cover.xhtml">${coverLabel}</a></li>`);
+  if (hasOverview) {
+    lines.push(`    <li><a href="overview.xhtml">${overviewLabel}</a></li>`);
+  }
   if (hasBrief) {
     lines.push(`    <li><a href="brief.xhtml">${prefaceLabel}</a></li>`);
   }
 
   if (clusters && clusters.length > 0) {
-    // Grouped TOC: cluster headings with nested chapter list
     const assignedIndices = new Set<number>();
 
     for (const cluster of clusters) {
@@ -119,13 +211,11 @@ export function buildNavXhtml(params: {
       lines.push(`    </li>`);
     }
 
-    // Unclustered chapters at the end
     const unclustered = chapters.filter((_, i) => !assignedIndices.has(i));
     for (const ch of unclustered) {
       lines.push(`    <li><a href="${ch.id}.xhtml">${escapeXml(ch.title)}</a></li>`);
     }
   } else {
-    // Flat TOC
     for (const ch of chapters) {
       lines.push(`    <li><a href="${ch.id}.xhtml">${escapeXml(ch.title)}</a></li>`);
     }
