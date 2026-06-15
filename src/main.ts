@@ -5,14 +5,14 @@ import { buildContextPack } from './context-pack';
 import { getDailyNotesSettings, getDailyNotes, buildDailyPack, getDateRange, buildWeeklyHeader } from './daily-notes';
 import { DailyNotesModal } from './daily-notes-modal';
 import { OutputTargetModal } from './output-target-modal';
-import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState, type EpubExportOptions } from './types';
+import { OUTPUT_PRESETS, MODES, buildProfileMap, getOutputTargetFromState, DEFAULT_OUTPUT_SELECTOR_STATE, type OutputTarget, type OutputSelectorState, type EpubExportOptions, type EpubSortStrategy } from './types';
 import { AiMocModal } from './ai-moc-modal';
 import { ConfirmModal } from './ai-moc';
 import { t } from './i18n';
 import { AIBriefGenerator } from './features/ai-brief/ai-brief-generator';
 import { BriefRenderer } from './features/ai-brief/brief-renderer';
 import { BriefExporter } from './features/ai-brief/brief-exporter';
-import { isAiBriefByHeadings, isAiBriefContent, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName } from './features/ai-brief/brief-moc-generator';
+import { isAiBriefByHeadings, isAiBriefContent, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName, type BriefMocData } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
@@ -899,6 +899,7 @@ export default class ContextPackPlugin extends Plugin {
             includeSourceNotes: true,
             stripFrontmatter: true,
             convertObsidianLinks: true,
+            sortStrategy: 'ai-brief',
           });
           return;
         }
@@ -983,8 +984,21 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
 
+    const lang = (window.moment?.locale() === 'ja') ? 'ja' : 'en';
+    const bookTitle = opts.bookTitle || source;
+
+    // Parse AI Brief for cluster groupings and sort order
+    let briefData: BriefMocData | null = null;
+    if (briefMarkdown) {
+      briefData = parseBriefContent(briefMarkdown);
+    }
+
+    // Sort source files according to chosen strategy
+    const sortedSourceFiles = this.sortFilesForEpub(sourceFiles, opts.sortStrategy, briefData ?? undefined);
+
+    // Build chapters from sorted files
     const chapters: EpubChapter[] = [];
-    for (const file of sourceFiles) {
+    for (const file of sortedSourceFiles) {
       const md = await this.app.vault.read(file);
       chapters.push({
         id: sanitizeFilename(file.basename),
@@ -994,36 +1008,30 @@ export default class ContextPackPlugin extends Plugin {
       });
     }
 
-    const lang = (window.moment?.locale() === 'ja') ? 'ja' : 'en';
-    const bookTitle = opts.bookTitle || source;
-
-    // Parse AI Brief for cluster groupings in TOC
+    // Build clusters for grouped TOC
     let clusters: EpubCluster[] | undefined;
-    if (briefMarkdown) {
-      const briefData = parseBriefContent(briefMarkdown);
-      if (briefData && briefData.clusters.length > 0) {
-        const titleToIdx = new Map(chapters.map((ch, i) => [ch.title.toLowerCase(), i]));
-        const mapped = briefData.clusters
-          .map(cluster => {
-            const allNotes = [...cluster.representativeNotes, ...cluster.additionalNotes];
-            const seen = new Set<number>();
-            const indices: number[] = [];
-            for (const name of allNotes) {
-              const idx = titleToIdx.get(name.toLowerCase());
-              if (idx !== undefined && !seen.has(idx)) {
-                seen.add(idx);
-                indices.push(idx);
-              }
+    if (briefData && briefData.clusters.length > 0) {
+      const titleToIdx = new Map(chapters.map((ch, i) => [ch.title.toLowerCase(), i]));
+      const mapped = briefData.clusters
+        .map(cluster => {
+          const allNotes = [...cluster.representativeNotes, ...cluster.additionalNotes];
+          const seen = new Set<number>();
+          const indices: number[] = [];
+          for (const name of allNotes) {
+            const idx = titleToIdx.get(name.toLowerCase());
+            if (idx !== undefined && !seen.has(idx)) {
+              seen.add(idx);
+              indices.push(idx);
             }
-            return {
-              name: cluster.name,
-              chapterIndices: indices,
-              representativeNotes: cluster.representativeNotes,
-            };
-          })
-          .filter(c => c.chapterIndices.length > 0);
-        if (mapped.length > 0) clusters = mapped;
-      }
+          }
+          return {
+            name: cluster.name,
+            chapterIndices: indices,
+            representativeNotes: cluster.representativeNotes,
+          };
+        })
+        .filter(c => c.chapterIndices.length > 0);
+      if (mapped.length > 0) clusters = mapped;
     }
 
     const input: EpubBookInput = {
@@ -1058,6 +1066,60 @@ export default class ContextPackPlugin extends Plugin {
       console.error('[AI Context Pack] EPUB export failed:', err);
       new Notice(t('notice_error'));
     }
+  }
+
+  private sortFilesForEpub(files: TFile[], strategy: EpubSortStrategy, briefData?: BriefMocData): TFile[] {
+    const byBasename = (a: TFile, b: TFile) =>
+      a.basename.localeCompare(b.basename, undefined, { sensitivity: 'base' });
+    const byFilename = (a: TFile, b: TFile) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+
+    switch (strategy) {
+      case 'title':
+        return [...files].sort(byBasename);
+      case 'filename':
+        return [...files].sort(byFilename);
+      case 'ai-brief':
+        if (briefData && briefData.clusters.length > 0) {
+          return this.sortByAiBriefOrder(files, briefData);
+        }
+        return [...files].sort(byBasename);
+      case 'current':
+      default:
+        return [...files];
+    }
+  }
+
+  private sortByAiBriefOrder(files: TFile[], briefData: BriefMocData): TFile[] {
+    const orderedNames: string[] = [];
+    const seen = new Set<string>();
+    for (const cluster of briefData.clusters) {
+      for (const name of [...cluster.representativeNotes, ...cluster.additionalNotes]) {
+        const lower = name.toLowerCase();
+        if (!seen.has(lower)) {
+          seen.add(lower);
+          orderedNames.push(lower);
+        }
+      }
+    }
+
+    const nameToFile = new Map(files.map(f => [f.basename.toLowerCase(), f]));
+    const usedPaths = new Set<string>();
+    const sorted: TFile[] = [];
+
+    for (const name of orderedNames) {
+      const file = nameToFile.get(name);
+      if (file && !usedPaths.has(file.path)) {
+        sorted.push(file);
+        usedPaths.add(file.path);
+      }
+    }
+
+    const remaining = files
+      .filter(f => !usedPaths.has(f.path))
+      .sort((a, b) => a.basename.localeCompare(b.basename, undefined, { sensitivity: 'base' }));
+
+    return [...sorted, ...remaining];
   }
 
   private getBriefSettings() {

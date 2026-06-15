@@ -2,7 +2,7 @@ import { App, Modal, Setting } from 'obsidian';
 import {
   OUTPUT_PRESETS, MODES,
   getOutputTargetFromState,
-  type OutputTarget, type OutputSelectorState, type OutputTab, type EpubExportOptions,
+  type OutputTarget, type OutputSelectorState, type OutputTab, type EpubExportOptions, type EpubSortStrategy,
 } from './types';
 import { estimateTokens, getTokenWarning } from './token-counter';
 import { getProjectKnowledgeInstructions } from './exporter';
@@ -61,6 +61,7 @@ export class OutputTargetModal extends Modal {
       includeSourceNotes: true,
       stripFrontmatter: true,
       convertObsidianLinks: true,
+      sortStrategy: 'ai-brief',
     };
   }
 
@@ -251,6 +252,20 @@ export class OutputTargetModal extends Modal {
         v => { (this.epubState[def.key] as boolean) = v; }
       );
     }
+
+    const sortOptions: { value: EpubSortStrategy; labelKey: string }[] = [
+      { value: 'ai-brief',  labelKey: 'epub_sort_ai_brief'  },
+      { value: 'current',   labelKey: 'epub_sort_current'   },
+      { value: 'title',     labelKey: 'epub_sort_title'     },
+      { value: 'filename',  labelKey: 'epub_sort_filename'  },
+    ];
+    new Setting(this.epubOptionsEl)
+      .setName(t('epub_sort_strategy'))
+      .addDropdown(drop => {
+        for (const opt of sortOptions) drop.addOption(opt.value, t(opt.labelKey));
+        drop.setValue(this.epubState.sortStrategy);
+        drop.onChange(v => { this.epubState.sortStrategy = v as EpubSortStrategy; });
+      });
   }
 
   private onStateChange() {
