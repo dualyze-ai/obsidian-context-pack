@@ -1114,9 +1114,10 @@ export default class ContextPackPlugin extends Plugin {
 
     // Prefer frontmatter 'source' field as human-readable book title
     const fm = this.app.metadataCache.getFileCache(briefFile)?.frontmatter;
-    const bookTitle = (fm?.['source'] as string | undefined)?.trim()
+    const rawTitle = (fm?.['source'] as string | undefined)?.trim()
       || briefFile.basename.replace(/[\s_-]*AI[\s-]?Brief(?:[\s_-]?MOC)?$/i, '').trim()
       || briefFile.basename;
+    const bookTitle = rawTitle.replace(/\b\w/g, c => c.toUpperCase());
     const source = bookTitle;
 
     await this.exportAsEpub([briefFile, ...sourceFiles], source, {
@@ -1127,7 +1128,7 @@ export default class ContextPackPlugin extends Plugin {
       includeSourceNotes: true,
       stripFrontmatter: true,
       convertObsidianLinks: true,
-      sortStrategy: 'ai-brief',
+      sortStrategy: this.settings.epubSortStrategy,
     });
   }
 

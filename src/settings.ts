@@ -1,7 +1,7 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
-import type { OutputTarget, PromptProfile, OutputSelectorState } from './types';
+import type { OutputTarget, PromptProfile, OutputSelectorState, EpubSortStrategy } from './types';
 import { MODES, DEFAULT_OUTPUT_SELECTOR_STATE } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
@@ -89,6 +89,7 @@ export interface PluginSettings {
   freshnessViewDark: boolean;
   freshnessAutoCheck: boolean;
   aiBriefSettings: AIBriefSettings;
+  epubSortStrategy: EpubSortStrategy;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -120,6 +121,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   freshnessViewDark: true,
   freshnessAutoCheck: false,
   aiBriefSettings: DEFAULT_AI_BRIEF_SETTINGS,
+  epubSortStrategy: 'ai-brief',
 };
 
 export class SettingsTab extends PluginSettingTab {
@@ -435,6 +437,19 @@ export class SettingsTab extends PluginSettingTab {
         .setValue(this.plugin.settings.aiBriefSettings.similarityThreshold)
         .onChange(async value => {
           this.plugin.settings.aiBriefSettings.similarityThreshold = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(containerEl)
+      .setName(t('epub_sort_strategy'))
+      .addDropdown(drop => drop
+        .addOption('ai-brief', t('epub_sort_ai_brief'))
+        .addOption('current',  t('epub_sort_current'))
+        .addOption('title',    t('epub_sort_title'))
+        .addOption('filename', t('epub_sort_filename'))
+        .setValue(this.plugin.settings.epubSortStrategy)
+        .onChange(async (value) => {
+          this.plugin.settings.epubSortStrategy = value as EpubSortStrategy;
           await this.plugin.saveSettings();
         }));
 
