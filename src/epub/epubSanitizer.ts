@@ -14,11 +14,17 @@ export function sanitizeFilename(title: string): string {
 }
 
 export function stripTitleH1(markdown: string, title: string): string {
-  const lines = markdown.split('\n');
-  if (lines.length > 0 && lines[0].trim() === `# ${title}`) {
+  const lines = markdown.replace(/^﻿/, '').split(/\r?\n/);
+
+  while (lines.length > 0 && lines[0].trim() === '') {
     lines.shift();
   }
-  return lines.join('\n');
+
+  if (lines[0]?.trim() === `# ${title}`) {
+    lines.shift();
+  }
+
+  return lines.join('\n').trimStart();
 }
 
 export function escapeXml(text: string): string {
