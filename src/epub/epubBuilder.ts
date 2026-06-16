@@ -7,8 +7,68 @@ import {
   buildNavXhtml, buildClusterXhtml, buildChapterXhtml, EPUB_CSS,
 } from './epubTemplates';
 
-export function buildEpub(input: EpubBookInput): Uint8Array {
+function extractImageUrls(markdown: string): string[] {
+  const urls: string[] = [];
+  const re = /!\[[^\]]*\]\((https?:\/\/[^)]+)\)/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(markdown)) !== null) {
+    urls.push(m[1]);
+  }
+  return urls;
+}
+
+function guessMediaType(url: string): string {
+  const ext = url.split('?')[0].split('.').pop()?.toLowerCase() ?? '';
+  const map: Record<string, string> = {
+    jpg: 'image/jpeg', jpeg: 'image/jpeg',
+    png: 'image/png', gif: 'image/gif',
+    svg: 'image/svg+xml', webp: 'image/webp',
+  };
+  return map[ext] ?? 'image/jpeg';
+}
+
+async function downloadImage(url: string): Promise<{ data: Uint8Array; mediaType: string } | null> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    const resp = await fetch(url, { signal: controller.signal });
+    clearTimeout(timer);
+    if (!resp.ok) return null;
+    const contentType = resp.headers.get('content-type') ?? '';
+    const mediaType = contentType.split(';')[0].trim() || guessMediaType(url);
+    const buffer = await resp.arrayBuffer();
+    return { data: new Uint8Array(buffer), mediaType };
+  } catch {
+    return null;
+  }
+}
+
+export async function buildEpub(input: EpubBookInput): Promise<Uint8Array> {
   const { options, briefMarkdown, chapters, clusters } = input;
+
+  // Collect and download all external images
+  const allMarkdown = [
+    briefMarkdown ?? '',
+    ...chapters.map(ch => ch.markdown),
+  ];
+  const uniqueUrls = [...new Set(allMarkdown.flatMap(extractImageUrls))];
+  const imageMap = new Map<string, string>();
+  type ImageEntry = { id: string; href: string; mediaType: string; data: Uint8Array };
+  const imageEntries: ImageEntry[] = [];
+
+  await Promise.all(uniqueUrls.map(async (url, idx) => {
+    const result = await downloadImage(url);
+    if (!result) return;
+    const ext = result.mediaType === 'image/svg+xml' ? 'svg'
+      : result.mediaType === 'image/png' ? 'png'
+      : result.mediaType === 'image/gif' ? 'gif'
+      : result.mediaType === 'image/webp' ? 'webp'
+      : 'jpg';
+    const id = `img-${String(idx + 1).padStart(3, '0')}`;
+    const href = `images/${id}.${ext}`;
+    imageMap.set(url, `../${href}`);
+    imageEntries.push({ id, href, mediaType: result.mediaType, data: result.data });
+  }));
 
   const uuid = crypto.randomUUID();
   const now = new Date();
@@ -25,12 +85,17 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     return result;
   }
 
+  // Sort image entries by id to ensure stable order
+  imageEntries.sort((a, b) => a.id.localeCompare(b.id));
+  const coverImageHref = imageEntries[0] ? `../${imageEntries[0].href}` : undefined;
+
   // Cover
   const coverXhtml = buildCoverXhtml({
     title: options.title,
     language: lang,
     noteCount: chapters.length,
     generatedDate,
+    coverImageHref,
   });
 
   // Overview is always included in manifest/spine/nav
@@ -48,14 +113,14 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     ? buildChapterXhtml({
         title: lang === 'ja' ? 'まえがき' : 'Preface',
         language: lang,
-        bodyContent: markdownToXhtml(processMarkdown(stripBriefSections(briefMarkdown))),
+        bodyContent: markdownToXhtml(processMarkdown(stripBriefSections(briefMarkdown)), imageMap),
       })
     : '';
 
   // Chapters
   const processedChapters = chapters.map((ch, idx) => {
     const id = `chapter-${String(idx + 1).padStart(3, '0')}`;
-    const body = markdownToXhtml(processMarkdown(ch.markdown, ch.title));
+    const body = markdownToXhtml(processMarkdown(ch.markdown, ch.title), imageMap);
     return {
       id,
       title: ch.title,
@@ -132,6 +197,7 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
     hasBrief,
     hasOverview,
     contentItems,
+    imageItems: imageEntries.map(({ id, href, mediaType }) => ({ id, href, mediaType })),
   });
 
   type ZipEntry = Uint8Array | [Uint8Array, { level: number }];
@@ -155,6 +221,10 @@ export function buildEpub(input: EpubBookInput): Uint8Array {
 
   for (const ch of processedChapters) {
     files[`OEBPS/${ch.id}.xhtml`] = strToU8(ch.xhtml) as Uint8Array;
+  }
+
+  for (const img of imageEntries) {
+    files[`OEBPS/${img.href}`] = img.data;
   }
 
   return zipSync(files as Parameters<typeof zipSync>[0]) as Uint8Array;
