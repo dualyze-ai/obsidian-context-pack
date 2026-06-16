@@ -1,4 +1,5 @@
 import { zipSync, strToU8 } from 'fflate';
+import { requestUrl } from 'obsidian';
 import type { EpubBookInput, EpubCluster } from './epubTypes';
 import { stripFrontmatter, convertObsidianLinks, stripTitleH1, stripBriefSections } from './epubSanitizer';
 import { markdownToXhtml } from './markdownToXhtml';
@@ -29,15 +30,14 @@ function guessMediaType(url: string): string {
 
 async function downloadImage(url: string): Promise<{ data: Uint8Array; mediaType: string } | null> {
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 15000);
-    const resp = await fetch(url, { signal: controller.signal });
-    clearTimeout(timer);
-    if (!resp.ok) return null;
-    const contentType = resp.headers.get('content-type') ?? '';
+    const timeout = new Promise<null>((_, reject) =>
+      window.setTimeout(() => reject(new Error('timeout')), 15000)
+    );
+    const resp = await Promise.race([requestUrl({ url, method: 'GET' }), timeout]);
+    if (!resp || resp.status < 200 || resp.status >= 300) return null;
+    const contentType = (resp.headers['content-type'] as string | undefined) ?? '';
     const mediaType = contentType.split(';')[0].trim() || guessMediaType(url);
-    const buffer = await resp.arrayBuffer();
-    return { data: new Uint8Array(buffer), mediaType };
+    return { data: new Uint8Array(resp.arrayBuffer), mediaType };
   } catch {
     return null;
   }

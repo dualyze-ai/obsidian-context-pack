@@ -156,7 +156,7 @@ function inlineMarkdown(text: string, imageMap?: Map<string, string>): string {
   // Inline code
   text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
   // Image ![alt](url) — must come before link
-  text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, escapedUrl) => {
+  text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_: string, alt: string, escapedUrl: string) => {
     const url = escapedUrl.replace(/&amp;/g, '&').replace(/&quot;/g, '"');
     const localPath = imageMap?.get(url);
     if (localPath) {
