@@ -85,12 +85,17 @@ export async function buildEpub(input: EpubBookInput): Promise<Uint8Array> {
     return result;
   }
 
+  // Sort image entries by id to ensure stable order
+  imageEntries.sort((a, b) => a.id.localeCompare(b.id));
+  const coverImageHref = imageEntries[0] ? `../${imageEntries[0].href}` : undefined;
+
   // Cover
   const coverXhtml = buildCoverXhtml({
     title: options.title,
     language: lang,
     noteCount: chapters.length,
     generatedDate,
+    coverImageHref,
   });
 
   // Overview is always included in manifest/spine/nav

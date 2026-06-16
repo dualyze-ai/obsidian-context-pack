@@ -162,7 +162,7 @@ function inlineMarkdown(text: string, imageMap?: Map<string, string>): string {
     if (localPath) {
       return `<img src="${localPath}" alt="${alt}"/>`;
     }
-    return alt ? `[画像: ${alt}]` : '[画像]';
+    return `<a href="${escapedUrl}">${alt || escapedUrl}</a>`;
   });
   // Markdown link [text](url)
   text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
