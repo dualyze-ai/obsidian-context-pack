@@ -1,7 +1,7 @@
 {
   "id": "context-pack-for-notebooklm",
   "name": "AI Context Pack",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "minAppVersion": "1.7.2",
   "description": "Turn your notes into AI-ready context packs. Export clean Markdown for ChatGPT, Claude, Gemini, NotebookLM, and more. Built-in freshness tracking keeps AI knowledge up to date.",
   "author": "dualyzeAI",
