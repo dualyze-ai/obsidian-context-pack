@@ -103,27 +103,54 @@ Create a clean Context Pack from the AI MOC.
 
 ### 5. Create a Knowledge Book (EPUB)
 
-Turn an AI Brief into a structured EPUB knowledge book.
+Turn your Obsidian notes into a structured, readable EPUB knowledge book.
 
-AI Context Pack uses the AI Brief structure to create:
+AI Context Pack uses the AI Brief structure to build a complete book — not just a Markdown export:
 
-- Cover page
-- Overview
-- Preface
-- Hierarchical table of contents
-- Topic clusters
-- Source notes
+```text
+Obsidian Notes
+↓
+AI Brief
+↓
+Knowledge Structure
+↓
+EPUB Knowledge Book
+↓
+Kindle / Apple Books / Kobo
+```
 
-Read your knowledge in:
+- Uses the AI Brief as a preface
+- Converts AI Brief clusters into a hierarchical table of contents
+- Includes source note content as book chapters
+- Embeds images from notes directly into the EPUB
+- Creates a cover page with title, cover image, note count, and generated date
+- Excludes AI-provider prompts and instructions from the EPUB output
+- Respects AI Brief cluster order for chapter and section ordering
 
-- Kindle
-- Apple Books
-- Kobo
-- Other EPUB readers
+Read your knowledge book in Kindle, Apple Books, Kobo, or any EPUB reader.
 
-<div align="center">
-<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/knowledge-book-overview.png" width="90%">
-</div>
+#### How to create a Knowledge Book
+
+1. Generate an AI Brief from a folder, tag, or selected notes.
+2. Right-click the generated AI Brief.
+3. Choose **Create Knowledge Book (EPUB)**.
+4. Open the generated `.epub` file in Kindle, Apple Books, Calibre, or another EPUB reader.
+
+#### Example: Travel Knowledge Book
+
+Create a Kindle-friendly travel guide from your Obsidian notes.
+
+![Knowledge Book cover](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-cover-europe.png)
+
+AI Brief clusters are converted into a hierarchical EPUB table of contents.
+
+![Knowledge Book table of contents](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.png)
+
+Images from source notes are embedded into the EPUB.
+
+![Knowledge Book page with image](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-page-europe.png)
+
+This is useful for creating personal learning books, travel guides, recipe books, art history guides, and Kindle-friendly reading material from your vault.
 
 ---
 
@@ -269,11 +296,12 @@ Create structured EPUB books from AI Briefs.
 
 Features:
 
-- Cover generation
-- Overview pages
-- AI Brief integration
-- Hierarchical table of contents
-- Topic cluster navigation
+- Cover page with title, image, note count, and generated date
+- Overview and preface from AI Brief
+- Hierarchical table of contents reflecting AI Brief cluster structure
+- Topic cluster navigation pages
+- Source note content as book chapters
+- Images from notes embedded directly in the EPUB
 - Kindle-compatible EPUB output
 
 ### Output Targets
@@ -455,11 +483,12 @@ Create structured EPUB books from AI Briefs.
 
 Features:
 
-- Cover generation
-- Overview pages
-- AI Brief integration
-- Hierarchical table of contents
-- Topic cluster navigation
+- Cover page with title, image, note count, and generated date
+- Overview and preface from AI Brief
+- Hierarchical table of contents reflecting AI Brief cluster structure
+- Topic cluster navigation pages
+- Source note content as book chapters
+- Images from notes embedded directly in the EPUB
 - Kindle-compatible EPUB output
 
 ### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
@@ -507,9 +536,7 @@ Current focus:
 - Improved token management
 - Larger vault support
 - Knowledge Book enhancements
-- EPUB improvements
-- Cover image support
-- Mermaid diagram export
+- Mermaid diagram support in EPUB
 
 ---
 
