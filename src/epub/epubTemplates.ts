@@ -18,8 +18,9 @@ export function buildContentOpf(params: {
   hasBrief: boolean;
   hasOverview: boolean;
   contentItems: { id: string; href: string }[];
+  imageItems?: { id: string; href: string; mediaType: string }[];
 }): string {
-  const { title, language, uuid, modifiedDate, hasBrief, hasOverview, contentItems } = params;
+  const { title, language, uuid, modifiedDate, hasBrief, hasOverview, contentItems, imageItems } = params;
 
   const manifestItems: string[] = [
     `<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>`,
@@ -34,6 +35,9 @@ export function buildContentOpf(params: {
   }
   for (const item of contentItems) {
     manifestItems.push(`<item id="${item.id}" href="${item.href}" media-type="application/xhtml+xml"/>`);
+  }
+  for (const img of imageItems ?? []) {
+    manifestItems.push(`<item id="${img.id}" href="${img.href}" media-type="${img.mediaType}"/>`);
   }
 
   // Spine: cover → overview → brief → nav → content (cluster pages interleaved with chapters)

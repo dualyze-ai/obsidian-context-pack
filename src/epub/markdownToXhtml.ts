@@ -1,6 +1,6 @@
 import { escapeXml } from './epubSanitizer';
 
-export function markdownToXhtml(markdown: string): string {
+export function markdownToXhtml(markdown: string, imageMap?: Map<string, string>): string {
   const lines = markdown.split('\n');
   const blocks: string[] = [];
   let i = 0;
@@ -30,7 +30,7 @@ export function markdownToXhtml(markdown: string): string {
     const headingMatch = line.match(/^(#{1,6})\s+(.+)/);
     if (headingMatch) {
       const level = headingMatch[1].length;
-      const text = inlineMarkdown(headingMatch[2]);
+      const text = inlineMarkdown(headingMatch[2], imageMap);
       blocks.push(`<h${level}>${text}</h${level}>`);
       i++;
       continue;
@@ -63,7 +63,7 @@ export function markdownToXhtml(markdown: string): string {
         quoteLines.push(lines[i].replace(/^>\s?/, ''));
         i++;
       }
-      const inner = quoteLines.map(l => inlineMarkdown(l)).join('<br/>');
+      const inner = quoteLines.map(l => inlineMarkdown(l, imageMap)).join('<br/>');
       blocks.push(`<blockquote><p>${inner}</p></blockquote>`);
       continue;
     }
@@ -72,7 +72,7 @@ export function markdownToXhtml(markdown: string): string {
     if (/^\s*[*+-]\s+/.test(line)) {
       const items: string[] = [];
       while (i < lines.length && /^\s*[*+-]\s+/.test(lines[i])) {
-        items.push(inlineMarkdown(lines[i].replace(/^\s*[*+-]\s+/, '')));
+        items.push(inlineMarkdown(lines[i].replace(/^\s*[*+-]\s+/, ''), imageMap));
         i++;
       }
       blocks.push(`<ul>${items.map(it => `<li>${it}</li>`).join('')}</ul>`);
@@ -83,7 +83,7 @@ export function markdownToXhtml(markdown: string): string {
     if (/^\d+\.\s+/.test(line)) {
       const items: string[] = [];
       while (i < lines.length && /^\d+\.\s+/.test(lines[i])) {
-        items.push(inlineMarkdown(lines[i].replace(/^\d+\.\s+/, '')));
+        items.push(inlineMarkdown(lines[i].replace(/^\d+\.\s+/, ''), imageMap));
         i++;
       }
       blocks.push(`<ol>${items.map(it => `<li>${it}</li>`).join('')}</ol>`);
@@ -103,7 +103,7 @@ export function markdownToXhtml(markdown: string): string {
       i++;
     }
     if (paraLines.length > 0) {
-      blocks.push(`<p>${paraLines.map(l => inlineMarkdown(l)).join(' ')}</p>`);
+      blocks.push(`<p>${paraLines.map(l => inlineMarkdown(l, imageMap)).join(' ')}</p>`);
     }
   }
 
@@ -141,7 +141,7 @@ function buildTable(headers: string[], rows: string[][]): string {
   return `<table>${thead}${tbody}</table>`;
 }
 
-function inlineMarkdown(text: string): string {
+function inlineMarkdown(text: string, imageMap?: Map<string, string>): string {
   text = escapeXml(text);
   // Bold + italic
   text = text.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
@@ -155,6 +155,15 @@ function inlineMarkdown(text: string): string {
   text = text.replace(/(?<![a-zA-Z0-9])_([^_]+?)_(?![a-zA-Z0-9])/g, '<em>$1</em>');
   // Inline code
   text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // Image ![alt](url) — must come before link
+  text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, escapedUrl) => {
+    const url = escapedUrl.replace(/&amp;/g, '&').replace(/&quot;/g, '"');
+    const localPath = imageMap?.get(url);
+    if (localPath) {
+      return `<img src="${localPath}" alt="${alt}"/>`;
+    }
+    return alt ? `[画像: ${alt}]` : '[画像]';
+  });
   // Markdown link [text](url)
   text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   return text;

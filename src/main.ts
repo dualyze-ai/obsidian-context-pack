@@ -1049,7 +1049,7 @@ export default class ContextPackPlugin extends Plugin {
     };
 
     try {
-      const data = buildEpub(input);
+      const data = await buildEpub(input);
       const filename = sanitizeFilename(opts.filename ?? bookTitle).toLowerCase() + '.epub';
       const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
       const path = outputFolder ? `${outputFolder}/${filename}` : filename;
