@@ -148,7 +148,7 @@ Create a Kindle-friendly travel guide from your Obsidian notes.
 
 AI Brief clusters are converted into a hierarchical EPUB table of contents.
 
-![Knowledge Book table of contents](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.jpg)
+![Knowledge Book table of contents](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.png)
 
 Images from source notes are embedded into the EPUB.
 
@@ -209,7 +209,7 @@ Create a Kindle-friendly travel guide from your Obsidian notes.
 
 AI Brief clusters are converted into a hierarchical EPUB table of contents.
 
-![Knowledge Book table of contents](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.jpg)
+![Knowledge Book table of contents](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.png)
 
 Images from source notes are embedded into the EPUB.
 
