@@ -6,7 +6,7 @@ Manage AI Briefs, AI MOCs, Context Packs, and Knowledge Books from one place.
 
 **Manage → Analyze → Organize → Export → Ask → Read**
 
-![AI Workspace Demo](docs/images/ai-workspace-demo.gif)
+![AI Workspace Demo](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-demo.gif)
 
 Turn your Obsidian notes into reusable AI knowledge.
 
@@ -135,7 +135,7 @@ In this tutorial, Alice learns how to:
 
 ## Screenshots
 
-![AI Workspace View](docs/images/ai-workspace-overview.jpeg)
+![AI Workspace View](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-overview.jpeg)
 
 *AI Workspace View — manage all outputs from one place*
 
