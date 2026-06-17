@@ -8,7 +8,9 @@ Manage AI Briefs, AI MOCs, Context Packs, and Knowledge Books from one place.
 
 ![AI Workspace Demo](docs/images/ai-workspace-demo.gif)
 
----
+Turn your Obsidian notes into reusable AI knowledge.
+
+**Analyze → Organize → Export → Ask → Read**
 
 ## Quick Workflow
 
