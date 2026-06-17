@@ -6,7 +6,18 @@ Manage AI Briefs, AI MOCs, Context Packs, and Knowledge Books from one place.
 
 **Manage → Analyze → Organize → Export → Ask → Read**
 
-![AI Workspace View](docs/images/ai-workspace-overview.jpeg)
+![AI Workspace Demo](docs/images/ai-workspace-demo.gif)
+
+---
+
+## Quick Workflow
+
+1. Create a Workspace
+2. Add a Folder Workspace
+3. Analyze Notes (AI Brief + AI MOC)
+4. Generate Knowledge Outputs
+5. Export for AI Tools
+6. Read as a Knowledge Book (EPUB)
 
 ---
 
