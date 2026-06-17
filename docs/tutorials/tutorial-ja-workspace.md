@@ -20,7 +20,7 @@ travel/
 
 **Alice：** できました。20 notes と表示されて、AI Brief・AI MOC・Context Pack・Knowledge Book が見えています。
 
-**Bob：** それが4つの出力です。今はすべて「Not created」の状態です。**Refresh Workspace** をクリックすると生成が始まります。
+**Bob：** それが4つの出力です。今はすべて「Not created」の状態です。**Generate Workspace** をクリックすると初回生成が始まります。
 
 ---
 

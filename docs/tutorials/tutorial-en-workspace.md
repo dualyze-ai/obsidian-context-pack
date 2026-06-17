@@ -20,7 +20,7 @@ travel/
 
 **Alice:** Done. I can see it now — it says 20 notes and shows AI Brief, AI MOC, Context Pack, and Knowledge Book.
 
-**Bob:** Those are your four outputs. Right now they're all "Not created." Click **Refresh Workspace** to generate them.
+**Bob:** Those are your four outputs. Right now they're all "Not created." Click **Generate Workspace** to generate them for the first time.
 
 ---
 
