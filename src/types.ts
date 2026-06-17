@@ -51,6 +51,7 @@ export function getOutputTargetFromState(state: OutputSelectorState): OutputTarg
     case 'claude':  return 'claude';
     case 'gemini':  return 'gemini';
     case 'agents':  return state.agentMode === 'claudecode' ? 'claude-code' : 'notebooklm-text';
+    default:        return 'chatgpt';
   }
 }
 

@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, Notice, moment, TFile } from 'obsidian';
+import { ItemView, WorkspaceLeaf, Notice, moment, TFile, TFolder, setIcon } from 'obsidian';
 import type ContextPackPlugin from '../main';
 import type { WorkspaceConfig, WorkspaceState, ArtifactState } from './workspaceTypes';
 import { computeWorkspaceState } from './workspaceState';
@@ -7,14 +7,13 @@ import { FolderWorkspaceSuggest } from './FolderWorkspaceSuggest';
 export const WORKSPACE_VIEW_TYPE = 'ai-workspace-view';
 
 const STATUS_ICON: Record<string, string> = {
-  ready:   '✅',
+  ready:   '✓',
   outdated: '⚠',
-  missing:  '❌',
+  missing:  '✕',
   error:    '⛔',
 };
 
 const STATUS_LABEL: Record<string, string> = {
-  ready:   'Ready',
   outdated: 'Outdated',
   missing:  'Not created',
   error:    'Error',
@@ -33,6 +32,8 @@ export class WorkspaceView extends ItemView {
   private loading = false;
   private refreshingAll = false;
 
+  private debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
   constructor(leaf: WorkspaceLeaf, plugin: ContextPackPlugin) {
     super(leaf);
     this.plugin = plugin;
@@ -40,10 +41,26 @@ export class WorkspaceView extends ItemView {
 
   getViewType(): string { return WORKSPACE_VIEW_TYPE; }
   getDisplayText(): string { return 'AI Workspace'; }
-  getIcon(): string { return 'layout-dashboard'; }
+  getIcon(): string { return 'briefcase-business'; }
 
-  async onOpen(): Promise<void> { await this.refresh(); }
-  async onClose(): Promise<void> {}
+  async onOpen(): Promise<void> {
+    this.registerEvent(
+      this.app.vault.on('modify', (file) => {
+        const workspaces = this.plugin.settings.workspaces ?? [];
+        const affected = workspaces.some(ws =>
+          file.path.startsWith(ws.sourcePath + '/') && file.path.endsWith('.md')
+        );
+        if (!affected) return;
+        if (this.debounceTimer) clearTimeout(this.debounceTimer);
+        this.debounceTimer = setTimeout(() => { void this.refresh(); }, 2000);
+      })
+    );
+    await this.refresh();
+  }
+
+  async onClose(): Promise<void> {
+    if (this.debounceTimer) clearTimeout(this.debounceTimer);
+  }
 
   async refresh(): Promise<void> {
     this.loading = true;
@@ -78,13 +95,19 @@ export class WorkspaceView extends ItemView {
     }
 
     const header = containerEl.createEl('div', { cls: 'ai-context-workspace-header' });
-    header.createEl('span', { text: 'AI Workspace', cls: 'ai-context-workspace-title' });
 
-    const headerActions = header.createEl('div', { cls: 'ai-context-workspace-header-actions' });
+    const titleRow = header.createEl('div', { cls: 'ai-context-workspace-header-titlerow' });
+    const titleEl = titleRow.createEl('div', { cls: 'ai-context-workspace-title' });
+    const titleIcon = titleEl.createEl('span', { cls: 'ai-context-workspace-title-icon' });
+    setIcon(titleIcon, 'briefcase-business');
+    titleEl.createEl('span', { text: 'AI Workspace' });
 
+    const headerActions = titleRow.createEl('div', { cls: 'ai-context-workspace-header-actions' });
+
+    const isEmpty = (this.plugin.settings.workspaces ?? []).length === 0;
     const addBtn = headerActions.createEl('button', {
-      cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
-      text: '＋ Add Folder',
+      cls: 'ai-context-workspace-button ai-context-workspace-button--secondary' + (isEmpty ? ' ai-context-workspace-button--pulse' : ''),
+      text: '＋ Add Workspace',
     });
     addBtn.addEventListener('click', () => this.openAddFolder());
 
@@ -93,7 +116,7 @@ export class WorkspaceView extends ItemView {
       text: this.refreshingAll ? 'Refreshing…' : 'Refresh All',
     });
     refreshAllBtn.disabled = this.refreshingAll;
-    refreshAllBtn.addEventListener('click', () => void this.refreshAll());
+    refreshAllBtn.addEventListener('click', () => void this.refresh());
 
     const themeBtn = headerActions.createEl('button', {
       cls: 'ai-context-workspace-icon-btn',
@@ -104,6 +127,21 @@ export class WorkspaceView extends ItemView {
       this.plugin.settings.workspaceViewDark = !this.plugin.settings.workspaceViewDark;
       void this.plugin.saveSettings().then(() => this.render());
     });
+
+    // ⑤ Global stats (shown after loading completes)
+    if (!this.loading && !isEmpty) {
+      const totalNotes = Array.from(this.states.values()).reduce((s, ws) => s + ws.notesCount, 0);
+      const readyOutputs = Array.from(this.states.values()).reduce((s, ws) =>
+        s + [ws.aiBrief, ws.aiMoc, ws.contextPack, ws.epub].filter(a => a.status === 'ready').length, 0
+      );
+      const wsCount = (this.plugin.settings.workspaces ?? []).length;
+      const totalOutputs = wsCount * 4;
+      const pctReady = totalOutputs > 0 ? Math.round((readyOutputs / totalOutputs) * 100) : 0;
+      header.createEl('div', {
+        cls: 'ai-context-workspace-stats',
+        text: `${wsCount} ${wsCount === 1 ? 'Workspace' : 'Workspaces'} · ${totalNotes} Notes · ${pctReady}% Ready`,
+      });
+    }
 
     if (this.loading) {
       containerEl.createEl('div', { cls: 'ai-context-workspace-loading', text: 'Loading workspaces…' });
@@ -131,11 +169,6 @@ export class WorkspaceView extends ItemView {
       cls: 'ai-context-workspace-empty-desc',
       text: 'Create a folder workspace to manage AI Briefs, AI MOCs, Context Packs, and Knowledge Books in one place.',
     });
-    const btn = empty.createEl('button', {
-      cls: 'ai-context-workspace-button',
-      text: '＋ Add Folder Workspace',
-    });
-    btn.addEventListener('click', () => this.openAddFolder());
   }
 
   private renderCard(container: HTMLElement, ws: WorkspaceConfig, state?: WorkspaceState): void {
@@ -144,7 +177,22 @@ export class WorkspaceView extends ItemView {
     const titleRow = card.createEl('div', { cls: 'ai-context-workspace-card-titlerow' });
     titleRow.createEl('span', { cls: 'ai-context-workspace-card-title', text: '📁 ' + ws.name });
 
-    const removeBtn = titleRow.createEl('button', {
+    const titleActions = titleRow.createEl('div', { cls: 'ai-context-workspace-card-title-actions' });
+
+    const openFolderBtn = titleActions.createEl('button', { cls: 'ai-context-workspace-card-folder-btn' });
+    setIcon(openFolderBtn, 'folder-open');
+    openFolderBtn.setAttribute('title', `Open source folder: ${ws.sourcePath}`);
+    openFolderBtn.addEventListener('click', () => void this.openFolderInExplorer(ws.sourcePath));
+
+    const outputFolder = this.plugin.settings.contextPackOutputFolder || this.plugin.settings.outputFolder || '';
+    if (outputFolder) {
+      const openOutputBtn = titleActions.createEl('button', { cls: 'ai-context-workspace-card-folder-btn' });
+      setIcon(openOutputBtn, 'folder-up');
+      openOutputBtn.setAttribute('title', `Open output folder: ${outputFolder}`);
+      openOutputBtn.addEventListener('click', () => void this.openFolderInExplorer(outputFolder));
+    }
+
+    const removeBtn = titleActions.createEl('button', {
       cls: 'ai-context-workspace-card-remove',
       text: '✕',
     });
@@ -164,82 +212,128 @@ export class WorkspaceView extends ItemView {
       return;
     }
 
-    const meta = card.createEl('div', { cls: 'ai-context-workspace-meta' });
+    // Meta row: notes count + last refreshed
     const notesLabel = `${state.notesCount} ${state.notesCount === 1 ? 'note' : 'notes'}`;
+    const meta = card.createEl('div', { cls: 'ai-context-workspace-meta' });
     meta.createEl('span', { text: notesLabel });
     if (state.sourceLatestMtime > 0) {
-      meta.createEl('span', {
-        cls: 'ai-context-workspace-meta-sep',
-        text: ' · ',
-      });
+      meta.createEl('span', { cls: 'ai-context-workspace-meta-sep', text: ' · ' });
       meta.createEl('span', {
         cls: 'ai-context-workspace-meta-muted',
-        text: 'Updated ' + moment(state.sourceLatestMtime).fromNow(),
+        text: 'Last refreshed ' + moment(state.sourceLatestMtime).fromNow(),
       });
     } else {
-      meta.createEl('span', { cls: 'ai-context-workspace-meta-muted', text: ' · Not generated yet' });
+      meta.createEl('span', { cls: 'ai-context-workspace-meta-muted', text: ' · Not refreshed yet' });
     }
 
+    // ③ Progress bar: X/4 outputs ready
+    const artifacts = [state.aiBrief, state.aiMoc, state.contextPack, state.epub];
+    const readyCount = artifacts.filter(a => a.status === 'ready').length;
+    const allReady = readyCount === artifacts.length;
+    const pct = Math.round((readyCount / artifacts.length) * 100);
+    const progressRow = card.createEl('div', { cls: 'ai-context-workspace-progress-row' });
+    const barWrap = progressRow.createEl('div', { cls: 'ai-context-workspace-progress-bar-wrap' });
+    barWrap.createEl('div', {
+      cls: 'ai-context-workspace-progress-bar-fill' + (allReady ? ' ai-context-workspace-progress-bar-fill--full' : ''),
+      attr: { style: `width: ${pct}%` },
+    });
+    progressRow.createEl('span', {
+      cls: 'ai-context-workspace-progress-label' + (allReady ? ' ai-context-workspace-progress-label--ready' : ''),
+      text: `${readyCount}/4 outputs ready`,
+    });
+
+    // Status rows
     const grid = card.createEl('div', { cls: 'ai-context-workspace-status-grid' });
     this.renderStatusRow(grid, ARTIFACT_LABEL.aiBrief, state.aiBrief);
     this.renderStatusRow(grid, ARTIFACT_LABEL.aiMoc, state.aiMoc);
     this.renderStatusRow(grid, ARTIFACT_LABEL.contextPack, state.contextPack);
     this.renderStatusRow(grid, ARTIFACT_LABEL.epub, state.epub);
 
+    // Buttons
     const actions = card.createEl('div', { cls: 'ai-context-workspace-actions' });
     const hasBrief = state.aiBrief.status !== 'missing';
 
     if (!hasBrief) {
+      const allMissing = state.aiMoc.status === 'missing' &&
+        state.contextPack.status === 'missing' &&
+        state.epub.status === 'missing';
       const genBtn = actions.createEl('button', {
-        cls: 'ai-context-workspace-button',
-        text: 'Generate',
+        cls: 'ai-context-workspace-button ai-context-workspace-button--block' + (allMissing ? ' ai-context-workspace-button--pulse' : ''),
+        text: 'Generate Workspace',
       });
       genBtn.addEventListener('click', () => void this.runRefresh(ws, state, genBtn));
     } else {
-      if (state.aiBrief.filePath) {
-        const openBriefBtn = actions.createEl('button', {
-          cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
-          text: 'Open Brief',
-        });
-        openBriefBtn.addEventListener('click', () => void this.openFile(state.aiBrief.filePath!));
-      }
+      // ② Primary: Refresh Workspace (full-width, accent)
+      const refreshBtn = actions.createEl('button', {
+        cls: 'ai-context-workspace-button ai-context-workspace-button--accent ai-context-workspace-button--block',
+        text: 'Refresh Workspace',
+      });
+      refreshBtn.addEventListener('click', () => void this.runRefresh(ws, state, refreshBtn));
 
-      if (state.aiMoc.filePath) {
-        const openMocBtn = actions.createEl('button', {
-          cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
-          text: 'Open MOC',
-        });
-        openMocBtn.addEventListener('click', () => void this.openFile(state.aiMoc.filePath!));
-      }
+      // Secondary: individual artifact actions
+      actions.createEl('div', { cls: 'ai-context-workspace-actions-label', text: 'Generate Outputs' });
+      const secondary = actions.createEl('div', { cls: 'ai-context-workspace-actions-secondary' });
 
-      const exportBtn = actions.createEl('button', {
+      const exportBtn = secondary.createEl('button', {
         cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
         text: 'Export Pack',
       });
       exportBtn.addEventListener('click', () => this.plugin.workspaceExportPack(ws.sourcePath));
 
-      const epubBtn = actions.createEl('button', {
+      const epubBtn = secondary.createEl('button', {
         cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
         text: 'Create EPUB',
       });
-      epubBtn.addEventListener('click', () => void this.plugin.workspaceCreateEpub(ws.sourcePath));
-
-      const refreshBtn = actions.createEl('button', {
-        cls: 'ai-context-workspace-button',
-        text: 'Refresh',
+      epubBtn.addEventListener('click', async () => {
+        epubBtn.disabled = true;
+        epubBtn.setText('Creating…');
+        try {
+          await this.plugin.workspaceCreateEpub(ws.sourcePath);
+        } finally {
+          await this.refresh();
+        }
       });
-      refreshBtn.addEventListener('click', () => void this.runRefresh(ws, state, refreshBtn));
     }
   }
 
   private renderStatusRow(container: HTMLElement, label: string, artifact: ArtifactState): void {
     const row = container.createEl('div', { cls: 'ai-context-workspace-status-row' });
-    row.createEl('span', { cls: 'ai-context-workspace-status-icon', text: STATUS_ICON[artifact.status] ?? '❌' });
-    row.createEl('span', { cls: 'ai-context-workspace-status-label', text: label });
     row.createEl('span', {
-      cls: `ai-context-workspace-badge ai-context-workspace-badge-${artifact.status}`,
-      text: STATUS_LABEL[artifact.status] ?? 'Unknown',
+      cls: `ai-context-workspace-status-icon ai-context-workspace-status-icon--${artifact.status}`,
+      text: STATUS_ICON[artifact.status] ?? '✕',
     });
+    row.createEl('span', { cls: 'ai-context-workspace-status-label', text: label });
+
+    const right = row.createEl('div', { cls: 'ai-context-workspace-status-row-right' });
+    if (artifact.filePath) {
+      const openBtn = right.createEl('button', { cls: 'ai-context-workspace-open-btn', text: 'Open' });
+      openBtn.addEventListener('click', () => void this.openFile(artifact.filePath!));
+    }
+    // ① Only show badge for non-ready statuses
+    if (artifact.status !== 'ready') {
+      right.createEl('span', {
+        cls: `ai-context-workspace-badge ai-context-workspace-badge-${artifact.status}`,
+        text: STATUS_LABEL[artifact.status] ?? 'Unknown',
+      });
+    }
+  }
+
+  private async openFolderInExplorer(folderPath: string): Promise<void> {
+    const folder = this.app.vault.getAbstractFileByPath(folderPath);
+    if (!(folder instanceof TFolder)) {
+      new Notice('Folder not found: ' + folderPath);
+      return;
+    }
+    // @ts-ignore
+    const fileExpPlugin = (this.app as any).internalPlugins?.plugins?.['file-explorer'];
+    if (fileExpPlugin?.enabled && fileExpPlugin.instance?.revealInFolder) {
+      fileExpPlugin.instance.revealInFolder(folder);
+      return;
+    }
+    const leaves = this.app.workspace.getLeavesOfType('file-explorer');
+    if (leaves.length > 0) {
+      await this.app.workspace.revealLeaf(leaves[0]);
+    }
   }
 
   private async openFile(filePath: string): Promise<void> {

@@ -3,10 +3,10 @@ import type { WorkspaceConfig, WorkspaceState, ArtifactState, ArtifactStatus } f
 import { sanitizeFilename } from '../epub/epubSanitizer';
 import type { PackRecord } from '../freshness/types';
 
-function artifactFromFile(file: TFile | null, sourceLatestMtime: number): ArtifactState {
+function artifactFromFile(file: TFile | null, refMtime: number): ArtifactState {
   if (!file) return { status: 'missing' };
   const mtime = file.stat.mtime;
-  const status: ArtifactStatus = mtime >= sourceLatestMtime ? 'ready' : 'outdated';
+  const status: ArtifactStatus = mtime >= refMtime ? 'ready' : 'outdated';
   return { status, filePath: file.path, mtime };
 }
 
@@ -45,6 +45,11 @@ export async function computeWorkspaceState(
 
   const aiBrief = artifactFromFile(briefFile, sourceLatestMtime);
 
+  // Downstream artifacts (MOC, Pack, EPUB) are outdated if older than
+  // either the source files OR the AI Brief (whichever is newer).
+  const briefMtime = briefFile?.stat.mtime ?? 0;
+  const downstreamRef = Math.max(sourceLatestMtime, briefMtime);
+
   // AI MOC
   let mocFile: TFile | null = null;
   if (briefFile) {
@@ -55,7 +60,7 @@ export async function computeWorkspaceState(
     if (m instanceof TFile) mocFile = m;
   }
   const aiMoc: ArtifactState = briefFile
-    ? artifactFromFile(mocFile, sourceLatestMtime)
+    ? artifactFromFile(mocFile, downstreamRef)
     : { status: 'missing' };
 
   // Context Pack: check physical files then packRegistry

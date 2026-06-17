@@ -68,7 +68,7 @@ export default class ContextPackPlugin extends Plugin {
     (this.app as unknown as { viewRegistry?: { unregisterView?: (type: string) => void } }).viewRegistry?.unregisterView?.(WORKSPACE_VIEW_TYPE);
     this.registerView(WORKSPACE_VIEW_TYPE, (leaf) => new WorkspaceView(leaf, this));
 
-    this.addRibbonIcon('layout-dashboard', 'AI Workspace', () => {
+    this.addRibbonIcon('briefcase-business', 'AI Workspace', () => {
       void this.activateWorkspaceView();
     });
 
@@ -333,6 +333,10 @@ export default class ContextPackPlugin extends Plugin {
     if (!saved?.outputSelectorState) {
       this.settings.outputSelectorState = migrateOutputTarget(this.settings.defaultOutputTarget);
     }
+    const validTabs = ['chatgpt', 'claude', 'gemini', 'agents'];
+    if (!validTabs.includes(this.settings.outputSelectorState.activeTab)) {
+      this.settings.outputSelectorState.activeTab = 'chatgpt';
+    }
     if (!Array.isArray(this.settings.packRegistry)) {
       this.settings.packRegistry = [];
     }
@@ -438,11 +442,20 @@ export default class ContextPackPlugin extends Plugin {
         break;
       }
     }
+    // Fallback: naming convention (same logic as computeWorkspaceState)
+    if (!briefFile) {
+      const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+      const folderName = folderPath.split('/').pop() ?? folderPath;
+      const safe = folderName.replace(/[/\\:*?"<>|#^[\]]/g, '-').trim();
+      const candidatePath = outputFolder ? `${outputFolder}/${safe}-AI-Brief.md` : `${safe}-AI-Brief.md`;
+      const candidate = this.app.vault.getAbstractFileByPath(candidatePath);
+      if (candidate instanceof TFile) briefFile = candidate;
+    }
     if (!briefFile) {
       new Notice('AI Brief has not been created yet.');
       return;
     }
-    await this.createEpubFromBrief(briefFile);
+    await this.createEpubFromBrief(briefFile, folderPath);
   }
 
   async savePackRecord(meta: PackMeta, outputTarget: OutputTarget, selectorState?: OutputSelectorState): Promise<void> {
@@ -478,6 +491,14 @@ export default class ContextPackPlugin extends Plugin {
   private refreshFreshnessViewIfOpen(): void {
     for (const leaf of this.app.workspace.getLeavesOfType(FRESHNESS_VIEW_TYPE)) {
       if (leaf.view instanceof FreshnessView) {
+        void leaf.view.refresh();
+      }
+    }
+  }
+
+  private refreshWorkspaceViewIfOpen(): void {
+    for (const leaf of this.app.workspace.getLeavesOfType(WORKSPACE_VIEW_TYPE)) {
+      if (leaf.view instanceof WorkspaceView) {
         void leaf.view.refresh();
       }
     }
@@ -1010,6 +1031,7 @@ export default class ContextPackPlugin extends Plugin {
         if (packMeta) {
           await this.savePackRecord(packMeta, choice.target, choice.selectorState);
           this.refreshFreshnessViewIfOpen();
+          this.refreshWorkspaceViewIfOpen();
         }
       }).open();
     } else {
@@ -1031,7 +1053,10 @@ export default class ContextPackPlugin extends Plugin {
         });
       }
       if (packMeta) {
-        void this.savePackRecord(packMeta, target).then(() => this.refreshFreshnessViewIfOpen());
+        void this.savePackRecord(packMeta, target).then(() => {
+          this.refreshFreshnessViewIfOpen();
+          this.refreshWorkspaceViewIfOpen();
+        });
       }
     }
   }
@@ -1166,43 +1191,50 @@ export default class ContextPackPlugin extends Plugin {
     }
   }
 
-  private async createEpubFromBrief(briefFile: TFile): Promise<void> {
+  private async createEpubFromBrief(briefFile: TFile, sourceFolderOverride?: string): Promise<void> {
     const briefContent = await this.app.vault.read(briefFile);
     const briefData = parseBriefContent(briefContent);
 
-    // Collect all note names referenced in AI Brief clusters
-    const noteNames: string[] = [];
-    if (briefData && briefData.clusters.length > 0) {
-      const seen = new Set<string>();
-      for (const cluster of briefData.clusters) {
-        for (const name of [...cluster.representativeNotes, ...cluster.additionalNotes]) {
-          const basename = stripWikilink(name);
-          if (basename && !seen.has(basename.toLowerCase())) {
-            seen.add(basename.toLowerCase());
-            noteNames.push(basename);
+    const fm = this.app.metadataCache.getFileCache(briefFile)?.frontmatter;
+
+    // Prefer frontmatter sourceFolder; fall back to override from workspace
+    const sourceFolder = (fm?.['sourceFolder'] as string | undefined) || sourceFolderOverride;
+    let sourceFiles: TFile[];
+
+    if (sourceFolder) {
+      sourceFiles = this.app.vault.getMarkdownFiles()
+        .filter(f => f.path.startsWith(sourceFolder + '/') && f.path !== briefFile.path);
+    } else {
+      // Fall back: collect notes referenced in AI Brief clusters
+      const noteNames: string[] = [];
+      if (briefData && briefData.clusters.length > 0) {
+        const seen = new Set<string>();
+        for (const cluster of briefData.clusters) {
+          for (const name of [...cluster.representativeNotes, ...cluster.additionalNotes]) {
+            const basename = stripWikilink(name);
+            if (basename && !seen.has(basename.toLowerCase())) {
+              seen.add(basename.toLowerCase());
+              noteNames.push(basename);
+            }
           }
         }
       }
-    }
-
-    // Fall back to metadata cache links if parseBriefContent found nothing
-    if (noteNames.length === 0) {
-      const cache = this.app.metadataCache.getFileCache(briefFile);
-      for (const l of cache?.links ?? []) noteNames.push(l.link);
-    }
-
-    if (noteNames.length === 0) {
-      new Notice(t('notice_no_links'));
-      return;
-    }
-
-    const sourceFiles: TFile[] = [];
-    const added = new Set<string>();
-    for (const name of noteNames) {
-      const resolved = this.app.metadataCache.getFirstLinkpathDest(name, briefFile.path);
-      if (resolved instanceof TFile && resolved.extension === 'md' && !added.has(resolved.path)) {
-        added.add(resolved.path);
-        sourceFiles.push(resolved);
+      if (noteNames.length === 0) {
+        const cache = this.app.metadataCache.getFileCache(briefFile);
+        for (const l of cache?.links ?? []) noteNames.push(l.link);
+      }
+      if (noteNames.length === 0) {
+        new Notice(t('notice_no_links'));
+        return;
+      }
+      const added = new Set<string>();
+      sourceFiles = [];
+      for (const name of noteNames) {
+        const resolved = this.app.metadataCache.getFirstLinkpathDest(name, briefFile.path);
+        if (resolved instanceof TFile && resolved.extension === 'md' && !added.has(resolved.path)) {
+          added.add(resolved.path);
+          sourceFiles.push(resolved);
+        }
       }
     }
 
@@ -1212,7 +1244,6 @@ export default class ContextPackPlugin extends Plugin {
     }
 
     // Prefer frontmatter 'source' field as human-readable book title
-    const fm = this.app.metadataCache.getFileCache(briefFile)?.frontmatter;
     const rawTitle = (fm?.['source'] as string | undefined)?.trim()
       || briefFile.basename.replace(/[\s_-]*AI[\s-]?Brief(?:[\s_-]?MOC)?$/i, '').trim()
       || briefFile.basename;
