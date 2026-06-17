@@ -45,8 +45,6 @@ Compatible with:
 
 ## New in v4.0: AI Workspace View
 
-![AI Workspace View](docs/images/ai-workspace-overview.jpeg)
-
 Manage AI-ready outputs for each folder from a single dashboard.
 
 Track completion status, open generated outputs, refresh workspaces, and see what is missing.
@@ -83,15 +81,15 @@ ChatGPT / Claude / Gemini / NotebookLM
 
 ## Core Features
 
-**AI Workspace View** — Manage AI-ready outputs for each folder. Track progress and refresh with one click.
+**AI Workspace View** — Track and manage all AI outputs per folder from one panel.
 
-**AI Brief** — Analyze a folder and generate topic clusters, a knowledge map, and suggested AI prompts.
+**AI Brief** — Analyze a folder: topic clusters, knowledge map, and suggested prompts.
 
-**AI MOC** — Turn AI Brief clusters into a structured Map of Content optimized for AI export.
+**AI MOC** — Structured Map of Content from your AI Brief, ready to export.
 
-**Context Pack** — Bundle notes into a clean Markdown file for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.
+**Context Pack** — Clean Markdown bundle for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.
 
-**Knowledge Book (EPUB)** — Generate a structured EPUB with cover, hierarchical TOC, and chapters. Read in Kindle, Apple Books, or Kobo.
+**Knowledge Book (EPUB)** — Structured EPUB with cover and TOC. Read in Kindle, Apple Books, or Kobo.
 
 ---
 
