@@ -452,7 +452,7 @@ export default class ContextPackPlugin extends Plugin {
       if (candidate instanceof TFile) briefFile = candidate;
     }
     if (!briefFile) {
-      new Notice('AI Brief has not been created yet.');
+      new Notice(t('ws_notice_no_brief'));
       return;
     }
     await this.createEpubFromBrief(briefFile, folderPath);
@@ -521,7 +521,7 @@ export default class ContextPackPlugin extends Plugin {
         break;
       }
       default:
-        new Notice('Re-export for this pack type is not yet supported.');
+        new Notice(t('ws_notice_reexport_unsupported'));
     }
   }
 
