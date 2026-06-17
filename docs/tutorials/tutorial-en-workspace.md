@@ -28,7 +28,11 @@ travel/
 
 **Bob:** That's correct. Generate Workspace creates AI Brief and AI MOC automatically. For the other two, scroll down to **Generate Outputs** and click **Export Pack** for the Context Pack, or **Create EPUB** for the Knowledge Book.
 
-**Alice:** Got it. I clicked both. Now it says "4/4 outputs ready."
+**Alice:** I clicked Export Pack and a dialog appeared — "Select output target." There are tabs for ChatGPT, Claude, Gemini, and Agents.
+
+**Bob:** Choose the AI tool you want to use. Each target formats the Context Pack with instructions specific to that tool. If you're not sure, just pick ChatGPT. You can export again for a different target any time.
+
+**Alice:** Got it. I selected ChatGPT and clicked Export. Now the Context Pack says "Ready." I clicked Create EPUB too. Now it says "4/4 outputs ready."
 
 **Bob:** Perfect. You can click **Open** next to any output to see what was generated.
 

@@ -28,7 +28,11 @@ travel/
 
 **Bob：** それが正しい動作です。Generate Workspace は AI Brief と AI MOC を自動で作成します。残り2つは下の **Generate Outputs** から個別に作成します。**Export Pack** で Context Pack、**Create EPUB** で Knowledge Book を生成できます。
 
-**Alice：** 両方クリックしました。「4/4 outputs ready」になりました。
+**Alice：** Export Pack をクリックしたら「Select output target」というダイアログが出ました。ChatGPT・Claude・Gemini・Agents というタブがあります。
+
+**Bob：** 使いたい AI ツールを選んでください。それぞれのターゲットに合わせた指示が Context Pack に追加されます。迷ったら ChatGPT を選べば大丈夫です。あとで別のターゲット向けに再エクスポートすることもできます。
+
+**Alice：** ChatGPT を選んで Export しました。Context Pack が「Ready」になりました。Create EPUB もクリックして、「4/4 outputs ready」になりました。
 
 **Bob：** 完璧です。それぞれの **Open** ボタンを押すと内容を確認できます。
 
