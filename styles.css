@@ -676,3 +676,538 @@
   resize: vertical;
   line-height: 1.5;
 }
+
+/* ══════════════════════════════════════════════════
+   AI Workspace View
+   ══════════════════════════════════════════════════ */
+
+.ai-context-workspace-view {
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-context-workspace-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  position: sticky;
+  top: 0;
+  background: var(--background-primary);
+  z-index: 1;
+  gap: 4px;
+}
+
+.ai-context-workspace-header-titlerow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ai-context-workspace-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-ui-medium);
+  font-weight: 600;
+  color: var(--text-normal);
+  white-space: nowrap;
+}
+
+.ai-context-workspace-title-icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-normal);
+}
+
+.ai-context-workspace-title-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.ai-context-workspace-header-actions {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ai-context-workspace-stats {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-normal);
+  padding-bottom: 4px;
+}
+
+.ai-context-workspace-list {
+  padding: 10px 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Card ── */
+
+.ai-context-workspace-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: 12px 12px 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ai-context-workspace-card:hover {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.ai-context-workspace-card-subtitle {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-normal);
+  margin-bottom: 3px;
+}
+
+.ai-context-workspace-card-titlerow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.ai-context-workspace-card-title-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ai-context-workspace-card-folder-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-normal);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+}
+
+.ai-context-workspace-card-folder-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ai-context-workspace-card-folder-btn:hover {
+  color: var(--interactive-accent);
+  background: var(--background-modifier-hover);
+}
+
+.ai-context-workspace-card-title {
+  font-size: var(--font-ui-medium);
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.ai-context-workspace-card-remove {
+  background: transparent;
+  border: none;
+  color: var(--text-normal);
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+}
+
+.ai-context-workspace-card-remove:hover {
+  color: var(--text-error);
+  background: var(--background-modifier-hover);
+}
+
+/* ── Meta ── */
+
+.ai-context-workspace-meta {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-normal);
+  margin-bottom: 5px;
+}
+
+.ai-context-workspace-meta-muted {
+  color: var(--text-normal);
+}
+
+/* ── Progress ── */
+
+.ai-context-workspace-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+
+.ai-context-workspace-progress-bar-wrap {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--background-modifier-border);
+  overflow: hidden;
+}
+
+.ai-context-workspace-progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--interactive-accent);
+  transition: width 0.3s ease;
+}
+
+.ai-context-workspace-progress-bar-fill--full {
+  background: var(--color-green);
+}
+
+.ai-context-workspace-progress-label {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-normal);
+  white-space: nowrap;
+}
+
+.ai-context-workspace-progress-label--ready {
+  color: var(--color-green);
+  font-weight: 500;
+}
+
+/* ── Status grid ── */
+
+.ai-context-workspace-status-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+  padding: 7px 9px;
+  background: var(--background-primary);
+  border-radius: calc(var(--radius-m) - 2px);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.ai-context-workspace-status-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 22px;
+}
+
+.ai-context-workspace-status-row-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.ai-context-workspace-open-btn {
+  font-size: 10px;
+  padding: 1px 7px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: transparent;
+  color: var(--text-normal);
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.ai-context-workspace-open-btn:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.ai-context-workspace-status-icon {
+  font-size: 11px;
+  text-align: center;
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.ai-context-workspace-status-icon--ready   { color: var(--color-green); }
+.ai-context-workspace-status-icon--outdated { color: var(--color-orange); }
+.ai-context-workspace-status-icon--missing  { color: var(--text-normal); }
+.ai-context-workspace-status-icon--error    { color: var(--text-error); }
+
+.ai-context-workspace-status-label {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-normal);
+}
+
+/* ── Badges ── */
+
+.ai-context-workspace-badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.ai-context-workspace-badge-ready {
+  color: var(--color-green);
+  border-color: var(--color-green);
+  background: transparent;
+}
+
+.ai-context-workspace-badge-outdated {
+  color: var(--color-orange);
+  border-color: var(--color-orange);
+  background: transparent;
+}
+
+.ai-context-workspace-badge-missing {
+  color: var(--text-normal);
+  border-color: var(--background-modifier-border);
+  background: transparent;
+}
+
+.ai-context-workspace-badge-error {
+  color: var(--text-error);
+  border-color: var(--text-error);
+  background: transparent;
+}
+
+/* ── Actions ── */
+
+.ai-context-workspace-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ai-context-workspace-actions-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-normal);
+  padding-top: 2px;
+}
+
+.ai-context-workspace-actions-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* ── Buttons ── */
+
+.ai-context-workspace-button {
+  font-size: var(--font-ui-smaller);
+  padding: 4px 10px;
+  border-radius: var(--radius-s);
+  border: 1px solid var(--background-modifier-border);
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.ai-context-workspace-button:hover:not(:disabled) {
+  background: var(--interactive-hover);
+  border-color: var(--interactive-accent);
+  color: var(--text-normal);
+}
+
+.ai-context-workspace-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ai-context-workspace-button--secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--background-modifier-border);
+}
+
+.ai-context-workspace-button--secondary:hover:not(:disabled) {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.ai-context-workspace-button--accent {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+  font-weight: 500;
+}
+
+.ai-context-workspace-button--accent:hover:not(:disabled) {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  border-color: var(--interactive-accent);
+}
+
+.ai-context-workspace-button--block {
+  width: 100%;
+  text-align: center;
+}
+
+@keyframes ai-workspace-pulse-secondary {
+  0%, 100% {
+    border-color: var(--background-modifier-border);
+    color: var(--text-muted);
+  }
+  50% {
+    border-color: var(--interactive-accent);
+    color: var(--interactive-accent);
+  }
+}
+
+@keyframes ai-workspace-pulse-primary {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+.ai-context-workspace-button--secondary.ai-context-workspace-button--pulse {
+  animation: ai-workspace-pulse-secondary 1.4s ease-in-out infinite;
+}
+
+.ai-context-workspace-button:not(.ai-context-workspace-button--secondary).ai-context-workspace-button--pulse {
+  animation: ai-workspace-pulse-primary 1.4s ease-in-out infinite;
+}
+
+.ai-context-workspace-button--pulse:hover {
+  animation: none;
+}
+
+/* ── Loading ── */
+
+.ai-context-workspace-loading {
+  text-align: center;
+  color: var(--text-faint);
+  padding: 36px 16px;
+  font-size: var(--font-ui-small);
+}
+
+/* ── Empty state ── */
+
+.ai-context-workspace-empty {
+  text-align: center;
+  padding: 44px 20px;
+  color: var(--text-muted);
+}
+
+.ai-context-workspace-empty-icon {
+  font-size: 34px;
+  margin-bottom: 10px;
+  opacity: 0.55;
+}
+
+.ai-context-workspace-empty-title {
+  font-size: var(--font-ui-medium);
+  font-weight: 600;
+  color: var(--text-normal);
+  margin: 0 0 6px;
+}
+
+.ai-context-workspace-empty-desc {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  margin: 0 auto 18px;
+  line-height: 1.55;
+  max-width: 260px;
+}
+
+/* ── Error ── */
+
+.ai-context-workspace-error {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-error);
+  padding: 6px 0 2px;
+}
+
+/* ── Theme toggle icon button ── */
+
+.ai-context-workspace-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: background 0.1s, color 0.1s;
+}
+
+.ai-context-workspace-icon-btn:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+/* ── Dark mode ── */
+
+.ai-context-workspace-view--dark {
+  --background-primary:         #1a1a1a;
+  --background-secondary:       #242424;
+  --background-modifier-border: #3a3a3a;
+  --background-modifier-hover:  #333333;
+  --text-normal:  #e0e0e0;
+  --text-muted:   #999999;
+  --text-faint:   #666666;
+  --text-error:   #f87171;
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.ai-context-workspace-view--dark button {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #3a3a3a;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-icon-btn {
+  background: transparent;
+  color: #aaaaaa;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-icon-btn:hover {
+  background: #333333;
+  color: #e0e0e0;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-button--secondary {
+  background: transparent;
+  color: #aaaaaa;
+  border-color: #3a3a3a;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-button--secondary:hover:not(:disabled) {
+  background: #333333;
+  color: #e0e0e0;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-card-remove {
+  color: #999999;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-card-remove:hover {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-card-folder-btn {
+  color: #999999;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-card-folder-btn:hover {
+  background: rgba(99, 179, 237, 0.2);
+  color: #63b3ed;
+}

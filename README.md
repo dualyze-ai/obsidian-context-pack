@@ -1,65 +1,246 @@
 # AI Context Pack
 
-> Analyze your vault. Organize your knowledge. Export AI-ready context.
+Turn your Obsidian vault into an AI-ready knowledge workspace.
 
-<div align="center">
-<img src="docs/demo-workflow.gif" width="100%">
-</div>
+Manage AI Briefs, AI MOCs, Context Packs, and Knowledge Books from one place.
 
-Turn your Obsidian notes into:
+**Manage → Analyze → Organize → Export → Ask → Read**
 
-- **AI Context Packs** for ChatGPT, Claude, Gemini, and NotebookLM
-- **AI Briefs** for structured knowledge exploration
-- **Knowledge Books (EPUB)** for Kindle and offline reading
+![AI Workspace Demo](docs/images/ai-workspace-demo.gif)
 
-📖 **Step-by-step Tutorial**
+Turn your Obsidian notes into reusable AI knowledge.
 
-Learn how to:
+**Analyze → Organize → Export → Ask → Read**
 
-- Analyze notes with AI Brief
-- Generate an AI MOC
-- Create a Context Pack
-- Ask grounded questions in ChatGPT
+## Quick Workflow
 
-→ Read the complete tutorial:
-[How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
+1. Create a Workspace
+2. Add a Folder Workspace
+3. Analyze Notes (AI Brief + AI MOC)
+4. Generate Knowledge Outputs
+5. Export for AI Tools
+6. Read as a Knowledge Book (EPUB)
 
-## ✨ New in v3.3: Analyze → Organize → Export → Ask → Read
+---
 
-AI Context Pack now helps you move from scattered notes to reusable AI knowledge in a clearer workflow:
+## What is AI Context Pack?
+
+AI Context Pack transforms your Obsidian notes into reusable AI knowledge.
+
+Create AI Briefs, AI MOCs, Context Packs, and Knowledge Books, then manage everything from a single Workspace View.
+
+Compatible with:
+
+- ChatGPT
+- Claude
+- Gemini
+- NotebookLM
+
+---
+
+## New in v4.0: AI Workspace View
+
+Manage AI-ready outputs for each folder from a single dashboard.
+
+Track completion status, open generated outputs, refresh workspaces, and see what is missing.
+
+- Workspace progress tracking
+- AI Brief management
+- AI MOC management
+- Context Pack management
+- Knowledge Book management
+- Refresh Workspace
+- Refresh All
+
+---
+
+## What Can I Do?
+
+✅ Manage AI Workspaces
+
+✅ Generate AI Briefs
+
+✅ Create AI MOCs
+
+✅ Export Context Packs
+
+✅ Generate Knowledge Books (EPUB)
+
+✅ Track Workspace Completion
+
+✅ Refresh Outputs When Notes Change
+
+---
+
+## Core Workflow
 
 ```text
-Folder
-↓
-Generate AI Brief
-↓
-Visualize Knowledge Map
-↓
-Generate AI MOC from AI Brief
-↓
-Create Context Pack
-↓
-Ask AI
-
-OR
-
-Create Knowledge Book (EPUB)
-↓
-Read Anywhere
+Obsidian Notes
+      ↓
+AI Workspace
+      ↓
+AI Brief
+      ↓
+AI MOC
+      ↓
+Context Pack
+      ↓
+Knowledge Book
+      ↓
+ChatGPT / Claude / Gemini / NotebookLM
 ```
 
-### 1. Analyze your vault with AI Brief
+---
 
-Generate an AI Brief to understand your notes before exporting them.
+## Core Features
 
-AI Brief identifies:
+**AI Workspace View** — Track and manage all AI outputs per folder from one panel.
 
-- Executive insights
-- Topic clusters
-- Knowledge maps
-- Relationship maps
-- Knowledge health
-- Suggested AI prompts
+**AI Brief** — Analyze a folder: topic clusters, knowledge map, and suggested prompts.
+
+**AI MOC** — Structured Map of Content from your AI Brief, ready to export.
+
+**Context Pack** — Clean Markdown bundle for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.
+
+**Knowledge Book (EPUB)** — Structured EPUB with cover and TOC. Read in Kindle, Apple Books, or Kobo.
+
+---
+
+## Quick Start
+
+1. Install AI Context Pack
+2. Create a Folder Workspace
+3. Generate an AI Brief
+4. Generate an AI MOC
+5. Export a Context Pack or create a Knowledge Book
+
+---
+
+## Tutorial
+
+Learn the complete workflow from notes to AI-ready outputs.
+
+👉 [Tutorial: Create Your First AI Workspace](docs/tutorials/tutorial-en-workspace.md)
+
+In this tutorial, Alice learns how to:
+
+- Create a Folder Workspace
+- Generate an AI Brief
+- Generate an AI MOC
+- Export a Context Pack
+- Create a Knowledge Book
+- Keep everything up to date with Workspace View
+
+---
+
+## Screenshots
+
+![AI Workspace View](docs/images/ai-workspace-overview.jpeg)
+
+*AI Workspace View — manage all outputs from one place*
+
+<div align="center">
+<img src="docs/ai-brief-overview.png" width="90%">
+<p><em>AI Brief — understand your vault before exporting</em></p>
+</div>
+
+<div align="center">
+<img src="docs/ai-moc-overview.png" width="90%">
+<p><em>AI MOC — organize insights into a navigable structure</em></p>
+</div>
+
+---
+
+## Example Use Cases
+
+### Research Workspace
+
+Research notes → AI Brief → ChatGPT
+
+Use AI Brief to understand your research, then export a Context Pack to ask deep questions.
+
+### Learning Workspace
+
+Study notes → Knowledge Book → Kindle
+
+Turn your study notes into a structured EPUB you can read anywhere.
+
+### Project Workspace
+
+Project documentation → Context Pack → Claude
+
+Package specs, architecture notes, and documentation for Claude or Claude Code.
+
+### Personal Knowledge Base
+
+Vault → Workspace View → Long-term AI Knowledge
+
+Track the completeness of your entire knowledge base and keep AI outputs up to date as your notes evolve.
+
+---
+
+## Installation
+
+### Community Plugins (Recommended)
+
+1. Open **Settings → Community plugins → Browse**
+2. Search for **AI Context Pack**
+3. Install and enable
+
+### Manual Installation
+
+Download the [latest release](https://github.com/dualyze-ai/obsidian-context-pack/releases/latest) and copy `main.js`, `manifest.json`, and `styles.css` to:
+
+```text
+.obsidian/plugins/context-pack-for-notebooklm/
+```
+
+### Sample Vaults
+
+| Vault | Notes | Download |
+|---|---|---|
+| 🇺🇸 English | 86 notes | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
+| 🇯🇵 Japanese | 86件 | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
+
+---
+
+## Part of the Dualyze Ecosystem
+
+```text
+DualyzeAI
+      ↓
+Obsidian
+      ↓
+AI Context Pack
+      ↓
+ChatGPT / Claude / Gemini / NotebookLM
+```
+
+| Tool | Role |
+|---|---|
+| [DualyzeAI](https://dualyzeai.com) | Compare & Analyze |
+| Obsidian | Save & Organize |
+| AI Context Pack | Package & Prepare |
+| Dualyze Notes | Capture & Sync |
+| Dualyze Structure | Structure & Visualize |
+
+---
+
+## Details
+
+<details>
+<summary>AI Brief — full details</summary>
+
+AI Brief analyzes a folder and generates:
+
+- **Executive Insight** — one-paragraph knowledge summary
+- **Topic Clusters** — groups of related notes with representative examples
+- **Knowledge Map** — Mermaid diagram showing cluster relationships
+- **Relationship Map** — similarity scores between individual notes
+- **Knowledge Health** — orphan notes, duplicate candidates, connectivity score
+- **Suggested Prompts** — ready-to-use AI prompts for your content
+
+AI Brief is saved as a Markdown file with frontmatter, making it reusable across all workflows.
 
 <div align="center">
 <img src="docs/ai-brief-overview.png" width="90%">
@@ -67,215 +248,20 @@ AI Brief identifies:
 
 *AI Brief summarizes the structure, coverage, and major themes of a selected folder.*
 
----
-
-### 2. Visualize knowledge structure
-
-AI Brief generates a visual Knowledge Map that shows topic clusters and representative notes.
-
 <div align="center">
 <img src="docs/ai-brief-knowledge-map.png" width="90%">
 </div>
 
-*Knowledge Map generated from a 20-note Art History vault (excerpt).*
+*Knowledge Map generated from a 20-note vault (excerpt).*
 
----
+</details>
 
-### 3. Organize insights into an AI MOC
+<details>
+<summary>AI MOC — full details</summary>
 
-Generate an AI MOC from the AI Brief to transform analysis into a navigable knowledge structure.
+AI MOC (Map of Content) is generated from an AI Brief or any note.
 
-<div align="center">
-<img src="docs/ai-moc-overview.png" width="90%">
-</div>
-
-*AI MOC turns discovered clusters into a structured navigation layer.*
-
----
-
-### 4. Export an AI-ready Context Pack
-
-Create a clean Context Pack from the AI MOC.
-
-<div align="center">
-<img src="docs/context-pack-overview.png" width="90%">
-</div>
-
-*Context Packs are optimized for ChatGPT, Claude, Gemini, NotebookLM, and Claude Code.*
-
----
-
-### 5. Create a Knowledge Book (EPUB)
-
-Turn your Obsidian notes into a structured, readable EPUB knowledge book.
-
-AI Context Pack uses the AI Brief structure to build a complete book — not just a Markdown export:
-
-```text
-Obsidian Notes
-↓
-AI Brief
-↓
-Knowledge Structure
-↓
-EPUB Knowledge Book
-↓
-Kindle / Apple Books / Kobo
-```
-
-- Uses the AI Brief as a preface
-- Converts AI Brief clusters into a hierarchical table of contents
-- Includes source note content as book chapters
-- Embeds images from notes directly into the EPUB
-- Creates a cover page with title, cover image, note count, and generated date
-- Excludes AI-provider prompts and instructions from the EPUB output
-- Respects AI Brief cluster order for chapter and section ordering
-
-Read your knowledge book in Kindle, Apple Books, Kobo, or any EPUB reader.
-
-#### How to create a Knowledge Book
-
-1. Generate an AI Brief from a folder, tag, or selected notes.
-2. Right-click the generated AI Brief.
-3. Choose **Create Knowledge Book (EPUB)**.
-4. Open the generated `.epub` file in Kindle, Apple Books, Calibre, or another EPUB reader.
-
-#### Example: Travel Knowledge Book
-
-Create a Kindle-friendly travel guide from your Obsidian notes.
-
-![Knowledge Book cover](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-cover-europe.jpg)
-
-AI Brief clusters are converted into a hierarchical EPUB table of contents.
-
-<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.png" width="65%">
-
-Images from source notes are embedded into the EPUB.
-
-![Knowledge Book page with image](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-page-europe.jpg)
-
-This is useful for creating personal learning books, travel guides, recipe books, art history guides, and Kindle-friendly reading material from your vault.
-
----
-
-### 6. Ask questions with your AI assistant
-
-Upload the exported Context Pack and ask natural-language questions.
-
-<div align="center">
-<img src="docs/chatgpt-example-answer.png" width="90%">
-</div>
-
-*ChatGPT answering a question using only the exported Context Pack.*
-
----
-
-## Supported AI Assistants
-
-| AI | Chat | Project / Notebook |
-|---|---|---|
-| ChatGPT | ✓ | ✓ Projects |
-| Claude | ✓ | ✓ Project |
-| Gemini | ✓ | ✓ Notebook |
-| Claude Code | ✓ | — |
-| NotebookLM | — | ✓ |
-
----
-
-## Why AI Context Pack?
-
-Raw Obsidian notes contain a lot of information that is useful to humans but noisy for AI:
-
-- Wikilinks
-- Frontmatter
-- Comments
-- Templates
-- Embedded content
-- Obsidian-specific syntax
-
-AI Context Pack transforms your vault into clean, structured context optimized for AI assistants.
-
----
-
-## How it works
-
-```text
-Obsidian Vault
-        ↓
-   Generate AI Brief
-        ↓
-   Visualize Knowledge Map
-        ↓
-   Generate AI MOC
-        ↓
-   Create Context Pack
-        ↓
-ChatGPT / Claude
-Gemini / NotebookLM
-Claude Code
-
-        OR
-
-   Create Knowledge Book
-        ↓
-Kindle / Apple Books / Kobo
-```
-
-## Project Knowledge Packs
-
-AI Context Pack doesn't stop at export.
-
-Track which notes were sent to:
-
-- ChatGPT Projects
-- Claude Projects
-- Gemini
-- NotebookLM
-
-and monitor whether they are still up to date.
-
-### Freshness Tracking
-
-Know when:
-
-- Notes were updated
-- New matching notes were added
-- Files were deleted or renamed
-
-Re-export only when needed.
-
-### Context Diff
-
-See exactly what changed since the last export.
-
-No more guessing whether your AI project knowledge is stale.
-
-→ [Learn more about Project Knowledge Packs](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/project-knowledge-packs.md)
-
----
-
-### Context Pack
-
-Bundle related notes into a single AI-ready Markdown file.
-
-Organize by:
-
-- Folder
-- Tag
-- MOC
-- AI MOC
-
-All Obsidian-specific syntax is cleaned automatically.
-
-### See the Complete Workflow
-
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
-
-### AI MOC
-
-Generate a Map of Content from any note.
-
-AI MOC follows wikilinks outward and creates a structured knowledge map:
+It follows wikilinks outward to build a structured navigation layer:
 
 ```text
 Root Note
@@ -286,252 +272,124 @@ Root Note
     └── Referenced By
 ```
 
-No manual index maintenance required.
+AI MOC can be used directly as Context Pack source material.
 
-### Learn by Example
+<div align="center">
+<img src="docs/ai-moc-overview.png" width="90%">
+</div>
 
-See how AI Brief becomes an AI MOC:
+*AI MOC turns discovered clusters into a structured navigation layer.*
 
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
+</details>
 
-### 📚 Knowledge Books (EPUB)
+<details>
+<summary>Knowledge Book (EPUB) — full details</summary>
 
-Turn AI Briefs into Kindle-ready books with cover images, structured chapters, hierarchical navigation, and embedded images.
+Knowledge Books are generated from an AI Brief and its source notes.
 
-### Output Targets
+Structure:
 
-Choose where the pack will be used:
+- Cover page with title, cover image (if found), note count, and date
+- AI Brief as a preface (diagnostic sections removed)
+- Hierarchical table of contents from AI Brief clusters
+- Source notes as book chapters
+- Embedded images from note content
 
-- ChatGPT Chat
-- ChatGPT Projects
-- Claude Chat
-- Claude Project
-- Gemini Chat
-- Gemini Notebook
-- Claude Code
-- NotebookLM
+Supported readers: Kindle, Apple Books, Kobo, Calibre, and any EPUB reader.
 
-AI-specific instructions are added automatically.
+#### How to create a Knowledge Book
 
-## Human Reading Targets
+1. Generate an AI Brief from a folder.
+2. Right-click the generated AI Brief.
+3. Choose **Create Knowledge Book (EPUB)**.
+4. Open the `.epub` file in Kindle, Apple Books, or another EPUB reader.
 
-- EPUB Knowledge Book
-- Kindle
-- Apple Books
-- Kobo
+![Knowledge Book cover](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-cover-europe.jpg)
 
-### Purpose-Aware Modes
+<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.png" width="65%">
 
-Choose how the AI should use your notes:
+![Knowledge Book page](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-page-europe.jpg)
 
-| Mode | Best for |
-|---|---|
-| Research | Analysis and evidence gathering |
-| Learning | Tutorials and study |
-| Writing | Documentation and articles |
-| Development | Specs, code, architecture |
+</details>
 
-### Daily Notes Pack
+<details>
+<summary>Context Pack format</summary>
+
+Context Packs are single Markdown files that bundle related notes.
+
+Each pack includes:
+
+- A structured header with source, date, and note count
+- Clean note content (frontmatter stripped, Obsidian syntax removed)
+- AI-specific instructions for the selected output target
+- Token count estimate
+
+Source options: folder, tag, MOC, AI MOC, selected notes, daily notes.
+
+<div align="center">
+<img src="docs/context-pack-overview.png" width="90%">
+</div>
+
+</details>
+
+<details>
+<summary>Supported AI Assistants</summary>
+
+| AI | Chat | Project / Notebook |
+|---|---|---|
+| ChatGPT | ✓ | ✓ Projects |
+| Claude | ✓ | ✓ Project |
+| Gemini | ✓ | ✓ Notebook |
+| Claude Code | ✓ | — |
+| NotebookLM | — | ✓ |
+
+</details>
+
+<details>
+<summary>Project Knowledge Packs — freshness tracking</summary>
+
+Track which notes were sent to ChatGPT Projects, Claude Projects, Gemini, or NotebookLM.
+
+Know when:
+
+- Notes were updated since the last export
+- New matching notes were added
+- Files were deleted or renamed
+
+Re-export only when needed.
+
+</details>
+
+<details>
+<summary>Daily Notes Pack</summary>
 
 Create AI-ready packs from daily notes.
-
-Features:
 
 - Date range selection
 - Weekly summaries
 - Tag exclusion
 - Auto-detection of Daily Notes folders
 
----
+</details>
 
-<div align="center">
-<img src="docs/demo-features.gif" width="100%">
-</div>
+<details>
+<summary>Settings</summary>
 
----
+Key settings:
 
-## Installation
+- **Output folder** — where AI Briefs, MOCs, and Context Packs are saved
+- **EPUB sort strategy** — how notes are ordered in Knowledge Books
+- **Enable Mermaid** — include Knowledge Map diagrams in AI Brief
+- **AI Brief language** — English or Japanese output
 
-### Community Plugins (Recommended)
-
-1. Open **Settings → Community plugins → Browse**
-2. Search for **AI Context Pack**
-3. Install
-4. Enable
-
-### Manual Installation
-
-Download the [latest release](https://github.com/dualyze-ai/obsidian-context-pack/releases/latest) and copy:
-
-- `main.js`
-- `manifest.json`
-- `styles.css`
-
-to:
-
-```text
-.obsidian/plugins/context-pack-for-notebooklm/
-```
-
----
-
-## Sample Vaults
-
-Try the plugin immediately without preparing your own vault.
-
-| Vault | Notes | Topics | Download |
-|---|---|---|---|
-| 🇺🇸 English | 86 notes | recipes / travel / books / paintings / linkbox-spec | [vault-sample-en.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-en.zip) |
-| 🇯🇵 Japanese | 86件 | 料理 / 旅行 / 読書 / 絵画 / linkbox-spec | [vault-sample-jp.zip](https://s3.ap-northeast-1.amazonaws.com/assets.dualyzeai.com/obsidian-context-pack/vault-sample-jp.zip) |
-
-### Quick Start
-
-1. Download a sample vault
-2. Unzip
-3. Open the folder as a vault in Obsidian
-4. Enable AI Context Pack
-5. Explore:
-
-- Context Pack
-- AI MOC
-- Daily Notes Pack
-- Claude Code workflows
-
-Example:
-
-```text
-Masterpieces of the World.md
-        ↓
-Create AI MOC from this note
-        ↓
-Related Notes
-        ↓
-Generate Context Pack
-        ↓
-Ask ChatGPT or Claude
-```
-
----
-
-## Documentation
-
-### [Project Knowledge Packs](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/project-knowledge-packs.md)
-
-Freshness tracking, context diff, and re-export workflows.
-
-### [Features](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/features.md)
-
-Complete feature reference:
-
-- Project Knowledge Packs
-- Context Pack
-- Knowledge Books (EPUB)
-- Output Targets
-- AI MOC
-- Mode Selector
-- Daily Notes Pack
-- Settings
-
-### [AI Guides](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-guides.md)
-
-Step-by-step guides for:
-
-- ChatGPT
-- ChatGPT Projects
-- Claude
-- Claude Projects
-- Gemini
-- Gemini Notebook
-- Claude Code
-- NotebookLM
-
-### [AI Brief Workflow](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-workflow.md)
-
-Analyze → Organize → Export → Ask → Read workflow:
-
-- Generate AI Brief
-- Visualize Knowledge Map
-- Generate AI MOC from AI Brief
-- Create Context Pack
-- Ask questions with AI
-
-### [AI Brief Generator](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/ai-brief-generator.md)
-
-Understand your vault before exporting it.
-
-- Topic Clustering
-- Knowledge Maps
-- Relationship Analysis
-- Knowledge Health
-- Suggested AI Prompts
-
-### Example
-
-See the complete tutorial:
-
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
-
-### 📚 Knowledge Books (EPUB)
-
-Turn AI Briefs into Kindle-ready books with cover images, structured chapters, hierarchical navigation, and embedded images.
-
-### [Changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
-
-Release history and feature updates.
-
-### Tutorials
-
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
-- [Japanese Tutorial (Art Sample)](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-ja-paintings.md)
-
----
-
-## Part of the AI Research Workflow
-
-AI Context Pack can be used on its own,
-or as part of a broader AI research workflow:
-
-| Tool | Role |
-|--------|--------|
-| DualyzeAI | Compare & Analyze |
-| Obsidian | Save & Organize |
-| AI Context Pack | Package & Prepare |
-| ChatGPT / Claude / Gemini / NotebookLM | Research Deeper |
-
-Optional:
-→ [Learn more about DualyzeAI](https://dualyzeai.com)
-
----
-
-## 📖 Tutorials
-
-- [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
-- [Japanese Tutorial (Art Sample)](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-ja-paintings.md)
-
----
-
-## Roadmap
-
-Current focus:
-
-- Better Project Knowledge workflows
-- Additional AI targets
-- Enhanced AI MOC generation
-- Improved token management
-- Larger vault support
-- Knowledge Book enhancements
-- Mermaid diagram support in EPUB
+</details>
 
 ---
 
 ## Contributing
 
-Issues and pull requests are welcome on [GitHub](https://github.com/dualyze-ai/obsidian-context-pack).
-
----
+Issues and pull requests welcome on [GitHub](https://github.com/dualyze-ai/obsidian-context-pack).
 
 ## License
 
 MIT
-
-Made by [dualyzeAI](https://dualyzeai.com)

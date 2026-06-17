@@ -15,6 +15,7 @@ import { BriefExporter } from './features/ai-brief/brief-exporter';
 import { isAiBriefByHeadings, isAiBriefContent, detectIsAiBrief, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName, type BriefMocData } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
+import { WORKSPACE_VIEW_TYPE, WorkspaceView } from './workspace/WorkspaceView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
 import type { PackRecord } from './freshness/types';
 import { buildEpub } from './epub/epubBuilder';
@@ -64,8 +65,21 @@ export default class ContextPackPlugin extends Plugin {
     (this.app as unknown as { viewRegistry?: { unregisterView?: (type: string) => void } }).viewRegistry?.unregisterView?.(FRESHNESS_VIEW_TYPE);
     this.registerView(FRESHNESS_VIEW_TYPE, (leaf) => new FreshnessView(leaf, this));
 
+    (this.app as unknown as { viewRegistry?: { unregisterView?: (type: string) => void } }).viewRegistry?.unregisterView?.(WORKSPACE_VIEW_TYPE);
+    this.registerView(WORKSPACE_VIEW_TYPE, (leaf) => new WorkspaceView(leaf, this));
+
+    this.addRibbonIcon('briefcase-business', 'AI Workspace', () => {
+      void this.activateWorkspaceView();
+    });
+
     this.addRibbonIcon('boxes', 'Project Knowledge Packs', () => {
       void this.activateFreshnessView();
+    });
+
+    this.addCommand({
+      id: 'open-workspace-view',
+      name: 'Open AI Workspace',
+      callback: () => void this.activateWorkspaceView(),
     });
 
     this.addCommand({
@@ -319,6 +333,10 @@ export default class ContextPackPlugin extends Plugin {
     if (!saved?.outputSelectorState) {
       this.settings.outputSelectorState = migrateOutputTarget(this.settings.defaultOutputTarget);
     }
+    const validTabs = ['chatgpt', 'claude', 'gemini', 'agents'];
+    if (!validTabs.includes(this.settings.outputSelectorState.activeTab)) {
+      this.settings.outputSelectorState.activeTab = 'chatgpt';
+    }
     if (!Array.isArray(this.settings.packRegistry)) {
       this.settings.packRegistry = [];
     }
@@ -327,6 +345,9 @@ export default class ContextPackPlugin extends Plugin {
     }
     if (!this.settings.aiBriefSettings) {
       this.settings.aiBriefSettings = DEFAULT_AI_BRIEF_SETTINGS;
+    }
+    if (!Array.isArray(this.settings.workspaces)) {
+      this.settings.workspaces = [];
     }
   }
 
@@ -344,6 +365,97 @@ export default class ContextPackPlugin extends Plugin {
     if (!leaf) return;
     await leaf.setViewState({ type: FRESHNESS_VIEW_TYPE, active: true });
     await this.app.workspace.revealLeaf(leaf);
+  }
+
+  async activateWorkspaceView(): Promise<void> {
+    const existing = this.app.workspace.getLeavesOfType(WORKSPACE_VIEW_TYPE);
+    if (existing.length > 0) {
+      await this.app.workspace.revealLeaf(existing[0]);
+      return;
+    }
+    const leaf = this.app.workspace.getLeftLeaf(false);
+    if (!leaf) return;
+    await leaf.setViewState({ type: WORKSPACE_VIEW_TYPE, active: true });
+    await this.app.workspace.revealLeaf(leaf);
+  }
+
+  async workspaceRefreshBrief(folderPath: string): Promise<TFile | null> {
+    const files = this.app.vault.getMarkdownFiles()
+      .filter(f => f.path.startsWith(folderPath + '/'));
+    if (files.length === 0) {
+      new Notice(t('notice_no_files'));
+      return null;
+    }
+    const title = folderPath.split('/').pop() ?? folderPath;
+    const notice = new Notice(t('notice_generating_brief'), 0);
+    try {
+      const briefSettings = this.getBriefSettings();
+      const generator = new AIBriefGenerator(this.app);
+      const renderer = new BriefRenderer();
+      const exporter = new BriefExporter(this.app);
+      const model = await generator.generate(files, title, briefSettings);
+      const content = renderer.render(model, briefSettings);
+      const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+      const sourceFolder = commonFolderOfFiles(files);
+      const savedFile = await exporter.save(content, title, outputFolder, sourceFolder || undefined);
+      notice.hide();
+      return savedFile;
+    } catch (err) {
+      notice.hide();
+      console.error('[AI Context Pack]', err);
+      new Notice(t('notice_error'));
+      return null;
+    }
+  }
+
+  async workspaceRefreshMoc(briefFile: TFile): Promise<void> {
+    const content = await this.app.vault.cachedRead(briefFile);
+    const data = parseBriefContent(content);
+    if (!data) return;
+    if (data.clusters.length === 0 && data.relationships.length === 0 && data.documentSections.length === 0) return;
+
+    const briefCache = this.app.metadataCache.getFileCache(briefFile);
+    const sourceFolder = briefCache?.frontmatter?.['sourceFolder'] as string | undefined;
+    const mocContent = buildBriefMocContent(data, briefFile.basename, this.getBriefSettings().enableMermaid, sourceFolder);
+    const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+    const mocFilename = `${briefFile.basename} MOC.md`;
+    const mocPath = folder ? `${folder}/${mocFilename}` : mocFilename;
+
+    const existing = this.app.vault.getAbstractFileByPath(mocPath);
+    if (existing instanceof TFile) {
+      await this.app.vault.modify(existing, mocContent);
+    } else {
+      await this.app.vault.create(mocPath, mocContent);
+    }
+  }
+
+  workspaceExportPack(folderPath: string): void {
+    void this.packFromFolderPath(folderPath);
+  }
+
+  async workspaceCreateEpub(folderPath: string): Promise<void> {
+    let briefFile: TFile | null = null;
+    for (const file of this.app.vault.getMarkdownFiles()) {
+      const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+      if (fm?.['generatedBy'] === 'ai-brief-generator' && fm?.['sourceFolder'] === folderPath) {
+        briefFile = file;
+        break;
+      }
+    }
+    // Fallback: naming convention (same logic as computeWorkspaceState)
+    if (!briefFile) {
+      const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+      const folderName = folderPath.split('/').pop() ?? folderPath;
+      const safe = folderName.replace(/[/\\:*?"<>|#^[\]]/g, '-').trim();
+      const candidatePath = outputFolder ? `${outputFolder}/${safe}-AI-Brief.md` : `${safe}-AI-Brief.md`;
+      const candidate = this.app.vault.getAbstractFileByPath(candidatePath);
+      if (candidate instanceof TFile) briefFile = candidate;
+    }
+    if (!briefFile) {
+      new Notice(t('ws_notice_no_brief'));
+      return;
+    }
+    await this.createEpubFromBrief(briefFile, folderPath);
   }
 
   async savePackRecord(meta: PackMeta, outputTarget: OutputTarget, selectorState?: OutputSelectorState): Promise<void> {
@@ -384,6 +496,14 @@ export default class ContextPackPlugin extends Plugin {
     }
   }
 
+  private refreshWorkspaceViewIfOpen(): void {
+    for (const leaf of this.app.workspace.getLeavesOfType(WORKSPACE_VIEW_TYPE)) {
+      if (leaf.view instanceof WorkspaceView) {
+        void leaf.view.refresh();
+      }
+    }
+  }
+
   async reExportPack(pack: PackRecord): Promise<void> {
     if (pack.outputSelectorState) {
       this.settings.outputSelectorState = { ...pack.outputSelectorState };
@@ -401,7 +521,7 @@ export default class ContextPackPlugin extends Plugin {
         break;
       }
       default:
-        new Notice('Re-export for this pack type is not yet supported.');
+        new Notice(t('ws_notice_reexport_unsupported'));
     }
   }
 
@@ -911,6 +1031,7 @@ export default class ContextPackPlugin extends Plugin {
         if (packMeta) {
           await this.savePackRecord(packMeta, choice.target, choice.selectorState);
           this.refreshFreshnessViewIfOpen();
+          this.refreshWorkspaceViewIfOpen();
         }
       }).open();
     } else {
@@ -932,7 +1053,10 @@ export default class ContextPackPlugin extends Plugin {
         });
       }
       if (packMeta) {
-        void this.savePackRecord(packMeta, target).then(() => this.refreshFreshnessViewIfOpen());
+        void this.savePackRecord(packMeta, target).then(() => {
+          this.refreshFreshnessViewIfOpen();
+          this.refreshWorkspaceViewIfOpen();
+        });
       }
     }
   }
@@ -1067,43 +1191,50 @@ export default class ContextPackPlugin extends Plugin {
     }
   }
 
-  private async createEpubFromBrief(briefFile: TFile): Promise<void> {
+  private async createEpubFromBrief(briefFile: TFile, sourceFolderOverride?: string): Promise<void> {
     const briefContent = await this.app.vault.read(briefFile);
     const briefData = parseBriefContent(briefContent);
 
-    // Collect all note names referenced in AI Brief clusters
-    const noteNames: string[] = [];
-    if (briefData && briefData.clusters.length > 0) {
-      const seen = new Set<string>();
-      for (const cluster of briefData.clusters) {
-        for (const name of [...cluster.representativeNotes, ...cluster.additionalNotes]) {
-          const basename = stripWikilink(name);
-          if (basename && !seen.has(basename.toLowerCase())) {
-            seen.add(basename.toLowerCase());
-            noteNames.push(basename);
+    const fm = this.app.metadataCache.getFileCache(briefFile)?.frontmatter;
+
+    // Prefer frontmatter sourceFolder; fall back to override from workspace
+    const sourceFolder = (fm?.['sourceFolder'] as string | undefined) || sourceFolderOverride;
+    let sourceFiles: TFile[];
+
+    if (sourceFolder) {
+      sourceFiles = this.app.vault.getMarkdownFiles()
+        .filter(f => f.path.startsWith(sourceFolder + '/') && f.path !== briefFile.path);
+    } else {
+      // Fall back: collect notes referenced in AI Brief clusters
+      const noteNames: string[] = [];
+      if (briefData && briefData.clusters.length > 0) {
+        const seen = new Set<string>();
+        for (const cluster of briefData.clusters) {
+          for (const name of [...cluster.representativeNotes, ...cluster.additionalNotes]) {
+            const basename = stripWikilink(name);
+            if (basename && !seen.has(basename.toLowerCase())) {
+              seen.add(basename.toLowerCase());
+              noteNames.push(basename);
+            }
           }
         }
       }
-    }
-
-    // Fall back to metadata cache links if parseBriefContent found nothing
-    if (noteNames.length === 0) {
-      const cache = this.app.metadataCache.getFileCache(briefFile);
-      for (const l of cache?.links ?? []) noteNames.push(l.link);
-    }
-
-    if (noteNames.length === 0) {
-      new Notice(t('notice_no_links'));
-      return;
-    }
-
-    const sourceFiles: TFile[] = [];
-    const added = new Set<string>();
-    for (const name of noteNames) {
-      const resolved = this.app.metadataCache.getFirstLinkpathDest(name, briefFile.path);
-      if (resolved instanceof TFile && resolved.extension === 'md' && !added.has(resolved.path)) {
-        added.add(resolved.path);
-        sourceFiles.push(resolved);
+      if (noteNames.length === 0) {
+        const cache = this.app.metadataCache.getFileCache(briefFile);
+        for (const l of cache?.links ?? []) noteNames.push(l.link);
+      }
+      if (noteNames.length === 0) {
+        new Notice(t('notice_no_links'));
+        return;
+      }
+      const added = new Set<string>();
+      sourceFiles = [];
+      for (const name of noteNames) {
+        const resolved = this.app.metadataCache.getFirstLinkpathDest(name, briefFile.path);
+        if (resolved instanceof TFile && resolved.extension === 'md' && !added.has(resolved.path)) {
+          added.add(resolved.path);
+          sourceFiles.push(resolved);
+        }
       }
     }
 
@@ -1113,7 +1244,6 @@ export default class ContextPackPlugin extends Plugin {
     }
 
     // Prefer frontmatter 'source' field as human-readable book title
-    const fm = this.app.metadataCache.getFileCache(briefFile)?.frontmatter;
     const rawTitle = (fm?.['source'] as string | undefined)?.trim()
       || briefFile.basename.replace(/[\s_-]*AI[\s-]?Brief(?:[\s_-]?MOC)?$/i, '').trim()
       || briefFile.basename;
