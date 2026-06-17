@@ -25,6 +25,22 @@ Compatible with:
 
 ---
 
+## New in v4.0: AI Workspace View
+
+Manage AI-ready outputs for each folder from a single dashboard.
+
+Track completion status, open generated outputs, refresh workspaces, and see what is missing.
+
+- Workspace progress tracking
+- AI Brief management
+- AI MOC management
+- Context Pack management
+- Knowledge Book management
+- Refresh Workspace
+- Refresh All
+
+---
+
 ## What Can I Do?
 
 ✅ Manage AI Workspaces
@@ -40,22 +56,6 @@ Compatible with:
 ✅ Track Workspace Completion
 
 ✅ Refresh Outputs When Notes Change
-
----
-
-## New in v4.0: AI Workspace View
-
-Manage AI-ready outputs for each folder from a single dashboard.
-
-Track completion status, open generated outputs, refresh workspaces, and see what is missing.
-
-- Workspace progress tracking
-- AI Brief management
-- AI MOC management
-- Context Pack management
-- Knowledge Book management
-- Refresh Workspace
-- Refresh All
 
 ---
 
