@@ -39,15 +39,15 @@ export class WorkspaceView extends ItemView {
           file.path.startsWith(ws.sourcePath + '/') && file.path.endsWith('.md')
         );
         if (!affected) return;
-        if (this.debounceTimer) clearTimeout(this.debounceTimer);
-        this.debounceTimer = setTimeout(() => { void this.refresh(); }, 2000);
+        if (this.debounceTimer) window.clearTimeout(this.debounceTimer);
+        this.debounceTimer = window.setTimeout(() => { void this.refresh(); }, 2000);
       })
     );
     await this.refresh();
   }
 
   async onClose(): Promise<void> {
-    if (this.debounceTimer) clearTimeout(this.debounceTimer);
+    if (this.debounceTimer) window.clearTimeout(this.debounceTimer);
   }
 
   async refresh(): Promise<void> {
@@ -267,14 +267,16 @@ export class WorkspaceView extends ItemView {
         cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
         text: t('ws_create_epub'),
       });
-      epubBtn.addEventListener('click', async () => {
-        epubBtn.disabled = true;
-        epubBtn.setText(t('ws_creating_epub'));
-        try {
-          await this.plugin.workspaceCreateEpub(ws.sourcePath);
-        } finally {
-          await this.refresh();
-        }
+      epubBtn.addEventListener('click', () => {
+        void (async () => {
+          epubBtn.disabled = true;
+          epubBtn.setText(t('ws_creating_epub'));
+          try {
+            await this.plugin.workspaceCreateEpub(ws.sourcePath);
+          } finally {
+            await this.refresh();
+          }
+        })();
       });
     }
   }
@@ -307,8 +309,9 @@ export class WorkspaceView extends ItemView {
       new Notice(t('ws_notice_folder_not_found', folderPath));
       return;
     }
-    // @ts-ignore
-    const fileExpPlugin = (this.app as any).internalPlugins?.plugins?.['file-explorer'];
+    type FileExplorerPlugin = { enabled: boolean; instance?: { revealInFolder: (f: TFolder) => void } };
+    type AppInternal = { internalPlugins?: { plugins?: Record<string, FileExplorerPlugin> } };
+    const fileExpPlugin = (this.app as unknown as AppInternal).internalPlugins?.plugins?.['file-explorer'];
     if (fileExpPlugin?.enabled && fileExpPlugin.instance?.revealInFolder) {
       fileExpPlugin.instance.revealInFolder(folder);
       return;
