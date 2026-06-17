@@ -120,7 +120,7 @@ ChatGPT / Claude / Gemini / NotebookLM
 
 Learn the complete workflow from notes to AI-ready outputs.
 
-👉 [Tutorial: Create Your First AI Workspace](docs/tutorials/tutorial-en-workspace.md)
+👉 [Tutorial: Create Your First AI Workspace](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-workspace.md)
 
 In this tutorial, Alice learns how to:
 
