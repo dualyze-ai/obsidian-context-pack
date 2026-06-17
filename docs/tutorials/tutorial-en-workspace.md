@@ -18,7 +18,7 @@ travel/
 
 **Bob:** Open the AI Workspace panel from the ribbon — it's the briefcase icon. Then click **+ Add Workspace** and select your `travel/` folder.
 
-**Alice:** Done. I can see it now — it says 20 notes and shows AI Brief, AI MOC, Context Pack, and Knowledge Book.
+**Alice:** Done. I can see it now — it says 20 notes and shows AI Brief, AI MOC, Context Pack, and Knowledge Book. It shows 0/4 outputs ready.
 
 **Bob:** Those are your four outputs. Right now they're all "Not created." Click **Generate Workspace** to generate them for the first time.
 
@@ -27,6 +27,8 @@ travel/
 **Alice:** It ran. AI Brief and AI MOC are green, but Context Pack and Knowledge Book still say "Not created." It shows "2/4 outputs ready."
 
 **Bob:** That's correct. Generate Workspace creates AI Brief and AI MOC automatically. For the other two, scroll down to **Generate Outputs** and click **Export Pack** for the Context Pack, or **Create EPUB** for the Knowledge Book.
+
+**Bob:** And one more thing — Generate Workspace is only needed the first time. After that, you'll use Refresh Workspace whenever your notes change.
 
 **Alice:** I clicked Export Pack and a dialog appeared — "Select output target." There are tabs for ChatGPT, Claude, Gemini, and Agents.
 
@@ -38,7 +40,7 @@ travel/
 
 **Alice:** The AI Brief is really interesting — it found clusters I didn't notice, like "Historic Sites" and "Local Food."
 
-**Bob:** That's the point of AI Brief. It maps the structure of your knowledge before you export anything. The AI MOC turns those clusters into a navigable index. The Context Pack is what you actually give to an AI tool.
+**Bob:** Think of AI Brief as an executive summary of your folder. It maps the structure of your knowledge before you export anything. The AI MOC turns those clusters into a navigable index. The Context Pack is what you actually give to an AI tool.
 
 ---
 

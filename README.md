@@ -103,6 +103,23 @@ ChatGPT / Claude / Gemini / NotebookLM
 
 ---
 
+## Tutorial
+
+Learn the complete workflow from notes to AI-ready outputs.
+
+👉 [Tutorial: Create Your First AI Workspace](docs/tutorials/tutorial-en-workspace.md)
+
+In this tutorial, Alice learns how to:
+
+- Create a Folder Workspace
+- Generate an AI Brief
+- Generate an AI MOC
+- Export a Context Pack
+- Create a Knowledge Book
+- Keep everything up to date with Workspace View
+
+---
+
 ## Screenshots
 
 ![AI Workspace View](docs/images/ai-workspace-overview.jpeg)

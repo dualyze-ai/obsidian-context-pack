@@ -18,7 +18,7 @@ travel/
 
 **Bob：** リボンのブリーフケースアイコンから AI Workspace パネルを開いてください。**+ Add Workspace** をクリックして、`travel/` フォルダを選びます。
 
-**Alice：** できました。20 notes と表示されて、AI Brief・AI MOC・Context Pack・Knowledge Book が見えています。
+**Alice：** できました。20 notes と表示されて、AI Brief・AI MOC・Context Pack・Knowledge Book が見えています。「0/4 outputs ready」と表示されています。
 
 **Bob：** それが4つの出力です。今はすべて「Not created」の状態です。**Generate Workspace** をクリックすると初回生成が始まります。
 
@@ -27,6 +27,8 @@ travel/
 **Alice：** 動きました。AI Brief と AI MOC は緑になりましたが、Context Pack と Knowledge Book はまだ「Not created」のままです。「2/4 outputs ready」と表示されています。
 
 **Bob：** それが正しい動作です。Generate Workspace は AI Brief と AI MOC を自動で作成します。残り2つは下の **Generate Outputs** から個別に作成します。**Export Pack** で Context Pack、**Create EPUB** で Knowledge Book を生成できます。
+
+**Bob：** もう一つ補足です。Generate Workspace が必要なのは初回だけです。ノートを更新したあとは、**Refresh Workspace** を使います。
 
 **Alice：** Export Pack をクリックしたら「Select output target」というダイアログが出ました。ChatGPT・Claude・Gemini・Agents というタブがあります。
 
@@ -38,7 +40,7 @@ travel/
 
 **Alice：** AI Brief が面白いです。「Historic Sites」や「Local Food」というクラスターが自動で見つかっています。
 
-**Bob：** それが AI Brief の目的です。エクスポートする前にノートの構造をマッピングします。AI MOC はそのクラスターをナビゲーションしやすい索引に変えたものです。Context Pack は AI ツールに渡すファイルです。
+**Bob：** AI Brief はフォルダのエグゼクティブサマリーと考えてください。エクスポートする前にノートの構造をマッピングします。AI MOC はそのクラスターをナビゲーションしやすい索引に変えたものです。Context Pack は AI ツールに渡すファイルです。
 
 ---
 
