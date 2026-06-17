@@ -72,11 +72,25 @@ export class WorkspaceView extends ItemView {
     const { containerEl } = this;
     containerEl.empty();
     containerEl.addClass('ai-context-workspace-view');
+    containerEl.removeClass('ai-context-workspace-view--dark');
+    if (this.plugin.settings.workspaceViewDark) {
+      containerEl.addClass('ai-context-workspace-view--dark');
+    }
 
     const header = containerEl.createEl('div', { cls: 'ai-context-workspace-header' });
     header.createEl('span', { text: 'AI Workspace', cls: 'ai-context-workspace-title' });
 
     const headerActions = header.createEl('div', { cls: 'ai-context-workspace-header-actions' });
+
+    const themeBtn = headerActions.createEl('button', {
+      cls: 'ai-context-workspace-icon-btn',
+      text: this.plugin.settings.workspaceViewDark ? '☀' : '🌙',
+    });
+    themeBtn.setAttribute('title', this.plugin.settings.workspaceViewDark ? 'Switch to light' : 'Switch to dark');
+    themeBtn.addEventListener('click', () => {
+      this.plugin.settings.workspaceViewDark = !this.plugin.settings.workspaceViewDark;
+      void this.plugin.saveSettings().then(() => this.render());
+    });
 
     const addBtn = headerActions.createEl('button', {
       cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',

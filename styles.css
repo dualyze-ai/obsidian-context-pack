@@ -941,3 +941,73 @@
   color: var(--text-error);
   padding: 6px 0 2px;
 }
+
+/* ── Theme toggle icon button ── */
+
+.ai-context-workspace-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: background 0.1s, color 0.1s;
+}
+
+.ai-context-workspace-icon-btn:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+/* ── Dark mode ── */
+
+.ai-context-workspace-view--dark {
+  --background-primary:         #1a1a1a;
+  --background-secondary:       #242424;
+  --background-modifier-border: #3a3a3a;
+  --background-modifier-hover:  #333333;
+  --text-normal:  #e0e0e0;
+  --text-muted:   #999999;
+  --text-faint:   #666666;
+  --text-error:   #f87171;
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.ai-context-workspace-view--dark button {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #3a3a3a;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-icon-btn {
+  background: transparent;
+  color: #aaaaaa;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-icon-btn:hover {
+  background: #333333;
+  color: #e0e0e0;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-button--secondary {
+  background: transparent;
+  color: #aaaaaa;
+  border-color: #3a3a3a;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-button--secondary:hover:not(:disabled) {
+  background: #333333;
+  color: #e0e0e0;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-card-remove {
+  color: #666666;
+}
+
+.ai-context-workspace-view--dark .ai-context-workspace-card-remove:hover {
+  background: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}

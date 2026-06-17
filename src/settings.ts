@@ -92,6 +92,7 @@ export interface PluginSettings {
   aiBriefSettings: AIBriefSettings;
   epubSortStrategy: EpubSortStrategy;
   workspaces: WorkspaceConfig[];
+  workspaceViewDark: boolean;
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -125,6 +126,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   aiBriefSettings: DEFAULT_AI_BRIEF_SETTINGS,
   epubSortStrategy: 'ai-brief',
   workspaces: [],
+  workspaceViewDark: true,
 };
 
 export class SettingsTab extends PluginSettingTab {
