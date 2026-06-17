@@ -15,6 +15,7 @@ import { BriefExporter } from './features/ai-brief/brief-exporter';
 import { isAiBriefByHeadings, isAiBriefContent, detectIsAiBrief, parseBriefContent, buildBriefMocContent, buildKnowledgeOverview, titleFromSourceName, type BriefMocData } from './features/ai-brief/brief-moc-generator';
 import { DEFAULT_AI_BRIEF_SETTINGS } from './settings';
 import { FRESHNESS_VIEW_TYPE, FreshnessView } from './freshness/FreshnessView';
+import { WORKSPACE_VIEW_TYPE, WorkspaceView } from './workspace/WorkspaceView';
 import { buildPackRecord, packKey, applyRenameToRegistry } from './freshness/checker';
 import type { PackRecord } from './freshness/types';
 import { buildEpub } from './epub/epubBuilder';
@@ -64,8 +65,21 @@ export default class ContextPackPlugin extends Plugin {
     (this.app as unknown as { viewRegistry?: { unregisterView?: (type: string) => void } }).viewRegistry?.unregisterView?.(FRESHNESS_VIEW_TYPE);
     this.registerView(FRESHNESS_VIEW_TYPE, (leaf) => new FreshnessView(leaf, this));
 
+    (this.app as unknown as { viewRegistry?: { unregisterView?: (type: string) => void } }).viewRegistry?.unregisterView?.(WORKSPACE_VIEW_TYPE);
+    this.registerView(WORKSPACE_VIEW_TYPE, (leaf) => new WorkspaceView(leaf, this));
+
+    this.addRibbonIcon('layout-dashboard', 'AI Workspace', () => {
+      void this.activateWorkspaceView();
+    });
+
     this.addRibbonIcon('boxes', 'Project Knowledge Packs', () => {
       void this.activateFreshnessView();
+    });
+
+    this.addCommand({
+      id: 'open-workspace-view',
+      name: 'Open AI Workspace',
+      callback: () => void this.activateWorkspaceView(),
     });
 
     this.addCommand({
@@ -328,6 +342,9 @@ export default class ContextPackPlugin extends Plugin {
     if (!this.settings.aiBriefSettings) {
       this.settings.aiBriefSettings = DEFAULT_AI_BRIEF_SETTINGS;
     }
+    if (!Array.isArray(this.settings.workspaces)) {
+      this.settings.workspaces = [];
+    }
   }
 
   async saveSettings() {
@@ -344,6 +361,88 @@ export default class ContextPackPlugin extends Plugin {
     if (!leaf) return;
     await leaf.setViewState({ type: FRESHNESS_VIEW_TYPE, active: true });
     await this.app.workspace.revealLeaf(leaf);
+  }
+
+  async activateWorkspaceView(): Promise<void> {
+    const existing = this.app.workspace.getLeavesOfType(WORKSPACE_VIEW_TYPE);
+    if (existing.length > 0) {
+      await this.app.workspace.revealLeaf(existing[0]);
+      return;
+    }
+    const leaf = this.app.workspace.getLeftLeaf(false);
+    if (!leaf) return;
+    await leaf.setViewState({ type: WORKSPACE_VIEW_TYPE, active: true });
+    await this.app.workspace.revealLeaf(leaf);
+  }
+
+  async workspaceRefreshBrief(folderPath: string): Promise<TFile | null> {
+    const files = this.app.vault.getMarkdownFiles()
+      .filter(f => f.path.startsWith(folderPath + '/'));
+    if (files.length === 0) {
+      new Notice(t('notice_no_files'));
+      return null;
+    }
+    const title = folderPath.split('/').pop() ?? folderPath;
+    const notice = new Notice(t('notice_generating_brief'), 0);
+    try {
+      const briefSettings = this.getBriefSettings();
+      const generator = new AIBriefGenerator(this.app);
+      const renderer = new BriefRenderer();
+      const exporter = new BriefExporter(this.app);
+      const model = await generator.generate(files, title, briefSettings);
+      const content = renderer.render(model, briefSettings);
+      const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+      const sourceFolder = commonFolderOfFiles(files);
+      const savedFile = await exporter.save(content, title, outputFolder, sourceFolder || undefined);
+      notice.hide();
+      return savedFile;
+    } catch (err) {
+      notice.hide();
+      console.error('[AI Context Pack]', err);
+      new Notice(t('notice_error'));
+      return null;
+    }
+  }
+
+  async workspaceRefreshMoc(briefFile: TFile): Promise<void> {
+    const content = await this.app.vault.cachedRead(briefFile);
+    const data = parseBriefContent(content);
+    if (!data) return;
+    if (data.clusters.length === 0 && data.relationships.length === 0 && data.documentSections.length === 0) return;
+
+    const briefCache = this.app.metadataCache.getFileCache(briefFile);
+    const sourceFolder = briefCache?.frontmatter?.['sourceFolder'] as string | undefined;
+    const mocContent = buildBriefMocContent(data, briefFile.basename, this.getBriefSettings().enableMermaid, sourceFolder);
+    const folder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+    const mocFilename = `${briefFile.basename} MOC.md`;
+    const mocPath = folder ? `${folder}/${mocFilename}` : mocFilename;
+
+    const existing = this.app.vault.getAbstractFileByPath(mocPath);
+    if (existing instanceof TFile) {
+      await this.app.vault.modify(existing, mocContent);
+    } else {
+      await this.app.vault.create(mocPath, mocContent);
+    }
+  }
+
+  workspaceExportPack(folderPath: string): void {
+    void this.packFromFolderPath(folderPath);
+  }
+
+  async workspaceCreateEpub(folderPath: string): Promise<void> {
+    let briefFile: TFile | null = null;
+    for (const file of this.app.vault.getMarkdownFiles()) {
+      const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+      if (fm?.['generatedBy'] === 'ai-brief-generator' && fm?.['sourceFolder'] === folderPath) {
+        briefFile = file;
+        break;
+      }
+    }
+    if (!briefFile) {
+      new Notice('AI Brief has not been created yet.');
+      return;
+    }
+    await this.createEpubFromBrief(briefFile);
   }
 
   async savePackRecord(meta: PackMeta, outputTarget: OutputTarget, selectorState?: OutputSelectorState): Promise<void> {

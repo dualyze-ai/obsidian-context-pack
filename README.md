@@ -24,7 +24,23 @@ Learn how to:
 → Read the complete tutorial:
 [How Alice Turned 20 Art Notes into an AI Knowledge Base](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-paintings.md)
 
-## ✨ New in v3.3: Analyze → Organize → Export → Ask → Read
+## ✨ New in v4.0: AI Workspace View
+
+AI Workspace View lets you manage AI-ready outputs for each folder in one place.
+
+For every folder workspace, you can see whether the AI Brief, AI MOC, Context Pack, and Knowledge Book are ready, outdated, or missing. You can open generated files, refresh one workspace, or refresh all workspaces with one click.
+
+This turns AI Context Pack from a simple export tool into an AI-ready knowledge workspace for Obsidian.
+
+```text
+New in v4.0: AI Workspace View
+
+Manage → Analyze → Organize → Export → Ask → Read
+```
+
+---
+
+## New in v3.3: Analyze → Organize → Export → Ask → Read
 
 AI Context Pack now helps you move from scattered notes to reusable AI knowledge in a clearer workflow:
 

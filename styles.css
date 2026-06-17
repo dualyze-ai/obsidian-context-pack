@@ -676,3 +676,268 @@
   resize: vertical;
   line-height: 1.5;
 }
+
+/* ══════════════════════════════════════════════════
+   AI Workspace View
+   ══════════════════════════════════════════════════ */
+
+.ai-context-workspace-view {
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-context-workspace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  position: sticky;
+  top: 0;
+  background: var(--background-primary);
+  z-index: 1;
+  gap: 8px;
+}
+
+.ai-context-workspace-title {
+  font-size: var(--font-ui-medium);
+  font-weight: 600;
+  color: var(--text-normal);
+  flex: 1;
+  min-width: 0;
+}
+
+.ai-context-workspace-header-actions {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.ai-context-workspace-list {
+  padding: 10px 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Card ── */
+
+.ai-context-workspace-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: 12px 12px 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ai-context-workspace-card:hover {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.ai-context-workspace-card-titlerow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.ai-context-workspace-card-title {
+  font-size: var(--font-ui-medium);
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.ai-context-workspace-card-remove {
+  background: transparent;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, background 0.15s;
+}
+
+.ai-context-workspace-card:hover .ai-context-workspace-card-remove {
+  opacity: 1;
+}
+
+.ai-context-workspace-card-remove:hover {
+  color: var(--text-error);
+  background: var(--background-modifier-hover);
+}
+
+/* ── Meta ── */
+
+.ai-context-workspace-meta {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.ai-context-workspace-meta-muted {
+  color: var(--text-faint);
+}
+
+/* ── Status grid ── */
+
+.ai-context-workspace-status-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+  padding: 7px 9px;
+  background: var(--background-primary);
+  border-radius: calc(var(--radius-m) - 2px);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.ai-context-workspace-status-row {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 5px;
+  min-height: 22px;
+}
+
+.ai-context-workspace-status-icon {
+  font-size: 11px;
+  text-align: center;
+}
+
+.ai-context-workspace-status-label {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-normal);
+}
+
+/* ── Badges ── */
+
+.ai-context-workspace-badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.ai-context-workspace-badge-ready {
+  color: var(--color-green);
+  border-color: var(--color-green);
+  background: transparent;
+}
+
+.ai-context-workspace-badge-outdated {
+  color: var(--color-orange);
+  border-color: var(--color-orange);
+  background: transparent;
+}
+
+.ai-context-workspace-badge-missing {
+  color: var(--text-faint);
+  border-color: var(--background-modifier-border);
+  background: transparent;
+}
+
+.ai-context-workspace-badge-error {
+  color: var(--text-error);
+  border-color: var(--text-error);
+  background: transparent;
+}
+
+/* ── Actions ── */
+
+.ai-context-workspace-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* ── Buttons ── */
+
+.ai-context-workspace-button {
+  font-size: var(--font-ui-smaller);
+  padding: 4px 10px;
+  border-radius: var(--radius-s);
+  border: 1px solid var(--background-modifier-border);
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.ai-context-workspace-button:hover:not(:disabled) {
+  background: var(--interactive-hover);
+  border-color: var(--interactive-accent);
+  color: var(--text-normal);
+}
+
+.ai-context-workspace-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ai-context-workspace-button--secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--background-modifier-border);
+}
+
+.ai-context-workspace-button--secondary:hover:not(:disabled) {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+/* ── Loading ── */
+
+.ai-context-workspace-loading {
+  text-align: center;
+  color: var(--text-faint);
+  padding: 36px 16px;
+  font-size: var(--font-ui-small);
+}
+
+/* ── Empty state ── */
+
+.ai-context-workspace-empty {
+  text-align: center;
+  padding: 44px 20px;
+  color: var(--text-muted);
+}
+
+.ai-context-workspace-empty-icon {
+  font-size: 34px;
+  margin-bottom: 10px;
+  opacity: 0.55;
+}
+
+.ai-context-workspace-empty-title {
+  font-size: var(--font-ui-medium);
+  font-weight: 600;
+  color: var(--text-normal);
+  margin: 0 0 6px;
+}
+
+.ai-context-workspace-empty-desc {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  margin: 0 auto 18px;
+  line-height: 1.55;
+  max-width: 260px;
+}
+
+/* ── Error ── */
+
+.ai-context-workspace-error {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-error);
+  padding: 6px 0 2px;
+}

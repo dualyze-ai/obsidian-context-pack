@@ -7,6 +7,7 @@ import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
 import type { PackRecord, FreshnessSettings } from './freshness/types';
 import { DEFAULT_FRESHNESS_SETTINGS } from './freshness/types';
+import type { WorkspaceConfig } from './workspace/workspaceTypes';
 
 function selectorStateToKey(state: OutputSelectorState): string {
   const { activeTab, chatgptMode, claudeMode, geminiMode, agentMode } = state;
@@ -90,6 +91,7 @@ export interface PluginSettings {
   freshnessAutoCheck: boolean;
   aiBriefSettings: AIBriefSettings;
   epubSortStrategy: EpubSortStrategy;
+  workspaces: WorkspaceConfig[];
 }
 
 export const DEFAULT_SETTINGS: PluginSettings = {
@@ -122,6 +124,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   freshnessAutoCheck: false,
   aiBriefSettings: DEFAULT_AI_BRIEF_SETTINGS,
   epubSortStrategy: 'ai-brief',
+  workspaces: [],
 };
 
 export class SettingsTab extends PluginSettingTab {
