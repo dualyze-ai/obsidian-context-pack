@@ -24,9 +24,13 @@ travel/
 
 ---
 
-**Alice：** 動きました。全部緑になって「4/4 outputs ready」と表示されています。
+**Alice：** 動きました。AI Brief と AI MOC は緑になりましたが、Context Pack と Knowledge Book はまだ「Not created」のままです。「2/4 outputs ready」と表示されています。
 
-**Bob：** そうです。AI Context Pack がノートを分析して、4つの出力を作りました。それぞれの **Open** ボタンを押すと内容を確認できます。
+**Bob：** それが正しい動作です。Generate Workspace は AI Brief と AI MOC を自動で作成します。残り2つは下の **Generate Outputs** から個別に作成します。**Export Pack** で Context Pack、**Create EPUB** で Knowledge Book を生成できます。
+
+**Alice：** 両方クリックしました。「4/4 outputs ready」になりました。
+
+**Bob：** 完璧です。それぞれの **Open** ボタンを押すと内容を確認できます。
 
 **Alice：** AI Brief が面白いです。「Historic Sites」や「Local Food」というクラスターが自動で見つかっています。
 

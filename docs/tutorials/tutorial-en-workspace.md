@@ -24,9 +24,13 @@ travel/
 
 ---
 
-**Alice:** Wow, it ran. Everything is green now — "4/4 outputs ready."
+**Alice:** It ran. AI Brief and AI MOC are green, but Context Pack and Knowledge Book still say "Not created." It shows "2/4 outputs ready."
 
-**Bob:** Exactly. AI Context Pack analyzed your notes and built all four outputs. Click **Open** next to any of them to see what was generated.
+**Bob:** That's correct. Generate Workspace creates AI Brief and AI MOC automatically. For the other two, scroll down to **Generate Outputs** and click **Export Pack** for the Context Pack, or **Create EPUB** for the Knowledge Book.
+
+**Alice:** Got it. I clicked both. Now it says "4/4 outputs ready."
+
+**Bob:** Perfect. You can click **Open** next to any output to see what was generated.
 
 **Alice:** The AI Brief is really interesting — it found clusters I didn't notice, like "Historic Sites" and "Local Food."
 
