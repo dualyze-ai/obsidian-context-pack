@@ -300,8 +300,8 @@ export class WorkspaceView extends ItemView {
     btn.disabled = true;
     btn.setText('Working…');
 
+    const notice = new Notice(`Refreshing ${ws.name}…`, 0);
     try {
-      new Notice(`Refreshing ${ws.name}…`, 0);
       const briefFile = await this.plugin.workspaceRefreshBrief(ws.sourcePath);
       if (briefFile) {
         await this.plugin.workspaceRefreshMoc(briefFile);
@@ -310,9 +310,11 @@ export class WorkspaceView extends ItemView {
       const outputFolder = this.plugin.settings.contextPackOutputFolder || this.plugin.settings.outputFolder || '';
       const newState = await computeWorkspaceState(this.app, ws, outputFolder, this.plugin.settings.packRegistry);
       this.states.set(ws.id, newState);
+      notice.hide();
       new Notice(`${ws.name} refreshed.`);
     } catch (e) {
       console.error('[AI Workspace] Refresh failed', e);
+      notice.hide();
       new Notice(`Refresh failed for ${ws.name}.`);
     } finally {
       this.render();
@@ -330,7 +332,7 @@ export class WorkspaceView extends ItemView {
       const state = this.states.get(ws.id);
       if (!state?.folderExists || state.notesCount === 0) continue;
 
-      new Notice(`Refreshing ${ws.name}…`, 2000);
+      const wsNotice = new Notice(`Refreshing ${ws.name}…`, 0);
 
       try {
         const briefFile = await this.plugin.workspaceRefreshBrief(ws.sourcePath);
@@ -344,6 +346,8 @@ export class WorkspaceView extends ItemView {
         refreshed++;
       } catch (e) {
         console.error('[AI Workspace] Refresh failed for', ws.name, e);
+      } finally {
+        wsNotice.hide();
       }
     }
 
