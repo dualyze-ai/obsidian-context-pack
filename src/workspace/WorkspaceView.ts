@@ -82,16 +82,6 @@ export class WorkspaceView extends ItemView {
 
     const headerActions = header.createEl('div', { cls: 'ai-context-workspace-header-actions' });
 
-    const themeBtn = headerActions.createEl('button', {
-      cls: 'ai-context-workspace-icon-btn',
-      text: this.plugin.settings.workspaceViewDark ? '☀' : '🌙',
-    });
-    themeBtn.setAttribute('title', this.plugin.settings.workspaceViewDark ? 'Switch to light' : 'Switch to dark');
-    themeBtn.addEventListener('click', () => {
-      this.plugin.settings.workspaceViewDark = !this.plugin.settings.workspaceViewDark;
-      void this.plugin.saveSettings().then(() => this.render());
-    });
-
     const addBtn = headerActions.createEl('button', {
       cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
       text: '＋ Add Folder',
@@ -104,6 +94,16 @@ export class WorkspaceView extends ItemView {
     });
     refreshAllBtn.disabled = this.refreshingAll;
     refreshAllBtn.addEventListener('click', () => void this.refreshAll());
+
+    const themeBtn = headerActions.createEl('button', {
+      cls: 'ai-context-workspace-icon-btn',
+      text: this.plugin.settings.workspaceViewDark ? '☀' : '🌙',
+    });
+    themeBtn.setAttribute('title', this.plugin.settings.workspaceViewDark ? 'Switch to light' : 'Switch to dark');
+    themeBtn.addEventListener('click', () => {
+      this.plugin.settings.workspaceViewDark = !this.plugin.settings.workspaceViewDark;
+      void this.plugin.saveSettings().then(() => this.render());
+    });
 
     if (this.loading) {
       containerEl.createEl('div', { cls: 'ai-context-workspace-loading', text: 'Loading workspaces…' });
