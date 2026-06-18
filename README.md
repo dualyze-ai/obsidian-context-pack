@@ -104,6 +104,8 @@ ChatGPT / Claude / Gemini / NotebookLM
 
 **Knowledge Book (EPUB)** — Structured EPUB with cover and TOC. Read in Kindle, Apple Books, or Kobo.
 
+**Notion Workspace ZIP** — Export an entire workspace as a Notion-ready ZIP. Import into Notion to create a shareable wiki with AI Briefs, AI MOCs, source notes, and assets.
+
 ---
 
 ## Quick Start
@@ -130,6 +132,21 @@ In this tutorial, Alice learns how to:
 - Export a Context Pack
 - Create a Knowledge Book
 - Keep everything up to date with Workspace View
+
+---
+
+## Export to Notion
+
+AI Context Pack can export a workspace as a Notion-ready ZIP.
+
+1. Open AI Workspace View
+2. Click **Notion ZIP**
+3. Open Notion
+4. Go to **Settings → Import**
+5. Choose **ZIP**
+6. Upload the generated ZIP
+
+Notion will convert the Markdown files into pages. The ZIP includes your AI Brief, AI MOC, source notes, and any local images.
 
 ---
 

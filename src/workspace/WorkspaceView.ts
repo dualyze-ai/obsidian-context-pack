@@ -278,6 +278,23 @@ export class WorkspaceView extends ItemView {
           }
         })();
       });
+
+      const notionBtn = secondary.createEl('button', {
+        cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
+        text: t('ws_notion_zip'),
+      });
+      notionBtn.addEventListener('click', () => {
+        void (async () => {
+          notionBtn.disabled = true;
+          notionBtn.setText(t('ws_notion_zipping'));
+          try {
+            await this.plugin.workspaceExportNotionZip(ws.sourcePath);
+          } finally {
+            notionBtn.disabled = false;
+            notionBtn.setText(t('ws_notion_zip'));
+          }
+        })();
+      });
     }
   }
 
