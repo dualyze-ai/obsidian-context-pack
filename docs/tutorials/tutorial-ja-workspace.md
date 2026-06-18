@@ -64,6 +64,22 @@ travel/
 
 ---
 
+---
+
+**Alice：** このワークスペースをチームと共有できますか？
+
+**Bob：** できます。**Notion ZIP** をクリックしてください。
+
+**Alice：** その後どうなりますか？
+
+**Bob：** AI Context Pack が Notion 対応のワークスペース ZIP を作成します。Notion にインポートすると、AI Brief・AI MOC・ノート・画像がページとして展開されます。
+
+**Alice：** Notion の API キーなどは必要ですか？
+
+**Bob：** 設定は不要です。Notion を開いて **Settings → Import** から **ZIP** を選び、ファイルをアップロードするだけです。
+
+---
+
 ## Alice が作ったもの
 
 このチュートリアルを終えた Alice には：
@@ -73,6 +89,7 @@ travel/
 - エクスポート用に整理された AI MOC
 - ChatGPT・Claude・Gemini に渡せる Context Pack
 - Kindle や Apple Books で読める Knowledge Book
+- チームと共有できる Notion Workspace ZIP
 - AI 対応ナレッジを常に最新に保つ繰り返し可能なワークフロー
 
 が揃っています。

@@ -1,5 +1,51 @@
 # Changelog
 
+## v4.1.0
+
+### New
+
+- **Notion Workspace Export** — export entire workspaces as Notion-ready ZIP files
+- Include AI Briefs, AI MOCs, source notes, and images in exported workspaces
+- Obsidian syntax converted for Notion: wikilinks, embed images, frontmatter
+- URL images kept as-is (no download); local images copied to assets/
+- Notion Workspace ZIP output tracking in AI Workspace View (5/5 outputs)
+- Open folder button for Notion Workspace ZIP row
+- Command palette: `Export workspace to Notion ZIP`
+
+### Improved
+
+- AI Workspace View output count updated to 5 (added Notion Workspace ZIP)
+- Progress bar reflects all 5 output types
+
+---
+
+## v4.0.3
+
+- README image paths updated to absolute URLs for Obsidian Community page display
+
+## v4.0.2
+
+- Tutorial link fixed (relative → absolute URL)
+
+## v4.0.1
+
+- Obsidian review warning fixes (window.setTimeout/clearTimeout, async Promise, unknown type)
+
+## v4.0.0
+
+### New
+
+- **AI Workspace View** — manage all AI outputs per folder from one panel
+- Generate Workspace (AI Brief + AI MOC in one click)
+- Refresh Workspace — detect and update outdated outputs
+- Knowledge Book (EPUB) generation from AI Workspace
+- Context Pack export from AI Workspace
+- Workspace progress bar (n/5 outputs ready)
+- i18n: English + Japanese throughout Workspace View
+- Alice & Bob tutorial (EN + JA)
+
+---
+
 ## v3.2.0
 
 ### AI Brief Workflow

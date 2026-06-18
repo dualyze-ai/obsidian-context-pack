@@ -2,55 +2,43 @@
 
 Turn your Obsidian vault into an AI-ready knowledge workspace.
 
-Manage AI Briefs, AI MOCs, Context Packs, and Knowledge Books from one place.
+Create AI Briefs, AI MOCs, Context Packs, Knowledge Books, and Notion Workspaces — all from one Workspace View.
 
-**Manage → Analyze → Organize → Export → Ask → Read**
-
-![AI Workspace Demo](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-demo.gif)
-
-Turn your Obsidian notes into reusable AI knowledge.
-
-**Analyze → Organize → Export → Ask → Read**
-
-## Quick Workflow
-
-1. Create a Workspace
-2. Add a Folder Workspace
-3. Analyze Notes (AI Brief + AI MOC)
-4. Generate Knowledge Outputs
-5. Export for AI Tools
-6. Read as a Knowledge Book (EPUB)
-
----
-
-## What is AI Context Pack?
-
-AI Context Pack transforms your Obsidian notes into reusable AI knowledge.
-
-Create AI Briefs, AI MOCs, Context Packs, and Knowledge Books, then manage everything from a single Workspace View.
-
-Compatible with:
-
-- ChatGPT
-- Claude
-- Gemini
-- NotebookLM
+![AI Workspace View](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-overview.jpeg)
 
 ---
 
 ## New in v4.0: AI Workspace View
 
-Manage AI-ready outputs for each folder from a single dashboard.
+Manage all AI outputs for each folder from a single dashboard.
 
-Track completion status, open generated outputs, refresh workspaces, and see what is missing.
+Track status, open outputs, refresh workspaces, and see what is missing — all in one place.
 
-- Workspace progress tracking
-- AI Brief management
-- AI MOC management
-- Context Pack management
-- Knowledge Book management
-- Refresh Workspace
-- Refresh All
+```text
+AI Workspace
+├ AI Brief           ✓
+├ AI MOC             ✓
+├ Context Pack       ✗ Not created
+├ Knowledge Book     ✗ Not created
+└ Notion Workspace   ✗ Not created
+```
+
+![AI Workspace Demo](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-demo.gif)
+
+---
+
+## New in v4.1.0: Notion Workspace Export
+
+Export an entire workspace as a Notion-ready ZIP.
+
+Import it into Notion to create a shareable workspace containing:
+
+- AI Briefs
+- AI MOCs
+- Source Notes
+- Images
+
+Build in Obsidian. Share in Notion.
 
 ---
 
@@ -66,6 +54,10 @@ Track completion status, open generated outputs, refresh workspaces, and see wha
 
 ✅ Generate Knowledge Books (EPUB)
 
+✅ Export entire workspaces to Notion
+
+✅ Share AI-ready knowledge outside Obsidian
+
 ✅ Track Workspace Completion
 
 ✅ Refresh Outputs When Notes Change
@@ -79,15 +71,11 @@ Obsidian Notes
       ↓
 AI Workspace
       ↓
-AI Brief
+AI Brief + AI MOC
       ↓
-AI MOC
+Context Pack / Knowledge Book / Notion Workspace ZIP
       ↓
-Context Pack
-      ↓
-Knowledge Book
-      ↓
-ChatGPT / Claude / Gemini / NotebookLM
+ChatGPT / Claude / Gemini / NotebookLM / Notion
 ```
 
 ---
@@ -104,17 +92,18 @@ ChatGPT / Claude / Gemini / NotebookLM
 
 **Knowledge Book (EPUB)** — Structured EPUB with cover and TOC. Read in Kindle, Apple Books, or Kobo.
 
-**Notion Workspace ZIP** — Export an entire workspace as a Notion-ready ZIP. Import into Notion to create a shareable wiki with AI Briefs, AI MOCs, source notes, and assets.
+**Notion Workspace ZIP** — Export an entire workspace as a Notion-ready ZIP. Import into Notion to create a shareable workspace with AI Briefs, AI MOCs, source notes, and images. Perfect for team sharing, project documentation, and knowledge publishing.
 
 ---
 
 ## Quick Start
 
 1. Install AI Context Pack
-2. Create a Folder Workspace
-3. Generate an AI Brief
-4. Generate an AI MOC
-5. Export a Context Pack or create a Knowledge Book
+2. Open AI Workspace View
+3. Add a Folder Workspace
+4. Click **Generate Workspace** (creates AI Brief + AI MOC)
+5. Export a **Context Pack** or create a **Knowledge Book**
+6. Click **Notion ZIP** to export the workspace for Notion
 
 ---
 
@@ -124,29 +113,17 @@ Learn the complete workflow from notes to AI-ready outputs.
 
 👉 [Tutorial: Create Your First AI Workspace](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/tutorials/tutorial-en-workspace.md)
 
-In this tutorial, Alice learns how to:
+**Alice:** How do I get started?
 
-- Create a Folder Workspace
-- Generate an AI Brief
-- Generate an AI MOC
-- Export a Context Pack
-- Create a Knowledge Book
-- Keep everything up to date with Workspace View
+**Bob:** Add a folder as a Workspace, then click Generate Workspace. It creates an AI Brief and AI MOC automatically.
 
----
+**Alice:** Can I share this workspace with my team?
 
-## Export to Notion
+**Bob:** Sure. Click **Notion ZIP**.
 
-AI Context Pack can export a workspace as a Notion-ready ZIP.
+**Alice:** What happens next?
 
-1. Open AI Workspace View
-2. Click **Notion ZIP**
-3. Open Notion
-4. Go to **Settings → Import**
-5. Choose **ZIP**
-6. Upload the generated ZIP
-
-Notion will convert the Markdown files into pages. The ZIP includes your AI Brief, AI MOC, source notes, and any local images.
+**Bob:** AI Context Pack creates a Notion-ready workspace ZIP. Import it into Notion and you'll get AI Briefs, AI MOCs, notes, and images as pages.
 
 ---
 
@@ -154,15 +131,15 @@ Notion will convert the Markdown files into pages. The ZIP includes your AI Brie
 
 ![AI Workspace View](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-overview.jpeg)
 
-*AI Workspace View — manage all outputs from one place*
+*AI Workspace View — track all outputs from one place*
 
 <div align="center">
-<img src="docs/ai-brief-overview.png" width="90%">
+<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/ai-brief-overview.png" width="90%">
 <p><em>AI Brief — understand your vault before exporting</em></p>
 </div>
 
 <div align="center">
-<img src="docs/ai-moc-overview.png" width="90%">
+<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/ai-moc-overview.png" width="90%">
 <p><em>AI MOC — organize insights into a navigable structure</em></p>
 </div>
 
@@ -170,29 +147,13 @@ Notion will convert the Markdown files into pages. The ZIP includes your AI Brie
 
 ## Example Use Cases
 
-### Research Workspace
+**Research** — Notes → AI Brief → ChatGPT. Ask deep questions about your research.
 
-Research notes → AI Brief → ChatGPT
+**Learning** — Study notes → Knowledge Book → Kindle. Read your notes as a structured book.
 
-Use AI Brief to understand your research, then export a Context Pack to ask deep questions.
+**Project** — Docs → Context Pack → Claude Code. Package specs for AI-assisted development.
 
-### Learning Workspace
-
-Study notes → Knowledge Book → Kindle
-
-Turn your study notes into a structured EPUB you can read anywhere.
-
-### Project Workspace
-
-Project documentation → Context Pack → Claude
-
-Package specs, architecture notes, and documentation for Claude or Claude Code.
-
-### Personal Knowledge Base
-
-Vault → Workspace View → Long-term AI Knowledge
-
-Track the completeness of your entire knowledge base and keep AI outputs up to date as your notes evolve.
+**Team sharing** — Workspace → Notion ZIP → Notion. Share AI-ready knowledge with your team.
 
 ---
 
@@ -223,16 +184,6 @@ Download the [latest release](https://github.com/dualyze-ai/obsidian-context-pac
 
 ## Part of the Dualyze Ecosystem
 
-```text
-DualyzeAI
-      ↓
-Obsidian
-      ↓
-AI Context Pack
-      ↓
-ChatGPT / Claude / Gemini / NotebookLM
-```
-
 | Tool | Role |
 |---|---|
 | [DualyzeAI](https://dualyzeai.com) | Compare & Analyze |
@@ -260,16 +211,8 @@ AI Brief analyzes a folder and generates:
 AI Brief is saved as a Markdown file with frontmatter, making it reusable across all workflows.
 
 <div align="center">
-<img src="docs/ai-brief-overview.png" width="90%">
+<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/ai-brief-overview.png" width="90%">
 </div>
-
-*AI Brief summarizes the structure, coverage, and major themes of a selected folder.*
-
-<div align="center">
-<img src="docs/ai-brief-knowledge-map.png" width="90%">
-</div>
-
-*Knowledge Map generated from a 20-note vault (excerpt).*
 
 </details>
 
@@ -291,11 +234,35 @@ Root Note
 
 AI MOC can be used directly as Context Pack source material.
 
-<div align="center">
-<img src="docs/ai-moc-overview.png" width="90%">
-</div>
+</details>
 
-*AI MOC turns discovered clusters into a structured navigation layer.*
+<details>
+<summary>Notion Workspace Export — full details</summary>
+
+Export an entire Obsidian workspace as a Notion-ready ZIP.
+
+**What's included:**
+
+- `README.md` — import guide and workspace overview
+- `AI Brief.md` — workspace analysis
+- `AI MOC.md` — structured map of content
+- `Notes/` — all source notes with Obsidian syntax converted
+- `assets/` — local images collected from notes
+
+**Obsidian syntax conversions:**
+
+- `![[image.jpg]]` → `![image](../assets/image.jpg)` (copied to assets)
+- `![alt](https://...)` → kept as-is (no download needed)
+- `[[page]]` → `[page](page.md)`
+- `[[page|alias]]` → `[alias](page.md)`
+- Frontmatter stripped
+
+**How to import into Notion:**
+
+1. Open Notion
+2. Go to **Settings → Import**
+3. Choose **ZIP**
+4. Upload the generated ZIP
 
 </details>
 
@@ -319,13 +286,8 @@ Supported readers: Kindle, Apple Books, Kobo, Calibre, and any EPUB reader.
 1. Generate an AI Brief from a folder.
 2. Right-click the generated AI Brief.
 3. Choose **Create Knowledge Book (EPUB)**.
-4. Open the `.epub` file in Kindle, Apple Books, or another EPUB reader.
 
 ![Knowledge Book cover](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-cover-europe.jpg)
-
-<img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-toc-europe.png" width="65%">
-
-![Knowledge Book page](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-page-europe.jpg)
 
 </details>
 
@@ -342,10 +304,6 @@ Each pack includes:
 - Token count estimate
 
 Source options: folder, tag, MOC, AI MOC, selected notes, daily notes.
-
-<div align="center">
-<img src="docs/context-pack-overview.png" width="90%">
-</div>
 
 </details>
 
@@ -367,39 +325,39 @@ Source options: folder, tag, MOC, AI MOC, selected notes, daily notes.
 
 Track which notes were sent to ChatGPT Projects, Claude Projects, Gemini, or NotebookLM.
 
-Know when:
-
-- Notes were updated since the last export
-- New matching notes were added
-- Files were deleted or renamed
-
-Re-export only when needed.
+Know when notes were updated, new notes added, or files renamed. Re-export only when needed.
 
 </details>
 
 <details>
 <summary>Daily Notes Pack</summary>
 
-Create AI-ready packs from daily notes.
-
-- Date range selection
-- Weekly summaries
-- Tag exclusion
-- Auto-detection of Daily Notes folders
+Create AI-ready packs from daily notes with date range selection, weekly summaries, and tag exclusion.
 
 </details>
 
-<details>
-<summary>Settings</summary>
+---
 
-Key settings:
+## Changelog
 
-- **Output folder** — where AI Briefs, MOCs, and Context Packs are saved
-- **EPUB sort strategy** — how notes are ordered in Knowledge Books
-- **Enable Mermaid** — include Knowledge Map diagrams in AI Brief
-- **AI Brief language** — English or Japanese output
+### v4.1.0
 
-</details>
+**New**
+
+- Notion Workspace Export — export entire workspaces as Notion-ready ZIP files
+- Notion Workspace ZIP output tracking in AI Workspace View (5/5 outputs)
+- Image handling: local images copied to assets, URL images kept as-is
+
+### v4.0.0 – v4.0.3
+
+- AI Workspace View — manage all outputs per folder from one panel
+- Generate Workspace (AI Brief + AI MOC in one click)
+- Refresh Workspace — detect and update outdated outputs
+- Knowledge Book (EPUB) generation from AI Workspace
+- Context Pack export from AI Workspace
+- i18n: English + Japanese throughout
+
+👉 [Full changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
 ---
 
