@@ -22,4 +22,5 @@ export interface WorkspaceState {
   aiMoc: ArtifactState;
   contextPack: ArtifactState;
   epub: ArtifactState;
+  notionZip: ArtifactState;
 }

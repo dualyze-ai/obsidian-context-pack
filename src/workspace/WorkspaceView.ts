@@ -120,10 +120,10 @@ export class WorkspaceView extends ItemView {
     if (!this.loading && !isEmpty) {
       const totalNotes = Array.from(this.states.values()).reduce((s, ws) => s + ws.notesCount, 0);
       const readyOutputs = Array.from(this.states.values()).reduce((s, ws) =>
-        s + [ws.aiBrief, ws.aiMoc, ws.contextPack, ws.epub].filter(a => a.status === 'ready').length, 0
+        s + [ws.aiBrief, ws.aiMoc, ws.contextPack, ws.epub, ws.notionZip].filter(a => a.status === 'ready').length, 0
       );
       const wsCount = (this.plugin.settings.workspaces ?? []).length;
-      const totalOutputs = wsCount * 4;
+      const totalOutputs = wsCount * 5;
       const pctReady = totalOutputs > 0 ? Math.round((readyOutputs / totalOutputs) * 100) : 0;
       const wsLabel = wsCount === 1 ? t('ws_workspace_singular') : t('ws_workspace_plural');
       header.createEl('div', {
@@ -212,7 +212,7 @@ export class WorkspaceView extends ItemView {
     }
 
     // Progress bar
-    const artifacts = [state.aiBrief, state.aiMoc, state.contextPack, state.epub];
+    const artifacts = [state.aiBrief, state.aiMoc, state.contextPack, state.epub, state.notionZip];
     const readyCount = artifacts.filter(a => a.status === 'ready').length;
     const allReady = readyCount === artifacts.length;
     const pct = Math.round((readyCount / artifacts.length) * 100);
@@ -224,7 +224,7 @@ export class WorkspaceView extends ItemView {
     });
     progressRow.createEl('span', {
       cls: 'ai-context-workspace-progress-label' + (allReady ? ' ai-context-workspace-progress-label--ready' : ''),
-      text: t('ws_outputs_ready', readyCount),
+      text: t('ws_outputs_ready', readyCount, artifacts.length),
     });
 
     // Status rows
@@ -233,6 +233,7 @@ export class WorkspaceView extends ItemView {
     this.renderStatusRow(grid, t('ws_artifact_moc'), state.aiMoc);
     this.renderStatusRow(grid, t('ws_artifact_pack'), state.contextPack);
     this.renderStatusRow(grid, t('ws_artifact_epub'), state.epub);
+    this.renderNotionZipRow(grid, state.notionZip, outputFolder);
 
     // Buttons
     const actions = card.createEl('div', { cls: 'ai-context-workspace-actions' });
@@ -310,6 +311,28 @@ export class WorkspaceView extends ItemView {
     if (artifact.filePath) {
       const openBtn = right.createEl('button', { cls: 'ai-context-workspace-open-btn', text: t('ws_open') });
       openBtn.addEventListener('click', () => void this.openFile(artifact.filePath!));
+    }
+    if (artifact.status !== 'ready') {
+      const statusKey = `ws_status_${artifact.status}` as const;
+      right.createEl('span', {
+        cls: `ai-context-workspace-badge ai-context-workspace-badge-${artifact.status}`,
+        text: t(statusKey) || t('ws_status_unknown'),
+      });
+    }
+  }
+
+  private renderNotionZipRow(container: HTMLElement, artifact: ArtifactState, outputFolder: string): void {
+    const row = container.createEl('div', { cls: 'ai-context-workspace-status-row' });
+    row.createEl('span', {
+      cls: `ai-context-workspace-status-icon ai-context-workspace-status-icon--${artifact.status}`,
+      text: STATUS_ICON[artifact.status] ?? '✕',
+    });
+    row.createEl('span', { cls: 'ai-context-workspace-status-label', text: t('ws_artifact_notion') });
+
+    const right = row.createEl('div', { cls: 'ai-context-workspace-status-row-right' });
+    if (artifact.status === 'ready' || artifact.status === 'outdated') {
+      const openBtn = right.createEl('button', { cls: 'ai-context-workspace-open-btn', text: t('ws_open') });
+      openBtn.addEventListener('click', () => void this.openFolderInExplorer(outputFolder));
     }
     if (artifact.status !== 'ready') {
       const statusKey = `ws_status_${artifact.status}` as const;
