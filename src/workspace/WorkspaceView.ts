@@ -291,8 +291,7 @@ export class WorkspaceView extends ItemView {
           try {
             await this.plugin.workspaceExportNotionZip(ws.sourcePath);
           } finally {
-            notionBtn.disabled = false;
-            notionBtn.setText(t('ws_notion_zip'));
+            await this.refresh();
           }
         })();
       });
