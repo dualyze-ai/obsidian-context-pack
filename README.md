@@ -29,7 +29,7 @@ AI Workspace
 
 ## New in v4.1.0: Notion Workspace Export
 
-![Notion Workspace ZIP](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-overview.jpeg)
+![Notion Workspace Import](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/notion-workspace-import.png)
 
 Export an entire workspace as a Notion-ready ZIP.
 
