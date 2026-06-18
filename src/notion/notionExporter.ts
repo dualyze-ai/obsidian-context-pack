@@ -1,9 +1,13 @@
 import { App, TFile } from 'obsidian';
-import { zipSync, strToU8 } from 'fflate';
-import type { Zippable } from 'fflate';
+import { zipSync } from 'fflate';
 import type { WorkspaceConfig } from '../workspace/workspaceTypes';
 import { convertForNotion } from './notionConverter';
 import type { ImageRef } from './notionConverter';
+
+type ZipSyncFn = (files: Record<string, Uint8Array>) => Uint8Array;
+const zipFiles = zipSync as unknown as ZipSyncFn;
+
+const enc = new TextEncoder();
 
 function safeZipName(name: string): string {
   return (
@@ -50,15 +54,12 @@ async function resolveImageFile(
   app: App,
   ref: ImageRef,
 ): Promise<TFile | null> {
-  // Direct vault path
   const direct = app.vault.getAbstractFileByPath(ref.linkpath);
   if (direct instanceof TFile) return direct;
 
-  // Metadata cache resolution (handles wikilink-style paths)
   const resolved = app.metadataCache.getFirstLinkpathDest(ref.linkpath, ref.noteVaultPath);
   if (resolved instanceof TFile) return resolved;
 
-  // Relative to note's folder
   const noteFolder = ref.noteVaultPath.includes('/')
     ? ref.noteVaultPath.substring(0, ref.noteVaultPath.lastIndexOf('/'))
     : '';
@@ -67,7 +68,6 @@ async function resolveImageFile(
     if (rel instanceof TFile) return rel;
   }
 
-  // Last resort: match by basename
   const basename = ref.proposedAssetName;
   return app.vault.getFiles().find(f => f.name === basename) ?? null;
 }
@@ -90,7 +90,7 @@ export async function buildNotionZip(
   const root = zipBaseName + '/';
 
   const allImageRefs: ImageRef[] = [];
-  const files: Zippable = {};
+  const files: Record<string, Uint8Array> = {};
 
   // Source notes → Notes/
   for (const note of sourceNotes) {
@@ -98,7 +98,7 @@ export async function buildNotionZip(
     const content = await app.vault.read(note);
     const { markdown, imageRefs } = convertForNotion(content, note.path, '../assets/');
     allImageRefs.push(...imageRefs);
-    files[root + 'Notes/' + relPath] = strToU8(markdown);
+    files[root + 'Notes/' + relPath] = enc.encode(markdown);
   }
 
   // AI Brief
@@ -109,7 +109,7 @@ export async function buildNotionZip(
       const content = await app.vault.read(f);
       const { markdown, imageRefs } = convertForNotion(content, f.path, 'assets/');
       allImageRefs.push(...imageRefs);
-      files[root + 'AI Brief.md'] = strToU8(markdown);
+      files[root + 'AI Brief.md'] = enc.encode(markdown);
       hasBrief = true;
     }
   }
@@ -122,7 +122,7 @@ export async function buildNotionZip(
       const content = await app.vault.read(f);
       const { markdown, imageRefs } = convertForNotion(content, f.path, 'assets/');
       allImageRefs.push(...imageRefs);
-      files[root + 'AI MOC.md'] = strToU8(markdown);
+      files[root + 'AI MOC.md'] = enc.encode(markdown);
       hasMoc = true;
     }
   }
@@ -146,10 +146,10 @@ export async function buildNotionZip(
   }
 
   // README
-  files[root + 'README.md'] = strToU8(buildReadmeMd(config.name, hasBrief, hasMoc));
+  files[root + 'README.md'] = enc.encode(buildReadmeMd(config.name, hasBrief, hasMoc));
 
   // Build ZIP
-  const zipData: Uint8Array = zipSync(files);
+  const zipData: Uint8Array = zipFiles(files);
   const ab = new ArrayBuffer(zipData.byteLength);
   new Uint8Array(ab).set(zipData);
 
