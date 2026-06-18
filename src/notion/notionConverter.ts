@@ -30,9 +30,14 @@ export function convertForNotion(
     return `![${altText}](${assetPathPrefix}${assetName})`;
   });
 
-  // Regular markdown images: ![alt](path) — skip external URLs
+  // Regular markdown images: ![alt](path)
+  // URL images are kept as-is. Already-converted asset paths are skipped.
+  // Only local vault paths are copied to assets/.
   md = md.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt: string, src: string) => {
     if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:')) {
+      return match;
+    }
+    if (src.startsWith('../assets/') || src.startsWith('assets/')) {
       return match;
     }
     const assetName = src.split('/').pop() ?? src;
