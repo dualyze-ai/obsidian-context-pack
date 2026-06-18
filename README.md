@@ -29,6 +29,8 @@ AI Workspace
 
 ## New in v4.1.0: Notion Workspace Export
 
+![Notion Workspace ZIP](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-overview.jpeg)
+
 Export an entire workspace as a Notion-ready ZIP.
 
 Import it into Notion to create a shareable workspace containing:
@@ -129,10 +131,6 @@ Learn the complete workflow from notes to AI-ready outputs.
 
 ## Screenshots
 
-![AI Workspace View](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-overview.jpeg)
-
-*AI Workspace View — track all outputs from one place*
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/ai-brief-overview.png" width="90%">
 <p><em>AI Brief — understand your vault before exporting</em></p>
@@ -142,6 +140,10 @@ Learn the complete workflow from notes to AI-ready outputs.
 <img src="https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/ai-moc-overview.png" width="90%">
 <p><em>AI MOC — organize insights into a navigable structure</em></p>
 </div>
+
+![Knowledge Book cover](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-cover-europe.jpg)
+
+*Knowledge Book — read your notes in Kindle, Apple Books, or Kobo*
 
 ---
 
@@ -287,8 +289,6 @@ Supported readers: Kindle, Apple Books, Kobo, Calibre, and any EPUB reader.
 2. Right-click the generated AI Brief.
 3. Choose **Create Knowledge Book (EPUB)**.
 
-![Knowledge Book cover](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/knowledge-book-cover-europe.jpg)
-
 </details>
 
 <details>
@@ -340,24 +340,7 @@ Create AI-ready packs from daily notes with date range selection, weekly summari
 
 ## Changelog
 
-### v4.1.0
-
-**New**
-
-- Notion Workspace Export — export entire workspaces as Notion-ready ZIP files
-- Notion Workspace ZIP output tracking in AI Workspace View (5/5 outputs)
-- Image handling: local images copied to assets, URL images kept as-is
-
-### v4.0.0 – v4.0.3
-
-- AI Workspace View — manage all outputs per folder from one panel
-- Generate Workspace (AI Brief + AI MOC in one click)
-- Refresh Workspace — detect and update outdated outputs
-- Knowledge Book (EPUB) generation from AI Workspace
-- Context Pack export from AI Workspace
-- i18n: English + Japanese throughout
-
-👉 [Full changelog](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
+See [docs/changelog.md](https://github.com/dualyze-ai/obsidian-context-pack/blob/main/docs/changelog.md)
 
 ---
 
