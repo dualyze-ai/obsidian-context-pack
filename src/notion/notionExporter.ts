@@ -1,5 +1,6 @@
 import { App, TFile } from 'obsidian';
 import { zipSync, strToU8 } from 'fflate';
+import type { Zippable } from 'fflate';
 import type { WorkspaceConfig } from '../workspace/workspaceTypes';
 import { convertForNotion } from './notionConverter';
 import type { ImageRef } from './notionConverter';
@@ -149,8 +150,8 @@ export async function buildNotionZip(
   files[root + 'README.md'] = strToU8(buildReadmeMd(config.name, hasBrief, hasMoc)) as Uint8Array;
 
   // Build ZIP
-  const zipData = zipSync(files as Parameters<typeof zipSync>[0]);
-  const ab = zipData.buffer.slice(zipData.byteOffset, zipData.byteOffset + zipData.byteLength);
+  const zipData: Uint8Array = zipSync(files as Zippable);
+  const ab: ArrayBuffer = zipData.buffer.slice(zipData.byteOffset, zipData.byteOffset + zipData.byteLength) as ArrayBuffer;
 
   // Save to vault
   const filename = zipBaseName + '.zip';
