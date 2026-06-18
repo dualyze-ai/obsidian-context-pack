@@ -107,5 +107,20 @@ export async function computeWorkspaceState(
     ? artifactFromFile(epubFile, sourceLatestMtime)
     : { status: 'missing' };
 
-  return { notesCount, sourceLatestMtime, folderExists, aiBrief, aiMoc, contextPack, epub };
+  // Notion Workspace ZIP
+  const notionZipName = (
+    config.name
+      .replace(/[/\\:*?"<>|]/g, '-')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim()
+      .replace(/^-|-$/g, '') || 'workspace'
+  ) + '-notion-workspace.zip';
+  const notionZipPath = outputFolder ? `${outputFolder}/${notionZipName}` : notionZipName;
+  const notionZipNode = app.vault.getAbstractFileByPath(notionZipPath);
+  const notionZip: ArtifactState = notionZipNode instanceof TFile
+    ? artifactFromFile(notionZipNode, sourceLatestMtime)
+    : { status: 'missing' };
+
+  return { notesCount, sourceLatestMtime, folderExists, aiBrief, aiMoc, contextPack, epub, notionZip };
 }

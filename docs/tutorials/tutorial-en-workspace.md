@@ -64,6 +64,22 @@ travel/
 
 ---
 
+---
+
+**Alice:** Can I share this workspace with my team?
+
+**Bob:** Sure. Click **Notion ZIP**.
+
+**Alice:** What happens next?
+
+**Bob:** AI Context Pack creates a Notion-ready workspace ZIP. Import it into Notion and you'll get AI Briefs, AI MOCs, notes, and images as pages.
+
+**Alice:** Do I need a Notion API key or anything like that?
+
+**Bob:** No setup needed. Just open Notion, go to **Settings → Import**, choose **ZIP**, and upload the file. Notion does the rest.
+
+---
+
 ## What Alice built
 
 After this tutorial, Alice has:
@@ -73,4 +89,5 @@ After this tutorial, Alice has:
 - an AI MOC organized for export
 - a Context Pack ready for ChatGPT, Claude, or Gemini
 - a Knowledge Book for reading in Kindle or Apple Books
+- a Notion Workspace ZIP for sharing with her team
 - a repeatable workflow for keeping AI-ready knowledge up to date

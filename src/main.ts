@@ -21,6 +21,7 @@ import type { PackRecord } from './freshness/types';
 import { buildEpub } from './epub/epubBuilder';
 import { sanitizeFilename } from './epub/epubSanitizer';
 import type { EpubBookInput, EpubChapter, EpubCluster } from './epub/epubTypes';
+import { buildNotionZip } from './notion/notionExporter';
 
 interface PackMeta {
   source: PackRecord['source'];
@@ -86,6 +87,28 @@ export default class ContextPackPlugin extends Plugin {
       id: 'open-freshness-panel',
       name: 'Open Project Knowledge Packs',
       callback: () => void this.activateFreshnessView(),
+    });
+
+    this.addCommand({
+      id: 'workspace-export-notion-zip',
+      name: t('cmd_notion_zip'),
+      callback: () => {
+        const workspaces = this.settings.workspaces ?? [];
+        if (workspaces.length === 0) {
+          new Notice(t('ws_empty_title'));
+          return;
+        }
+        if (workspaces.length === 1) {
+          void this.workspaceExportNotionZip(workspaces[0].sourcePath);
+          return;
+        }
+        new FolderSuggest(
+          this.app,
+          workspaces.map(ws => ws.sourcePath),
+          (folder) => void this.workspaceExportNotionZip(folder),
+          t('cmd_notion_zip'),
+        ).open();
+      },
     });
 
     this.addRibbonIcon('package', t('ribbon_tooltip'), (evt: MouseEvent) => {
@@ -456,6 +479,62 @@ export default class ContextPackPlugin extends Plugin {
       return;
     }
     await this.createEpubFromBrief(briefFile, folderPath);
+  }
+
+  async workspaceExportNotionZip(folderPath: string): Promise<void> {
+    const workspaces = this.settings.workspaces ?? [];
+    const config = workspaces.find(ws => ws.sourcePath === folderPath);
+    if (!config) {
+      new Notice(t('ws_notice_folder_not_found', folderPath));
+      return;
+    }
+
+    const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
+
+    // Find AI Brief
+    let briefFile: TFile | null = null;
+    for (const file of this.app.vault.getMarkdownFiles()) {
+      const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+      if (fm?.['generatedBy'] === 'ai-brief-generator' && fm?.['sourceFolder'] === folderPath) {
+        briefFile = file;
+        break;
+      }
+    }
+    if (!briefFile) {
+      const folderName = folderPath.split('/').pop() ?? folderPath;
+      const safe = folderName.replace(/[/\\:*?"<>|#^[\]]/g, '-').trim();
+      const candidatePath = outputFolder ? `${outputFolder}/${safe}-AI-Brief.md` : `${safe}-AI-Brief.md`;
+      const candidate = this.app.vault.getAbstractFileByPath(candidatePath);
+      if (candidate instanceof TFile) briefFile = candidate;
+    }
+
+    // Find AI MOC
+    let mocFile: TFile | null = null;
+    if (briefFile) {
+      const mocPath = outputFolder
+        ? `${outputFolder}/${briefFile.basename} MOC.md`
+        : `${briefFile.basename} MOC.md`;
+      const m = this.app.vault.getAbstractFileByPath(mocPath);
+      if (m instanceof TFile) mocFile = m;
+    }
+
+    try {
+      const filename = await buildNotionZip(
+        this.app,
+        config,
+        outputFolder,
+        briefFile?.path,
+        mocFile?.path,
+      );
+      new Notice(t('ws_notice_notion_exported', filename), 8000);
+    } catch (err) {
+      if (err instanceof Error && err.message === 'no-notes') {
+        new Notice(t('ws_notice_no_notes', folderPath));
+      } else {
+        console.error('[AI Context Pack] Notion ZIP export failed:', err);
+        new Notice(t('ws_notice_notion_failed'));
+      }
+    }
   }
 
   async savePackRecord(meta: PackMeta, outputTarget: OutputTarget, selectorState?: OutputSelectorState): Promise<void> {
