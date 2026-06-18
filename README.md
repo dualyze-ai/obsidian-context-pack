@@ -12,24 +12,15 @@ Create AI Briefs, AI MOCs, Context Packs, Knowledge Books, and Notion Workspaces
 
 Manage all AI outputs for each folder from a single dashboard.
 
-Track status, open outputs, refresh workspaces, and see what is missing — all in one place.
-
-```text
-AI Workspace
-├ AI Brief           ✓
-├ AI MOC             ✓
-├ Context Pack       ✗ Not created
-├ Knowledge Book     ✗ Not created
-└ Notion Workspace   ✗ Not created
-```
-
 ![AI Workspace Demo](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/ai-workspace-demo.gif)
 
 ---
 
 ## New in v4.1.0: Notion Workspace Export
 
-![Notion Workspace Import](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/notion-workspace-import.png)
+![Notion Workspace Import](https://raw.githubusercontent.com/dualyze-ai/obsidian-context-pack/main/docs/images/notion-workspace-import.jpeg)
+
+*Imported Notion Workspace containing AI Briefs, AI MOCs, notes, and assets.*
 
 Export an entire workspace as a Notion-ready ZIP.
 
