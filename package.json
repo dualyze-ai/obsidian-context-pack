@@ -1,6 +1,6 @@
 {
   "name": "obsidian-context-pack",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Analyze your vault with AI Brief, organize with AI MOC, and export AI-ready Context Packs for ChatGPT, Claude, Gemini, NotebookLM, and more.",
   "main": "main.js",
   "scripts": {

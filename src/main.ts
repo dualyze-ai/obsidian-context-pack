@@ -1256,7 +1256,8 @@ export default class ContextPackPlugin extends Plugin {
       const filename = sanitizeFilename(opts.filename ?? bookTitle).toLowerCase() + '.epub';
       const outputFolder = this.settings.contextPackOutputFolder || this.settings.outputFolder || '';
       const path = outputFolder ? `${outputFolder}/${filename}` : filename;
-      const ab = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+      const ab = new ArrayBuffer(data.byteLength);
+      new Uint8Array(ab).set(data);
       const existing = this.app.vault.getAbstractFileByPath(path);
       if (existing instanceof TFile) {
         await this.app.vault.modifyBinary(existing, ab);

@@ -90,8 +90,7 @@ export async function buildNotionZip(
   const root = zipBaseName + '/';
 
   const allImageRefs: ImageRef[] = [];
-  type ZipFiles = Record<string, Uint8Array>;
-  const files: ZipFiles = {};
+  const files: Zippable = {};
 
   // Source notes → Notes/
   for (const note of sourceNotes) {
@@ -99,7 +98,7 @@ export async function buildNotionZip(
     const content = await app.vault.read(note);
     const { markdown, imageRefs } = convertForNotion(content, note.path, '../assets/');
     allImageRefs.push(...imageRefs);
-    files[root + 'Notes/' + relPath] = strToU8(markdown) as Uint8Array;
+    files[root + 'Notes/' + relPath] = strToU8(markdown);
   }
 
   // AI Brief
@@ -110,7 +109,7 @@ export async function buildNotionZip(
       const content = await app.vault.read(f);
       const { markdown, imageRefs } = convertForNotion(content, f.path, 'assets/');
       allImageRefs.push(...imageRefs);
-      files[root + 'AI Brief.md'] = strToU8(markdown) as Uint8Array;
+      files[root + 'AI Brief.md'] = strToU8(markdown);
       hasBrief = true;
     }
   }
@@ -123,7 +122,7 @@ export async function buildNotionZip(
       const content = await app.vault.read(f);
       const { markdown, imageRefs } = convertForNotion(content, f.path, 'assets/');
       allImageRefs.push(...imageRefs);
-      files[root + 'AI MOC.md'] = strToU8(markdown) as Uint8Array;
+      files[root + 'AI MOC.md'] = strToU8(markdown);
       hasMoc = true;
     }
   }
@@ -147,11 +146,12 @@ export async function buildNotionZip(
   }
 
   // README
-  files[root + 'README.md'] = strToU8(buildReadmeMd(config.name, hasBrief, hasMoc)) as Uint8Array;
+  files[root + 'README.md'] = strToU8(buildReadmeMd(config.name, hasBrief, hasMoc));
 
   // Build ZIP
-  const zipData: Uint8Array = zipSync(files as Zippable);
-  const ab: ArrayBuffer = zipData.buffer.slice(zipData.byteOffset, zipData.byteOffset + zipData.byteLength) as ArrayBuffer;
+  const zipData: Uint8Array = zipSync(files);
+  const ab = new ArrayBuffer(zipData.byteLength);
+  new Uint8Array(ab).set(zipData);
 
   // Save to vault
   const filename = zipBaseName + '.zip';
