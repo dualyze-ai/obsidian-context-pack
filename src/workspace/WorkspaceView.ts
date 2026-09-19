@@ -20,7 +20,7 @@ export class WorkspaceView extends ItemView {
   private loading = false;
   private refreshingAll = false;
 
-  private debounceTimer: ReturnType<typeof setTimeout> | null = null;
+  private debounceTimer: number | null = null;
 
   constructor(leaf: WorkspaceLeaf, plugin: ContextPackPlugin) {
     super(leaf);
@@ -82,15 +82,15 @@ export class WorkspaceView extends ItemView {
       containerEl.addClass('ai-context-workspace-view--dark');
     }
 
-    const header = containerEl.createEl('div', { cls: 'ai-context-workspace-header' });
+    const header = containerEl.createDiv({ cls: 'ai-context-workspace-header' });
 
-    const titleRow = header.createEl('div', { cls: 'ai-context-workspace-header-titlerow' });
-    const titleEl = titleRow.createEl('div', { cls: 'ai-context-workspace-title' });
-    const titleIcon = titleEl.createEl('span', { cls: 'ai-context-workspace-title-icon' });
+    const titleRow = header.createDiv({ cls: 'ai-context-workspace-header-titlerow' });
+    const titleEl = titleRow.createDiv({ cls: 'ai-context-workspace-title' });
+    const titleIcon = titleEl.createSpan({ cls: 'ai-context-workspace-title-icon' });
     setIcon(titleIcon, 'briefcase-business');
-    titleEl.createEl('span', { text: t('ws_title') });
+    titleEl.createSpan({ text: t('ws_title') });
 
-    const headerActions = titleRow.createEl('div', { cls: 'ai-context-workspace-header-actions' });
+    const headerActions = titleRow.createDiv({ cls: 'ai-context-workspace-header-actions' });
 
     const isEmpty = (this.plugin.settings.workspaces ?? []).length === 0;
     const addBtn = headerActions.createEl('button', {
@@ -126,14 +126,14 @@ export class WorkspaceView extends ItemView {
       const totalOutputs = wsCount * 5;
       const pctReady = totalOutputs > 0 ? Math.round((readyOutputs / totalOutputs) * 100) : 0;
       const wsLabel = wsCount === 1 ? t('ws_workspace_singular') : t('ws_workspace_plural');
-      header.createEl('div', {
+      header.createDiv({
         cls: 'ai-context-workspace-stats',
         text: t('ws_stats', wsCount, wsLabel, totalNotes, pctReady),
       });
     }
 
     if (this.loading) {
-      containerEl.createEl('div', { cls: 'ai-context-workspace-loading', text: t('ws_loading') });
+      containerEl.createDiv({ cls: 'ai-context-workspace-loading', text: t('ws_loading') });
       return;
     }
 
@@ -144,26 +144,26 @@ export class WorkspaceView extends ItemView {
       return;
     }
 
-    const list = containerEl.createEl('div', { cls: 'ai-context-workspace-list' });
+    const list = containerEl.createDiv({ cls: 'ai-context-workspace-list' });
     for (const ws of workspaces) {
       this.renderCard(list, ws, this.states.get(ws.id));
     }
   }
 
   private renderEmpty(container: HTMLElement): void {
-    const empty = container.createEl('div', { cls: 'ai-context-workspace-empty' });
-    empty.createEl('div', { cls: 'ai-context-workspace-empty-icon', text: '🗂' });
+    const empty = container.createDiv({ cls: 'ai-context-workspace-empty' });
+    empty.createDiv({ cls: 'ai-context-workspace-empty-icon', text: '🗂' });
     empty.createEl('p', { cls: 'ai-context-workspace-empty-title', text: t('ws_empty_title') });
     empty.createEl('p', { cls: 'ai-context-workspace-empty-desc', text: t('ws_empty_desc') });
   }
 
   private renderCard(container: HTMLElement, ws: WorkspaceConfig, state?: WorkspaceState): void {
-    const card = container.createEl('div', { cls: 'ai-context-workspace-card' });
+    const card = container.createDiv({ cls: 'ai-context-workspace-card' });
 
-    const titleRow = card.createEl('div', { cls: 'ai-context-workspace-card-titlerow' });
-    titleRow.createEl('span', { cls: 'ai-context-workspace-card-title', text: '📁 ' + ws.name });
+    const titleRow = card.createDiv({ cls: 'ai-context-workspace-card-titlerow' });
+    titleRow.createSpan({ cls: 'ai-context-workspace-card-title', text: '📁 ' + ws.name });
 
-    const titleActions = titleRow.createEl('div', { cls: 'ai-context-workspace-card-title-actions' });
+    const titleActions = titleRow.createDiv({ cls: 'ai-context-workspace-card-title-actions' });
 
     const openFolderBtn = titleActions.createEl('button', { cls: 'ai-context-workspace-card-folder-btn' });
     setIcon(openFolderBtn, 'folder-open');
@@ -186,12 +186,12 @@ export class WorkspaceView extends ItemView {
     removeBtn.addEventListener('click', () => void this.removeWorkspace(ws.id));
 
     if (!state) {
-      card.createEl('div', { cls: 'ai-context-workspace-error', text: t('ws_error_state') });
+      card.createDiv({ cls: 'ai-context-workspace-error', text: t('ws_error_state') });
       return;
     }
 
     if (!state.folderExists) {
-      card.createEl('div', {
+      card.createDiv({
         cls: 'ai-context-workspace-error',
         text: t('ws_error_folder_missing', ws.sourcePath),
       });
@@ -199,16 +199,16 @@ export class WorkspaceView extends ItemView {
     }
 
     // Meta row: notes count + last refreshed
-    const meta = card.createEl('div', { cls: 'ai-context-workspace-meta' });
-    meta.createEl('span', { text: t('ws_notes', state.notesCount) });
+    const meta = card.createDiv({ cls: 'ai-context-workspace-meta' });
+    meta.createSpan({ text: t('ws_notes', state.notesCount) });
     if (state.sourceLatestMtime > 0) {
-      meta.createEl('span', { cls: 'ai-context-workspace-meta-sep', text: ' · ' });
-      meta.createEl('span', {
+      meta.createSpan({ cls: 'ai-context-workspace-meta-sep', text: ' · ' });
+      meta.createSpan({
         cls: 'ai-context-workspace-meta-muted',
         text: t('ws_last_refreshed', moment(state.sourceLatestMtime).fromNow()),
       });
     } else {
-      meta.createEl('span', { cls: 'ai-context-workspace-meta-muted', text: ' · ' + t('ws_not_refreshed') });
+      meta.createSpan({ cls: 'ai-context-workspace-meta-muted', text: ' · ' + t('ws_not_refreshed') });
     }
 
     // Progress bar
@@ -216,19 +216,19 @@ export class WorkspaceView extends ItemView {
     const readyCount = artifacts.filter(a => a.status === 'ready').length;
     const allReady = readyCount === artifacts.length;
     const pct = Math.round((readyCount / artifacts.length) * 100);
-    const progressRow = card.createEl('div', { cls: 'ai-context-workspace-progress-row' });
-    const barWrap = progressRow.createEl('div', { cls: 'ai-context-workspace-progress-bar-wrap' });
-    barWrap.createEl('div', {
+    const progressRow = card.createDiv({ cls: 'ai-context-workspace-progress-row' });
+    const barWrap = progressRow.createDiv({ cls: 'ai-context-workspace-progress-bar-wrap' });
+    barWrap.createDiv({
       cls: 'ai-context-workspace-progress-bar-fill' + (allReady ? ' ai-context-workspace-progress-bar-fill--full' : ''),
       attr: { style: `width: ${pct}%` },
     });
-    progressRow.createEl('span', {
+    progressRow.createSpan({
       cls: 'ai-context-workspace-progress-label' + (allReady ? ' ai-context-workspace-progress-label--ready' : ''),
       text: t('ws_outputs_ready', readyCount, artifacts.length),
     });
 
     // Status rows
-    const grid = card.createEl('div', { cls: 'ai-context-workspace-status-grid' });
+    const grid = card.createDiv({ cls: 'ai-context-workspace-status-grid' });
     this.renderStatusRow(grid, t('ws_artifact_brief'), state.aiBrief);
     this.renderStatusRow(grid, t('ws_artifact_moc'), state.aiMoc);
     this.renderStatusRow(grid, t('ws_artifact_pack'), state.contextPack);
@@ -236,7 +236,7 @@ export class WorkspaceView extends ItemView {
     this.renderNotionZipRow(grid, state.notionZip, outputFolder);
 
     // Buttons
-    const actions = card.createEl('div', { cls: 'ai-context-workspace-actions' });
+    const actions = card.createDiv({ cls: 'ai-context-workspace-actions' });
     const hasBrief = state.aiBrief.status !== 'missing';
 
     if (!hasBrief) {
@@ -255,8 +255,8 @@ export class WorkspaceView extends ItemView {
       });
       refreshBtn.addEventListener('click', () => void this.runRefresh(ws, state, refreshBtn));
 
-      actions.createEl('div', { cls: 'ai-context-workspace-actions-label', text: t('ws_generate_outputs_label') });
-      const secondary = actions.createEl('div', { cls: 'ai-context-workspace-actions-secondary' });
+      actions.createDiv({ cls: 'ai-context-workspace-actions-label', text: t('ws_generate_outputs_label') });
+      const secondary = actions.createDiv({ cls: 'ai-context-workspace-actions-secondary' });
 
       const exportBtn = secondary.createEl('button', {
         cls: 'ai-context-workspace-button ai-context-workspace-button--secondary',
@@ -299,21 +299,21 @@ export class WorkspaceView extends ItemView {
   }
 
   private renderStatusRow(container: HTMLElement, label: string, artifact: ArtifactState): void {
-    const row = container.createEl('div', { cls: 'ai-context-workspace-status-row' });
-    row.createEl('span', {
+    const row = container.createDiv({ cls: 'ai-context-workspace-status-row' });
+    row.createSpan({
       cls: `ai-context-workspace-status-icon ai-context-workspace-status-icon--${artifact.status}`,
       text: STATUS_ICON[artifact.status] ?? '✕',
     });
-    row.createEl('span', { cls: 'ai-context-workspace-status-label', text: label });
+    row.createSpan({ cls: 'ai-context-workspace-status-label', text: label });
 
-    const right = row.createEl('div', { cls: 'ai-context-workspace-status-row-right' });
+    const right = row.createDiv({ cls: 'ai-context-workspace-status-row-right' });
     if (artifact.filePath) {
       const openBtn = right.createEl('button', { cls: 'ai-context-workspace-open-btn', text: t('ws_open') });
       openBtn.addEventListener('click', () => void this.openFile(artifact.filePath!));
     }
     if (artifact.status !== 'ready') {
       const statusKey = `ws_status_${artifact.status}` as const;
-      right.createEl('span', {
+      right.createSpan({
         cls: `ai-context-workspace-badge ai-context-workspace-badge-${artifact.status}`,
         text: t(statusKey) || t('ws_status_unknown'),
       });
@@ -321,21 +321,21 @@ export class WorkspaceView extends ItemView {
   }
 
   private renderNotionZipRow(container: HTMLElement, artifact: ArtifactState, outputFolder: string): void {
-    const row = container.createEl('div', { cls: 'ai-context-workspace-status-row' });
-    row.createEl('span', {
+    const row = container.createDiv({ cls: 'ai-context-workspace-status-row' });
+    row.createSpan({
       cls: `ai-context-workspace-status-icon ai-context-workspace-status-icon--${artifact.status}`,
       text: STATUS_ICON[artifact.status] ?? '✕',
     });
-    row.createEl('span', { cls: 'ai-context-workspace-status-label', text: t('ws_artifact_notion') });
+    row.createSpan({ cls: 'ai-context-workspace-status-label', text: t('ws_artifact_notion') });
 
-    const right = row.createEl('div', { cls: 'ai-context-workspace-status-row-right' });
+    const right = row.createDiv({ cls: 'ai-context-workspace-status-row-right' });
     if (artifact.status === 'ready' || artifact.status === 'outdated') {
       const openBtn = right.createEl('button', { cls: 'ai-context-workspace-open-btn', text: t('ws_open') });
       openBtn.addEventListener('click', () => void this.openFolderInExplorer(outputFolder));
     }
     if (artifact.status !== 'ready') {
       const statusKey = `ws_status_${artifact.status}` as const;
-      right.createEl('span', {
+      right.createSpan({
         cls: `ai-context-workspace-badge ai-context-workspace-badge-${artifact.status}`,
         text: t(statusKey) || t('ws_status_unknown'),
       });

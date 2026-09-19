@@ -619,9 +619,9 @@ export default class ContextPackPlugin extends Plugin {
     const controller = new AbortController();
     let msgEl!: HTMLElement;
     const notice = new Notice(createFragment(frag => {
-      const wrap = frag.createEl('div', { cls: 'cp-progress' });
-      wrap.createEl('div', { cls: 'cp-title', text: initialMsg });
-      msgEl = wrap.createEl('div', { cls: 'cp-progress-msg', text: '' });
+      const wrap = frag.createDiv({ cls: 'cp-progress' });
+      wrap.createDiv({ cls: 'cp-title', text: initialMsg });
+      msgEl = wrap.createDiv({ cls: 'cp-progress-msg', text: '' });
       const btn = wrap.createEl('button', { cls: 'cp-cancel-btn', text: t('btn_cancel') });
       btn.addEventListener('click', () => controller.abort());
     }), 0);
@@ -1552,7 +1552,7 @@ class FolderSuggest extends SuggestModal<string> {
     if (this.title) {
       const target = this.modalEl.querySelector('.prompt') ?? this.inputEl.parentElement;
       target?.insertAdjacentElement('beforebegin',
-        createEl('div', { cls: 'cp-folder-picker-title', text: this.title })
+        createDiv({ cls: 'cp-folder-picker-title', text: this.title })
       );
     }
   }

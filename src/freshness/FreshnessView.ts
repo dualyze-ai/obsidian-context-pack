@@ -48,13 +48,13 @@ export class FreshnessView extends ItemView {
       containerEl.addClass('cp-freshness-view--dark');
     }
 
-    const header = containerEl.createEl('div', { cls: 'cp-freshness-header' });
+    const header = containerEl.createDiv({ cls: 'cp-freshness-header' });
     header.createEl('h4', { text: 'Project Knowledge Packs', cls: 'cp-freshness-title' });
 
-    const controls = header.createEl('div', { cls: 'cp-freshness-controls' });
+    const controls = header.createDiv({ cls: 'cp-freshness-controls' });
 
     if (this.lastChecked) {
-      const checkedEl = controls.createEl('span', {
+      const checkedEl = controls.createSpan({
         cls: 'cp-freshness-last-checked',
         text: `↻ ${moment(this.lastChecked).fromNow()}`,
       });
@@ -76,14 +76,14 @@ export class FreshnessView extends ItemView {
     refreshBtn.addEventListener('click', () => void this.refresh());
 
     if (this.loading) {
-      containerEl.createEl('div', { cls: 'cp-freshness-loading', text: t('freshness_loading') });
+      containerEl.createDiv({ cls: 'cp-freshness-loading', text: t('freshness_loading') });
       return;
     }
 
     const packs = this.plugin.settings.packRegistry ?? [];
 
     if (packs.length === 0) {
-      containerEl.createEl('div', {
+      containerEl.createDiv({
         cls: 'cp-freshness-empty',
         text: t('freshness_empty'),
       });
@@ -99,22 +99,22 @@ export class FreshnessView extends ItemView {
     const warnCount  = this.results.filter((r) => r.level === 'warn').length;
     const staleCount = this.results.filter((r) => r.level === 'stale').length;
 
-    const summary = container.createEl('div', { cls: 'cp-freshness-summary' });
+    const summary = container.createDiv({ cls: 'cp-freshness-summary' });
     const items: Array<{ label: string; count: number; cls: string }> = [
       { label: t('freshness_level_fresh'), count: freshCount, cls: 'fresh' },
       { label: t('freshness_level_warn'),  count: warnCount,  cls: 'warn'  },
       { label: t('freshness_level_stale'), count: staleCount, cls: 'stale' },
     ];
     for (const item of items) {
-      const chip = summary.createEl('span', { cls: `cp-freshness-chip cp-freshness-chip--${item.cls}` });
-      chip.createEl('span', { cls: `cp-freshness-chip-dot cp-freshness-dot--${item.cls}` });
-      chip.createEl('span', { cls: 'cp-freshness-chip-label', text: ` ${item.label}: ` });
-      chip.createEl('span', { cls: 'cp-freshness-chip-count', text: String(item.count) });
+      const chip = summary.createSpan({ cls: `cp-freshness-chip cp-freshness-chip--${item.cls}` });
+      chip.createSpan({ cls: `cp-freshness-chip-dot cp-freshness-dot--${item.cls}` });
+      chip.createSpan({ cls: 'cp-freshness-chip-label', text: ` ${item.label}: ` });
+      chip.createSpan({ cls: 'cp-freshness-chip-count', text: String(item.count) });
     }
   }
 
   private renderPackList(container: HTMLElement, packs: PackRecord[]): void {
-    const list = container.createEl('div', { cls: 'cp-freshness-list' });
+    const list = container.createDiv({ cls: 'cp-freshness-list' });
     for (const result of this.results) {
       const pack = packs.find((p) => packKey(p.source, p.target) === result.key);
       if (!pack) continue;
@@ -123,35 +123,35 @@ export class FreshnessView extends ItemView {
   }
 
   private renderPackRow(container: HTMLElement, pack: PackRecord, result: PackCheckResult): void {
-    const row = container.createEl('div', { cls: `cp-freshness-row cp-freshness-row--${result.level}` });
+    const row = container.createDiv({ cls: `cp-freshness-row cp-freshness-row--${result.level}` });
 
-    const border = row.createEl('div', { cls: `cp-freshness-border cp-freshness-border--${result.level}` });
-    border.createEl('span', { cls: `cp-freshness-dot cp-freshness-dot--${result.level}` });
+    const border = row.createDiv({ cls: `cp-freshness-border cp-freshness-border--${result.level}` });
+    border.createSpan({ cls: `cp-freshness-dot cp-freshness-dot--${result.level}` });
 
-    const body = row.createEl('div', { cls: 'cp-freshness-body' });
+    const body = row.createDiv({ cls: 'cp-freshness-body' });
 
     // ── Top line: name + target badge + level chip + delete button
-    const topLine = body.createEl('div', { cls: 'cp-freshness-topline' });
-    topLine.createEl('span', { cls: 'cp-freshness-pack-name', text: pack.name });
+    const topLine = body.createDiv({ cls: 'cp-freshness-topline' });
+    topLine.createSpan({ cls: 'cp-freshness-pack-name', text: pack.name });
 
-    const targetBadge = topLine.createEl('span', {
+    const targetBadge = topLine.createSpan({
       cls: 'cp-freshness-target-badge',
       text: TARGET_LABEL[pack.target],
     });
     targetBadge.setAttribute('data-target', pack.target);
 
     // Per-row level chip
-    const rowChip = topLine.createEl('span', { cls: `cp-freshness-row-chip cp-freshness-chip--${result.level}` });
-    rowChip.createEl('span', { cls: `cp-freshness-chip-dot cp-freshness-dot--${result.level}` });
-    rowChip.createEl('span', { text: ` ${levelLabel(result.level)}` });
+    const rowChip = topLine.createSpan({ cls: `cp-freshness-row-chip cp-freshness-chip--${result.level}` });
+    rowChip.createSpan({ cls: `cp-freshness-chip-dot cp-freshness-dot--${result.level}` });
+    rowChip.createSpan({ text: ` ${levelLabel(result.level)}` });
 
     // ── Count
-    const countEl = body.createEl('div', { cls: 'cp-freshness-count' });
+    const countEl = body.createDiv({ cls: 'cp-freshness-count' });
     countEl.setText(this.buildCountText(result));
 
     // ── Meta + delete button
-    const metaLine = body.createEl('div', { cls: 'cp-freshness-meta' });
-    metaLine.createEl('span', { text: t('freshness_created_at', moment(pack.createdAt).fromNow()) });
+    const metaLine = body.createDiv({ cls: 'cp-freshness-meta' });
+    metaLine.createSpan({ text: t('freshness_created_at', moment(pack.createdAt).fromNow()) });
     const deleteBtn = metaLine.createEl('button', {
       cls: 'cp-freshness-delete-btn',
       text: '✕',
@@ -161,7 +161,7 @@ export class FreshnessView extends ItemView {
 
     // ── Missing warning
     if (result.missing.length > 0) {
-      body.createEl('div', {
+      body.createDiv({
         cls: 'cp-freshness-missing',
         text: t('freshness_not_found', result.missing.length),
       });
@@ -169,7 +169,7 @@ export class FreshnessView extends ItemView {
 
     // ── Actions (warn / stale only)
     if (result.level !== 'fresh') {
-      const actions = body.createEl('div', { cls: 'cp-freshness-actions' });
+      const actions = body.createDiv({ cls: 'cp-freshness-actions' });
 
       const diffBtn = actions.createEl('button', {
         cls: 'cp-freshness-btn cp-freshness-btn--secondary',

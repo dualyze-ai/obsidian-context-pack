@@ -28,7 +28,7 @@ class FileSuggest extends SuggestModal<TFile> {
 
 export class AiMocModal extends Modal {
   private selectedFile: TFile | undefined;
-  private scope: 'direct' | 'related' = 'related';
+  private mocScope: 'direct' | 'related' = 'related';
   private includeBacklinksInMoc = true;
   private includeBacklinksInPack = false;
   private generateContextPack = true;
@@ -71,8 +71,8 @@ export class AiMocModal extends Modal {
     for (const [value, label] of [['direct', t('ai_moc_scope_direct')], ['related', t('ai_moc_scope_related')]] as const) {
       const lbl = scopeControl.createEl('label', { cls: 'cp-radio-label' });
       const radio = lbl.createEl('input', { attr: { type: 'radio', name: 'cp-moc-scope', value } });
-      radio.checked = this.scope === value;
-      radio.addEventListener('change', () => { if (radio.checked) this.scope = value; });
+      radio.checked = this.mocScope === value;
+      radio.addEventListener('change', () => { if (radio.checked) this.mocScope = value; });
       lbl.appendText(` ${label}`);
     }
 
@@ -135,7 +135,7 @@ export class AiMocModal extends Modal {
 
     const config: AiMocConfig = {
       rootFile: this.selectedFile,
-      scope: this.scope,
+      scope: this.mocScope,
       includeBacklinksInMoc: this.includeBacklinksInMoc,
       includeBacklinksInPack: this.includeBacklinksInPack,
       generateContextPack: this.generateContextPack,

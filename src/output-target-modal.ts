@@ -62,21 +62,21 @@ export class OutputTargetModal extends Modal {
     contentEl.empty();
     this.setTitle(t('modal_select_target'));
 
-    const tabEl = contentEl.createEl('div', { cls: 'cp-output-tabs' });
+    const tabEl = contentEl.createDiv({ cls: 'cp-output-tabs' });
     this.renderTabs(tabEl);
 
-    this.radioEl = contentEl.createEl('div', { cls: 'cp-output-radios' });
+    this.radioEl = contentEl.createDiv({ cls: 'cp-output-radios' });
     this.renderRadios();
 
-    this.modeContainerEl = contentEl.createEl('div');
+    this.modeContainerEl = contentEl.createDiv();
     this.renderModeSetting();
 
-    this.previewEl = contentEl.createEl('div', { cls: 'cp-output-preview' });
-    this.methodEl  = contentEl.createEl('div', { cls: 'cp-output-method' });
+    this.previewEl = contentEl.createDiv({ cls: 'cp-output-preview' });
+    this.methodEl  = contentEl.createDiv({ cls: 'cp-output-method' });
 
     this.updatePreview();
 
-    const footerEl = contentEl.createEl('div', { cls: 'cp-output-footer' });
+    const footerEl = contentEl.createDiv({ cls: 'cp-output-footer' });
     footerEl.createEl('button', { text: t('btn_cancel'), cls: 'cp-output-cancel' })
       .addEventListener('click', () => this.close());
 
@@ -155,7 +155,7 @@ export class OutputTargetModal extends Modal {
         current = this.state.agentMode;
     }
 
-    const group = this.radioEl.createEl('div', { cls: 'cp-output-radio-group' });
+    const group = this.radioEl.createDiv({ cls: 'cp-output-radio-group' });
     for (const opt of options) {
       const label = group.createEl('label', { cls: 'cp-output-radio-row' });
       const input = label.createEl('input');
@@ -163,7 +163,7 @@ export class OutputTargetModal extends Modal {
       input.name = 'cp-tab-mode';
       input.value = opt.value;
       input.checked = opt.value === current;
-      label.createEl('span', { text: t(opt.labelKey) });
+      label.createSpan({ text: t(opt.labelKey) });
       input.addEventListener('change', () => {
         if (!input.checked) return;
         this.applyTabMode(opt.value);
@@ -222,11 +222,11 @@ export class OutputTargetModal extends Modal {
     if (this.settings.showTokenCount) {
       const pk = getProjectKnowledgeInstructions(this.state);
       const displayTokens = this.tokenCount + (pk ? estimateTokens(pk) : 0);
-      const infoEl = this.previewEl.createEl('div', { cls: 'cp-output-info' });
-      infoEl.createEl('div', { cls: 'cp-output-info-tokens', text: t('modal_token_estimated', displayTokens) });
+      const infoEl = this.previewEl.createDiv({ cls: 'cp-output-info' });
+      infoEl.createDiv({ cls: 'cp-output-info-tokens', text: t('modal_token_estimated', displayTokens) });
       if (this.settings.warnOnTokenLimit) {
         const warn = getTokenWarning(displayTokens, preset);
-        if (warn) this.previewEl.createEl('div', { cls: 'cp-output-warning', text: warn });
+        if (warn) this.previewEl.createDiv({ cls: 'cp-output-warning', text: warn });
       }
     }
 
@@ -254,6 +254,6 @@ export class OutputTargetModal extends Modal {
     input.type = 'checkbox';
     input.checked = checked;
     input.addEventListener('change', () => onChange(input.checked));
-    row.createEl('span', { text: label });
+    row.createSpan({ text: label });
   }
 }

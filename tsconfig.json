@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "strictNullChecks": true,
     "strict": true,
-    "lib": ["ES6", "DOM"],
+    "lib": ["DOM", "ES2020"],
     "noEmit": true
   },
   "include": ["src/**/*.ts"]
