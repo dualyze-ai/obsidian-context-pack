@@ -110,6 +110,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
 export class SettingsTab extends PluginSettingTab {
   plugin: ContextPackPlugin;
   private dailyFolderSetting: Setting | null = null;
+  private dailyFormatSetting: Setting | null = null;
 
   constructor(app: App, plugin: ContextPackPlugin) {
     super(app, plugin);
@@ -120,8 +121,8 @@ export class SettingsTab extends PluginSettingTab {
   // display() below remains as the fallback for older versions.
   getSettingDefinitions(): SettingDefinitionItem[] {
     return buildSettingDefinitions({
-      isDailyAutoDetect: () => this.plugin.settings.dailyNotesAutoDetect,
       renderDailyFolder: (setting) => this.renderDailyFolderRow(setting),
+      renderDailyFormat: (setting) => this.renderDailyFormatRow(setting),
       renderStarterPrompt: (setting) => this.renderStarterPromptRow(setting),
       renderRule: (setting, index) => this.addRuleControls(setting, index),
       ruleCount: () => this.plugin.settings.customRules.length,
@@ -137,8 +138,16 @@ export class SettingsTab extends PluginSettingTab {
   async setControlValue(key: string, value: unknown): Promise<void> {
     writeSetting(this.plugin.settings, key, value);
     await this.plugin.saveSettings();
-    if (key === 'dailyNotesAutoDetect') this.dailyFolderSetting?.setDisabled(Boolean(value));
-    this.refreshDomState();
+    if (key === 'dailyNotesAutoDetect') {
+      this.dailyFolderSetting?.setDisabled(Boolean(value));
+      this.dailyFormatSetting?.setDisabled(Boolean(value));
+    }
+  }
+
+  // update() re-renders declarative settings (Obsidian 1.13+). It is only reached from the
+  // declarative flow, so on older versions (display() fallback) it is never called.
+  private rerender(): void {
+    (this as unknown as { update?: () => void }).update?.();
   }
 
   private renderDailyFolderRow(setting: Setting): () => void {
@@ -159,10 +168,24 @@ export class SettingsTab extends PluginSettingTab {
           new FolderPickerModal(this.app, t('daily_folder_picker'), (folder) => {
             this.plugin.settings.dailyNotesFolder = folder;
             this.plugin.settings.dailyNotesAutoDetect = false;
-            void this.plugin.saveSettings().then(() => this.update());
+            void this.plugin.saveSettings().then(() => this.rerender());
           }).open();
         }));
     return () => { this.dailyFolderSetting = null; };
+  }
+
+  private renderDailyFormatRow(setting: Setting): () => void {
+    this.dailyFormatSetting = setting;
+    setting
+      .setDisabled(this.plugin.settings.dailyNotesAutoDetect)
+      .addText(text => text
+        .setPlaceholder('YYYY-MM-DD')
+        .setValue(this.plugin.settings.dailyNotesFormat)
+        .onChange(async value => {
+          this.plugin.settings.dailyNotesFormat = value;
+          await this.plugin.saveSettings();
+        }));
+    return () => { this.dailyFormatSetting = null; };
   }
 
   private renderStarterPromptRow(setting: Setting): void {
@@ -189,13 +212,13 @@ export class SettingsTab extends PluginSettingTab {
   private async addRule(): Promise<void> {
     this.plugin.settings.customRules.push({ find: '', replace: '', useRegex: false, enabled: true });
     await this.plugin.saveSettings();
-    this.update();
+    this.rerender();
   }
 
   private async deleteRule(index: number): Promise<void> {
     this.plugin.settings.customRules.splice(index, 1);
     await this.plugin.saveSettings();
-    this.update();
+    this.rerender();
   }
 
   display(): void {

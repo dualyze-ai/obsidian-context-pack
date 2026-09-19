@@ -60,8 +60,8 @@ export function writeSetting(settings: PluginSettings, key: string, value: unkno
 }
 
 export interface SettingRenderers {
-  isDailyAutoDetect: () => boolean;
   renderDailyFolder: (setting: Setting) => void | (() => void);
+  renderDailyFormat: (setting: Setting) => void | (() => void);
   renderStarterPrompt: (setting: Setting) => void | (() => void);
   renderRule: (setting: Setting, index: number) => void | (() => void);
   ruleCount: () => number;
@@ -132,12 +132,7 @@ export function buildSettingDefinitions(r: SettingRenderers): SettingDefinitionI
         {
           name: t('setting_daily_format'),
           desc: t('setting_daily_format_desc'),
-          control: {
-            type: 'text',
-            key: 'dailyNotesFormat',
-            placeholder: 'YYYY-MM-DD',
-            disabled: r.isDailyAutoDetect,
-          },
+          render: r.renderDailyFormat,
         },
         {
           name: t('setting_daily_range'),

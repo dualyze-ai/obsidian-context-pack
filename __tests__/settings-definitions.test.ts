@@ -18,8 +18,8 @@ function freshSettings(): PluginSettings {
 }
 
 const renderers = {
-  isDailyAutoDetect: () => true,
   renderDailyFolder: () => undefined,
+  renderDailyFormat: () => undefined,
   renderStarterPrompt: () => undefined,
   renderRule: () => undefined,
   ruleCount: () => 2,
