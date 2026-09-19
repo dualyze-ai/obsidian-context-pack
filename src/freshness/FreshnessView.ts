@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, Notice, moment } from 'obsidian';
+import { ItemView, WorkspaceLeaf, Notice } from 'obsidian';
 import type ContextPackPlugin from '../main';
 import { type PackRecord, type PackCheckResult, type FreshnessLevel, TARGET_LABEL } from './types';
 import { checkAllPacks, packKey } from './checker';
@@ -56,9 +56,9 @@ export class FreshnessView extends ItemView {
     if (this.lastChecked) {
       const checkedEl = controls.createSpan({
         cls: 'cp-freshness-last-checked',
-        text: `↻ ${moment(this.lastChecked).fromNow()}`,
+        text: `↻ ${window.moment(this.lastChecked).fromNow()}`,
       });
-      checkedEl.setAttribute('title', moment(this.lastChecked).format('YYYY-MM-DD HH:mm'));
+      checkedEl.setAttribute('title', window.moment(this.lastChecked).format('YYYY-MM-DD HH:mm'));
     }
 
     const darkBtn = controls.createEl('button', {
@@ -151,7 +151,7 @@ export class FreshnessView extends ItemView {
 
     // ── Meta + delete button
     const metaLine = body.createDiv({ cls: 'cp-freshness-meta' });
-    metaLine.createSpan({ text: t('freshness_created_at', moment(pack.createdAt).fromNow()) });
+    metaLine.createSpan({ text: t('freshness_created_at', window.moment(pack.createdAt).fromNow()) });
     const deleteBtn = metaLine.createEl('button', {
       cls: 'cp-freshness-delete-btn',
       text: '✕',

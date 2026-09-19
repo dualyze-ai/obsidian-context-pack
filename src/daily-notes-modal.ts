@@ -1,4 +1,4 @@
-import { App, Modal, Setting, moment } from 'obsidian';
+import { App, Modal, Setting } from 'obsidian';
 import { getDailyNotesSettings, getDailyNotes, getDateRange, type DailyNotesConfig } from './daily-notes';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
@@ -101,7 +101,7 @@ export class DailyNotesModal extends Modal {
       .setName(t('daily_start_date'))
       .addText(text => {
         text.inputEl.type = 'date';
-        text.setValue(moment(this.result.start).format('YYYY-MM-DD'));
+        text.setValue(window.moment(this.result.start).format('YYYY-MM-DD'));
         text.onChange(v => {
           const d = new Date(v);
           if (!isNaN(d.getTime())) { this.result.start = d; this.updatePreview(); }
@@ -112,7 +112,7 @@ export class DailyNotesModal extends Modal {
       .setName(t('daily_end_date'))
       .addText(text => {
         text.inputEl.type = 'date';
-        text.setValue(moment(this.result.end).format('YYYY-MM-DD'));
+        text.setValue(window.moment(this.result.end).format('YYYY-MM-DD'));
         text.onChange(v => {
           const d = new Date(v);
           if (!isNaN(d.getTime())) { this.result.end = d; this.updatePreview(); }

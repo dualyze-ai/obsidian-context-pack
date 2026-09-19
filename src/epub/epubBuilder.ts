@@ -202,7 +202,7 @@ export async function buildEpub(input: EpubBookInput): Promise<Uint8Array> {
 
   type ZipEntry = Uint8Array | [Uint8Array, { level: number }];
   const files: Record<string, ZipEntry> = {
-    'mimetype': [strToU8('application/epub+zip') as Uint8Array, { level: 0 }],
+    'mimetype': [strToU8('application/epub+zip'), { level: 0 }],
     'META-INF/container.xml': strToU8(buildContainerXml()) as Uint8Array,
     'OEBPS/content.opf': strToU8(opf) as Uint8Array,
     'OEBPS/cover.xhtml': strToU8(coverXhtml) as Uint8Array,
@@ -227,5 +227,5 @@ export async function buildEpub(input: EpubBookInput): Promise<Uint8Array> {
     files[`OEBPS/${img.href}`] = img.data;
   }
 
-  return zipSync(files as Parameters<typeof zipSync>[0]) as Uint8Array;
+  return zipSync(files as Parameters<typeof zipSync>[0]);
 }

@@ -1,4 +1,4 @@
-import { App, Plugin, TFile, TFolder, TAbstractFile, SuggestModal, Notice, Menu, moment } from 'obsidian';
+import { App, Plugin, TFile, TFolder, TAbstractFile, SuggestModal, Notice, Menu } from 'obsidian';
 import { SettingsTab, DEFAULT_SETTINGS, type PluginSettings } from './settings';
 import { exportVault, exportSingleNote, buildAiOutput, getProjectKnowledgeInstructions } from './exporter';
 import { buildContextPack } from './context-pack';
@@ -830,10 +830,10 @@ export default class ContextPackPlugin extends Plugin {
         return;
       }
 
-      const dateStr = moment().format('YYYYMMDD');
+      const dateStr = window.moment().format('YYYYMMDD');
       const prefix = weeklySummary ? 'weekly' : 'daily';
-      const startIso = moment(startDate).format('YYYY-MM-DD');
-      const endIso = moment(endDate).format('YYYY-MM-DD');
+      const startIso = window.moment(startDate).format('YYYY-MM-DD');
+      const endIso = window.moment(endDate).format('YYYY-MM-DD');
       const packName = weeklySummary ? 'Weekly Notes' : 'Daily Notes';
       this.handlePackOutput(content, `${prefix}-notes-${dateStr}`, files.length, packName, {
         source: { type: 'daily', query: `${startIso}..${endIso}` },

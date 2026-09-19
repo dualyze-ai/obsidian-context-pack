@@ -1,4 +1,4 @@
-import { App, TFile, moment } from 'obsidian';
+import { App, TFile } from 'obsidian';
 import { NoteParser } from '../../core/note-parser';
 import { LinkAnalyzer } from '../../core/link-analyzer';
 import { ClusterAnalyzer } from '../../core/cluster-analyzer';
@@ -123,7 +123,7 @@ export class AIBriefGenerator {
 
     return {
       title,
-      generatedAt: moment().format('YYYY-MM-DD HH:mm'),
+      generatedAt: window.moment().format('YYYY-MM-DD HH:mm'),
       noteCount: notes.length,
       tagCount,
       linkCount: totalLinks,

@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, Notice, moment, TFile, TFolder, setIcon } from 'obsidian';
+import { ItemView, WorkspaceLeaf, Notice, TFile, TFolder, setIcon } from 'obsidian';
 import type ContextPackPlugin from '../main';
 import type { WorkspaceConfig, WorkspaceState, ArtifactState } from './workspaceTypes';
 import { computeWorkspaceState } from './workspaceState';
@@ -205,7 +205,7 @@ export class WorkspaceView extends ItemView {
       meta.createSpan({ cls: 'ai-context-workspace-meta-sep', text: ' · ' });
       meta.createSpan({
         cls: 'ai-context-workspace-meta-muted',
-        text: t('ws_last_refreshed', moment(state.sourceLatestMtime).fromNow()),
+        text: t('ws_last_refreshed', window.moment(state.sourceLatestMtime).fromNow()),
       });
     } else {
       meta.createSpan({ cls: 'ai-context-workspace-meta-muted', text: ' · ' + t('ws_not_refreshed') });
