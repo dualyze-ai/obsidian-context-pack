@@ -1,37 +1,15 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
+import type { SettingDefinitionItem, TextAreaComponent } from 'obsidian';
 import type ContextPackPlugin from './main';
 import type { ReplacementRule } from './formatter';
 import type { OutputTarget, PromptProfile, OutputSelectorState, EpubSortStrategy } from './types';
 import { MODES, DEFAULT_OUTPUT_SELECTOR_STATE } from './types';
 import { FolderPickerModal } from './folder-picker';
 import { t } from './i18n';
+import { buildSettingDefinitions, readSetting, selectorStateFromKey, selectorStateToKey, writeSetting } from './settings-definitions';
 import type { PackRecord, FreshnessSettings } from './freshness/types';
 import { DEFAULT_FRESHNESS_SETTINGS } from './freshness/types';
 import type { WorkspaceConfig } from './workspace/workspaceTypes';
-
-function selectorStateToKey(state: OutputSelectorState): string {
-  const { activeTab, chatgptMode, claudeMode, geminiMode, agentMode } = state;
-  if (activeTab === 'chatgpt') return `chatgpt-${chatgptMode}`;
-  if (activeTab === 'claude')  return `claude-${claudeMode}`;
-  if (activeTab === 'gemini')  return `gemini-${geminiMode}`;
-  return `agents-${agentMode}`;
-}
-
-function selectorStateFromKey(key: string): OutputSelectorState {
-  const state = { ...DEFAULT_OUTPUT_SELECTOR_STATE };
-  switch (key) {
-    case 'chatgpt-chat':      state.activeTab = 'chatgpt'; state.chatgptMode = 'chat'; break;
-    case 'chatgpt-projects':  state.activeTab = 'chatgpt'; state.chatgptMode = 'projects'; break;
-    case 'claude-chat':       state.activeTab = 'claude';  state.claudeMode  = 'chat'; break;
-    case 'claude-project':    state.activeTab = 'claude';  state.claudeMode  = 'project'; break;
-    case 'gemini-chat':       state.activeTab = 'gemini';  state.geminiMode  = 'chat'; break;
-    case 'gemini-notebook':   state.activeTab = 'gemini';  state.geminiMode  = 'notebook'; break;
-    case 'agents-claudecode': state.activeTab = 'agents';  state.agentMode   = 'claudecode'; break;
-    case 'agents-notebooklm': state.activeTab = 'agents';  state.agentMode   = 'notebooklm'; break;
-  }
-  return state;
-}
-
 
 export interface AIBriefSettings {
   includeExecutiveSummary: boolean;
@@ -131,10 +109,93 @@ export const DEFAULT_SETTINGS: PluginSettings = {
 
 export class SettingsTab extends PluginSettingTab {
   plugin: ContextPackPlugin;
+  private dailyFolderSetting: Setting | null = null;
 
   constructor(app: App, plugin: ContextPackPlugin) {
     super(app, plugin);
     this.plugin = plugin;
+  }
+
+  // Declarative settings for Obsidian 1.13+ (makes settings searchable).
+  // display() below remains as the fallback for older versions.
+  getSettingDefinitions(): SettingDefinitionItem[] {
+    return buildSettingDefinitions({
+      isDailyAutoDetect: () => this.plugin.settings.dailyNotesAutoDetect,
+      renderDailyFolder: (setting) => this.renderDailyFolderRow(setting),
+      renderStarterPrompt: (setting) => this.renderStarterPromptRow(setting),
+      renderRule: (setting, index) => this.addRuleControls(setting, index),
+      ruleCount: () => this.plugin.settings.customRules.length,
+      addRule: () => { void this.addRule(); },
+      deleteRule: (index) => { void this.deleteRule(index); },
+    });
+  }
+
+  getControlValue(key: string): unknown {
+    return readSetting(this.plugin.settings, key);
+  }
+
+  async setControlValue(key: string, value: unknown): Promise<void> {
+    writeSetting(this.plugin.settings, key, value);
+    await this.plugin.saveSettings();
+    if (key === 'dailyNotesAutoDetect') this.dailyFolderSetting?.setDisabled(Boolean(value));
+    this.refreshDomState();
+  }
+
+  private renderDailyFolderRow(setting: Setting): () => void {
+    this.dailyFolderSetting = setting;
+    setting
+      .setDisabled(this.plugin.settings.dailyNotesAutoDetect)
+      .addText(text => text
+        .setPlaceholder('Daily Notes')
+        .setValue(this.plugin.settings.dailyNotesFolder)
+        .onChange(async value => {
+          this.plugin.settings.dailyNotesFolder = value;
+          await this.plugin.saveSettings();
+        }))
+      .addButton(btn => btn
+        .setIcon('folder')
+        .setTooltip(t('daily_folder_label'))
+        .onClick(() => {
+          new FolderPickerModal(this.app, t('daily_folder_picker'), (folder) => {
+            this.plugin.settings.dailyNotesFolder = folder;
+            this.plugin.settings.dailyNotesAutoDetect = false;
+            void this.plugin.saveSettings().then(() => this.update());
+          }).open();
+        }));
+    return () => { this.dailyFolderSetting = null; };
+  }
+
+  private renderStarterPromptRow(setting: Setting): void {
+    let area: TextAreaComponent | undefined;
+    setting
+      .addTextArea(ta => {
+        area = ta;
+        ta.inputEl.rows = 5;
+        ta.setValue(this.plugin.settings.starterPrompt || t('default_common_instructions'));
+        ta.onChange(async value => {
+          this.plugin.settings.starterPrompt = value;
+          await this.plugin.saveSettings();
+        });
+      })
+      .addButton(btn => btn
+        .setButtonText(t('setting_common_instructions_reset'))
+        .onClick(async () => {
+          this.plugin.settings.starterPrompt = '';
+          await this.plugin.saveSettings();
+          area?.setValue(t('default_common_instructions'));
+        }));
+  }
+
+  private async addRule(): Promise<void> {
+    this.plugin.settings.customRules.push({ find: '', replace: '', useRegex: false, enabled: true });
+    await this.plugin.saveSettings();
+    this.update();
+  }
+
+  private async deleteRule(index: number): Promise<void> {
+    this.plugin.settings.customRules.splice(index, 1);
+    await this.plugin.saveSettings();
+    this.update();
   }
 
   display(): void {
@@ -475,45 +536,50 @@ export class SettingsTab extends PluginSettingTab {
   }
 
   private renderRuleRow(containerEl: HTMLElement, i: number): void {
+    const setting = new Setting(containerEl);
+    this.addRuleControls(setting, i);
+    setting.addButton(btn => btn
+      .setIcon('trash')
+      .setTooltip('Remove')
+      .onClick(async () => {
+        this.plugin.settings.customRules.splice(i, 1);
+        await this.plugin.saveSettings();
+        this.renderSettings();
+      }));
+    setting.nameEl.setText(`Rule ${i + 1}`);
+  }
+
+  private addRuleControls(setting: Setting, i: number): void {
     const rule = this.plugin.settings.customRules[i];
-    const setting = new Setting(containerEl)
+    if (!rule) return;
+    setting
       .addText(text => text
         .setPlaceholder('Find')
         .setValue(rule.find)
         .onChange(async value => {
-          this.plugin.settings.customRules[i].find = value;
+          rule.find = value;
           await this.plugin.saveSettings();
         }))
       .addText(text => text
         .setPlaceholder('Replace')
         .setValue(rule.replace)
         .onChange(async value => {
-          this.plugin.settings.customRules[i].replace = value;
+          rule.replace = value;
           await this.plugin.saveSettings();
         }))
       .addToggle(toggle => toggle
         .setTooltip('Use regex')
         .setValue(rule.useRegex)
         .onChange(async value => {
-          this.plugin.settings.customRules[i].useRegex = value;
+          rule.useRegex = value;
           await this.plugin.saveSettings();
         }))
       .addToggle(toggle => toggle
         .setTooltip('Enabled')
         .setValue(rule.enabled)
         .onChange(async value => {
-          this.plugin.settings.customRules[i].enabled = value;
+          rule.enabled = value;
           await this.plugin.saveSettings();
-        }))
-      .addButton(btn => btn
-        .setIcon('trash')
-        .setTooltip('Remove')
-        .onClick(async () => {
-          this.plugin.settings.customRules.splice(i, 1);
-          await this.plugin.saveSettings();
-          this.renderSettings();
         }));
-
-    setting.nameEl.setText(`Rule ${i + 1}`);
   }
 }
